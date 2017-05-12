@@ -1,0 +1,43 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.ear
+
+# Created by https://www.gitignore.io/api/java,java-web
+
+### Java ###
+# Compiled class file
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+
+# Package Files #
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+### Java-Web ###
+## ignoring target file
+target/
+
+# End of https://www.gitignore.io/api/java,java-web
+
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+.idea/
+Crowd-Mirae.iml
+.gitignore
+out/
+src/test/
+src/main/java/com/sung/hee/shcrow/
