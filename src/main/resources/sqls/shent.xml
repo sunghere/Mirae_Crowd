@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHENT">
+
+    <insert id="addEnt"
+            parameterType="com.sung.hee.ent.model.SHEnt">
+    INSERT INTO SHENT(ENT, ENTNAME,DEL) INTO (SEQ_SHENT.NEXTVAL,#{entname},0)
+	</insert>
+
+
+    <select id="getEntName"
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="java.lang.String">
+		SELECT ENTNAME
+		FROM SHENT
+		WHERE ENT = #{ent}
+	</select>
+
+    <select id="entNameCheck"
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM SHENT
+		WHERE ENTNAME = #{entname}
+	</select>
+
+    <select id="getEntList"
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="com.sung.hee.ent.model.SHEnt">
+		SELECT ENT,ENTNAME
+		FROM SHENT WHERE DEL=0
+	</select>
+    <select id="getENT"
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="com.sung.hee.ent.model.SHEnt">
+		SELECT ENT,ENTNAME
+		FROM SHENT
+		WHERE SEQ=#{seq}
+	</select>
+
+    <update id="entDel"
+            parameterType="com.sung.hee.ent.model.SHEnt">
+		UPDATE SHENT SET DEL=1
+		WHERE ENT=#{seq}
+	</update>
+
+</mapper>

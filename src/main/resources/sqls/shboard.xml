@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHBoard">
+
+    <insert id="writeBoard"
+            parameterType="com.sung.hee.shboard.model.SHBoard">
+        INSERT INTO SHBOARD(SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT)
+        VALUES(SEQ_SHBOARD.NEXTVAL,#{id},#{title},#{content},
+        SYSDATE,(SELECT NVL(MAX(REF),0)+1 FROM SHBOARD)
+        ,0,0,0,0,#{hidden},0,
+        <if test="filename != '' and filename != null and filename != 'null'">
+            #{filename}
+        </if>
+        <if test="filename == '' or filename == null or filename == 'null'">
+            null
+        </if>,
+        <if test="ent > 0">
+
+            #{ent}
+        </if>
+        <if test="ent==0">
+            null
+        </if>
+        )
+    </insert>
+    <select id="getBoardList"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+	/*	SELECT ROWNUM as RNUM,SEQ ,ID ,TITLE,CONTENT,
+		WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT
+		FROM SHBOARD WHERE ENT IS NULL
+		ORDER BY REF ASC, STEP ASC*/
+		SELECT ROW_NUMBER() OVER (ORDER BY REF ASC, STEP ASC) rnn,SEQ ,ID ,TITLE,CONTENT,
+WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+FROM SHBOARD WHERE ENT IS NULL
+	</select>
+    <select id="getEntBoardList"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+       /* SELECT ROWNUM as RNUM,SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT
+        FROM SHBOARD WHERE ENT = #{ent}
+        ORDER BY REF ASC, STEP ASC*/
+        SELECT ROW_NUMBER() OVER (ORDER BY REF ASC, STEP ASC) rnn,SEQ ,ID ,TITLE,CONTENT,
+WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+FROM SHBOARD WHERE ENT = #{ent}
+    </select>
+    <select id="getBoard"
+            parameterType="com.sung.hee.shboard.model.SHBoard"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+		SELECT SEQ ,ID ,TITLE,CONTENT,
+		WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+		FROM SHBOARD
+		WHERE SEQ=#{seq}
+	</select>
+    <update id="replyBoardUpdate"
+            parameterType="com.sung.hee.shboard.model.SHBoard">
+	UPDATE SHBOARD SET
+	STEP=STEP+1
+	WHERE REF=(SELECT REF FROM SHBOARD WHERE SEQ=#{seq})
+	AND STEP>(SELECT STEP FROM SHBOARD WHERE SEQ=#{seq})
+	</update>
+    <insert id="replyBoardInsert"
+            parameterType="com.sung.hee.shboard.model.SHBoard">
+        INSERT INTO SHBOARD
+        (SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT)
+        VALUES(
+        SEQ_SHBOARD.NEXTVAL,
+        #{id},#{title},#{content},SYSDATE,
+        (SELECT REF FROM SHBOARD WHERE SEQ=#{seq}),
+        (SELECT STEP FROM SHBOARD WHERE SEQ=#{seq})+1,
+        (SELECT DEPTH FROM SHBOARD WHERE SEQ=#{seq})+1,
+        #{seq},0,(SELECT HIDDEN FROM SHBOARD WHERE SEQ=#{seq}),0,
+        <if test="filename != '' and filename != null and filename != 'null'">
+            #{filename}
+        </if>
+        <if test="filename == '' or filename == null or filename == 'null'">
+            null
+        </if>,
+        <if test="ent > 0">
+
+            #{ent}
+        </if>
+        <if test="ent==0">
+            null
+        </if>
+
+        )
+    </insert>
+    <update id="updateBoard"
+            parameterType="com.sung.hee.shboard.model.SHBoard">
+		UPDATE SHBOARD SET
+		TITLE=#{title}, CONTENT=#{content},WDATE=SYSDATE,FILENAME=#{filename}
+		WHERE SEQ=#{seq}
+	</update>
+
+    <update id="boarddelete"
+            parameterType="com.sung.hee.shboard.model.SHBoard">
+		UPDATE SHBOARD SET DEL=1
+		WHERE SEQ=#{seq}
+	</update>
+
+    <select id="getBoardPageList"
+            parameterType="com.sung.hee.help.BoardParam"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+        SELECT rnn,SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,TYPE
+        FROM
+        ( SELECT ROW_NUMBER() OVER (
+        ORDER BY REF DESC, STEP ASC) as rnn,
+        SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+        FROM SHBOARD
+        WHERE 1 = 1 AND (ENT =0 OR ENT IS NULL)
+        <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+            <if test="s_category == 'title'">AND TITLE like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'contents'">AND CONTENT like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'titlecon'">AND ((CONTENT like '%'||#{s_keyword}||'%') OR ( TITLE like
+                '%'||#{s_keyword}||'%'))
+            </if>
+
+        </if>
+
+        ) A
+        WHERE rnn between #{start} AND #{end}
+    </select>
+    <select id="getEntBoardPageList"
+            parameterType="com.sung.hee.help.BoardParam"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+        SELECT rnn,SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+        FROM
+        ( SELECT ROW_NUMBER() OVER (
+        ORDER BY REF DESC, STEP ASC) as rnn,
+        SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+        FROM SHBOARD
+        WHERE 1 = 1 AND ENT = #{ent}
+        <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+            <if test="s_category == 'title'">AND TITLE like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'contents'">AND CONTENT like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'titlecon'">AND ((CONTENT like '%'||#{s_keyword}||'%') OR ( TITLE like
+                '%'||#{s_keyword}||'%'))
+            </if>
+
+        </if>
+
+        ) A
+        WHERE rnn between #{start} AND #{end}
+    </select>
+    <select id="getBoardTotalCount"
+            parameterType="com.sung.hee.help.BoardParam"
+            resultType="java.lang.Integer">
+        SELECT NVL(count(*),0) AS cnt
+        FROM SHBOARD WHERE 1 = 1 AND (ENT =0 OR ENT IS NULL)
+        <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+            <if test="s_category == 'title'">AND TITLE like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'contents'">AND CONTENT like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'titlecon'">AND ((CONTENT like '%'||#{s_keyword}||'%') OR ( TITLE like
+                '%'||#{s_keyword}||'%'))
+            </if>
+        </if>
+    </select>
+    <select id="getEntBoardTotalCount"
+            parameterType="com.sung.hee.help.BoardParam"
+            resultType="java.lang.Integer">
+        SELECT NVL(count(*),0) AS cnt
+        FROM SHBOARD WHERE 1 = 1 AND ENT = #{ent}
+        <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+            <if test="s_category == 'title'">AND TITLE like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'contents'">AND CONTENT like '%'||#{s_keyword}||'%'</if>
+            <if test="s_category == 'titlecon'">AND ((CONTENT like '%'||#{s_keyword}||'%') OR ( TITLE like
+                '%'||#{s_keyword}||'%'))
+            </if>
+        </if>
+    </select>
+    <update id="updateReadCount" parameterType="com.sung.hee.shboard.model.SHBoard">
+		UPDATE SHBOARD SET READCOUNT=READCOUNT+1 WHERE SEQ=#{seq}
+
+    </update>
+
+</mapper>

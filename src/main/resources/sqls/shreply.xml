@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHReply">
+
+    <insert id="addReply" parameterType="com.sung.hee.shreply.model.SHReply">
+
+        INSERT INTO SHREPLY(SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
+        (seq_shreply.nextval,#{id},NVL((SELECT MAX(REF)+1 FROM SHREPLY),0),
+        0,0,#{btype},sysdate,#{content},0,#{bparent},0);
+    </insert>
+
+    <update id="removeReply" parameterType="com.sung.hee.shreply.model.SHReply">
+
+        UPDATE SHREPLY SET DEL = 1 WHERE seq=#{seq}
+    </update>
+    <insert id="addReReply" parameterType="com.sung.hee.shreply.model.SHReply">
+
+        INSERT INTO SHREPLY(SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
+        (seq_shreply.nextval,#{id},(SELECT REF FROM SHREPLY WHERE SEQ=#{seq}),
+         (SELECT STEP FROM SHREPLY WHERE SEQ=#{seq})+1,
+        (SELECT DEPTH FROM SHREPLY WHERE SEQ=#{seq})+1,
+        (SELECT BTYPE FROM SHREPLY WHERE SEQ=#{seq}),sysdate,#{content},#{seq},
+        (SELECT BPARENT FROM SHREPLY WHERE SEQ=#{seq}),0);
+    </insert>
+
+    <select id="getReply" parameterType="com.sung.hee.shreply.model.SHReply"
+            resultType="com.sung.hee.shreply.model.SHReply">
+
+        SELECT SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL FROM SHREPLY WHERE SEQ=#{seq}
+    </select>
+    <update id="updateReply" parameterType="com.sung.hee.shreply.model.SHReply">
+    UPDATE SHREPLY SET CONTENT=#{content} WHERE SEQ=#{seq}
+
+    </update>
+
+    <select id="getReplyList" parameterType="com.sung.hee.help.BoardCheck">
+      SELECT SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL FROM SHREPLY WHERE BTYPE=#{type} AND BPARENT=#{seq}
+    </select>
+
+    <select id="getReplyListbyId" parameterType="com.sung.hee.shreply.model.SHReply"
+            resultType="com.sung.hee.shreply.model.SHReply">
+
+    </select>
+    <!--aaa-->
+
+
+    <select id="getReplyPageList"
+            parameterType="com.sung.hee.help.ReplyParam"
+            resultType="com.sung.hee.shreply.model.SHReply">
+        SELECT SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL
+        FROM
+        ( SELECT ROW_NUMBER() OVER (
+        ORDER BY REF DESC, STEP ASC) as rnn,
+        SEQ, ID, REF, STEP, DEPTH,
+        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL
+        FROM SHREPLY
+        ) A
+        WHERE rnn between #{start} AND #{end}
+    </select>
+
+    <select id="getReplyTotalCount"
+            parameterType="com.sung.hee.help.ReplyParam"
+            resultType="java.lang.Integer">
+        SELECT NVL(count(*),0) AS cnt
+        FROM SHREPLY
+    </select>
+
+</mapper>
