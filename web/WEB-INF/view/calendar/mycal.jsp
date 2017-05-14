@@ -103,13 +103,13 @@
                     , start: "2017-03-13T07:00:00"
                 },
                 {
-                    title: "Click for Google",
-                    name: "dd",
-                    avatar: "<%=request.getContextPath()%>/image/arrow.gif"
-                    , url: "http://google.com/"
-                    , start: "2017-03-28"
-                }
-                , {
+                    title: "Click for Google"
+                    ,name: "dd"
+                    ,avatar: "<%=request.getContextPath()%>/image/rd.gif"
+                    ,url: "http://google.com/"
+                    ,start: "2017-03-28"
+                },
+                {
                     title: "이나영 교수님.naver"
                     ,
                     url: "https://search.naver.com/search.naver?where=nexearch&query=%EC%9D%B4%EB%82%98%EC%98%81&sm=top_hty&fbm=1&ie=utf8"

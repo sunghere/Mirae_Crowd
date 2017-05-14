@@ -16,7 +16,10 @@
                     </p>
                 </c:if>
                 <c:if test="${login.isent eq 0}">
-                    <h4 class="card-title">고객님은</h4>
+                    <h3 class="card-title">${login.entname} 기업 회원님 환영합니다.</h3>
+                    <p class="card-text">이곳은 ${login.entname} 기업회원내의 게시물만 보입니다. </p>
+                    <p class="card-text">
+                        Try the corporate bulletin board now.</p>
                     <p class="card-text">기업회원만의 게시판!</p>
                 </c:if>
             </div>
@@ -24,9 +27,11 @@
 
         <div class="card card-inverse bg-inverse mt-3">
             <div class="card-block">
-                <h3 class="card-title">Dark background</h3>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-outline-secondary">Outline</a>
+                <h3 class="card-title">지금 바로 투자해보세요.</h3>
+                <p class="card-text">당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
+                <p class="card-text">
+                    This project needs your help.</p>
+                <a href="#" class="btn btn-warning">Outline</a>
             </div>
         </div>
 

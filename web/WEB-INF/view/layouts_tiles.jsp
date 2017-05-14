@@ -17,7 +17,7 @@
             <tiles:insertAttribute name="top_menu"/>
         </div>
 
-        <div id="middle_wrap">
+        <div id="content_wrap">
             <div id="sidebar_wrap">
                 <tiles:insertAttribute name="left_main"/>
             </div>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-
+            </section>
         </div><!--  //middle_wrap -->
 
         <div id="footer_wrap">

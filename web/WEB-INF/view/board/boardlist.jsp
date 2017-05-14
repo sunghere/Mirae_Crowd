@@ -11,7 +11,10 @@
                      alt="Card image cap">
                 <div class="card-block">
                     <c:if test="${login.isent eq 1}">
-                        <h4 class="card-title">${login.entname}</h4>
+                        <h3 class="card-title">${login.entname} 기업 회원님 환영합니다.</h3>
+                        <p class="card-text">기업전용 게시판을 이용해보세요.</p>
+                        <p class="card-text">
+                            Try the corporate bulletin board now.</p>
                         <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise
                             Board</a></p>
                     </c:if>
@@ -20,9 +23,11 @@
 
             <div class="card card-inverse bg-inverse mt-3">
                 <div class="card-block">
-                    <h3 class="card-title">Dark background</h3>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-outline-secondary">Outline</a>
+                    <h3 class="card-title">지금 바로 투자해보세요.</h3>
+                    <p class="card-text">당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
+                    <p class="card-text">
+                        This project needs your help.</p>
+                    <a href="#" class="btn btn-warning">바로가기</a>
                 </div>
             </div>
 

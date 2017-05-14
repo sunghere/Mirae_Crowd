@@ -7,19 +7,19 @@
             <div class="col-xs-6 col-sm-3 column">
                 <h4>Information</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#first">Products</a></li>
-                    <li><a href="#first">Services</a></li>
-                    <li><a href="#first">Benefits</a></li>
-                    <li><a href="#first">Developers</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Benefits</a></li>
+                    <li><a href="#">Developers</a></li>
                 </ul>
             </div>
             <div class="col-xs-6 col-sm-3 column">
                 <h4>About</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#first">Contact Us</a></li>
-                    <li><a href="#first">Delivery Information</a></li>
-                    <li><a href="#first">Privacy Policy</a></li>
-                    <li><a href="#first">Terms &amp; Conditions</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Delivery Information</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-3 column">
@@ -173,7 +173,19 @@
     </div>
 </c:if>
 <div id="last"></div>
+<script>
 
+    $(function () {
+        var height = $('#footer').height() + 50;
+        $("#content_wrap").css({"margin-bottom": height});
+    })
+    $(window).resize(function () {
+            var height = $('#footer').height() + 50;
+            $("#content_wrap").css({"margin-bottom": height});
+        }
+    );
+
+</script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.easing.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/wow.js"></script>
