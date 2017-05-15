@@ -5,13 +5,13 @@
 
 <div class="container-fluid">
     <div class="row mb-3">
-        <div class="col-lg-3 col-md-4 col-sm-3">
+        <div class="col-lg-3 col-md-3 col-sm-3">
             <div class="card">
                 <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
                      alt="Card image cap">
                 <div class="card-block">
                     <c:if test="${login.isent eq 1}">
-                        <h3 class="card-title">${login.entname} 기업 회원님 환영합니다.</h3>
+                        <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
                         <p class="card-text">기업전용 게시판을 이용해보세요.</p>
                         <p class="card-text">
                             Try the corporate bulletin board now.</p>
@@ -22,8 +22,10 @@
             </div>
 
             <div class="card card-inverse bg-inverse mt-3">
+                <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
+                     alt="Card image cap">
                 <div class="card-block">
-                    <h3 class="card-title">지금 바로 투자해보세요.</h3>
+                    <h4 class="card-title">지금 바로 투자해보세요.</h4>
                     <p class="card-text">당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
                     <p class="card-text">
                         This project needs your help.</p>
@@ -34,7 +36,7 @@
         </div>
         <jsp:useBean id="uboard" class="com.sung.hee.help.BoardBean"/>
         <%--여기부터 테이블구간 바로밑은 검색바--%>
-        <div class="col-lg-9 col-md-12 col-xs-12 col-sm-9">
+        <div class="col-lg-9 col-md-9 col-xs-12 col-sm-9">
             <div class="box_border" style="margin-top:5px; margin-bottom: 10px;">
                 <form name="frmForm1" id="_frmFormSearch" method="post" action="" role="search">
                     <nav class="navbar navbar-collapse">

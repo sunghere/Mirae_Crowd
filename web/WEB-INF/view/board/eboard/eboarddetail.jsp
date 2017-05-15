@@ -44,7 +44,8 @@
                         <td style="text-align: left">
                             <div class="form-control">
                                 <a class="btn btn-xs btn-primary"
-                                   onclick="filedowns('${board.filename}','${board.seq}')"><i class="fa fa-download"></i>${board.filename}</a>
+                                   onclick="filedowns('${board.filename}','${board.seq}')"><i
+                                        class="fa fa-download"></i>${board.filename}</a>
                             </div>
                         </td>
                     </c:if>
@@ -59,7 +60,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><textarea class="form-control" contenteditable="false"  rows="10" cols="50"
+                    <td colspan="2"><textarea class="form-control" contenteditable="false" rows="10" cols="50"
                                               name='content' id="_content">${board.content}</textarea></td>
                 </tr>
                 <tr>

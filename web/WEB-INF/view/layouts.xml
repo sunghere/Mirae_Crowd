@@ -47,6 +47,8 @@
     </definition>
     <definition name="boarddetail.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/board/boarddetail.jsp"/>
+        <put-attribute name="bottom_inc" value="/WEB-INF/view/common/replybottom.jsp"/>
+
     </definition>
 
 
@@ -71,6 +73,8 @@
     </definition>
     <definition name="eboarddetail.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboarddetail.jsp"/>
+        <put-attribute name="bottom_inc" value="/WEB-INF/view/common/replybottom.jsp"/>
+
     </definition>
 
     <!--cal-->

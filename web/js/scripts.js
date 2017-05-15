@@ -22,6 +22,7 @@
         }, 1450, 'easeInOutExpo');
         event.preventDefault();
     });
+    /* 스크롤 이벤트*/
     $(document).scroll(function () {
         var y = $(this).scrollTop();
         if (y > $(window).height() / 4) {
@@ -31,6 +32,9 @@
             $('#top_scroll').hide();
             $('#last_scroll').show();
         }
+
+
+
     });
     $('.navbar-collapse ul li a').click(function () {
         /* always close responsive nav after click */
@@ -41,18 +45,19 @@
         $('#galleryImage').attr("src", $(e.relatedTarget).data("src"));
     });
 
-    $.fn.filestyle = function(options) {
+    $.fn.filestyle = function (options) {
 
         /* TODO: This should not override CSS. */
         var settings = {
-            width : 250
+            width: 250
         };
 
-        if(options) {
+        if (options) {
             $.extend(settings, options);
-        };
+        }
+        ;
 
-        return this.each(function() {
+        return this.each(function () {
 
             var self = this;
             var wrapper = $("<div>")
@@ -90,12 +95,14 @@
                     $(self).css("margin-left", "-142px");
                 } else {
                     $(self).css("margin-left", "-168px");
-                };
+                }
+                ;
             } else {
                 $(self).css("margin-left", settings.imagewidth - settings.width + "px");
-            };
+            }
+            ;
 
-            $(self).bind("change", function() {
+            $(self).bind("change", function () {
                 filename.val($(self).val());
             });
 

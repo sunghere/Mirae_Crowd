@@ -173,12 +173,10 @@
     </div>
 </c:if>
 <div id="last"></div>
-<script>
 
-
-</script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.easing.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/wow.js"></script>
 <script src="<%=request.getContextPath()%>/js/scripts.js"></script>
 <script src="<%=request.getContextPath()%>/js/shlogin.js"></script>
+<script src="<%=request.getContextPath()%>/js/shreplypage.js"></script>

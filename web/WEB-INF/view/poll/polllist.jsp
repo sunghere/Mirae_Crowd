@@ -56,26 +56,20 @@
     </table>
 </c:if>
 <c:if test="${login.auth eq '3'}">
-    <table class="list_table" style="width:95%;">
-        <col width="50"/>
-        <col width="50"/>
-        <col width="300"/>
-        <col width="100"/>
-        <col width="100"/>
-        <col width="50"/>
-        <col width="50"/>
-        <col width="100"/>
+    <table class="table table-responsive table-striped list_table" style="width:95%;">
+        <thead>
         <tr>
-            <th>번호</th>
-            <th>아이디</th>
-            <th>질문</th>
-            <th>결과</th>
-            <th>시작일</th>
-            <th>끝나는날</th>
-            <th>질문항수</th>
-            <th>투표수</th>
-            <th>등록일</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">번호</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">아이디</th>
+            <th class="col-md-3 col-lg-3 col-sm-3 col-xs-3">질문</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">결과</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">시작일</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">마감일</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">투표수</th>
+            <th class="col-md-1 col-lg-1 col-sm-1 col-xs-1">등록일</th>
         </tr>
+        </thead>
+        <tbody>
         <%
             for (int i = 0; i < plists.size(); i++) {
                 SHPoll poll = plists.get(i);
@@ -117,8 +111,7 @@
             </td>
             <td><%=DateUtil.pollState(poll.getEdate())%><%=poll.getEdate() %>
             </td>
-            <td><%=poll.getItemcount() %>
-            </td>
+
             <td><%=poll.getPolltotal() %>
             </td>
             <td><%=poll.getRegdate() %>
@@ -127,13 +120,7 @@
         <%
             }
         %>
+        </tbody>
     </table>
 </c:if>
-<c:if test="${login.auth eq '1'}">
-    <a href='pollmake.do'>투표만들기</a>
-    <a href='./polllist.do'>HOME</a><br/>
-</c:if>
 
-<c:if test="${login.auth eq '3'}">
-    <a href='./polllist.do'>HOME</a><br/>
-</c:if>
