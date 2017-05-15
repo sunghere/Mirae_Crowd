@@ -45,8 +45,13 @@
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/board/boardwrite.jsp"/>
     </definition>
-    <definition name="boarddetail.tiles" extends="boardlist.tiles">
+    <definition name="boarddetail.tiles" template="/WEB-INF/view/reply_onepage_tiles.jsp">
+        <put-attribute name="common" value="/WEB-INF/view/common/nologincommon.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/view/common/header.jsp"/>
+        <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
+        <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/board/boarddetail.jsp"/>
+        <put-attribute name="reply" value="/WEB-INF/view/reply/reply.jsp"/>
         <put-attribute name="bottom_inc" value="/WEB-INF/view/common/replybottom.jsp"/>
 
     </definition>
@@ -71,9 +76,8 @@
     <definition name="eboardwrite.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboardwrite.jsp"/>
     </definition>
-    <definition name="eboarddetail.tiles" extends="boardlist.tiles">
+    <definition name="eboarddetail.tiles" extends="boarddetail.tiles">
         <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboarddetail.jsp"/>
-        <put-attribute name="bottom_inc" value="/WEB-INF/view/common/replybottom.jsp"/>
 
     </definition>
 

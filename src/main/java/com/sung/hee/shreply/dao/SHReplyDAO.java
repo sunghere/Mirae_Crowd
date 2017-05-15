@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface SHReplyDAO {
 
-    public void addReply(SHReply shReply);
+    public void addReply(SHReply shReply) throws Exception;
 
-    public void addReReply(SHReply shReply);
+    public void addReReply(SHReply shReply) throws Exception;
 
     public void removeReply(SHReply shReply);
 

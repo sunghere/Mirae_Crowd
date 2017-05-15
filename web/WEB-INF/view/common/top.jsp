@@ -12,7 +12,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand  page-scroll" href="#first"><i class="icon ion-ios-star-half"></i>SH Crowd</a>
+            <a class="navbar-brand" title="메인" href="main.do"><img src="image/logo/7.png" class="mylogo img-responsive"></a>
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar">
             <ul class="nav navbar-nav">
@@ -54,7 +54,7 @@
                 </c:if>
                 <c:if test="${ !empty login  && login.id ne ''}">
                     <li>
-
+                        <input type="hidden" name="myid" value="${login.id}">
                         <a href="/logout.do" title="로그아웃"><i class="fa fa-sign-out"></i>logout</a>
                     </li>
 

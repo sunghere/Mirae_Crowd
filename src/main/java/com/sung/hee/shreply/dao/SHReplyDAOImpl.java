@@ -19,12 +19,12 @@ public class SHReplyDAOImpl implements SHReplyDAO {
 
     String ns = "SHReply.";
 
-    public void addReply(SHReply shReply) {
+    public void addReply(SHReply shReply) throws Exception {
 
         sqlSession.insert(ns + "addReply", shReply);
     }
 
-    public void addReReply(SHReply shReply) {
+    public void addReReply(SHReply shReply) throws Exception {
         sqlSession.insert(ns + "addReReply", shReply);
 
     }

@@ -20,12 +20,12 @@ public class SHReplyServiceImpl implements SHReplyService {
 
 
     @Transactional
-    public void addReply(SHReply shReply) {
+    public void addReply(SHReply shReply) throws Exception {
         shReplyDAO.addReply(shReply);
     }
 
     @Transactional
-    public void addReReply(SHReply shReply) {
+    public void addReReply(SHReply shReply) throws Exception {
         shReplyDAO.addReply(shReply);
     }
 

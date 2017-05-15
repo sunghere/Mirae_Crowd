@@ -5,6 +5,17 @@ package com.sung.hee.help;
  */
 //com.sung.hee.help.BoardCheck
 public class BoardCheck {
+    @Override
+    public String toString() {
+        return "BoardCheck{" +
+                "type=" + type +
+                ", seq=" + seq +
+                '}';
+    }
+
+    public BoardCheck() {
+    }
+
     private int type = 0;
 
     private int seq = 0;

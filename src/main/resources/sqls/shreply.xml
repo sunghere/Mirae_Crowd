@@ -6,10 +6,10 @@
 
     <insert id="addReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
-        INSERT INTO SHREPLY(SEQ, ID, REF, STEP, DEPTH,
-        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
-        (seq_shreply.nextval,#{id},NVL((SELECT MAX(REF)+1 FROM SHREPLY),0),
-        0,0,#{btype},sysdate,#{content},0,#{bparent},0);
+    INSERT INTO SHREPLY(SEQ, ID, REF, STEP, DEPTH,
+                    BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
+  (seq_shreply.nextval,#{id},(SELECT NVL(MAX(REF),0)+1 FROM SHREPLY),
+0,0,#{btype},sysdate,#{content},0,#{bparent},0)
     </insert>
 
     <update id="removeReply" parameterType="com.sung.hee.shreply.model.SHReply">
@@ -24,7 +24,7 @@
          (SELECT STEP FROM SHREPLY WHERE SEQ=#{seq})+1,
         (SELECT DEPTH FROM SHREPLY WHERE SEQ=#{seq})+1,
         (SELECT BTYPE FROM SHREPLY WHERE SEQ=#{seq}),sysdate,#{content},#{seq},
-        (SELECT BPARENT FROM SHREPLY WHERE SEQ=#{seq}),0);
+        (SELECT BPARENT FROM SHREPLY WHERE SEQ=#{seq}),0)
     </insert>
 
     <select id="getReply" parameterType="com.sung.hee.shreply.model.SHReply"
@@ -38,9 +38,27 @@
 
     </update>
 
-    <select id="getReplyList" parameterType="com.sung.hee.help.BoardCheck">
-      SELECT SEQ, ID, REF, STEP, DEPTH,
-        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL FROM SHREPLY WHERE BTYPE=#{type} AND BPARENT=#{seq}
+    <select id="getReplyList" parameterType="com.sung.hee.help.BoardCheck"
+            resultType="com.sung.hee.shreply.model.SHReply">
+      SELECT
+    ROW_NUMBER()
+    OVER (
+      ORDER BY REF ASC, STEP ASC ) rnn,
+    SEQ,
+    r.ID,
+    REF,
+    STEP,
+    DEPTH,
+    BTYPE,
+    WDATE,
+    CONTENT,
+    PARENT,
+    BPARENT,
+    r.DEL,
+    u.NAME
+  FROM SHREPLY r
+    JOIN SHUSER u ON r.ID = u.ID
+        WHERE BTYPE=#{type} AND BPARENT=#{seq}
     </select>
 
     <select id="getReplyListbyId" parameterType="com.sung.hee.shreply.model.SHReply"

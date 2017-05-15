@@ -8,6 +8,46 @@ import java.io.Serializable;
 public class SHReply implements Serializable {
     private int seq;
     private String id;
+    private String name;
+    private int rnn;
+
+    public int getRnn() {
+        return rnn;
+    }
+
+    public void setRnn(int rnn) {
+        this.rnn = rnn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public SHReply() {
+    }
+
+    @Override
+    public String toString() {
+        return "SHReply{" +
+                "seq=" + seq +
+                ", id='" + id + '\'' +
+                ", ref=" + ref +
+                ", step=" + step +
+                ", depth=" + depth +
+                ", btype=" + btype +
+                ", wdate='" + wdate + '\'' +
+                ", parent=" + parent +
+                ", bparent=" + bparent +
+                ", del=" + del +
+                ", content='" + content + '\'' +
+                ", temp='" + temp + '\'' +
+                '}';
+    }
+
     private int ref;
     private int step;
     private int depth;
@@ -133,7 +173,6 @@ public class SHReply implements Serializable {
     public void setDel(int del) {
         this.del = del;
     }
-
 
 
 }
