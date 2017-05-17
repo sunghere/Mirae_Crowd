@@ -172,6 +172,23 @@
         </div>
     </div>
 </c:if>
+
+<div id="infomodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3 class="text-center">${login.id}</h3>
+                <hr>
+                <p class="text-left"><i class="fa fa-user">${login.name}</i></p>
+                <p class="text-left"><i class="fa fa-envelope-o">${login.email}</i></p>
+                <p class="text-left"><i class="fa fa-envelope-o">${login.point}</i></p>
+                <br/>
+                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">확인 <i
+                        class="ion-android-close"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="last"></div>
 
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>

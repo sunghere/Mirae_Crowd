@@ -6,6 +6,7 @@ import com.sung.hee.shboard.dao.SHBoardService;
 import com.sung.hee.shboard.model.SHBoard;
 import com.sung.hee.user.model.SHUser;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -33,7 +38,8 @@ public class BoardController {
 
 
     @RequestMapping(value = "boarddetail.do", method = RequestMethod.GET)
-    public String boarddetail(HttpServletRequest request, SHBoard shBoard, Model model) throws Exception {
+    public String boarddetail(HttpServletRequest request, SHBoard shBoard, Model model,
+                              HttpServletResponse response) throws Exception {
         logger.info("Welcome BoardController boarddetail!");
         SHBoard myBoard = shBoardService.getBoard(shBoard);
         SHUser user = (SHUser) request.getSession().getAttribute("login");
@@ -43,6 +49,30 @@ public class BoardController {
 
                 return "redirect:/boardlist.do";
             }
+
+        // 저장된 쿠키 불러오기
+        Cookie cookies[] = request.getCookies();
+        Map map = new HashMap();
+        if (request.getCookies() != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie obj = cookies[i];
+                map.put(obj.getName(), obj.getValue());
+            }
+        }
+        // 저장된 쿠키중에 read_count 만 불러오기
+        String readCount = (String) map.get("read_count");
+        // 저장될 새로운 쿠키값 생성
+        String newReadCount = "|" + myBoard.getSeq();
+
+        // 저장된 쿠키에 새로운 쿠키값이 존재하는 지 검사
+        if (StringUtils.indexOfIgnoreCase(readCount, newReadCount) == -1) {
+            // 없을 경우 쿠키 생성
+            Cookie cookie = new Cookie("read_count", readCount + newReadCount);
+
+            response.addCookie(cookie);
+            shBoardService.updateReadCount(myBoard); // 업데이트 실행
+        }
+
 
         model.addAttribute("head", myBoard.getTitle());
         model.addAttribute("board", myBoard);

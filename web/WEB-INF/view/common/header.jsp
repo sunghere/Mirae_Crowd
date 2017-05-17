@@ -11,7 +11,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/jquery-ui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/jquery.cookie.js"></script>
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 <!-- Latest compiled and minified CSS -->

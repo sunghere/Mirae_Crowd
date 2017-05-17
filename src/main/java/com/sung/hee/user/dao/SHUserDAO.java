@@ -6,7 +6,7 @@ import com.sung.hee.user.model.SHUser;
 import java.util.List;
 
 public interface SHUserDAO {
-    void regi(SHUser user);
+    void regi(SHUser user) throws Exception;
 
     SHUser login(SHUser user);
 

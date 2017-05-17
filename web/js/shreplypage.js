@@ -1,6 +1,6 @@
 (function ($) {
     if (document.body.clientWidth > 800) {
-        // 모바일 기기 관련 작업
+        // 모바일 기기 아닌 화면에서
         $('#content_affix').attr('data-spy', 'affix');
         $('#reply_cotent').attr('data-spy', 'affix');
 
@@ -24,6 +24,11 @@
 
         }
         var twoheight = $('#reply_cotent').height() + 300;
+        if (document.body.clientWidth < 800) {
+            // 모바일 기기 관련 작업
+            twoheight += $('#two').height() - 400;
+
+        }
         if ($('#two').height() < 1200) {
             $('#two').css({
                 "height": twoheight
@@ -41,14 +46,6 @@
             "height": "1200px"
         })
     }
-
-    var height = $('#footer').height() + 50;
-    $("#content_wrap").css({"margin-bottom": height});
-    $(window).resize(function () {
-            var height = $('#footer').height() + 50;
-            $("#content_wrap").css({"margin-bottom": height});
-        }
-    );
 
 
     $('.replyBt').click(function () {
@@ -118,7 +115,8 @@
                 console.log(data)
                 $.each(data, function (index, val) {
                     str += '<div class="sh-replybox"><div class="reply-block"><p>' + val.content
-                        + '</p></div><div class="reply-author replybox-footer">'
+                        + '</p><c:if text="${login.id eq val.id">' + '<a href="#" id="_replySeq' + val.seq + '" class="reedit btn cursive small">edit&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></a></c:if>'
+                        + '<a href="#" id="_replySeq' + val.seq + '" class="rereply btn cursive small">reply&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></a></div><div class="reply-author replybox-footer">'
                         + '<div class="reply-author-nickname">' + val.name + '<strong>[' + val.id + ']</strong>'
                         + '</div></div></div>';
                 })

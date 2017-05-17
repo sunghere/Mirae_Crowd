@@ -9,7 +9,7 @@ import java.util.List;
  * Created by SungHere on 2017-04-19.
  */
 public interface SHUserService {
-    void regi(SHUser user);
+    void regi(SHUser user) throws Exception;
 
     SHUser login(SHUser user);
 

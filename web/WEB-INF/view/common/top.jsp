@@ -33,6 +33,7 @@
                 <c:if test="${!empty login && login.auth eq 1}">
                     <li>
                         <a title="투표생성" href="/pollmake.do">Vote</a>
+                        <a title="관리자메뉴" href="/admin.do">Vote</a>
                     </li>
                 </c:if>
                 <li id="last_scroll">

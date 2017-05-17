@@ -18,7 +18,7 @@ public class SHUserServiceImpl implements SHUserService {
     private SHUserDAO shUserDAO;
 
     @Transactional
-    public void regi(SHUser user) {
+    public void regi(SHUser user) throws Exception {
         shUserDAO.regi(user);
     }
 
@@ -29,6 +29,7 @@ public class SHUserServiceImpl implements SHUserService {
 
     @Transactional(readOnly = true)
     public int getID(SHUser user) {
+
         return shUserDAO.getID(user);
     }
 

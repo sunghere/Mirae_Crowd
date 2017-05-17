@@ -35,8 +35,12 @@ public class SHBoardServiceImpl implements SHBoardService {
 
     @Transactional
     public SHBoard getBoard(SHBoard shboard) {
-        shBoardDAO.updateReadCount(shboard);
+       // shBoardDAO.updateReadCount(shboard);
         return shBoardDAO.getBoard(shboard);
+    }
+
+    public void updateReadCount(SHBoard shboard) {
+        shBoardDAO.updateReadCount(shboard);
     }
 
     @Transactional

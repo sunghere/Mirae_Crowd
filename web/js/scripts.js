@@ -34,7 +34,6 @@
         }
 
 
-
     });
     $('.navbar-collapse ul li a').click(function () {
         /* always close responsive nav after click */
@@ -110,4 +109,12 @@
 
 
     };
+    /* footer 자연스럽게 slide 식으로 보이게 처리*/
+    var height = $('#footer').height() + 50;
+    $("#content_wrap").css({"margin-bottom": height});
+    $(window).resize(function () {
+            var height = $('#footer').height() + 50;
+            $("#content_wrap").css({"margin-bottom": height});
+        }
+    );
 })(jQuery);

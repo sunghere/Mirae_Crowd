@@ -769,7 +769,12 @@ img::-moz-selection {
     margin-top: 50px;
 
 }
+/*팝업창*/
+#alertModal {
 
+    z-index: 2000;
+    top:30%;
+}
 /*리플을 위한 CSS들*/
 .sh-replybox .reply-block {
     background: lavenderblush;
@@ -777,8 +782,9 @@ img::-moz-selection {
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 2;
-    padding: 1.875rem;
+    padding: 1.875rem 1.875rem 0;
     position: relative;
+    border-radius: 2.5%;
 }
 
 .reply-author-nickname {
@@ -805,6 +811,21 @@ img::-moz-selection {
 
 }
 
+.rereply {
+    position: relative;
+    top: 25%;
+    left: 39%;
+    vertical-align: middle;
+
+}
+
+.reedit {
+    position: relative;
+    top: 25%;
+    left: 44%;
+    vertical-align: middle;
+
+}
 /* logo */
 
 .mylogo {

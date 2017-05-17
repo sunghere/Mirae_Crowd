@@ -48,8 +48,29 @@ public class LoginController {
             method = {RequestMethod.GET, RequestMethod.POST})
     public String regiAf(SHUser user, Model model) {
         logger.info("Welcome LoginController regiAf! " + new Date());
-        shUserService.regi(user);
+        try {
+            shUserService.regi(user);
+        } catch (Exception e) {
+        }
         return "redirect:/" + "login.do";
+    }//
+
+    @RequestMapping(value = "kakaoRegi.do",
+            method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public AjaxCheck kakaoRegi(SHUser user, Model model) {
+        AjaxCheck check = new AjaxCheck();
+
+        try {
+
+            shUserService.regi(user);
+            check.setMessage("SUCS");
+
+        } catch (Exception e) {
+            check.setMessage("FAIL");
+
+        }
+        return check;
     }//
 
     @RequestMapping(value = "loginAf.do",
@@ -107,6 +128,7 @@ public class LoginController {
         } else {
             checkResult.setMessage("FAIL");
         }
+        logger.info("ddddddddddddddddddddddddddddddddddddddddddddddd"+checkResult.getMessage());
         return checkResult;
     }//
 

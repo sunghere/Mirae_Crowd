@@ -13,15 +13,26 @@ import javax.servlet.http.HttpServletRequest;
  * Created by SungHere on 2017-04-17.
  */
 @Controller
-public class HomeController {
+public class CrowdController {
 
     private static final Logger logger =
-            LoggerFactory.getLogger(HomeController.class);
+            LoggerFactory.getLogger(CrowdController.class);
 
     @RequestMapping(value = "main.do", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Model model) throws Exception {
-        logger.info("Welcome HomeController home---------------------------------!" + request.getHeader("Referer"));
         return "main.tiles";
+    }
+
+    @RequestMapping(value = "admin.do", method = RequestMethod.GET)
+    public String admin(HttpServletRequest request, Model model) throws Exception {
+        return "admin.tiles";
+    }
+
+
+    @RequestMapping(value = "crowdAdd.do", method = RequestMethod.POST)
+    public String crowdAdd(HttpServletRequest request, Model model) throws Exception {
+        logger.info("Welcome HomeController crowdAdd--!" + request.getHeader("Referer"));
+        return "crowAdd.tiles";
     }
 
     @RequestMapping(value = "this.do", method = RequestMethod.GET)

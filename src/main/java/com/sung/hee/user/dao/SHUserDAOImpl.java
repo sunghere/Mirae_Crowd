@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by SungHere on 2017-04-19.
@@ -19,7 +18,7 @@ public class SHUserDAOImpl implements SHUserDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public void regi(SHUser user) {
+    public void regi(SHUser user) throws Exception {
         sqlSession.insert(ns + "regi", user);
     }
 

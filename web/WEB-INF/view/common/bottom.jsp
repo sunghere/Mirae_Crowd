@@ -30,7 +30,8 @@
                                placeholder="Tell us your email">
                     </div>
                     <div class="form-group">
-                        <button class="btn black-control" data-toggle="modal" data-target="#alertModal" type="button">
+                        <button class="btn black-control" id="showMsgBt" data-toggle="modal" data-target="#alertModal"
+                                type="button">
                             Subscribe for updates
                         </button>
                     </div>
@@ -74,16 +75,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h2 class="text-center">Landing Zero Theme</h2>
+                <h2 class="text-center">안녕하세요</h2>
                 <h5 class="text-center">
-                    A free, responsive landing page theme built by BootstrapZero.
+                    Sunghere Page
                 </h5>
                 <p class="text-justify">
 
                 </p>
-                <p class="text-center"><a href="http://www.bootstrapzero.com">Download at BootstrapZero</a></p>
+                <p class="text-center">환영합니다.</p>
                 <br/>
-                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true"> OK</button>
+                <button class="btn btn-danger btn-lg center-block" data-dismiss="modal" aria-hidden="true">Close
+                </button>
             </div>
         </div>
     </div>
@@ -92,12 +94,8 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body">
-                <h2 class="text-center">Nice Job!</h2>
-                <p class="text-center">You clicked the button, but it doesn't actually go anywhere because this is only
-                    a demo.</p>
-                <p class="text-center"><a href="http://www.bootstrapzero.com">Learn more at BootstrapZero</a></p>
-                <br/>
-                <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i
+                <p class="text-center" id="myMsg"></p>
+                <button class="modalclose btn btn-info center-block" data-dismiss="modal" aria-hidden="true">Close &nbsp;<i
                         class="ion-android-close"></i></button>
             </div>
         </div>
@@ -114,7 +112,7 @@
                     <p class="text-left"><i class="fa fa-envelope-o">${login.email}</i></p>
                     <p class="text-left"><i class="fa fa-envelope-o">${login.point}</i></p>
                     <br/>
-                    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">확인 <i
+                    <button class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">확인 <i
                             class="ion-android-close"></i></button>
                 </div>
             </div>
@@ -157,9 +155,15 @@
                         <button class="btn btn-primary btn-default" type="button" id="login_btnRegi" title="회원가입">회원가입
                         </button>
 
+
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <h5 class="subtitle_Type_mb_10">
+                        다른방법으로 로그인하기<br><br>
+                    </h5>
+                    <a id="kakao-login-btn"></a>
+
                     <h5 class="subtitle_Type_mb_10">
                         아이디/비밀번호를 잊으셨나요?<br><br>
                     </h5>
@@ -173,10 +177,7 @@
     </div>
 </c:if>
 <div id="last"></div>
-<script>
 
-
-</script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.easing.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/wow.js"></script>

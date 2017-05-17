@@ -14,6 +14,8 @@ public interface SHBoardService {
 
     SHBoard getBoard(SHBoard shboard);
 
+    void updateReadCount(SHBoard shboard);
+
     void reply(SHBoard shboard) throws Exception;
 
     void updateBoard(SHBoard board);
