@@ -21,6 +21,7 @@ public class SHPoll implements Serializable {
     }
 
     public void setVote(boolean vote) {
+
         this.vote = vote;
     }
 

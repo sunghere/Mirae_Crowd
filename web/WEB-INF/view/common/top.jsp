@@ -31,10 +31,23 @@
                     </li>
                 </c:if>
                 <c:if test="${!empty login && login.auth eq 1}">
-                    <li>
-                        <a title="투표생성" href="/pollmake.do">Vote</a>
-                        <a title="관리자메뉴" href="/admin.do">Vote</a>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a title="관리자메뉴" href="/crowdAdd.do">Manage</a>
+                            </li>
+                            <li>
+                                <a title="투표생성" href="/pollmake.do">Vote</a>
+                            </li>
+                            <li>
+                                <a title="관리자메뉴" href="/admin.do">Manage</a>
+                            </li>
+                        </ul>
                     </li>
+
                 </c:if>
                 <li id="last_scroll">
                     <a title="화면내리기" class="page-scroll" href="#last">Last<span class="caret"></span></a>

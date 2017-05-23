@@ -14,9 +14,7 @@
 </c:if>
 
 <div class="mb-3">
-    <div class="col-lg-2 col-md-2 col-sm-1">
 
-    </div>
     <div class="col-lg-3 col-md-3 text-center">
         <div class="feature">
             <i class="icon-lg ion-android-laptop wow fadeIn" data-wow-delay=".3s"
@@ -31,19 +29,18 @@
             <div class="text-center">
 
                 <table class="table">
-
                     <tr>
                         <td colspan="2">
                             <label></label>
-                            <input type="search" data-msg="ID" id="_userid" class="form-control input-sm"
-                                   placeholder="ID"
-                                   name="id"
-                                   size="15" onkeyup="check(this)"/>
-
+                            <input type="email" data-msg="이메일" id="_email" required data-form-field="Email"
+                                   class="form-control input-sm"
+                                   placeholder="Email Address(ID)"
+                                   name="id" onkeyup="check(this)"
+                                   size="30"/>
                         </td>
                         <td class="text-center cursive">
                             <h4>
-                                <div id="checkr"></div>
+                                <div id="emailcheckr"></div>
                             </h4>
                         </td>
                     </tr>
@@ -72,20 +69,6 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="email" data-msg="이메일" id="_email" required data-form-field="Email"
-                                   class="form-control input-sm"
-                                   placeholder="E-MAIL"
-                                   name="email" onkeyup="checkEmailf(this)"
-                                   size="30"/>
-                        </td>
-                        <td class="text-center cursive">
-                            <h4>
-                                <div id="emailcheckr"></div>
-                            </h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="entbt btn btn-info active" value="nomal">
                                     <input type="radio" name="options" checked>일반회원
@@ -95,6 +78,7 @@
                                 </label>
                             </div>
                             <input type="hidden" id="_isent" name="isent" value="0">
+                            <input type="hidden" id="serti" name="serti" value="0">
                         </td>
                         <td>
 
@@ -124,7 +108,7 @@
 
                         </button>
                         <td style="text-align: left;">
-                            <button class="btn btn-primary btn-default" type="button" id="_btnLogin" title="이전">이전
+                            <button class="btn btn-primary btn-default" type="button" id="_btnBack" title="이전">이전
                             </button>
                         </td>
 
@@ -139,11 +123,10 @@
 <script type="text/javascript">
     var checkEnt = true;
     var checkID = false;
-    var checkEmail = false;
-
+    $('#authStart').hide();
     function checkRegi() {
 
-        if (checkEnt == true && checkID == true && checkEmail == true) {
+        if (checkEnt == true && checkID == true) {
             $("#_btnRegi").attr("disabled", false);
 
         } else {
@@ -153,14 +136,11 @@
     }
 
 
-    $("#_btnLogin").click(function () {
-        location.href = 'login.do';
+    $("#_btnBack").click(function () {
+        location.href = 'main.do';
     });
     $("#_btnRegi").click(function () {
-        if ($("#_userid").val() == "") {
-            alert($("#_userid").attr("data-msg") + " 입력해 주십시요.");
-            $("#_userid").focus();
-        } else if ($("#_name").val() == "") {
+        if ($("#_name").val() == "") {
             alert($("#_name").attr("data-msg") + " 입력해 주십시요.");
             $("#_name").focus();
         } else if ($("#_email").val() == "") {
@@ -200,32 +180,7 @@
 
     });
 
-    function checkEmailf(textid) {
-        var text = $(textid).val();
-        var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-        if (text.lenght == 0) {
 
-            checkEmail = false;
-            checkRegi();
-
-            return;
-        }
-
-        if (email_pattern.test(text) == true) {
-            $("#emailcheckr").html("<i class='icon ion-ios-checkmark-outline'></i>");
-            checkEmail = true;
-            checkRegi();
-            return;
-        } else {
-            checkEmail = false;
-            checkRegi();
-
-
-            $("#emailcheckr").html("<div class='help-tip'><p>잘못된<br>이메일 형식입니다.</p></div>");
-            return;
-
-        }
-    }
     function check(textid) {
 
 
@@ -236,22 +191,30 @@
         if (blank_pattern.test(text) == true) {
             checkID = false;
             checkRegi();
-            $("#checkr").html("<div class='help-tip'><p>공백은<br>사용할수 없습니다.</p></div>").css({
+            $("#emailcheckr").html("<div class='help-tip'><p>공백은<br>사용할수 없습니다.</p></div>").css({
                 "display": "inline-block",
                 "color": "red"
             });
             return;
         }
+        var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+        if (text.lenght > 0) {
 
-
-        var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-
-        if (special_pattern.test(text) == true) {
-            $("#checkr").html("<div class='help-tip'><p>특수문자는<br>사용할수 없습니다.</p></div>").css({});
             checkID = false;
             checkRegi();
 
             return;
+        }
+
+        if (email_pattern.test(text) == true) {
+
+        } else {
+            checkID = false;
+            checkRegi();
+
+            $("#emailcheckr").html("<div class='help-tip'><p>잘못된<br>이메일 형식입니다.</p></div>");
+            return;
+
         }
 
 
@@ -266,15 +229,13 @@
                     if (msg.message == "FAIL") {
                         checkID = true;
                         checkRegi();
-                        $("#checkr").html("<i class='icon ion-ios-checkmark-outline'></i>").css({
+                        $("#emailcheckr").html("<i class='icon ion-ios-checkmark-outline'></i>").css({
                             "display": "inline-block",
                             "color": "blue"
                         });
                     } else {
-                        $("#checkr").html("<i class='icon ion-ios-close'></i>").css({
-                            "display": "inline-block",
-                            "color": "red"
-                        });
+                        $("#emailcheckr").html("<div class='help-tip'><p>이미 가입된<br>이메일 입니다.</p></div>");
+
                         checkID = false;
                         checkRegi();
 
@@ -284,7 +245,7 @@
 
                     checkID = false;
                     checkRegi();
-                    $("#checkr").html("ERROR").css({"display": "inline-block", "color": "red"});
+                    $("#emailcheckr").html("ERROR").css({"display": "inline-block", "color": "red"});
 
                 }
 
@@ -292,12 +253,13 @@
             })
         else {
             $('input[name=id]').focus();
-            $("#checkr").html("<i class='icon ion-android-create'></i>").css({"color": "red"});
+            $("#emailcheckr").html("<i class='icon ion-android-create'></i>").css({"color": "red"});
             checkID = false;
             checkRegi();
 
         }
     }
+
 
     function entcheck(textid) {
 

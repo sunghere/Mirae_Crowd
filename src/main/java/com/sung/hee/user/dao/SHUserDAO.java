@@ -12,5 +12,7 @@ public interface SHUserDAO {
 
     int getID(SHUser user);
 
+    void emailCerti(SHUser user);
+
     List<SHUser> getEntUserlist(SHEnt ent);
 }

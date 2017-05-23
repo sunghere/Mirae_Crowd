@@ -32,7 +32,7 @@ public class CrowdController {
     @RequestMapping(value = "crowdAdd.do", method = RequestMethod.POST)
     public String crowdAdd(HttpServletRequest request, Model model) throws Exception {
         logger.info("Welcome HomeController crowdAdd--!" + request.getHeader("Referer"));
-        return "crowAdd.tiles";
+        return "crowdAdd.tiles";
     }
 
     @RequestMapping(value = "this.do", method = RequestMethod.GET)

@@ -4,7 +4,7 @@
 <fmt:requestEncoding value="UTF-8"/>
 
 <div id='content_affix' data-offset-top="455">
-    <form name="frmForm" id="_frmForm" method="post" action="">
+    <form name="frmForm" id="_frmForm">
         <h1 class="cursive">Detail</h1>
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2"></div>
@@ -68,25 +68,27 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="height:50px; text-align:center;">
-                            <c:if test="${board.id eq login.id}">
-                                <button class="btn black-control" id="_btnUpdate" title="수정" alt="수정하기">수정</button>
-                                <button class="btn black-control" id="_btnDelete" title="삭제" alt="삭제">삭제</button>
+                            <c:if test="${board.id eq login.name}">
+                                <button class="btn black-control" id="_btnUpdate" title="수정" alt="수정하기" type="button">
+                                    수정
+                                </button>
+                                <button class="btn black-control" id="_btnDelete" title="삭제" alt="삭제" type="button">삭제
+                                </button>
                             </c:if>
                             <c:if test="${login.auth eq 1}">
-                                <button class="btn black-control" id="_btnReply" title="답글" alt="답글달기">답글</button>
+                                <button class="btn black-control" id="_btnReply" title="답글" alt="답글달기" type="button">
+                                    답글
+                                </button>
                             </c:if>
-                            <button class="btn black-control" id="_back" title="뒤로가기" alt="뒤로가기">이전</button>
+                            <button type="button" class="btn black-control" id="_back" title="뒤로가기" alt="뒤로가기">이전
+                            </button>
 
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
-
         </div>
-
-
     </form>
     <c:if test="${!empty login}">
         <div class="container-fluid">
@@ -101,7 +103,7 @@
 
                             <textarea class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
                                       rows="4" id="r-area"></textarea>
-                            <button class="btn btn-primary col-xs-2 col-sm-2 col-md-2 replyBt">
+                            <button class="btn btn-primary col-xs-2 col-sm-2 col-md-2 replyBt" type="button">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
                             </button>
 
@@ -125,15 +127,15 @@
     $("#_btnUpdate").click(function () {
 //	alert('글수정하기');
         //submitContents($("#_frmForm"),'boardupdate.do');
-        $("#_frmForm").attr({"target": "_self", "action": "boardupdate.do"}).submit();
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardupdate.do"}).submit();
     });
     $("#_btnReply").click(function () {
 //	alert('답글달기');
         //submitContents($("#_frmForm"),'boardreply.do');
-        $("#_frmForm").attr({"target": "_self", "action": "boardreply.do"}).submit();
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardreply.do"}).submit();
     });
     $("#_back").click(function () {
-        $("#_frmForm").attr({"method": "post", "action": "boardlist.do"}).submit();
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardlist.do"}).submit();
 //        history.back();
     });
     $("#_btnDelete").click(function () {

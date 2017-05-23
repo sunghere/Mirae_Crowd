@@ -130,7 +130,7 @@ footer {
 .navbar-default {
     border-color: rgba(35, 35, 35, .05);
     font-family: 'Questrial', 'Nanum Gothic', 'Helvetica Neue', Arial, sans-serif;
-    background-color: #222;
+    background-color: #fcc8d0;
     -webkit-transition: all .4s;
     -moz-transition: all .4s;
     transition: all .4s;
@@ -138,7 +138,7 @@ footer {
 
 .navbar-header > .navbar-brand {
     font-family: 'Questrial', 'Nanum Gothic', 'Helvetica Neue', Arial, sans-serif;
-    color: #1d1d1d;
+    color: #ce8483;
     text-shadow: -2px -2px 4px;
     padding: 15px;
     -webkit-transition: padding .2s ease-in;
@@ -234,7 +234,7 @@ footer {
 
     .navbar-default.affix .nav > li > a,
     .navbar-default.affix .nav > li > a:focus {
-        color: #1E805A;
+        color: #222;
         /*text-shadow: 1px 1px 1px rgba(30, 30, 30, 0.7);*/
     }
 
@@ -743,7 +743,13 @@ img::-moz-selection {
     margin-bottom: 10px;
     padding-left: 11px;
 }
-
+.waring-text {
+    color: darkred;
+    font-size: 13px;
+    line-height: 200%;
+    margin-bottom: 10px;
+    padding-left: 11px;
+}
 .fileFindBtn {
     position: relative;
     float: left;
@@ -769,12 +775,14 @@ img::-moz-selection {
     margin-top: 50px;
 
 }
+
 /*팝업창*/
 #alertModal {
 
     z-index: 2000;
-    top:30%;
+    top: 30%;
 }
+
 /*리플을 위한 CSS들*/
 .sh-replybox .reply-block {
     background: lavenderblush;
@@ -782,18 +790,38 @@ img::-moz-selection {
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 2;
-    padding: 1.875rem 1.875rem 0;
+    padding: 1.875rem 1.875rem 3rem;
     position: relative;
-    border-radius: 2.5%;
+    border-radius: 1.5%;
+    margin: 1% 1%;
+}
+
+.reply-author {
+    position: relative;
+    top: -40px;
+    text-align: center;
+    display: inline-block;
+    /*padding-left: 41.5%;*/
+    width: 70px;
 }
 
 .reply-author-nickname {
+    /*display: inline-block;*/
+    width: 70px;
+    height: 70px;
     color: #2d2d2d;
+    display: table-cell;
+    vertical-align: middle;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -1px;
-    line-height: 1.3;
-    padding-top: 1.25rem;
+    line-height: 1.2;
+    background-color: #fff;
+    border-radius: 99%;
+    -moz-box-shadow: 1px 1px 1px #ce8483;
+    -webkit-box-shadow: 1px 1px 1px #ce8483;
+    box-shadow: 1px 1px 1px #ce8483;
+
 }
 
 .sh-replybox .reply-block:after {
@@ -811,21 +839,33 @@ img::-moz-selection {
 
 }
 
-.rereply {
+/*.rereplyBt, .reeditBt {
+
+    padding: 0 0;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}*/
+.rereplyBt {
     position: relative;
-    top: 25%;
-    left: 39%;
-    vertical-align: middle;
+
+    left: 35%;
+    top: 10%;
+    background-color: transparent;
 
 }
 
-.reedit {
+.reeditBt {
     position: relative;
-    top: 25%;
-    left: 44%;
-    vertical-align: middle;
+
+    left: 38%;
+    top: 10%;
+
+    background-color: transparent;
 
 }
+
 /* logo */
 
 .mylogo {
@@ -917,6 +957,15 @@ img::-moz-selection {
     animation: balloon-div 1.6s infinite ease-in-out 0s;
 }
 
+.non-fixed-balloon {
+    padding: 5px;
+    border-radius: 100px;
+    background-color: lavenderblush;
+    color: black;
+
+    animation: balloon-div 1.6s infinite ease-in-out 0s;
+}
+
 .replyBt {
 
     position: relative;
@@ -942,8 +991,89 @@ img::-moz-selection {
 }
 
 #reply_cotent.affix {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 10%;
     right: 0;
     margin-left: 5%;
+    margin-right: 5%;
+    padding-right: 10%;
+    padding-top: 40px;
+    border-radius: 3%;
+    height: 650px;
+    overflow: scroll;
+
+}
+
+#authStart {
+    position: relative;
+    top: 5px;
+}
+
+.modal-header-body {
+    margin-top: 25px;
+}
+
+#bSearch {
+    padding-top: 10px;
+    padding-bottom: 1px;
+}
+
+.icon-lg {
+    font-size: 40px;
+}
+
+#replyModal {
+
+    top: 25%;
+}
+
+/*리모콘*/
+#_sildebtn {
+    width: 60px;
+    float: right;
+    position: fixed;
+    right: 3%;
+    bottom: 2.7%;
+}
+
+.sh-remote {
+    right: 3%;
+    bottom: 2.7%;
+    position: fixed;
+    cursor: pointer;
+}
+
+/*footer*/
+.list-unstyled {
+    font-size: 13px;
+
+}
+.panel-heading{
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+
+}
+/*term - */
+.crowd-fund-term {
+    overflow: scroll;
+    height: 650px;
+
+    padding: 20px 40px;
+}
+
+.crowd-fund-term .aboutModal-title, .crowd-fund-term .aboutModal-text {
+    text-align: center;
+}
+
+.crowd-fund-term .aboutModal-title {
+    font-weight: bolder;
+}
+
+#showAboutBt {
+    background-color: #fff;
+    position: relative;
+    bottom: 5%;
+    left: 56%;
+    padding: 3px 5px;
 }

@@ -46,8 +46,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="height:50px; text-align:center;">
-                        <button class="btn black-control" id="_btnUpdate" title="작성" alt="작성하기">작성</button>
-                        <button class="btn black-control" id="_back" title="작성" alt="뒤로">이전</button>
+                        <button type="button"  class="btn black-control" id="_btnUpdate" title="작성" alt="작성하기">작성</button>
+                        <button type="button"  class="btn black-control" id="_back" title="작성" alt="뒤로">이전</button>
                         <input type="hidden" name="ent" value="${login.ent}">
                     </td>
 

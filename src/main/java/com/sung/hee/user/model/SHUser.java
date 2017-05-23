@@ -8,7 +8,6 @@ public class SHUser implements Serializable {
 
     private String id;
     private String name;
-    private String email;
     private String pwd;
     private int del;
     private int auth = 3;
@@ -16,19 +15,32 @@ public class SHUser implements Serializable {
     private String entname = "";
     private int epoint = 0;
     private int point = 0;
+    private int certi = 0;
 
-    public SHUser(String id, String name, String email, String pwd, int del, int auth, int ent, String entname, int epoint, int point, int isent) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.del = del;
-        this.auth = auth;
-        this.ent = ent;
-        this.entname = entname;
-        this.epoint = epoint;
-        this.point = point;
-        this.isent = isent;
+
+    @Override
+    public String toString() {
+        return "SHUser{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", del=" + del +
+                ", auth=" + auth +
+                ", ent=" + ent +
+                ", entname='" + entname + '\'' +
+                ", epoint=" + epoint +
+                ", point=" + point +
+                ", certi=" + certi +
+                ", isent=" + isent +
+                '}';
+    }
+
+    public int getCerti() {
+        return certi;
+    }
+
+    public void setCerti(int certi) {
+        this.certi = certi;
     }
 
     public int getEpoint() {
@@ -48,21 +60,6 @@ public class SHUser implements Serializable {
         this.point = point;
     }
 
-    @Override
-    public String toString() {
-        return "SHUser{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", del=" + del +
-                ", auth=" + auth +
-                ", ent=" + ent +
-                ", entname='" + entname + '\'' +
-                ", isent=" + isent +
-                '}';
-    }
-
     private int isent = 0;
 
     public static long getSerialVersionUID() {
@@ -77,28 +74,7 @@ public class SHUser implements Serializable {
         this.isent = isent;
     }
 
-    public SHUser(String id, String name, String email, String pwd, int del, int auth, int ent, String entname, int isent) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.del = del;
-        this.auth = auth;
-        this.ent = ent;
-        this.entname = entname;
-        this.isent = isent;
-    }
 
-    public SHUser(String id, String name, String email, String pwd, int del, int auth, int ent, String entname) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.del = del;
-        this.auth = auth;
-        this.ent = ent;
-        this.entname = entname;
-    }
 
     public int getEnt() {
         return ent;
@@ -120,24 +96,7 @@ public class SHUser implements Serializable {
         super();
     }
 
-    public SHUser(String id, String name, String email, String pwd,
-                  int del, int auth) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-        this.del = del;
-        this.auth = auth;
-    }
 
-    public SHUser(String id, String name, String email, String pwd) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.pwd = pwd;
-    }
 
     public String getId() {
         return id;
@@ -155,13 +114,7 @@ public class SHUser implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPwd() {
         return pwd;

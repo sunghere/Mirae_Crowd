@@ -33,6 +33,10 @@ public class SHUserServiceImpl implements SHUserService {
         return shUserDAO.getID(user);
     }
 
+    public void emailCerti(SHUser user) {
+        shUserDAO.emailCerti(user);
+    }
+
     @Transactional(readOnly = true)
     public List<SHUser> getEntUserlist(SHEnt ent) {
         return shUserDAO.getEntUserlist(ent);

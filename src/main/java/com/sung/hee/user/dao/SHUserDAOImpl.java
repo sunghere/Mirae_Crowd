@@ -31,6 +31,10 @@ public class SHUserDAOImpl implements SHUserDAO {
         return (Integer) sqlSession.selectOne(ns + "getID", user);
     }
 
+    public void emailCerti(SHUser user) {
+        sqlSession.update(ns+"emailCerti",user);
+    }
+
     public List<SHUser> getEntUserlist(SHEnt ent) {
         return sqlSession.selectList(ns + "getEntUserlist", ent);
     }

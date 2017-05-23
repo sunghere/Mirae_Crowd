@@ -41,7 +41,7 @@
                                                                                       value="${login.ent}"></div>
                     </th>
                     <td>
-                        <div class="form-control"><input type="hidden" name="id" value="${login.id}">${login.id}</div>
+                        <div class="form-control"><input type="hidden" name="id" value="${login.id}">${login.name}</div>
                     </td>
                 </tr>
                 </thead>

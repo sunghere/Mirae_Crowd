@@ -21,13 +21,13 @@
         </bean>-->
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-<!--    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="order">
-            <beans:value>2</beans:value>
-        </beans:property>
-        <beans:property name="prefix" value="/WEB-INF/views/"/>
-        <beans:property name="suffix" value=".jsp"/>
-    </beans:bean>-->
+    <!--    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <beans:property name="order">
+                <beans:value>2</beans:value>
+            </beans:property>
+            <beans:property name="prefix" value="/WEB-INF/views/"/>
+            <beans:property name="suffix" value=".jsp"/>
+        </beans:bean>-->
     <!-- Configure Apache Tiles for the view -->
     <beans:bean id="tilesConfigurer"
                 class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -37,6 +37,28 @@
             </beans:list>
         </beans:property>
     </beans:bean>
+    <!--
+        <beans:bean id="naverLoginBO" class="com.sung.hee.naver.oauth.bo.NaverLoginBO" />
+         NaverLoginBO Class에 대한 Bean설정 추가 -->
+    <!-- mail bean -->
+    <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="yoonsh0914@gmail.com" />
+        <property name="password" value="tkrhk1792"/>
+        <property name="protocol" value="smtp"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                <prop key="mail.smtp.auth">true</prop>
+
+            </props>
+        </property>
+
+
+    </beans:bean>
+
 
     <beans:bean id="downloadView" class="com.sung.hee.help.DownloadView"/>
     <!--<beans:bean id="excelView" class="com.sung.hee.pds.view.ExcelBuilder"/>-->

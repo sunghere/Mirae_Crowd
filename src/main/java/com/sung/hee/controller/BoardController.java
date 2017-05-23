@@ -80,7 +80,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "boardreply.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String boardreply(SHBoard shboard, Model model) {
         logger.info("Welcome BoardController boardreply! " + new Date());
         model.addAttribute("doc_title", "Board 답글달기");
@@ -91,7 +91,7 @@ public class BoardController {
 
 
     @RequestMapping(value = "boardupdate.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String boardupdate(SHBoard shboard, HttpServletRequest request, Model model) {
         logger.info("Welcome BoardController boardupdate! " + new Date());
 
@@ -109,7 +109,7 @@ public class BoardController {
 
 
     @RequestMapping(value = "boardreplyAf.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String boardreplyAf(SHBoard shboard, HttpServletRequest request,
                                @RequestParam(value = "fileload", required = false) MultipartFile fileload,
                                Model model) {
@@ -317,7 +317,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "eboardreply.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String eboardreply(SHBoard shboard, HttpServletRequest http, Model model) {
         logger.info("Welcome EBoardController boardreply! " + new Date());
 
@@ -331,7 +331,7 @@ public class BoardController {
 
 
     @RequestMapping(value = "eboardupdate.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String eboardupdate(SHBoard shboard, Model model) {
         logger.info("Welcome BoardController eboardupdate! " + new Date());
         logger.info("Welcome BoardController SHBoard! " + shboard);
@@ -344,7 +344,7 @@ public class BoardController {
 
 
     @RequestMapping(value = "eboardreplyAf.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
+            method = {RequestMethod.POST})
     public String eboardreplyAf(SHBoard shboard, HttpServletRequest request,
                                 @RequestParam(value = "fileload", required = false) MultipartFile fileload,
                                 Model model) {

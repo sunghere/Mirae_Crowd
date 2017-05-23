@@ -5,15 +5,17 @@
 <mapper namespace="SHUser">
 
     <insert id="regi" parameterType="com.sung.hee.user.model.SHUser">
-        INSERT INTO SHUSER(ID, NAME, PWD, EMAIL, AUTH, DEL,ISENT,ENT,ENTNAME,POINT)
-        VALUES (#{id},#{name},#{pwd},#{email},3, 0,#{isent},
+        INSERT INTO SHUSER(ID, NAME, PWD, AUTH, DEL,ISENT,ENT,ENTNAME,POINT,CERTI)
+        VALUES (#{id},#{name},#{pwd},3, 0,#{isent},
         <if test="isent == 1">(SELECT ent FROM SHENT WHERE ENTNAME=#{entname}),#{entname}</if>
-        <if test="isent == 0">null,null</if>,0)
+        <if test="isent == 0">null,null</if>,0,#{certi})
     </insert>
-
+    <update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
+        UPDATE SHUSER SET CERTI=1 WHERE id=#{id}
+    </update>
     <select id="login" parameterType="com.sung.hee.user.model.SHUser"
             resultType="com.sung.hee.user.model.SHUser">
-      SELECT ID, NAME, EMAIL, AUTH,ISENT,ENT,ENTNAME,POINT FROM SHUSER WHERE ID = #{id} AND PWD = #{pwd} AND DEL = 0
+      SELECT ID, NAME, AUTH,ISENT,ENT,ENTNAME,POINT,CERTI FROM SHUSER WHERE ID = #{id} AND PWD = #{pwd} AND DEL = 0
     </select>
     <select id="getID" parameterType="java.lang.String"
             resultType="java.lang.Integer">
@@ -21,7 +23,7 @@
     </select>
     <select id="getEntUserlist" parameterType="com.sung.hee.ent.model.SHEnt"
             resultType="java.lang.Integer">
-        SELECT ID, NAME, EMAIL,ENT,ENTNAME,POINT FROM SHUSER WHERE ENT=#{ent} AND DEL =0
+        SELECT ID, NAME,ENT,ENTNAME,POINT,CERTI FROM SHUSER WHERE ENT=#{ent} AND DEL =0
     </select>
     <update id="editPoint" parameterType="com.sung.hee.user.model.SHUser">
         UPDATE SHUSER SET POINT = POINT + #{epoint} WHERE ID= #{id}

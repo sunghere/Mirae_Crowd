@@ -20,8 +20,12 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-xs-12 col-md-12 col-lg-12">
-                <div id="replyReload"></div>
+            <div class="col-xs-12 col-md-12 col-lg-10">
+                <div id="replyReload">
+
+
+
+                </div>
                 <c:if test="${!empty login}">
                     <div class="sh-replybox sh-replybox-bottom">
                         <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
@@ -35,14 +39,11 @@
                                     <textarea
                                             class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
                                             rows="4" id="bot-r-area"></textarea>
-                                    <button class="btn btn-primary col-xs-3 col-sm-3 replyBt" datasrc="oribt">
+                                    <button class="btn btn-primary col-xs-3 col-sm-3 replyBt" type="button"
+                                            datasrc="oribt">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
                                     </button>
-
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

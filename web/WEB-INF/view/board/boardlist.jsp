@@ -24,13 +24,16 @@
             <div class="card card-inverse bg-inverse mt-3">
                 <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
                      alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">지금 바로 투자해보세요.</h4>
-                    <p class="card-text">당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
+                <blockquote>
+                    <h3 class="card-title">지금 투자해보세요.</h3><br>
+
                     <p class="card-text">
-                        This project needs your help.</p>
-                    <a href="#" class="btn btn-warning">바로가기</a>
-                </div>
+                        당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
+                    <p class="card-text">
+
+                        This project needs your help.<cite title="Source Title"> - SH Crowd</cite></p>
+                    <a href="main.do" class="btn btn-warning">후원하러가기</a>
+                </blockquote>
             </div>
 
         </div>
@@ -123,12 +126,12 @@
                                 </c:if>
                                 <c:if test="${board.del eq 0}">
                                     <c:if test="${board.hidden  eq 1}">
-                                        <c:if test="${login.id eq board.id || login.auth eq 1}">
+                                        <c:if test="${login.name eq board.id || login.auth eq 1}">
                                             <a href='boarddetail.do?seq=${board.seq}'>
                                                 <i class="icon ion-ios-unlocked"></i>${board.tempSub}</a>
 
                                         </c:if>
-                                        <c:if test="${login.id != board.id && login.auth ne 1}">
+                                        <c:if test="${login.name != board.id && login.auth ne 1}">
                                             <i class="icon ion-ios-locked"></i>비밀글
 
                                         </c:if>

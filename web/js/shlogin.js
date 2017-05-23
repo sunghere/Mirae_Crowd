@@ -189,14 +189,14 @@
     function kakaoRegi(data) {
 
         $.ajax({
-
+            type: "POST",
             url: "kakaoRegi.do",
             data: {
                 "id": data.kaccount_email,
                 "pwd": data.id,
-                "email": data.kaccount_email,
                 "name": data.properties.nickname,
-                "isent": 0
+                "isent": 0,
+                "certi": 1
             },
             success: function (msg) {
                 if (msg.message == "SUCS") {

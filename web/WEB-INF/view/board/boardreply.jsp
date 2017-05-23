@@ -63,6 +63,11 @@
 
 <script type="text/javascript">
     $("#_back").click(function () {
+        $("#_frmForm").attr({"method": "get", "action": "boarddetail.do"}).submit();
+
+        history.back();
+    })
+    $("#_btnReply").click(function () {
         var title = $("input[name='title']").val();
         var contents = $("textarea[name='content']").val();
 
@@ -74,38 +79,10 @@
 
             alert("내용을 입력해주세요");
         } else {
+            $("#_frmForm").attr({"target": "_self", "action": "boardreplyAf.do"}).submit();
 
 
-            $("#_frmForm").attr({"method": "get", "action": "boarddetail.do"}).submit();
         }
-    })
-    $("#_btnReply").click(function () {
-//        alert('답글달기');
-//        submitContents($("#_frmForm"));
-        $("#_frmForm").attr({"target": "_self", "action": "boardreplyAf.do"}).submit();
     });
 
-    /* //'저장' 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
-     function submitContents(elClickedObj) {
-     // 에디터의 내용이 textarea에 적용된다.
-     oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
-
-     // 에디터에 입력된 내용의 검증은 이곳에서
-     // document.getElementById("ir1").value 값을 이용해서 처리한다.
-
-     try {
-     // 이 라인은 현재 사용 중인 폼에 따라 달라질 수 있다.
-     //elClickedObj.form.submit();
-     elClickedObj.submit();
-     } catch (e) {
-     }
-     }
-
-     var oEditors = [];
-     nhn.husky.EZCreator.createInIFrame({
-     oAppRef: oEditors,
-     elPlaceHolder: "_content",
-     sSkinURI: "./se2/SmartEditor2Skin.html",
-     fCreator: "createSEditor2"
-     });*/
 </script>

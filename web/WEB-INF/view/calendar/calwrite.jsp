@@ -27,7 +27,7 @@
         </colgroup>
         <tr>
             <th>아이디</th>
-            <td style="text-align: left">${login.id}<input type="hidden"
+            <td style="text-align: left">${login.name}<input type="hidden"
                                                            name='id' value='${login.id}'/></td>
         </tr>
         <tr>

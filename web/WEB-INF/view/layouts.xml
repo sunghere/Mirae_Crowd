@@ -20,8 +20,13 @@
         <put-attribute name="main" value="/WEB-INF/view/crow/main.jsp"/>
         <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
     </definition>
-
-
+    <definition name="admin.tiles" extends="main.tiles">
+        <put-attribute name="main" value="/WEB-INF/view/crow/crowWriter.jsp"/>
+    </definition>
+    <definition name="crowdAdd.tiles" extends="main.tiles">
+        <put-attribute name="main" value="/WEB-INF/view/crow/crowWriter.jsp"/>
+        <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
+    </definition>
     <definition name="login.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/login/login.jsp"/>
     </definition>
@@ -91,25 +96,21 @@
     <!--pollㄴ-->
 
     <definition name="pollmake.tiles" extends="boardlist.tiles">
-        <!--<put-attribute name="left_main" value="/WEB-INF/view/common/left_pollmake.jsp" />-->
         <put-attribute name="main" value="/WEB-INF/view/poll/pollmake.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
 
     </definition>
 
     <definition name="polllist.tiles" extends="boardlist.tiles">
-        <!--<put-attribute name="left_main" value="/WEB-INF/view/common/left_pollmake.jsp" />-->
         <put-attribute name="main" value="/WEB-INF/view/poll/polllist.jsp"/>
     </definition>
     <definition name="polldetail.tiles" extends="boardlist.tiles">
-        <put-attribute name="left_main" value="/WEB-INF/view/common/left_pollmake.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/poll/polldetail.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
 
     </definition>
 
     <definition name="pollresult.tiles" extends="boardlist.tiles">
-        <!--<put-attribute name="left_main" value="/WEB-INF/view/common/left_pollmake.jsp" />-->
         <put-attribute name="main" value="/WEB-INF/view/poll/pollresult.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
 
