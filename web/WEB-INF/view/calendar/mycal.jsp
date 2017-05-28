@@ -215,10 +215,9 @@
 <div id="myModal" hidden="hidden" class="modal-dialog modal-sm">
     <div class="modal-content">
         <div class="modal-body">
-            <h3 class="text-center">Nice Job!</h3>
-            <p class="text-center">You clicked the button, but it doesn't actually go anywhere because this is only
-                a demo.</p>
-            <p class="text-center">Learn more at BootstrapZero</p>
+            <h3 class="text-center">ㅇㅇ</h3>
+            <p class="text-center">ㅇㅇㅇ</p>
+            <p class="text-center">ㅇㅇㅇㅇ</p>
             <br/>
             <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i
                     class="ion-android-close"></i></button>

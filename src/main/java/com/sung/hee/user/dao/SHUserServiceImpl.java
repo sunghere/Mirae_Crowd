@@ -41,4 +41,13 @@ public class SHUserServiceImpl implements SHUserService {
     public List<SHUser> getEntUserlist(SHEnt ent) {
         return shUserDAO.getEntUserlist(ent);
     }
+
+    public void inPoint(SHUser user) throws Exception {
+        shUserDAO.inPoint(user);
+    }
+
+    public void dePoint(SHUser user) throws Exception {
+        shUserDAO.dePoint(user);
+
+    }
 }

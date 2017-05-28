@@ -35,8 +35,19 @@
                             class="icon-lg ion-social-github-outline"></i></a>&nbsp;
                     </li>
                 </ul>
-                <span class="pull-right text-muted small"><a
+                <form>
+
+                    <div class="form-group">
+                        <div id="showMsgBt" data-toggle="modal" data-target="#alertModal"
+                             type="button" hidden="hidden">
+                            Subscribe for updates
+                        </div>
+
+                    </div>
+                </form>
+                <span class="pull-right text-muted"><a
                         href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee</span>
+
             </div>
             <div class="col-xs-12 col-sm-3 column">
                 <div class="panel panel-danger">
@@ -52,16 +63,7 @@
                     </div>
 
                 </div>
-                <form>
 
-                    <div class="form-group">
-                        <div id="showMsgBt" data-toggle="modal" data-target="#alertModal"
-                             type="button" hidden="hidden">
-                            Subscribe for updates
-                        </div>
-
-                    </div>
-                </form>
             </div>
         </div>
         <br/>

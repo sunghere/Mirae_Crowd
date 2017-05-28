@@ -40,7 +40,6 @@ public class LoginController {
             method = RequestMethod.GET)
     public String login(Model model) {
         logger.info("Welcome LoginController login! " + new Date());
-        model.addAttribute("head", "WELCOME");
         return "login.tiles";
     }//
 
@@ -147,7 +146,7 @@ public class LoginController {
         logger.info("Welcome LoginController logout! " + new Date());
         request.getSession().invalidate();
         model.addAttribute("head", "WELCOME");
-        return "redirect:" + getDoRef(request.getHeader("Referer"));
+        return "redirect:/main.do";
     }//
 
     public String getDoRef(String ref) {
@@ -160,11 +159,12 @@ public class LoginController {
 
     public String getSiteUrl(String ref) {
         if (ref.contains("/"))
-            ref = ref.substring(0,ref.lastIndexOf("/")+1);
+            ref = ref.substring(0, ref.lastIndexOf("/") + 1);
 
 
         return ref;
     }
+
     @RequestMapping(value = "getID.do",
             method = RequestMethod.POST)
     @ResponseBody
@@ -176,6 +176,43 @@ public class LoginController {
         AjaxCheck checkResult = new AjaxCheck();
         if (count > 0) {
             checkResult.setMessage("SUCS");
+        } else {
+            checkResult.setMessage("FAIL");
+        }
+        return checkResult;
+    }//
+
+    @RequestMapping(value = "pointIn.do",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck pointIn(
+            SHUser user, Model model) throws Exception {
+//        logger.info("Welcome LoginController getID! " + new Date());
+        AjaxCheck checkResult = new AjaxCheck();
+
+        try {
+            shUserService.inPoint(user);
+            checkResult.setMessage("SUCS");
+        } catch (Exception e) {
+            checkResult.setMessage("FAIL");
+        }
+        return checkResult;
+    }//
+
+    @RequestMapping(value = "pointOut.do",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck pointOut(
+            SHUser user, Model model) throws Exception {
+//        logger.info("Welcome LoginController getID! " + new Date());
+        AjaxCheck checkResult = new AjaxCheck();
+        if (user.getPoint() >= user.getEpoint()) {
+            try {
+                shUserService.dePoint(user);
+                checkResult.setMessage("SUCS");
+            } catch (Exception e) {
+                checkResult.setMessage("FAIL");
+            }
         } else {
             checkResult.setMessage("FAIL");
         }

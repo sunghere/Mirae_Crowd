@@ -12,7 +12,7 @@
 
     <div class="row">
 
-        <a class="btn btn-warning" href="/crowdAdd.do"></a>
+        <a class="btn btn-warning" href="crowdAdd.do"></a>
 
     </div>
 

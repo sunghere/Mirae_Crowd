@@ -32,10 +32,21 @@ public class SHUserDAOImpl implements SHUserDAO {
     }
 
     public void emailCerti(SHUser user) {
-        sqlSession.update(ns+"emailCerti",user);
+        sqlSession.update(ns + "emailCerti", user);
     }
 
     public List<SHUser> getEntUserlist(SHEnt ent) {
         return sqlSession.selectList(ns + "getEntUserlist", ent);
+    }
+
+    public void inPoint(SHUser user) throws Exception {
+
+        sqlSession.update(ns + "inPoint", user);
+
+    }
+
+    public void dePoint(SHUser user) throws Exception {
+        sqlSession.update(ns + "dePoint", user);
+
     }
 }

@@ -1,9 +1,13 @@
 (function ($) {
-    "use strict";
+    /* 사이즈 초기화 */
+    /*글쓰기*/
+    /*
+     $('.writeContent').css({"height": $(window).height() - 50});*/
+    $('#reply_cotent').css({"height": $(window).height() - $('#footer').height()});
 
     $('body').scrollspy({
-        target: '.navbar-fixed-top',
-        offset: 60
+        target: '.navbar-fixed-top, #myScrollspy',
+        offset: 120
     });
 
     $('#topNav').affix({
@@ -11,8 +15,12 @@
             top: 200
         }
     });
-
-    /*new WOW().init();*/
+    /* 모바일 초기화 */
+    if (document.body.clientWidth < 800) {
+        /* 글쓰기에 따라다니는것 모바일에서 숨김*/
+        $('.writeListAffix').hide();
+        $('.writeListAffix ul li').hide();
+    }
     $('#top_scroll').hide();
 
     $('a.page-scroll').bind('click', function (event) {
@@ -34,6 +42,9 @@
         }
 
 
+        if (!$('.writeListAffix').hasClass('affix')) {
+            $('.writeListAffix').show();
+        }
     });
     $('.navbar-collapse ul li a').click(function () {
         /* always close responsive nav after click */
@@ -121,7 +132,7 @@
     $("#_sildebtn div img").on("click", function () {
             if ($(this).attr("src") == "image/shall.gif") {
                 $(".sh-out-remote img").attr("src", "image/shexit.gif");
-                $(".sh-in-talk").css("bottom", $(".sh-out-remote").height() * 1.5).css("transition", ".3s");
+                $(".sh-in-talk").css("bottom", $(".sh-out-remote").height() * 1.6).css("transition", ".3s");
                 $(".sh-in-search").css("bottom", $(".sh-out-remote").height() * 2.7).css("transition", ".3s");
             } else if ($(this).attr("src") == "image/shexit.gif") {
                 $(".sh-out-remote img").attr("src", "image/shall.gif");
@@ -131,5 +142,10 @@
         }
     );
 
-    $("#_sildebtn").attr({"data-offset-top": $('#two').height()+$('header').height()-$('#footer').height()-550, "data-spy": "affix"});
+
+
+    $("#_sildebtn").attr({
+        "data-offset-top": $('#two').height() + $('header').height() - $('#footer').height() - 550,
+        "data-spy": "affix"
+    });
 })(jQuery);

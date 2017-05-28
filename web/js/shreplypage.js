@@ -16,42 +16,52 @@
 
         }
         if (twoheight == 0) {
-            twoheight = $('#content_wrap').height();
+            twoheight = $('#content_wrap').height() - 550;
         }
         if (document.body.clientWidth < 800) {
             // 모바일 기기 관련 작업
-            twoheight = $('#content_affix').height() + $('#reply_cotent').height() - 50;
+            twoheight = $('#content_affix').height() + $('#reply_cotent').height() - 200;
 
         }
         if (y > twoheight - 400) {
             $('div.margin15.row').hide();
             $('.sh-replybox-bottom').show();
+            $('#reply_cotent').css({"height": $(window).height() - $('#footer').height() - 150});
+
         }
         else {
             $('div.margin15.row').show();
             $('.sh-replybox-bottom').hide();
+            $('#reply_cotent').css({"height": $(window).height() - $('#footer').height()});
 
         }
-
-        if ($('#two').height() < 1200) {
-            $('#two').css({
-                "height": twoheight
-            })
-            if ($('#two').height() < 1200) {
+        if (document.body.clientWidth > 800) {
+            if ($('#two').height() < twoheight) {
                 $('#two').css({
-                    "height": "1200px"
+                    "height": twoheight
                 })
-            }
+                if ($('#two').height() < 1000) {
+                    $('#two').css({
+                        "height": "1000px"
+                    })
+                }
 
+            }
+        } else {
+
+            $('#two').css({
+                "padding-bottom": twoheight + $('#reply_cotent').height() + 400 + $('#footer').height()
+            })
         }
 
     });
-    if ($('#two').height() < 1200) {
-        $('#two').css({
-            "height": "1300px"
-        })
+    if (document.body.clientWidth > 800) {
+        if ($('#two').height() < 1000) {
+            $('#two').css({
+                "height": "1000px"
+            })
+        }
     }
-
 
     $('.replyBt').click(function () {
         var btSelector = 0;

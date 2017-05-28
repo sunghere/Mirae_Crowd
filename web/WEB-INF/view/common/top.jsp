@@ -33,17 +33,17 @@
                 <c:if test="${!empty login && login.auth eq 1}">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a title="관리자메뉴" href="/crowdAdd.do">Manage</a>
+                                <a title="펀딩 글작성" href="/crowdAdd.do">글 작성</a>
                             </li>
                             <li>
-                                <a title="투표생성" href="/pollmake.do">Vote</a>
+                                <a title="투표생성" href="/pollmake.do">투표생성</a>
                             </li>
                             <li>
-                                <a title="관리자메뉴" href="/admin.do">Manage</a>
+                                <a title="관리자메뉴" href="/admin.do">관리</a>
                             </li>
                         </ul>
                     </li>

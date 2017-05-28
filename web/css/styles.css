@@ -164,12 +164,12 @@ footer {
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 700;
-    color: #8fdf82;
+    color: #2b542c;
 }
 
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus:hover {
-    color: #808080;
+    color: #000;
 }
 
 .navbar-default .nav > li.active > a,
@@ -181,6 +181,7 @@ footer {
 .navbar-default .nav > li.active > a:hover,
 .navbar-default .nav > li.active > a:focus:hover {
     background-color: transparent;
+
 }
 
 @media (min-width: 768px) {
@@ -210,12 +211,12 @@ footer {
     .navbar-default .nav > li > a:hover,
     .navbar-default .nav > li > a:focus:hover {
         color: #8fdf82;
-
+        background-color: #2b542c;
     }
 
     .navbar-default.affix {
         border-color: rgba(34, 34, 34, .05);
-        background: rgba(255, 240, 245, 1);
+        background: rgba(255, 240, 245, 0.7);
 
     }
 
@@ -743,6 +744,7 @@ img::-moz-selection {
     margin-bottom: 10px;
     padding-left: 11px;
 }
+
 .waring-text {
     color: darkred;
     font-size: 13px;
@@ -750,6 +752,7 @@ img::-moz-selection {
     margin-bottom: 10px;
     padding-left: 11px;
 }
+
 .fileFindBtn {
     position: relative;
     float: left;
@@ -794,6 +797,9 @@ img::-moz-selection {
     position: relative;
     border-radius: 1.5%;
     margin: 1% 1%;
+    -moz-box-shadow: 1px 1px 1px #ce8483;
+    -webkit-box-shadow: 1px 1px 1px #ce8483;
+    box-shadow: 1px 1px 1px #ce8483;
 }
 
 .reply-author {
@@ -999,7 +1005,6 @@ img::-moz-selection {
     padding-right: 10%;
     padding-top: 40px;
     border-radius: 3%;
-    height: 650px;
     overflow: scroll;
 
 }
@@ -1048,12 +1053,23 @@ img::-moz-selection {
     font-size: 13px;
 
 }
-.panel-heading{
+
+.panel-heading {
     font-size: 18px;
     letter-spacing: 2px;
     font-weight: bolder;
 
 }
+
+.panel-body p {
+    font-family: "Nanum Gothic";
+    font-size: 14px;
+}
+
+.panel-danger {
+    margin-top: 10px;
+}
+
 /*term - */
 .crowd-fund-term {
     overflow: scroll;
@@ -1074,6 +1090,54 @@ img::-moz-selection {
     background-color: #fff;
     position: relative;
     bottom: 5%;
-    left: 56%;
+    left: 52%;
     padding: 3px 5px;
+}
+
+.panel {
+    margin-bottom: 0;
+}
+
+/* 펀딩 글작성 부분*/
+
+#cke_ckedtest {
+    width: 66.6%;
+}
+
+.writeContent {
+    /*overflow: scroll;*/
+    text-align: left;
+    padding-left: 10%;
+}
+
+.writeContent .text-primary {
+    padding-left: 15%;
+
+}
+
+.writeListAffix.affix {
+    position: fixed;
+    left: 12%;
+    top: 180px;
+
+    /*width: 15%;*/
+
+}
+
+.writeListAffix li {
+
+    font-size: 18px;
+    font-family: "Nanum Gothic";
+}
+
+.write_part {
+    padding: 8% 5px;
+}
+
+.acceptArea {
+    margin: 15px;
+}
+
+#addr  {
+    width: 70%;
 }

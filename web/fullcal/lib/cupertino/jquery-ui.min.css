@@ -1002,7 +1002,7 @@ body .ui-tooltip {
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-    border: 1px solid #aed0ea;
+    /*border: 1px solid #aed0ea;*/
     background: #d7ebf9 url("images/ui-bg_glass_80_d7ebf9_1x400.png") 50% 50% repeat-x;
     font-weight: bold;
     color: #2779aa

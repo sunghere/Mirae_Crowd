@@ -75,7 +75,6 @@ public class SHUser implements Serializable {
     }
 
 
-
     public int getEnt() {
         return ent;
     }
@@ -97,7 +96,6 @@ public class SHUser implements Serializable {
     }
 
 
-
     public String getId() {
         return id;
     }
@@ -113,7 +111,6 @@ public class SHUser implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public String getPwd() {

@@ -57,13 +57,13 @@
             $("#login_pwd").focus();
         }
     });
-    //id저장
+/*    //id저장 쿠키부분
     var user_id = $.cookie("user_id");
     //alert(user_id);
     if (user_id != null) {
         $("#login_userid").val(user_id);
         $("#login_chk_save_id").prop("checked", true);
-    }
+    }*/
 
 
     // 사용할 앱의 JavaScript 키를 설정해 주세요.

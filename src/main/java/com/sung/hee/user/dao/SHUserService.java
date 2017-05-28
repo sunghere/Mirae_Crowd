@@ -19,4 +19,8 @@ public interface SHUserService {
 
     List<SHUser> getEntUserlist(SHEnt ent);
 
+    void inPoint(SHUser user) throws Exception;
+
+    void dePoint(SHUser user) throws Exception;
+
 }

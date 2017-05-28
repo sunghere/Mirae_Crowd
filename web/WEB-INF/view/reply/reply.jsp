@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="visible-md visible-lg">
-    <div class="fixed-alram ">
+    <div class="fixed-alram">
         <p>
         <p>스크롤하면 댓글이 보여요.</p></p>
         <p>When You scroll,<br> You see the comment.</p>
@@ -24,16 +24,16 @@
                 <div id="replyReload">
 
 
-
                 </div>
                 <c:if test="${!empty login}">
+                <div class="sh-replybox sh-replybox-bottom">
+                    <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
                     <div class="sh-replybox sh-replybox-bottom">
-                        <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
-                        <div class="my_reply_cotent col-xs-12 col-lg-8 col-md-8 col-sm-12">
+                        <div class="my_reply_cotent col-sm-12">
                             <div class="row">
                                 <div class="form-group">
                                     <h2 class="cursive underline">Reply Write</h2>
-                                    <div class="black-control col-xs-4 col-md-3 col-lg-3 col-sm-4 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
+                                    <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
                                     <br>
 
                                     <textarea
@@ -47,14 +47,14 @@
                             </div>
                         </div>
                     </div>
-                </c:if>
-            </div>
+                    </c:if>
+                </div>
 
+            </div>
         </div>
     </div>
+
 </div>
-
-
 
 
 

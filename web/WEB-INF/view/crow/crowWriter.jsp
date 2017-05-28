@@ -25,23 +25,235 @@
 
         };
 
-
         init();
     });
 
 
 </script>
 
+<nav class="writeListAffix col-sm-3" id="myScrollspy" data-spy="affix" data-offset-top="455">
 
-<textarea id='ckedtest'>
+    <ul class="nav nav-pills nav-stacked">
 
-</textarea>
-<button type="button" class="btn black-control" id="mapAdd" data-toggle="modal" data-target="#mapModal">지도 추가
-</button>
+        <li><a href="#categoryInput" class="active">주제 선정</a></li>
+        <li><a href="#titleInput">게시글 제목 선정</a></li>
+        <li><a href="#contentInput">내용 등록</a></li>
+        <li><a href="#mapInput">위치 등록</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">목표 설정<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#dateInput">금액 설정</a></li>
+                <li><a href="#moneyInput">기간 설정</a></li>
+            </ul>
+        </li>
+        <li><a href="#last_input">제출</a></li>
+
+    </ul>
+</nav>
+<div class="container">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-8 writeContent">
+        <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>크라우드 펀딩 글 작성
+                        <small>Write for Crowd</small>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>글을 자세히 읽고 빈칸을 채워주세요. </p>
+
+                    <p> 중간저장 기능은 없습니다. 글은 최종관리자에 의해 숨김처리가 될 수 있습니다.</p>
+
+                    <p>다른 궁금한 사항이나 요청은 관리자에게 문의주세요.</p>
+                </div>
+            </div>
+            <div class="write_part" id="categoryInput">
+
+
+                <h4>Category</h4>
+                <select class="selectpicker show-tick categorySel">
+                    <optgroup label="Tech">
+                        <option>IT/인터넷</option>
+                        <option>의료</option>
+                    </optgroup>
+                    <optgroup label="Food">
+                        <option>외식/식음료</option>
+                        <option>요리</option>
+                    </optgroup>
+                    <optgroup label="Life">
+                        <option>예술/엔터테인먼트</option>
+                        <option>교육</option>
+                        <option>생활/건강</option>
+                        <option>여행/레저</option>
+                    </optgroup>
+                    <optgroup label="Style">
+                        <option>쇼핑</option>
+                        <option>뷰티</option>
+                    </optgroup>
+                    <optgroup label="etc">
+                        <option>기타</option>
+                    </optgroup>
+                </select>
+                <input type="hidden" name="category" id="w_category" value="IT/인터넷">
+
+                <p class="text-danger">* 주제를 선택해주세요.</p>
+            </div>
+            <div class="write_part" id="titleInput">
+                <div>
+                    <h4>Title</h4>
+                    <input type="text" class="form-control input-lg" placeholder="꿈나무 성희에게 희망을주세요">
+                    <p class="text-danger">* 펀딩 게시글의 제목을 입력해주세요.</p>
+                </div>
+            </div>
+            <div class="write_part" id="contentInput" class="text">
+                <h4>Content</h4>
+                <textarea id='ckedtest'>&nbsp;</textarea>
+
+                <p class="text-danger">* 등록하고자 하는 글의 내용을 자세히 적어주세요.</p>
+
+
+            </div>
+            <div class="write_part" id="mapInput">
+                <h4>Address</h4>
+                <button type="button" class="btn black-control" id="mapAdd" data-toggle="modal"
+                        data-target="#mapModal">
+                    지도
+                </button>
+                <input type="search" id="addr" name="address" class="black-control" disabled>
+                <p class="text-danger">(선택)등록하고 싶은 주소가 있다면 등록해주세요.</p>
+
+            </div>
+            <div class="write_part" id="dateInput">
+                <h4>Date</h4>
+                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="sdate">
+                <input type="text" id="edatepicker" class="black-control" placeholder="마감일" name="edate">
+                <p class="text-danger">*종료일이 지나면 목표금에 상관없이 크라우드펀딩이 종료됩니다.</p>
+
+            </div>
+
+            <div class="write_part" id="moneyInput">
+                <h4>Target Amount</h4>
+                <input type="text" id="goal_money" class="black-control" placeholder="목표금액"
+                       onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
+                <p class="text-danger">* 목표금액 달성시 기간에 상관없이 펀딩이 종료됩니다.</p>
+
+            </div>
+
+            <div class="write_part" id="last_input">
+                <h4>약관</h4>
+
+                <textarea rows="5" class="col-md-8 acceptArea form-control">얄라리얄라</textarea>
+
+                <div class="col-sm-12 text-right">
+                    <button type="button" class="btn btn-danger">동의 및 작성완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%--맵모달--%>
+<div class="modal fade" aria-hidden="true" id="mapModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header line_none">
+                <button type="button" class="close" id="login_close" data-dismiss="modal">
+                    <span class='loginexit' aria-hidden="true">x<br></span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <div class="input-group modal-header-body">
+                    <input id="addrtf" class="form-control" name="addrtf" placeholder="주소를 입력해주세요"
+                           type="search"/>
+                    <span class="bSearch input-group-addon black-control">&nbsp;<i class="icon ion-search"></i>&nbsp;
+                                            </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="map" style="height: 300px; width: 270px"></div>
+                <div id="scriptCode"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
 <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+    /* 돈관련 정규식*/
+    //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자
+    //[0-9] => \d , [^0-9] => \D
+    var rgx1 = /\D/g;
+    var rgx2 = /(\d+)(\d{3})/;
+
+    function getNumber(obj) {
+
+        var num01;
+        var num02;
+        num01 = obj.value;
+        num02 = num01.replace(rgx1, "");
+        num01 = setComma(num02);
+        obj.value = num01;
+
+    }
+
+    function setComma(inNum) {
+
+        var outNum;
+        outNum = inNum;
+        while (rgx2.test(outNum)) {
+            outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
+        }
+        return outNum;
+
+    }
+    /*돈관련 정규식 End*/
+    $(function () {
+        /*카테고리 선택부분*/
+        $('.categorySel').change(function () {
+            $('#w_category').attr('value', $('.categorySel option:selected').text());
+        })
+        var deadline = new Date();
+        deadline.setMonth(deadline.getMonth() + 1, deadline.getDay());
+
+        var dates = $("#sdatepicker, #edatepicker ").datepicker({
+            prevText: '이전 달',
+            nextText: '다음 달',
+            dateFormat: "yy-mm-dd",
+            yearSuffix: '년',
+            dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+            minDate: new Date(),
+            maxDate: "+30d",
+            showOtherMonths: true,
+            yearRange: "2017:2022",
+            monthNames: ["1월", "2월", "3월", "4월", "5월", "6월",
+                "7월", "8월", "9월", "10월", "11월", "12월"],
+            onSelect: function (selectedDate) {
+                var option = this.id == "sdatepicker" ? "minDate" : "maxDate",
+                    instance = $(this).data("datepicker"),
+                    date = $.datepicker.parseDate(
+                        instance.settings.dateFormat ||
+                        $.datepicker._defaults.dateFormat,
+                        selectedDate, instance.settings);
+                dates.not(this).datepicker("option", option, date);
+            }
+        });
+
+        /*데이트 피커*/
+        $('.ui-datepicker').css('font-size', '20px');
+
+        // -- 년도 SelectList 의 높이 조정과 넓이 조정
+
+        $('.ui-datepicker select.ui-datepicker-year').css('width', '40%').css('height', '50px').css('font-size', '20px');
+
+        // -- 일자의 글자 크기 조정
+
+        $('.ui-datepicker td span, .ui-datepicker td a').css('font-size', '20px');
+        $('.write_part').css({"border-bottom": "2px solid rgba(221,221,221,0.7)"})
+    })
     function NewZipCode5NumCheck() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -74,47 +286,12 @@
                     fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
                 }
 
-                /*
-                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                 document.getElementById('inpPOST').value = data.zonecode; //5자리 새우편번호 사용
-                 document.getElementById('inpADDR').value = fullAddr;
-
-                 // 커서를 상세주소 필드로 이동한다.
-                 document.getElementById('inpADDR').focus();
-                 document.getElementById('inpADDR').setSelectionRange(999,999);
-                 */
 
                 $("#addrtf").val(fullAddr);
-                $("#bSearch").focus();
+                $(".bSearch").focus();
             }
         }).open();
     }
-</script>
-<div class="modal fade" aria-hidden="true" id="mapModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-
-            <div class="modal-header line_none">
-                <button type="button" class="close" id="login_close" data-dismiss="modal">
-                    <span class='loginexit' aria-hidden="true">x<br></span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <div class="input-group modal-header-body">
-                    <input id="addrtf" class="form-control" name="addrtf" placeholder="주소를 입력해주세요"
-                           type="search"/>
-                    <span id="bSearch" class="input-group-addon black-control">&nbsp;<i class="icon ion-search"></i>&nbsp;
-                                            </span>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="map" style="height: 300px; width: 270px"></div>
-                <div id="scriptCode"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script id="code">
     var map;
     var marker;
     var infoWindow;
@@ -184,16 +361,16 @@
         });
 
         naver.maps.Event.addListener(map, 'click', function (e) {
-            marker.setPosition(e.coord);
-            updateInfoWindow(e.coord);
-            searchCoordinateToAddress(e.coord);
-        });
+         marker.setPosition(e.coord);
+         updateInfoWindow(e.coord);
+         searchCoordinateToAddress(e.coord);
+         });
         naver.maps.Event.addListener(marker, "click", function (e) {
             if (infowindow.getMap()) {
                 infowindow.close();
             } else {
                 updateInfoWindow(e.coord);
-//                infowindow.open(map, marker);
+               /* infowindow.open(map, marker);*/
 
             }
         });
@@ -254,7 +431,6 @@
             }
 
         });
-        alert(htmlAddresses);
         $('#addrtf').val(htmlAddresses[2]);
     }
     function selectAddress(lat, lng) {
@@ -269,7 +445,7 @@
     $('#addrtf').click(function () {
         NewZipCode5NumCheck();
     })
-    $("#bSearch").click(function () {
+    $(".bSearch").click(function () {
         var sHTML = "";
         var sUrl = "https://apis.daum.net/local/geo/addr2coord?apikey=1b98be2bf5ecb8fa9384650b0345cf83&output=json&page_size=30&q=";
         var sAddr = $("#addrtf").val();
@@ -323,5 +499,5 @@
         });
     });
 
-    //    $("body").append("<div id=\"addrList\" style=\"visibility:hidden;position:absolute;top:25%;left:25%;width:50%;height:50%;z-index:99999;border-width:1px;border-style:none;\"></div>");
+
 </script>

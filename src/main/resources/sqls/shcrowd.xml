@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHCrowd">
+
+
+    <insert id="addCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        INSERT INTO SHCROWD(SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD) VALUES
+        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalMoney},0,0,#{tag},
+        #{sdate},#{edate},#{category},#{address},#{type},0,0,'0','0')
+
+    </insert>
+
+    <update id="delCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        UPDATE SHCROWD SET DEL=1 WHERE SEQ=#{seq}
+
+    </update>
+
+    <select id="detailCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        WHERE SEQ = #{seq}
+
+    </select>
+
+    <select id="reqCrowdList"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        WHERE REQ = 0
+    </select>
+    <select id="myReqCrowdList" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        WHERE REQ = 0 AND ID = #{id}
+    </select>
+    <update id="accCrowd"
+            parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        UPDATE SHCROWD SET REQ=1 WHERE SEQ=#{seq}
+
+
+    </update>
+    <select id="crowdListInit"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SELECT ROW_NUMBER() OVER (
+        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1)
+        WHERE 12 >= rnn
+
+    </select>
+    <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SELECT ROW_NUMBER() OVER (
+        ORDER BY REF DESC, STEP ASC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1)
+        WHERE rnn between #{rnn}+1 AND #{rnn}+12
+    </select>
+    <select id="listbySearchInit" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SELECT ROW_NUMBER() OVER (
+        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1
+        <if test="search_type != '' and search_type != null">
+            <if test="search_type == 'search'">
+                AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
+                ||'%')
+            </if>
+            <if test="search_type == 'tag'">
+                AND (TAG like '%'|| #{search} || '%')
+            </if>
+            <if test="search_type == 'type'">
+                AND (TYPE like '%'|| #{search} || '%')
+            </if>
+        </if>
+        )
+        WHERE 12 >= rnn
+    </select>
+    <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SELECT ROW_NUMBER() OVER (
+        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1
+        <if test="search_type != '' and search_type != null">
+            <if test="search_type == 'search'">
+                AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
+                ||'%')
+            </if>
+            <if test="search_type == 'tag'">
+                AND (TAG like '%'|| #{search} || '%')
+            </if>
+            <if test="search_type == 'type'">
+                AND (TYPE like '%'|| #{search} || '%')
+            </if>
+        </if>
+        )
+        WHERE rnn between #{rnn}+1 AND #{rnn}+12
+
+    </select>
+    <select id="myCrowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+            resultType="com.sung.hee.help.MyCrowd">
+
+
+        SELECT c.SEQ,f.SEQ as myseq, c.TITLE, c.GOALMONEY, c.CURMONEY, c.tag,
+        c.SDATE, c.EDATE, c.CATEGORY, c.TYPE,c.REQ, f.MONEY FROM SHCROWD c join SHFUND f on c.seq = f.pseq
+        WHERE f.id = #{id}
+
+    </select>
+
+    <insert id="fundCrowd" parameterType="com.sung.hee.shcrowd.model.SHFund">
+        INSERT INTO SHFUND(SEQ, PSEQ, MONEY, SDATE, ID) VALUES
+        (SEQ_SHFUND.nextval,#{pseq},#{money},sysdate,#{id})
+
+    </insert>
+
+    <delete id="fundCrowdCancel" parameterType="com.sung.hee.shcrowd.model.SHFund">
+        DELETE FROM SHFUND WHERE SEQ = #{seq}
+
+    </delete>
+
+    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFund">
+        UPDATE SHCROWD SET CURMONEY = CURMONEY + #{money} WHERE SEQ=#{pseq}
+
+    </update>
+
+    <insert id="crowdLike" parameterType="com.sung.hee.help.CrowdLike">
+
+        INSERT INTO SHCROWDLIKE(SEQ, PSEQ, ID) VALUES (SEQ_SHCROWDLIKE.nextval,#{pseq},#{id})
+
+    </insert>
+    <delete id="crowdUnLike" parameterType="com.sung.hee.help.CrowdLike">
+
+        DELETE SHCROWDLIKE WHERE id=#{id} and pseq=#{pseq}
+
+    </delete>
+    <select id="crowdLikeChk" parameterType="com.sung.hee.help.CrowdLike"
+            resultType="java.lang.Integer">
+
+        SELECT count(*) FROM SHCROWDLIKE WHERE id=#{id} and pseq=#{pseq}
+
+    </select>
+    <select id="crowdLikeNum" parameterType="com.sung.hee.help.CrowdLike"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+                SELECT LIKENUM FROM SHCROWD WHERE SEQ=#{pseq}
+
+    </select>
+    <update id="likeUpdate" parameterType="com.sung.hee.help.CrowdLike">
+        UPDATE SHCROWD SET LIKENUM=LIKENUM
+        <if test="like==0">+1</if>
+        <if test="like==-1">-1</if>
+        WHERE seq = #{pseq}
+    </update>
+
+    <update id="endFlag" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+        UPDATE SHCROWD SET ENDFLAG = '1' WHERE SEQ = #{seq}
+    </update>
+    <update id="finishReward" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        UPDATE SHCROWD SET REWARD = '1' WHERE SEQ = #{seq}
+
+    </update>
+    <update id="addReward" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        UPDATE SHUSER SET POINT = POINT + #{curMoney} WHERE SEQ = #{seq}
+
+    </update>
+
+    <update id="inPoint" parameterType="com.sung.hee.user.modal.SHUser">
+
+        UPDATE SHUSER SET POINT = POINT + #{epoint} WHERE ID= #{id}
+
+    </update>
+
+    <update id="dePoint" parameterType="com.sung.hee.user.modal.SHUser">
+
+        UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
+
+    </update>
+
+</mapper>

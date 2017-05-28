@@ -35,7 +35,7 @@
                             class="icon-lg ion-social-github-outline"></i></a>&nbsp;
                     </li>
                 </ul>
-                <span class="pull-right text-muted small"><a
+                <span class="pull-right text-muted"><a
                         href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee</span>
             </div>
             <div class="col-xs-12 col-sm-3 column">
@@ -229,11 +229,11 @@
             <div class="modal-body">
                 <div class="sh-replybox sh-replybox-bottom">
                     <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
-                    <div class="my_reply_cotent col-xs-12 col-lg-8 col-md-8 col-sm-12">
+                    <div class="my_reply_cotent col-sm-12">
                         <div class="row">
                             <div class="form-group">
                                 <h2 class="cursive underline">Reply Write</h2>
-                                <div class="black-control col-xs-4 col-md-3 col-lg-3 col-sm-4 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
+                                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
                                 <br>
 
                                 <textarea
