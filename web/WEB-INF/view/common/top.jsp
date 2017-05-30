@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="nows" class="java.util.Date"/>
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container-fluid main-top-navbar">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
                 <span class="sr-only"></span>
@@ -49,26 +49,27 @@
                     </li>
 
                 </c:if>
-                <li id="last_scroll">
-                    <a title="화면내리기" class="page-scroll" href="#last">Last<span class="caret"></span></a>
-                </li>
-                <li id="top_scroll">
-                    <a title="화면올리기" class="page-scroll" href="header">Top<span class="dropup">
-    <span class="caret"></span>
-</span></a>
-                </li>
+                <%-- <li id="last_scroll">
+                     <a title="화면내리기" class="page-scroll" href="#last">Last<span class="caret"></span></a>
+                 </li>
+                 <li id="top_scroll">
+                     <a title="화면올리기" class="page-scroll" href="header">Top<span class="dropup">
+     <span class="caret"></span>
+ </span></a>
+                 </li>--%>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${ !empty login  && login.name ne ''}">
                     <li>
-                        <a class="" data-toggle="modal" data-target="#infomodal" title="내정보"
-                           href="#"><i class="fa fa-info-circle"></i>${login.name}</a>
+                        <a class="" title="MyPage"
+                           href="myPage.do"><i class="fa fa-info-circle"></i>${login.name}</a>
                     </li>
                 </c:if>
                 <c:if test="${ !empty login  && login.id ne ''}">
                     <li>
                         <input type="hidden" name="myid" value="${login.id}">
+                        <input type="hidden" name="myauth" value="${login.auth}">
                         <a href="/logout.do" title="로그아웃"><i class="fa fa-sign-out"></i>logout</a>
                     </li>
 

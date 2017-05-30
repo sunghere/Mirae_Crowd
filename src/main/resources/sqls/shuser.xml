@@ -26,13 +26,13 @@
         SELECT ID, NAME,ENT,ENTNAME,POINT,CERTI FROM SHUSER WHERE ENT=#{ent} AND DEL =0
     </select>
 
-    <update id="inPoint" parameterType="com.sung.hee.user.modal.SHUser">
+    <update id="inPoint" parameterType="com.sung.hee.user.model.SHUser">
 
         UPDATE SHUSER SET POINT = POINT + #{epoint} WHERE ID= #{id}
 
     </update>
 
-    <update id="dePoint" parameterType="com.sung.hee.user.modal.SHUser">
+    <update id="dePoint" parameterType="com.sung.hee.user.model.SHUser">
 
                 UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
 

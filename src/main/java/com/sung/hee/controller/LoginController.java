@@ -234,8 +234,15 @@ public class LoginController {
             checkResult.setMessage("FAIL");
         }
         return checkResult;
-    }//
+    }
 
+    @RequestMapping(value = "myPage.do",
+            method = {RequestMethod.POST,RequestMethod.GET})
+    public String myPage(
+            Model model) throws Exception {
+
+        return "myPage.tiles";
+    }
 /*    *//* NaverLoginBO *//* 네이버 아이디 로그인
     private NaverLoginBO naverLoginBO;
 

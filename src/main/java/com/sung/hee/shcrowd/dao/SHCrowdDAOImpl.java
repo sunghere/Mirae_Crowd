@@ -17,6 +17,7 @@ import java.util.List;
 @Repository
 public class SHCrowdDAOImpl implements SHCrowdDAO {
     String ns = "SHCrowd.";
+
     @Autowired
     SqlSession sqlSession;
 
@@ -108,6 +109,10 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
 
     public void finishReward(SHCrowd shCrowd) {
         sqlSession.update(ns + "finishReward", shCrowd);
+    }
+
+    public void addReward(SHCrowd shCrowd) {
+        sqlSession.update(ns+"addReward",shCrowd);
     }
 
     public void inPoint(String id) {

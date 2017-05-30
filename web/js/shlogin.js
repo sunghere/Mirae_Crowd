@@ -219,7 +219,7 @@
         })
     }
 
-    function showMsg(str) {
+    showMsg =function(str) {
         $('#myMsg').html(str);
 
         $('#showMsgBt').click();

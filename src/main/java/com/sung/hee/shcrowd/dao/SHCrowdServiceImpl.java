@@ -113,7 +113,7 @@ public class SHCrowdServiceImpl implements SHCrowdService {
 
     @Transactional
     public void endFlag(SHCrowd crowd) throws Exception {
-        if (crowd.getGoalMoney() <= crowd.getCurMoney() || crowd.getSdate().compareTo(crowd.getEdate()) >= 0) {
+        if (crowd.getGoalmoney() <= crowd.getCurmoney() || crowd.getSdate().compareTo(crowd.getEdate()) >= 0) {
             shCrowdDAO.endFlag(crowd);
         }
 

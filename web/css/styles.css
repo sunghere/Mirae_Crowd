@@ -306,7 +306,7 @@ footer {
     }
 
     header {
-        min-height: 50%;
+        min-height: 40%;
     }
 
     header .header-content {
@@ -1114,12 +1114,11 @@ img::-moz-selection {
     padding-left: 15%;
 
 }
-
 .writeListAffix.affix {
     position: fixed;
     left: 12%;
     top: 180px;
-
+    margin: 0;
     /*width: 15%;*/
 
 }
@@ -1128,6 +1127,7 @@ img::-moz-selection {
 
     font-size: 18px;
     font-family: "Nanum Gothic";
+    border-bottom: solid rgba(221, 221, 221, 0.7);
 }
 
 .write_part {
@@ -1138,6 +1138,42 @@ img::-moz-selection {
     margin: 15px;
 }
 
-#addr  {
+#addr {
     width: 70%;
 }
+
+.main-top-navbar {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+/* 마이페이지*/
+.bg-inverse {
+    background-color: #292b2c!important;
+}
+.card-inverse {
+    color: rgba(255,255,255,.65);
+}
+/* 1:1 채팅상담 */
+
+.chat_text {
+    display: inline-block;
+    font-size: 15px;
+    background: lavenderblush;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.chat_list {
+    font-size: 15px;
+    background: lavenderblush;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+#chatlist {
+    height: 650px;
+    overflow: auto;
+    padding: 20px 40px;
+}
+#go-back {float:left; cursor: pointer;}

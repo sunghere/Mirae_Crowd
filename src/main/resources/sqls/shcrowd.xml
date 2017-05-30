@@ -8,9 +8,14 @@
     <insert id="addCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
         INSERT INTO SHCROWD(SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD) VALUES
-        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalMoney},0,0,#{tag},
-        #{sdate},#{edate},#{category},#{address},#{type},0,0,'0','0')
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE) VALUES
+        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalmoney},0,0,#{tag},
+        #{sdate},#{edate},#{category},
+        <if test="address != null and address!=''">
+            #{address}
+        </if>
+        <if test="address == null or address==''">''</if>
+        ,#{type},0,0,'0','0',sysdate)
 
     </insert>
 
@@ -160,7 +165,7 @@
     </select>
     <select id="crowdLikeNum" parameterType="com.sung.hee.help.CrowdLike"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-                SELECT LIKENUM FROM SHCROWD WHERE SEQ=#{pseq}
+        SELECT LIKENUM FROM SHCROWD WHERE SEQ=#{pseq}
 
     </select>
     <update id="likeUpdate" parameterType="com.sung.hee.help.CrowdLike">
@@ -180,17 +185,17 @@
     </update>
     <update id="addReward" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        UPDATE SHUSER SET POINT = POINT + #{curMoney} WHERE SEQ = #{seq}
+        UPDATE SHUSER SET POINT = POINT + #{curmoney} WHERE ID = #{id}
 
     </update>
 
-    <update id="inPoint" parameterType="com.sung.hee.user.modal.SHUser">
+    <update id="inPoint" parameterType="com.sung.hee.user.model.SHUser">
 
         UPDATE SHUSER SET POINT = POINT + #{epoint} WHERE ID= #{id}
 
     </update>
 
-    <update id="dePoint" parameterType="com.sung.hee.user.modal.SHUser">
+    <update id="dePoint" parameterType="com.sung.hee.user.model.SHUser">
 
         UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
 

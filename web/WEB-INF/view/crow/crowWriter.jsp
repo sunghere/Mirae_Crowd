@@ -17,7 +17,8 @@
     $(function () {
         var init = function () {
 
-            CKEDITOR.replace('ckedtest', {
+            CKEDITOR.replace('w_content', {
+                customConfig: '<%=request.getContextPath()%>/ckeditor/config.js',
                 width: '100%',
                 height: '400px',
                 filebrowserUploadUrl: 'imageUpload.do',
@@ -36,8 +37,10 @@
     <ul class="nav nav-pills nav-stacked">
 
         <li><a href="#categoryInput" class="active">주제 선정</a></li>
+        <li><a href="#typeInput">유형 선택</a></li>
         <li><a href="#titleInput">게시글 제목 선정</a></li>
         <li><a href="#contentInput">내용 등록</a></li>
+        <li><a href="#tagInput">태그 등록</a></li>
         <li><a href="#mapInput">위치 등록</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">목표 설정<span class="caret"></span></a>
@@ -99,20 +102,41 @@
 
                 <p class="text-danger">* 주제를 선택해주세요.</p>
             </div>
+            <div class="write_part" id="typeInput">
+                <h4>Type</h4>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="type-sel btn btn-info active" value="nomal">
+                        <input type="radio" name="options" checked>기본형
+                    </label>
+                    <label class="type-sel btn btn-info" value="reward">
+                        <input type="radio" name="options"> 보상형
+                    </label>
+                </div>
+                <input type="hidden" id="w_type" name="type" value="2">
+                <p class="text-danger">* 보상형 선택시 보상내용을 글에 기재해주세요.</p>
+
+            </div>
             <div class="write_part" id="titleInput">
                 <div>
                     <h4>Title</h4>
-                    <input type="text" class="form-control input-lg" placeholder="꿈나무 성희에게 희망을주세요">
+                    <input type="text" class="form-control input-lg" id="w_title" placeholder="꿈나무 성희에게 희망을주세요">
                     <p class="text-danger">* 펀딩 게시글의 제목을 입력해주세요.</p>
                 </div>
             </div>
             <div class="write_part" id="contentInput" class="text">
                 <h4>Content</h4>
-                <textarea id='ckedtest'>&nbsp;</textarea>
+                <textarea id='w_content'>&nbsp;</textarea>
 
                 <p class="text-danger">* 등록하고자 하는 글의 내용을 자세히 적어주세요.</p>
 
 
+            </div>
+            <div class="write_part" id="tagInput">
+                <div>
+                    <h4>Title</h4>
+                    <input type="text" class="form-control input-lg" id="w_tag" placeholder="#꿈나무 #도움">
+                    <p class="text-danger">* (선택)펀딩 게시글의 태그를 입력하세요.</p>
+                </div>
             </div>
             <div class="write_part" id="mapInput">
                 <h4>Address</h4>
@@ -120,8 +144,15 @@
                         data-target="#mapModal">
                     지도
                 </button>
-                <input type="search" id="addr" name="address" class="black-control" disabled>
+                <input type="search" id="w_addr" name="address" class="black-control" disabled>
                 <p class="text-danger">(선택)등록하고 싶은 주소가 있다면 등록해주세요.</p>
+
+            </div>
+            <div class="write_part" id="moneyInput">
+                <h4>Target Amount</h4>
+                <input type="text" id="w_goal" class="black-control" placeholder="목표금액"
+                       onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
+                <p class="text-danger">* 목표금액 달성시 기간에 상관없이 펀딩이 종료됩니다.</p>
 
             </div>
             <div class="write_part" id="dateInput">
@@ -132,21 +163,14 @@
 
             </div>
 
-            <div class="write_part" id="moneyInput">
-                <h4>Target Amount</h4>
-                <input type="text" id="goal_money" class="black-control" placeholder="목표금액"
-                       onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
-                <p class="text-danger">* 목표금액 달성시 기간에 상관없이 펀딩이 종료됩니다.</p>
-
-            </div>
 
             <div class="write_part" id="last_input">
                 <h4>약관</h4>
 
-                <textarea rows="5" class="col-md-8 acceptArea form-control">얄라리얄라</textarea>
+                <textarea rows="5" class="col-md-8 acceptArea form-control">약관입니다.</textarea>
 
                 <div class="col-sm-12 text-right">
-                    <button type="button" class="btn btn-danger">동의 및 작성완료</button>
+                    <button type="button" class="btn btn-danger write-btn">동의 및 작성완료</button>
                 </div>
             </div>
         </div>
@@ -163,7 +187,7 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <div class="input-group modal-header-body">
-                    <input id="addrtf" class="form-control" name="addrtf" placeholder="주소를 입력해주세요"
+                    <input id="addr-tf" class="form-control" name="addr-tf" placeholder="입력창을 클릭해주세요"
                            type="search"/>
                     <span class="bSearch input-group-addon black-control">&nbsp;<i class="icon ion-search"></i>&nbsp;
                                             </span>
@@ -200,6 +224,7 @@
 
     }
 
+
     function setComma(inNum) {
 
         var outNum;
@@ -210,8 +235,101 @@
         return outNum;
 
     }
+    function replaceAll(str, searchStr, replaceStr) {
+        return str.split(searchStr).join(replaceStr);
+    }
+
+    goMain = function () {
+
+        location.href = 'main.do';
+    }
     /*돈관련 정규식 End*/
     $(function () {
+        /* 글작성 부분*/
+
+        $('.write-btn').click(function () {
+            var check = true;
+            var category = $('#w_category').attr("value");
+            var type = $('#w_type').attr('value');
+            var title = $('#w_title').val();
+            var content = CKEDITOR.instances.w_content.getData();
+            var address = $('#w_addr').val();
+            var goalMoney = replaceAll($('#w_goal').val(), ",", "");
+            var sdate = $('#sdatepicker').val();
+            var edate = $('#edatepicker').val();
+            var tag = $('#w_tag').val();
+            var id = '${login.id}';
+
+            if (goalMoney == null || goalMoney == 0) {
+                $('#moneyInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
+                check = false;
+                goalMoney = 10000;
+            } else {
+            }
+            if (address == null || address == '') {
+                address = "";
+            }
+            if (tag == null || tag == '') {
+                tag = "";
+            }
+            if (title == null || title == '') {
+
+                $('#titleInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
+                check = false;
+            }
+
+            if (content.length < 1) {
+                $('#contentInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
+
+                check = false;
+
+            }
+            if (sdate == null || sdate == '' || edate == null || edate == '') {
+                $('#dateInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
+                check = false;
+
+            }
+
+            if (check == true) {
+                $.ajax({
+
+                    url: "crowdAddAf.do",
+                    method: "post",
+                    data: {
+                        "category": category, "type": type, "title": title, "content": content, "address": address,
+                        "goalmoney": goalMoney, "sdate": sdate, "edate": edate, "tag": tag, "id": id
+                    },
+                    success: function (data) {
+
+
+                        if (data.message == "SUCS") {
+                            showMsg("크라우드 펀드 신청 성공!<br> 페이지를 이동합니다")
+
+                            setTimeout("goMain()", 1000);
+                        } else {
+                            showMsg("신청 실패하였습니다.<br> 다시한번 확인해주세요.")
+                        }
+
+                    }
+                })
+            } else {
+                showMsg("빈칸이 있어요 전부 입력해주세요");
+            }
+            return;
+        })
+        /* 타입 선택*/
+        $(".typeBt").click(function () {
+            if ($(this).attr("value") == "reward") {
+
+                $("#w_type").attr("value", 3);
+
+            } else if ($(this).attr("value") == "nomal") {
+                $("#w_type").attr("value", 2);
+
+
+            }
+
+        });
         /*카테고리 선택부분*/
         $('.categorySel').change(function () {
             $('#w_category').attr('value', $('.categorySel option:selected').text());
@@ -287,7 +405,7 @@
                 }
 
 
-                $("#addrtf").val(fullAddr);
+                $("#addr-tf").val(fullAddr);
                 $(".bSearch").focus();
             }
         }).open();
@@ -361,16 +479,16 @@
         });
 
         naver.maps.Event.addListener(map, 'click', function (e) {
-         marker.setPosition(e.coord);
-         updateInfoWindow(e.coord);
-         searchCoordinateToAddress(e.coord);
-         });
+            marker.setPosition(e.coord);
+            updateInfoWindow(e.coord);
+            searchCoordinateToAddress(e.coord);
+        });
         naver.maps.Event.addListener(marker, "click", function (e) {
             if (infowindow.getMap()) {
                 infowindow.close();
             } else {
                 updateInfoWindow(e.coord);
-               /* infowindow.open(map, marker);*/
+                /* infowindow.open(map, marker);*/
 
             }
         });
@@ -404,7 +522,7 @@
         var sHTMLCODE = "" + lat + "/" + lng;
 //        $("#scriptCode").html(sHTMLCODE);
 
-        $('#addr').val($('#addrtf').val());
+        $('#w_addr').val($('#addr-tf').val());
         $('.loginexit').click();
     }
 
@@ -431,7 +549,7 @@
             }
 
         });
-        $('#addrtf').val(htmlAddresses[2]);
+        $('#addr-tf').val(htmlAddresses[2]);
     }
     function selectAddress(lat, lng) {
         var latlng = new naver.maps.LatLng(lat, lng);
@@ -442,13 +560,13 @@
         $("#bAddress").focus();
         $("#addrList").css("visibility", "hidden");
     }
-    $('#addrtf').click(function () {
+    $('#addr-tf').click(function () {
         NewZipCode5NumCheck();
     })
     $(".bSearch").click(function () {
         var sHTML = "";
         var sUrl = "https://apis.daum.net/local/geo/addr2coord?apikey=1b98be2bf5ecb8fa9384650b0345cf83&output=json&page_size=30&q=";
-        var sAddr = $("#addrtf").val();
+        var sAddr = $("#addr-tf").val();
         if (sAddr.length == 0) {
             alert("주소를 입력하세요");
             $("#bAddress").focus();

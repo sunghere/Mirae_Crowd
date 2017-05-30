@@ -1,11 +1,11 @@
 (function ($) {
     var idcheck = false;
 
-    function showMsg(str) {
+    /*function showMsg(str) {
         $('#myMsg').html(str);
 
         $('#showMsgBt').click();
-    }
+    }*/
 
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

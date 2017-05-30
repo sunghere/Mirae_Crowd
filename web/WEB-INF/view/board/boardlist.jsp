@@ -5,37 +5,47 @@
 
 <div class="container-fluid">
     <div class="row mb-3">
-        <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-3 col-md-4">
             <div class="card">
                 <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
                      alt="Card image cap">
                 <div class="card-block">
-                    <c:if test="${login.isent eq 1}">
-                        <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
-                        <p class="card-text">기업전용 게시판을 이용해보세요.</p>
-                        <p class="card-text">
-                            Try the corporate bulletin board now.</p>
-                        <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise
-                            Board</a></p>
-                    </c:if>
+                    <div class="card-block">
+                        <c:if test="${login.isent eq 1}">
+                            <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
+                            <p class="card-text">기업전용 게시판을 이용해보세요.</p>
+                            <p class="card-text">
+                                Try the corporate bulletin board now.</p>
+                            <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise
+                                Board</a></p>
+                        </c:if>
+                        <c:if test="${login.isent eq 0}">
+                            <blockquote>
+
+                                <h4 class="card-title cursive">Try Crowd Fund Start Now</h4>
+                                <p class="card-text">지금 크라우드 펀딩을 신청하세요.</p>
+                                <p class="card-text">
+                                    당신의 아이디어를 <br>널리 알려보세요</p>
+                                <p class="card-text"><a href="/crowdAdd.do" class="btn btn-info">바로가기</a></p>
+                            </blockquote>
+                        </c:if>
+                    </div>
                 </div>
             </div>
-
             <div class="card card-inverse bg-inverse mt-3">
-                <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
-                     alt="Card image cap">
-                <blockquote>
-                    <h3 class="card-title">지금 투자해보세요.</h3><br>
+                <div class="card-block">
+                    <blockquote>
+                        <h3 class="card-title">지금 투자해보세요.</h3><br>
 
-                    <p class="card-text">
-                        당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
-                    <p class="card-text">
+                        <p class="card-text">
+                            당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
+                        <p class="card-text">
 
-                        This project needs your help.<cite title="Source Title"> - SH Crowd</cite></p>
-                    <a href="main.do" class="btn btn-warning">후원하러가기</a>
-                </blockquote>
+                            This project needs your help.<cite title="Source Title"> - SH Crowd</cite></p>
+                        <a href="main.do" class="btn btn-warning">후원하러가기</a>
+                    </blockquote>
+                </div>
             </div>
-
         </div>
         <jsp:useBean id="uboard" class="com.sung.hee.help.BoardBean"/>
         <%--여기부터 테이블구간 바로밑은 검색바--%>
@@ -45,14 +55,8 @@
                     <nav class="navbar navbar-collapse">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                <%--<button type="button" class="navbar-toggle" data-toggle="collapse"
-                                        data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>--%>
+
                             </div>
-                            <%--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--%>
                             <ul class="nav navbar-nav navbar-right ">
 
                                 <li style="vertical-align: middle"><select class="selectpicker"

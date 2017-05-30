@@ -130,18 +130,17 @@
     );
 
     $("#_sildebtn div img").on("click", function () {
-            if ($(this).attr("src") == "image/shall.gif") {
-                $(".sh-out-remote img").attr("src", "image/shexit.gif");
+            if ($(this).attr("src") == "image/shall.png") {
+                $(".sh-out-remote img").attr("src", "image/shexit.png");
                 $(".sh-in-talk").css("bottom", $(".sh-out-remote").height() * 1.6).css("transition", ".3s");
                 $(".sh-in-search").css("bottom", $(".sh-out-remote").height() * 2.7).css("transition", ".3s");
-            } else if ($(this).attr("src") == "image/shexit.gif") {
-                $(".sh-out-remote img").attr("src", "image/shall.gif");
+            } else if ($(this).attr("src") == "image/shexit.png") {
+                $(".sh-out-remote img").attr("src", "image/shall.png");
                 $(".sh-in-talk").css("bottom", "2.7%").css("transition", ".3s");
                 $(".sh-in-search").css("bottom", "2.7%").css("transition", ".3s");
             }
         }
     );
-
 
 
     $("#_sildebtn").attr({

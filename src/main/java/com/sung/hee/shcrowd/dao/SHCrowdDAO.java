@@ -7,7 +7,7 @@ import com.sung.hee.shcrowd.model.SHFund;
 import com.sung.hee.user.model.SHUser;
 
 import java.util.List;
-
+/*com.sung.hee.shcrowd.dao.SHCrowdDAO*/
 /**
  * Created by SungHere on 2017-05-24.
  */
@@ -56,6 +56,8 @@ public interface SHCrowdDAO {
     public void endFlag(SHCrowd crowd); /* 끝남체크*/
 
     public void finishReward(SHCrowd shCrowd); /* 펀딩 종료후 금액 수령*/
+
+    public void addReward(SHCrowd shCrowd);
 
     void inPoint(String id);
 

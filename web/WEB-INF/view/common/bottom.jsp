@@ -146,7 +146,7 @@
 <%--개인정보창--%>
 <c:if test="${!empty login}">
     <div id="infomodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <h3 class="text-center">${login.id}</h3>
@@ -224,12 +224,40 @@
         </div>
     </div>
 </div>
+<%--리모콘 모달--%>
+<div id="remoteModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close" id="aboutModal_close"
+                        data-dismiss="modal">
+                    <span class='loginexit' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+                <h3 class="title_Type" id='chat-title'>1:1 문의</h3>
+            </div>
+            <div class="modal-body">
+                <div id="chatlist"></div>
+                <input type="text" class="form-control input-lg" id="chat-text">
+            </div>
+        </div>
+    </div>
+</div>
 <div id="last"></div>
 <%--리모콘--%>
 <div id="_sildebtn">
-    <div class="sh-in-search sh-remote"><img src="image/shsearch.gif"></div>
-    <div class="sh-in-talk sh-remote"><img src="image/shtalk.gif"></div>
-    <div class="sh-out-remote sh-remote"><img src="image/shall.gif"/></div>
+    <div class="sh-in-search sh-remote">
+        <img src="image/shsearch.png">
+    </div>
+    <div class="sh-in-talk sh-remote">
+        <img src="image/shtalk.png" class="chat"> <span hidden="hidden"
+                                                        data-target='#remoteModal' data-toggle="modal"
+                                                        id="chatbtn"></span>
+    </div>
+    <div class="sh-out-remote sh-remote">
+        <img src="image/shall.png"/>
+    </div>
 </div>
 <script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
@@ -240,3 +268,4 @@
 <script src="<%=request.getContextPath()%>/js/scripts.js"></script>
 <script src="<%=request.getContextPath()%>/js/shlogin.js"></script>
 <script src="<%=request.getContextPath()%>/js/fblogin.js"></script>
+<script src="<%=request.getContextPath()%>/js/chatscript.js"></script>

@@ -52,7 +52,7 @@ public class CrowdController {
     @RequestMapping(value = "crowdAddAf.do", method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck crowdAddAf(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl crowdAdd--!");
+        logger.info("CrowdControl crowdAddAf--!" + shCrowd);
         AjaxCheck checkResult = new AjaxCheck();
 
         try {
