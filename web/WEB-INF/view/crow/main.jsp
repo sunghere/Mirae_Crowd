@@ -6,7 +6,38 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="card-columns mb-3">
+<script>
+$(function() {
+	var initList=function() {
+		$.ajax({
+			url:"cListInit.do",
+			method: "post",
+			data: {},
+			success: function(data) {
+				var str="";
+				$.each(data, function(index, val) {
+					str += "<div class='col-md-4'>" +
+					"<img class='card-img-top img-fluid' alt=''>"+
+					"<div class='card-block'>"+val.title+"</div>"+
+					"</div>";
+				})
+				alert("dddahdghdg");
+				$('#crowdlist').html(str);
+			},error:function(a,b,c){
+				
+				console.log(a)
+				console.log(b)
+			}
+		})
+	};
+	
+	initList();
+})
+</script>
+
+<div class="card-columns mb-3" id="crowdlist">
+	
+</div>
     <div class="card">
         <img class="card-img-top img-fluid" src="//placehold.it/600x200/444/fff?text=..." alt="Card image cap">
         <div class="card-block">

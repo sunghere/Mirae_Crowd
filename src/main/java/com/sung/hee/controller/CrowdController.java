@@ -141,8 +141,8 @@ public class CrowdController {
     @ResponseBody
     public List<SHCrowd> cListInit(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl cListInit--!");
-        List<SHCrowd> list = shCrowdService.crowdListInit(shCrowd);
-
+        List<SHCrowd> list = shCrowdService.crowdListInit();
+        logger.info("CrowdControl cListInit--!" + list);
         return list;
     }
 
