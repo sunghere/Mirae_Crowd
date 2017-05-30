@@ -41,3 +41,5 @@ Crowd-Mirae.iml
 out/
 src/test/
 src/main/java/com/sung/hee/shcrow/
+/.classpath
+/.project

@@ -107,7 +107,7 @@ public class CrowdController {
         return list;
     }
 
-    /* 크라우드 요청글 리스트*/
+    /* 크라우드 내 요청글 리스트*/
     @RequestMapping(value = "myReq.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> myReq(SHUser shUser, HttpServletRequest request, Model model) throws Exception {
