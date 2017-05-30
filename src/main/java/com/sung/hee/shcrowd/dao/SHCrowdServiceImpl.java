@@ -53,8 +53,8 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     }
 
     @Transactional(readOnly = true)
-    public List<SHCrowd> crowdListInit(SHCrowd crowd) {
-        return shCrowdDAO.crowdListInit(crowd);
+    public List<SHCrowd> crowdListInit() {
+        return shCrowdDAO.crowdListInit();
     }
 
     @Transactional(readOnly = true)

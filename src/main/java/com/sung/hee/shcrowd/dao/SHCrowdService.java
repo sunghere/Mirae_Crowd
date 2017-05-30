@@ -25,7 +25,7 @@ public interface SHCrowdService {
     public void accCrowd(SHCrowd crowd) throws Exception; /* 글 신청 수락(req=1) */
 
 
-    public List<SHCrowd> crowdListInit(SHCrowd crowd); /* 글 리스트 초기 */
+    public List<SHCrowd> crowdListInit(); /* 글 리스트 초기 */
 
     public List<SHCrowd> crowdList(SHCrowd crowd); /* 글 리스트 */
 
