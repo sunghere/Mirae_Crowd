@@ -59,7 +59,9 @@ public interface SHCrowdDAO {
 
     public void addReward(SHCrowd shCrowd);
 
-    void inPoint(String id);
+    void inPoint(String id); /* 포인트 증감 */
 
     void dePoint(String id);
+
+    public void noCrowd(SHCrowd shCrowd); /* 요청 거절 */
 }

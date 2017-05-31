@@ -21,7 +21,7 @@
     <tr>
         <th>투표기한</th>
         <td style="text-align: left">
-            ${poll.sdate}~${poll.edate}
+            ${poll.wdate}~${poll.edate}
         </td>
     </tr>
     <tr>

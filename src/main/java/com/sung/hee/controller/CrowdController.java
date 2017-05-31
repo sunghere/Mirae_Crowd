@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -91,10 +93,23 @@ public class CrowdController {
     @ResponseBody
     public SHCrowd detailCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl detailCrowd--!");
-        shCrowdService.endFlag(shCrowd);
         SHCrowd getCrowd = shCrowdService.detailCrowd(shCrowd);
+        Date date = new Date();
+        SimpleDateFormat dateCheck = new SimpleDateFormat("yyyy-MM-dd");
+        if (getCrowd.getEdate().compareTo(dateCheck.format(date)) < 0) {
 
+            shCrowdService.endFlag(shCrowd);
+            getCrowd.setEndflag("1");
+        }
         return getCrowd;
+    }
+
+    /* 크라우드 요청글 리스트 페이지*/
+    @RequestMapping(value = "crowdReqlist.do", method = RequestMethod.GET)
+    public String crowdReqlist(HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl reqCrowdList--!");
+
+        return "reqlist.tiles";
     }
 
     /* 크라우드 요청글 리스트*/
@@ -103,6 +118,7 @@ public class CrowdController {
     public List<SHCrowd> reqCrowdList(HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl reqCrowdList--!");
         List<SHCrowd> list = shCrowdService.reqCrowdList();
+        logger.info("CrowdControl reqCrowdList--!-----------------" + list);
 
         return list;
     }
@@ -126,6 +142,25 @@ public class CrowdController {
 
         try {
             shCrowdService.accCrowd(shCrowd);
+            checkResult.setMessage("SUCS");
+
+        } catch (Exception e) {
+
+            checkResult.setMessage("FAIL");
+        }
+
+        return checkResult;
+    }
+
+    /* 크라우드 요청 거절*/
+    @RequestMapping(value = "noCrowd.do", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck noCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl noCrowd--!");
+        AjaxCheck checkResult = new AjaxCheck();
+
+        try {
+            shCrowdService.noCrowd(shCrowd);
             checkResult.setMessage("SUCS");
 
         } catch (Exception e) {
@@ -171,7 +206,7 @@ public class CrowdController {
     @ResponseBody
     public List<SHCrowd> cSearch(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl cSearch--!");
-        List<SHCrowd> list = shCrowdService.listbySearchInit(shCrowd);
+        List<SHCrowd> list = shCrowdService.listbySearch(shCrowd);
 
         return list;
     }

@@ -312,12 +312,12 @@
             <version>3.16</version>
         </dependency>
 
-     <!--   &lt;!&ndash;네이버 아이디 로그인&ndash;&gt;
-        <dependency>
-            <groupId>com.github.scribejava</groupId>
-            <artifactId>scribejava-core</artifactId>
-            <version>2.8.1</version>
-        </dependency>-->
+        <!--   &lt;!&ndash;네이버 아이디 로그인&ndash;&gt;
+           <dependency>
+               <groupId>com.github.scribejava</groupId>
+               <artifactId>scribejava-core</artifactId>
+               <version>2.8.1</version>
+           </dependency>-->
 
         <!--Mail Sender-->
         <dependency>
@@ -325,6 +325,14 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+
+        <!--ckeditor-->
+        <dependency>
+            <groupId>com.ckeditor</groupId>
+            <artifactId>ckeditor-java-core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
     </dependencies>
+
 
 </project>

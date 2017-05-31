@@ -78,7 +78,7 @@
                 <img src="" id="galleryImage" class="img-responsive"/>
                 <p>
                     <br/>
-                    <button type="button" class="btn btn-primary btn-lg center-block" data-dismiss="modal"
+                    <button type="button" class="btn btn-warning btn-lg center-block" data-dismiss="modal"
                             aria-hidden="true">Close <i
                             class="ion-android-close"></i></button>
                 </p>
@@ -133,12 +133,18 @@
 <%--메시지를 띄우는용도의 창 showMsg사용--%>
 <div id="alertModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
+
+
         <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close" id="showMsg-close"
+                        data-dismiss="modal">
+                    <span class='showMsg-close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+            </div>
             <div class="modal-body">
                 <p class="text-center" id="myMsg"></p>
-                <button type="button" class="modalclose btn btn-info center-block" data-dismiss="modal"
-                        aria-hidden="true">Close &nbsp;<i
-                        class="ion-android-close"></i></button>
             </div>
         </div>
     </div>
@@ -230,7 +236,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header line_none">
-                <button type="button" class="close" id="aboutModal_close"
+                <button type="button" id="remoteModal_close" class="close"
                         data-dismiss="modal">
                     <span class='loginexit' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
@@ -259,6 +265,7 @@
         <img src="image/shall.png"/>
     </div>
 </div>
+
 <script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;

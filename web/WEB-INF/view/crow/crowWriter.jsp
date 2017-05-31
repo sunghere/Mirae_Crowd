@@ -146,18 +146,21 @@
                 </button>
                 <input type="search" id="w_addr" name="address" class="black-control" disabled>
                 <p class="text-danger">(선택)등록하고 싶은 주소가 있다면 등록해주세요.</p>
-
+                <div id="map-area" hidden="hidden">
+                    <div id="show_map" style="width: 200px; height: 200px; position: relative;"></div>
+                    <input type="hidden" id="w_latlng" value="">
+                </div>
             </div>
             <div class="write_part" id="moneyInput">
                 <h4>Target Amount</h4>
                 <input type="text" id="w_goal" class="black-control" placeholder="목표금액"
                        onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
-                <p class="text-danger">* 목표금액 달성시 기간에 상관없이 펀딩이 종료됩니다.</p>
+                <p class="text-danger">* 목표금액을 달성하더라도 바로 펀딩이 종료되지 않습니다.</p>
 
             </div>
             <div class="write_part" id="dateInput">
                 <h4>Date</h4>
-                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="sdate">
+                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="wdate">
                 <input type="text" id="edatepicker" class="black-control" placeholder="마감일" name="edate">
                 <p class="text-danger">*종료일이 지나면 목표금에 상관없이 크라우드펀딩이 종료됩니다.</p>
 
@@ -255,11 +258,11 @@
             var content = CKEDITOR.instances.w_content.getData();
             var address = $('#w_addr').val();
             var goalMoney = replaceAll($('#w_goal').val(), ",", "");
-            var sdate = $('#sdatepicker').val();
+            var wdate = $('#sdatepicker').val();
             var edate = $('#edatepicker').val();
             var tag = $('#w_tag').val();
             var id = '${login.id}';
-
+            var latlng = $('#w_latlng').attr('value');
             if (goalMoney == null || goalMoney == 0) {
                 $('#moneyInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
                 check = false;
@@ -284,7 +287,7 @@
                 check = false;
 
             }
-            if (sdate == null || sdate == '' || edate == null || edate == '') {
+            if (wdate == null || wdate == '' || edate == null || edate == '') {
                 $('#dateInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
                 check = false;
 
@@ -297,7 +300,7 @@
                     method: "post",
                     data: {
                         "category": category, "type": type, "title": title, "content": content, "address": address,
-                        "goalmoney": goalMoney, "sdate": sdate, "edate": edate, "tag": tag, "id": id
+                        "goalmoney": goalMoney, "wdate": wdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
                     },
                     success: function (data) {
 
@@ -411,19 +414,28 @@
         }).open();
     }
     var map;
+    var maplist = new Array();
+    var mapTagList = new Array();
     var marker;
     var infoWindow;
     var mylat = 37.5666102;
     var mylng = 126.9783881;
     var htmlAddresses = [];
+    Array.prototype.contains = function (element) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == element) {
+                return true;
+            }
+        }
+        return false;
+    }
     if (!!navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     }
     else {
-        alert("이 브라우저는 Geolocation를 지원하지 않습니다");
     }
     function errorCallback(error) {
-        alert(error.message);
+        /* alert(error.message);*/
     }
 
     function successCallback(position) {
@@ -432,9 +444,7 @@
     }
 
     $('#mapAdd').click(function () {
-        mapinit();
-        var tempwidth = $(window).width();
-        var tempheight = $(window).height();
+        mapinit("map");
 
 
     })
@@ -450,10 +460,11 @@
         minZoom: 1
     };
 
-    mapinit = function () {
+    mapinit = function (tagId) {
+        var mylatlng = new naver.maps.LatLng(mylat, mylng);
 
         mapOptions = {
-            center: new naver.maps.LatLng(mylat, mylng),
+            center: mylatlng,
             zoom: 8,
             scaleControl: false,
             logoControl: false,
@@ -462,42 +473,59 @@
             zoomControl: true,
             minZoom: 1
         };
-        map = new naver.maps.Map('map', mapOptions);
 
-        marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(mylat, mylng),
-            map: map
-        });
-        var mylatlng = new naver.maps.LatLng(mylat, mylng);
-        infowindow = new naver.maps.InfoWindow({
-            maxWidth: 140,
-            backgroundColor: "lavenderblush",
-            borderColor: "lavenderblush",
-            borderWidth: 5,
-            anchorColor: "#lavenderblush",
-            content: ''
-        });
+        if (mapTagList.contains(tagId)) {
 
-        naver.maps.Event.addListener(map, 'click', function (e) {
-            marker.setPosition(e.coord);
-            updateInfoWindow(e.coord);
-            searchCoordinateToAddress(e.coord);
-        });
-        naver.maps.Event.addListener(marker, "click", function (e) {
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                updateInfoWindow(e.coord);
-                /* infowindow.open(map, marker);*/
+            map = maplist[mapTagList.indexOf(tagId)];
+            updateInfoWindow(mylatlng, 0);
+            marker = new naver.maps.Marker({
+                position: mylatlng,
+                map: map
+            });
+        } else {
 
+            map = new naver.maps.Map(tagId, mapOptions);
+
+            maplist.push(map);
+            marker = new naver.maps.Marker({
+                position: mylatlng,
+                map: map
+            });
+            if (tagId == "map") {
+                infowindow = new naver.maps.InfoWindow({
+                    maxWidth: 140,
+                    backgroundColor: "lavenderblush",
+                    borderColor: "lavenderblush",
+                    borderWidth: 5,
+                    anchorColor: "#lavenderblush",
+                    content: ''
+                });
+
+                naver.maps.Event.addListener(map, 'click', function (e) {
+                    marker.setPosition(e.coord);
+                    updateInfoWindow(e.coord, 1);
+                    searchCoordinateToAddress(e.coord);
+                });
+                naver.maps.Event.addListener(marker, "click", function (e) {
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        updateInfoWindow(e.coord, 1);
+                        /* infowindow.open(map, marker);*/
+
+                    }
+                });
+                updateInfoWindow(mylatlng, 1);
             }
-        });
-        updateInfoWindow(mylatlng);
+
+
+        }
+
 
     }
 
 
-    function updateInfoWindow(latlng) {
+    function updateInfoWindow(latlng, sel) {
         var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng),    // 위/경도 -> UTMK
             tm128 = naver.maps.TransCoord.fromUTMKToTM128(utmk),       // UTMK    -> TM128
             naverCoord = naver.maps.TransCoord.fromTM128ToNaver(tm128),     // TM128   -> NAVER
@@ -514,16 +542,27 @@
             '<span class="btn non-fixed-balloon" onclick="selectLatLng(' + latVal + ', ' + lngVal + ');" style="cursor:pointer;"><strong>Click</strong></span><br />',
             '</div>'
         ].join(''));
-        infowindow.open(map, marker);
+        if (sel == 1) {
+            infowindow.open(map, marker);
+        }
 //        infoWindow.open(map, latlng);
     }
 
     function selectLatLng(lat, lng) {
         var sHTMLCODE = "" + lat + "/" + lng;
 //        $("#scriptCode").html(sHTMLCODE);
-
-        $('#w_addr').val($('#addr-tf').val());
-        $('.loginexit').click();
+        var temp_addr = $('#addr-tf').val();
+        if (temp_addr != null && temp_addr != "") {
+            $('#w_addr').val($('#addr-tf').val());
+            $('.loginexit').click();
+            mylat = lat;
+            mylng = lng;
+            $('#w_latlng').attr('value',""+mylat+"*"+mylng);
+            mapinit("show_map");
+            $('#map-area').show();
+        } else {
+            showMsg("주소창이 완성되지 않았어요");
+        }
     }
 
     function searchCoordinateToAddress(latlng) {
@@ -556,9 +595,8 @@
         map.setCenter(latlng);          // 중심 좌표 이동
         map.setZoom(13);              // 줌 레벨 변경
         marker.setPosition(latlng);     // 마크 이동
-        updateInfoWindow(latlng);       // 정보창 표현
+        updateInfoWindow(latlng, 0);       // 정보창 표현
         $("#bAddress").focus();
-        $("#addrList").css("visibility", "hidden");
     }
     $('#addr-tf').click(function () {
         NewZipCode5NumCheck();
@@ -605,10 +643,8 @@
                         sHTML = sHTML + "</tr>                                                                                                                                                                                                                                                                      ";
                     }
                     sHTML = sHTML + "</tbody></table></td></tr></tbody></table>";
-                    $("#addrList").html("");
-                    $("#addrList").html(sHTML);
-                    $("#bAddress").focus();
-                    $("#addrList").css("visibility", "visible");
+
+                    showMsg(sHTML);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

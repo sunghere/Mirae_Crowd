@@ -16,10 +16,38 @@ public class MyCrowd {
     private String sdate;
     private String edate;
     private String category;
+    private String wdate;
+
+
 
     private int type;
     private int money;
 
+    public String getWdate() {
+        return wdate;
+    }
+
+    public void setWdate(String wdate) {
+        this.wdate = wdate;
+    }
+
+    @Override
+    public String toString() {
+        return "MyCrowd{" +
+                "seq=" + seq +
+                ", myseq=" + myseq +
+                ", title='" + title + '\'' +
+                ", goalMoney=" + goalMoney +
+                ", curMoney=" + curMoney +
+                ", tag='" + tag + '\'' +
+                ", sdate='" + sdate + '\'' +
+                ", edate='" + edate + '\'' +
+                ", category='" + category + '\'' +
+                ", wdate='" + wdate + '\'' +
+                ", type=" + type +
+                ", money=" + money +
+                '}';
+    }
 
     public int getSeq() {
         return seq;
@@ -84,23 +112,6 @@ public class MyCrowd {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "MyCrowd{" +
-                "seq=" + seq +
-                ", myseq=" + myseq +
-                ", title='" + title + '\'' +
-                ", goalMoney=" + goalMoney +
-                ", curMoney=" + curMoney +
-                ", tag='" + tag + '\'' +
-                ", sdate='" + sdate + '\'' +
-                ", edate='" + edate + '\'' +
-                ", category='" + category + '\'' +
-                ", type=" + type +
-                ", money=" + money +
-                '}';
     }
 
     public int getType() {

@@ -128,15 +128,22 @@
         </div>
     </div>
 </div>
+
 <%--메시지를 띄우는용도의 창 showMsg사용--%>
 <div id="alertModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
+
+
         <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close" id="showMsg-close"
+                        data-dismiss="modal">
+                    <span class='showMsg-close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+            </div>
             <div class="modal-body">
                 <p class="text-center" id="myMsg"></p>
-                <button type="button" class="modalclose btn btn-info center-block" data-dismiss="modal"
-                        aria-hidden="true">Close &nbsp;<i
-                        class="ion-android-close"></i></button>
             </div>
         </div>
     </div>

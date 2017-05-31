@@ -34,7 +34,8 @@ public class SHCrowd {
     private String wdate;
     private String search_type = "search";
     private String endflag = "0";
-    private String reward ="0";
+    private String reward = "0";
+    private String latlng = "";
 
     @Override
     public String toString() {
@@ -59,7 +60,16 @@ public class SHCrowd {
                 ", search_type='" + search_type + '\'' +
                 ", endflag='" + endflag + '\'' +
                 ", reward='" + reward + '\'' +
+                ", latlng='" + latlng + '\'' +
                 '}';
+    }
+
+    public String getLatlng() {
+        return latlng;
+    }
+
+    public void setLatlng(String latlng) {
+        this.latlng = latlng;
     }
 
     public int getRnn() {
