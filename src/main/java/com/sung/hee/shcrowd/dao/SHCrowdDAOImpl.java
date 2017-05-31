@@ -124,4 +124,8 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
         sqlSession.update(ns + "dePoint", id);
 
     }
+
+    public void noCrowd(SHCrowd shCrowd) {
+        sqlSession.update(ns+"noCrowd",shCrowd);
+    }
 }

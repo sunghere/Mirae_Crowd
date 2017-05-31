@@ -44,4 +44,6 @@ public interface SHCrowdService {
     public void endFlag(SHCrowd crowd) throws Exception; /* 끝남체크*/
 
     public void finishReward(SHCrowd shCrowd) throws Exception; /* 펀딩 종료후 금액 수령*/
+
+    public void noCrowd(SHCrowd shCrowd); /* 요청 거절 */
 }

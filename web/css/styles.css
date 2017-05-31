@@ -1177,3 +1177,7 @@ img::-moz-selection {
     padding: 20px 40px;
 }
 #go-back {float:left; cursor: pointer;}
+
+.line_none {
+    border-bottom : none;
+}

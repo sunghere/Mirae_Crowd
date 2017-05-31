@@ -104,12 +104,21 @@ public class CrowdController {
         return getCrowd;
     }
 
+    /* 크라우드 요청글 리스트 페이지*/
+    @RequestMapping(value = "crowdReqlist.do", method = RequestMethod.GET)
+    public String crowdReqlist(HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl reqCrowdList--!");
+
+        return "reqlist.tiles";
+    }
+
     /* 크라우드 요청글 리스트*/
     @RequestMapping(value = "reqList.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> reqCrowdList(HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl reqCrowdList--!");
         List<SHCrowd> list = shCrowdService.reqCrowdList();
+        logger.info("CrowdControl reqCrowdList--!-----------------" + list);
 
         return list;
     }
@@ -133,6 +142,25 @@ public class CrowdController {
 
         try {
             shCrowdService.accCrowd(shCrowd);
+            checkResult.setMessage("SUCS");
+
+        } catch (Exception e) {
+
+            checkResult.setMessage("FAIL");
+        }
+
+        return checkResult;
+    }
+
+    /* 크라우드 요청 거절*/
+    @RequestMapping(value = "noCrowd.do", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck noCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl noCrowd--!");
+        AjaxCheck checkResult = new AjaxCheck();
+
+        try {
+            shCrowdService.noCrowd(shCrowd);
             checkResult.setMessage("SUCS");
 
         } catch (Exception e) {
@@ -178,7 +206,7 @@ public class CrowdController {
     @ResponseBody
     public List<SHCrowd> cSearch(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl cSearch--!");
-        List<SHCrowd> list = shCrowdService.listbySearchInit(shCrowd);
+        List<SHCrowd> list = shCrowdService.listbySearch(shCrowd);
 
         return list;
     }

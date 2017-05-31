@@ -124,4 +124,8 @@ public class SHCrowdServiceImpl implements SHCrowdService {
             shCrowdDAO.inPoint(shCrowd.getId());
         }
     }
+
+    public void noCrowd(SHCrowd shCrowd) {
+        shCrowdDAO.noCrowd(shCrowd);
+    }
 }

@@ -57,13 +57,13 @@
             $("#login_pwd").focus();
         }
     });
-/*    //id저장 쿠키부분
-    var user_id = $.cookie("user_id");
-    //alert(user_id);
-    if (user_id != null) {
-        $("#login_userid").val(user_id);
-        $("#login_chk_save_id").prop("checked", true);
-    }*/
+    /*    //id저장 쿠키부분
+     var user_id = $.cookie("user_id");
+     //alert(user_id);
+     if (user_id != null) {
+     $("#login_userid").val(user_id);
+     $("#login_chk_save_id").prop("checked", true);
+     }*/
 
 
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -219,9 +219,15 @@
         })
     }
 
-    showMsg =function(str) {
+    showMsg = function (str) {
         $('#myMsg').html(str);
 
         $('#showMsgBt').click();
+    }
+
+
+    showSelectMsg = function (func) {
+        showMsg("정말 그렇게 하시겠습니까? <br><br><div class='text-center'> <button data-dismiss='modal' class='btn btn-info' onclick='" + func + "'>Yes</button><button data-dismiss='modal' class='btn btn-danger' data-dismiss='modal'>No</button></div>")
+
     }
 })(jQuery);

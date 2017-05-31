@@ -10,7 +10,7 @@ public class SHFund {
     private int pseq;
 
     private String id;
-    private String sdate;
+    private String wdate;
 
     @Override
     public String toString() {
@@ -18,17 +18,17 @@ public class SHFund {
                 "seq=" + seq +
                 ", pseq=" + pseq +
                 ", id='" + id + '\'' +
-                ", sdate='" + sdate + '\'' +
+                ", wdate='" + wdate + '\'' +
                 ", money=" + money +
                 '}';
     }
 
-    public String getSdate() {
-        return sdate;
+    public String getWdate() {
+        return wdate;
     }
 
-    public void setSdate(String sdate) {
-        this.sdate = sdate;
+    public void setWdate(String wdate) {
+        this.wdate = wdate;
     }
 
     private int money;

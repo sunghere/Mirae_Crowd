@@ -12,6 +12,11 @@
         background-color: #f0f0f0;
     }
 
+    footer {
+        background-color: #fff;
+
+    }
+
     #two {
         min-height: 90%;
         padding: 100px 0;
@@ -86,7 +91,7 @@
     <div class="side-bar-title"><i class="fa fa-user-circle fa-4x" aria-hidden="true"></i></div>
     <div class="side-bar-title">마이페이지</div>
     <ul class="nav nav-pills nav-stacked">
-        <li data-toggle="pill" class="active" class="side-info-btn"><a href="#" class="side-bar-text">내 정보 열람</a></li>
+        <li data-toggle="pill" class="active side-info-btn"><a href="#" class="side-bar-text">내 정보 열람</a></li>
         <li data-toggle="pill" class="dropdown">
             <a class="dropdown-toggle side-bar-text" data-toggle="dropdown" href="#" aria-expanded="false">내 펀딩
                 <span class="caret"></span></a>
@@ -95,7 +100,7 @@
                 <li class="side-crowd-btn"><a href="#" class="side-bar-text">진행 내역</a></li>
             </ul>
         </li>
-        <li data-toggle="pill" class="side-fund-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
+        <li data-toggle="pill" class="side-point-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
         <li data-toggle="pill" class="side-board-btn"><a href="#" class="side-bar-text">문의글</a></li>
     </ul>
 
@@ -123,21 +128,81 @@
 
 
 <div class="col-md-8 white-box margin-top-25" id="myfund-list" hidden="hidden">
+    <div class="col-md-12 main-title text-left">내 투자내역</div>
 
 
 </div>
 
 <div class="col-md-8 white-box margin-top-25" id="mycrowd-list" hidden="hidden">
+    <div class="col-md-12 main-title text-left">내 펀딩모집</div>
 
 
 </div>
 
 <div class="col-md-8 white-box margin-top-25" id="mypoint" hidden="hidden">
+    <div class="col-md-12 main-title text-left">포인트 관리</div>
 
 
+    <div class="col-md-12 main-text text-left">
+        내 포인트 잔액&nbsp; <input type="email" class="black-control" value="${login.point}" disabled>
+        <button class="btn btn-info">충전하기</button>
+    </div>
+    <div class="col-md-12 main-text text-left">
+
+
+    </div>
 </div>
 
 <div class="col-md-8 white-box margin-top-25" id="myboard" hidden="hidden">
+    <div class="col-md-12 main-title text-left">내 글 모아보기</div>
 
 
 </div>
+
+<script>
+
+    $('.side-info-btn').click(function () {
+        all_hide();
+
+        $('#myinfo').show();
+
+    });
+    $('.side-fund-btn').click(function () {
+        all_hide();
+
+        $('#myfund-list').show();
+
+    });
+
+    $('.side-crowd-btn').click(function () {
+        all_hide();
+
+        $('#mycrowd-list').show();
+
+    });
+
+    $('.side-point-btn').click(function () {
+        all_hide();
+
+        $('#mypoint').show();
+
+    });
+
+    $('.side-board-btn').click(function () {
+        all_hide();
+
+        $('#myboard').show();
+
+    });
+
+
+    var all_hide = function () {
+
+        $('#myinfo').hide();
+        $('#myfund-list').hide();
+        $('#mycrowd-list').hide();
+        $('#mypoint').hide();
+        $('#myboard').hide();
+
+    }
+</script>

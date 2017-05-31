@@ -155,12 +155,12 @@
                 <h4>Target Amount</h4>
                 <input type="text" id="w_goal" class="black-control" placeholder="목표금액"
                        onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
-                <p class="text-danger">* 목표금액 달성시 기간에 상관없이 펀딩이 종료됩니다.</p>
+                <p class="text-danger">* 목표금액을 달성하더라도 바로 펀딩이 종료되지 않습니다.</p>
 
             </div>
             <div class="write_part" id="dateInput">
                 <h4>Date</h4>
-                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="sdate">
+                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="wdate">
                 <input type="text" id="edatepicker" class="black-control" placeholder="마감일" name="edate">
                 <p class="text-danger">*종료일이 지나면 목표금에 상관없이 크라우드펀딩이 종료됩니다.</p>
 
@@ -258,7 +258,7 @@
             var content = CKEDITOR.instances.w_content.getData();
             var address = $('#w_addr').val();
             var goalMoney = replaceAll($('#w_goal').val(), ",", "");
-            var sdate = $('#sdatepicker').val();
+            var wdate = $('#sdatepicker').val();
             var edate = $('#edatepicker').val();
             var tag = $('#w_tag').val();
             var id = '${login.id}';
@@ -287,7 +287,7 @@
                 check = false;
 
             }
-            if (sdate == null || sdate == '' || edate == null || edate == '') {
+            if (wdate == null || wdate == '' || edate == null || edate == '') {
                 $('#dateInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
                 check = false;
 
@@ -300,7 +300,7 @@
                     method: "post",
                     data: {
                         "category": category, "type": type, "title": title, "content": content, "address": address,
-                        "goalmoney": goalMoney, "sdate": sdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
+                        "goalmoney": goalMoney, "wdate": wdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
                     },
                     success: function (data) {
 
@@ -557,6 +557,7 @@
             $('.loginexit').click();
             mylat = lat;
             mylng = lng;
+            $('#w_latlng').attr('value',""+mylat+"*"+mylng);
             mapinit("show_map");
             $('#map-area').show();
         } else {
