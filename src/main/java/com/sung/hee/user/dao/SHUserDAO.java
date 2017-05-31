@@ -12,6 +12,8 @@ public interface SHUserDAO {
 
     int getID(SHUser user);
 
+    String getPWD(SHUser user);
+
     void emailCerti(SHUser user);
 
     List<SHUser> getEntUserlist(SHEnt ent);

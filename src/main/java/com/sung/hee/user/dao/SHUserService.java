@@ -13,6 +13,8 @@ public interface SHUserService {
 
     SHUser login(SHUser user);
 
+    String getPWD(SHUser user);
+
     int getID(SHUser user);
 
     void emailCerti(SHUser user);

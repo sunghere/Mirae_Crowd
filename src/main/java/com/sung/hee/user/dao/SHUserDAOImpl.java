@@ -31,6 +31,10 @@ public class SHUserDAOImpl implements SHUserDAO {
         return (Integer) sqlSession.selectOne(ns + "getID", user);
     }
 
+    public String getPWD(SHUser user) {
+        return sqlSession.selectOne(ns + "getPWD", user);
+    }
+
     public void emailCerti(SHUser user) {
         sqlSession.update(ns + "emailCerti", user);
     }

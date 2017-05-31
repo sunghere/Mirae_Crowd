@@ -17,9 +17,13 @@
             resultType="com.sung.hee.user.model.SHUser">
       SELECT ID, NAME, AUTH,ISENT,ENT,ENTNAME,POINT,CERTI FROM SHUSER WHERE ID = #{id} AND PWD = #{pwd} AND DEL = 0
     </select>
-    <select id="getID" parameterType="java.lang.String"
+    <select id="getID" parameterType="com.sung.hee.user.model.SHUser"
             resultType="java.lang.Integer">
       SELECT nvl(COUNT(*),0) FROM SHUSER WHERE ID=#{id}
+    </select>
+    <select id="getPWD" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="java.lang.String">
+        SELECT PWD FROM SHUSER WHERE ID=#{id}
     </select>
     <select id="getEntUserlist" parameterType="com.sung.hee.ent.model.SHEnt"
             resultType="java.lang.Integer">

@@ -185,13 +185,19 @@ public class LoginController {
             method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck pointIn(
-            SHUser user, Model model) throws Exception {
+            SHUser user, HttpServletRequest request, Model model) throws Exception {
 //        logger.info("Welcome LoginController getID! " + new Date());
         AjaxCheck checkResult = new AjaxCheck();
 
         try {
-            shUserService.inPoint(user);
-            checkResult.setMessage("SUCS");
+            SHUser loginUser = (SHUser) request.getSession().getAttribute("login"); /* 세션에서 아이디 가져옴*/
+            loginUser.setPwd(shUserService.getPWD(loginUser));  /*가져온 아이디를 통해 비밀번호를 찾아옴*/
+            user.setId(loginUser.getId()); /*가져온 아이디를 epoint가 담긴 임시 객체로 옮겨넣음*/
+            shUserService.inPoint(user); /* 임시 객체로 포인트*/
+            checkResult.setMessage("SUCS"); /*성공처리*/
+            SHUser resetUser = shUserService.login(loginUser); /* 세션을 통한 아이디 갱신(포인트갱신을위해)*/
+            checkResult.setResultNum(resetUser.getPoint()); /* 포인트 변경내역 웹에 실시간 반영을위해 추가해줌*/
+            request.getSession().setAttribute("login", resetUser);
         } catch (Exception e) {
             checkResult.setMessage("FAIL");
         }
@@ -202,13 +208,25 @@ public class LoginController {
             method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck pointOut(
-            SHUser user, Model model) throws Exception {
+            SHUser user, HttpServletRequest request, Model model) throws Exception {
 //        logger.info("Welcome LoginController getID! " + new Date());
         AjaxCheck checkResult = new AjaxCheck();
-        if (user.getPoint() >= user.getEpoint()) {
+        SHUser loginUser = (SHUser) request.getSession().getAttribute("login"); /* 세션에서 아이디 가져옴*/
+
+        if (loginUser.getPoint() >= user.getEpoint() + 1000) {
             try {
-                shUserService.dePoint(user);
-                checkResult.setMessage("SUCS");
+                loginUser.setPwd(shUserService.getPWD(loginUser));  /*가져온 아이디를 통해 비밀번호를 찾아옴*/
+                user.setId(loginUser.getId()); /*가져온 아이디를 epoint가 담긴 임시 객체로 옮겨넣음*/
+                shUserService.dePoint(user);/* 임시 객체로 포인트*/
+                checkResult.setMessage("SUCS"); /*성공처리*/
+                SHUser resetUser = shUserService.login(loginUser); /* 세션을 통한 아이디 갱신(포인트갱신을위해)*/
+                checkResult.setResultNum(resetUser.getPoint()); /* 포인트 변경내역 웹에 실시간 반영을위해 추가해줌*/
+
+                user.setId("admin"); /*  관리자에게 1000원 입금*/
+                user.setEpoint(1000);
+                shUserService.inPoint(user);
+                request.getSession().setAttribute("login", resetUser);
+
             } catch (Exception e) {
                 checkResult.setMessage("FAIL");
             }
@@ -236,7 +254,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "myPage.do",
-            method = {RequestMethod.POST,RequestMethod.GET})
+            method = {RequestMethod.POST, RequestMethod.GET})
     public String myPage(
             Model model) throws Exception {
 

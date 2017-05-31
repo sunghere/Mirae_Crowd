@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -70,11 +71,11 @@
     }
 
     .main-title {
-        font-size: 20px;
+        font-size: 30px;
         font-family: "Nanum Gothic", "cursive";
         font-weight: 600;
         border-bottom: 2px solid midnightblue;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         padding: 10px;
     }
 
@@ -83,8 +84,15 @@
         font-family: "Nanum Gothic", "cursive";
         font-weight: 300;
         font-stretch: expanded;
-        padding: 5% 25%;
+        padding: 5% 20%;
 
+    }
+
+    .sub-text {
+        font-weight: 200;
+        padding: 0 5px;
+        width: 100px;
+        display: inline-block;
     }
 </style>
 <div class="col-md-3 white-box margin-top-25 side-bar">
@@ -111,18 +119,34 @@
     <div class="col-md-12 main-title text-left">개인정보 조회</div>
 
     <div class="col-md-12 main-text text-left">
-        아 이 디&nbsp; <input type="email" class="black-control" value="${login.id}" disabled></div>
+        <span class="text-center sub-text">아 이 디</span> <input type="email" class="black-control" value="${login.id}"
+                                                               disabled></div>
 
     <div class="col-md-12 main-text text-left">
-        비밀번호 <input type="password" class="black-control" value="********" disabled>
+        <span class="text-center sub-text">비밀번호</span> <input type="password" class="black-control" value="********"
+                                                              disabled>
     </div>
 
     <div class="col-md-12 main-text text-left">
-        포 인 트&nbsp; <input type="text" class="black-control" value="${login.point}" disabled>
+        <span class="text-center sub-text">포 인 트</span> <input type="text" class="black-control mypoint"
+                                                               value="${login.point}" disabled>
     </div>
 
-    <input type="password" id="serti_pwd" class="black-control form-inline" placeholder="PassWord">
-    <p class="text-danger">패스워드를 입력해주세요.</p>
+    <div class="col-md-12 main-text text-left">
+        <span class="text-center sub-text">이 름</span><input type="text" class="black-control" value="${login.name}"
+                                                            disabled>
+    </div>
+    <c:if test="${login.isent eq 1}">
+        <div class="col-md-12 main-title text-left">기업 회원</div>
+
+        <div class="col-md-12 main-text text-left">
+            <span class="text-center sub-text">소 속</span> <input type="text" class="black-control"
+                                                                 value="${login.entname}" disabled>
+        </div>
+    </c:if>
+    <%--
+        <input type="password" id="serti_pwd" class="black-control form-inline" placeholder="PassWord">
+        <p class="text-danger">패스워드를 입력해주세요.</p>--%>
 
 </div>
 
@@ -144,10 +168,33 @@
 
 
     <div class="col-md-12 main-text text-left">
-        내 포인트 잔액&nbsp; <input type="email" class="black-control" value="${login.point}" disabled>
-        <button class="btn btn-info">충전하기</button>
+        <span class="text-center sub-text">잔액</span> <input type="search" class="black-control mypoint"
+                                                            value="${login.point}" disabled>
+        <button class="btn btn-info cash-charge-btn">충전</button>
+        <button class="btn btn-info cash-discharge-btn">출금</button>
     </div>
-    <div class="col-md-12 main-text text-left">
+    <div class="cash-charge" hidden="hidden">
+
+        <p>결제 시스템에서 발급받은 코드를 입력해주세요.</p>
+        <div class="col-md-12 main-text text-center">
+            <input type="search" class="black-control" id="code-input" value="">
+            <button class="btn btn-info cash-charge-ok-btn">확인</button>
+
+        </div>
+
+
+    </div>
+    <div class="cash-discharge" hidden="hidden">
+
+        <p>출금할 포인트를 입력해 주세요.</p>
+        <p class="danger-text">* 수수료는 1000원입니다. 코드 형식으로 지급되며 24시간안에<br>
+            카카오톡 결제시스템에 입력해주세요</p>
+        <div class="col-md-12 main-text text-center">
+            <input type="search" class="black-control" id="point-input"
+                   value="" placeholder="ex) 1000">
+            <button class="btn btn-info cash-discharge-ok-btn">확인</button>
+
+        </div>
 
 
     </div>
@@ -160,7 +207,7 @@
 </div>
 
 <script>
-
+    /*촉*/
     $('.side-info-btn').click(function () {
         all_hide();
 
@@ -195,7 +242,6 @@
 
     });
 
-
     var all_hide = function () {
 
         $('#myinfo').hide();
@@ -203,6 +249,188 @@
         $('#mycrowd-list').hide();
         $('#mypoint').hide();
         $('#myboard').hide();
+        $('.cash-charge').hide();
+
+        $('.cash-discharge').hide();
+    }
+
+    /*포인트 충전 관련*/
+
+    $('.cash-charge-btn').click(function () {
+        $('.cash-charge').show();
+        $('.cash-discharge').hide();
+
+        /*충전화면을 보여줌*/
+    })
+    $('.cash-discharge-btn').click(function () {
+        $('.cash-charge').hide();
+        $('.cash-discharge').show();
+
+        /*충전화면을 보여줌*/
+    })
+    $('.cash-charge-ok-btn').click(function () {
+        point_charge_system();
+
+    })
+    $('.cash-discharge-ok-btn').click(function () {
+        point_discharge_system();
+
+
+    })
+    $('#code-input').keydown(function (key) {
+
+        if (key.keyCode == 13) {/*엔터인경우 실행*/
+            point_charge_system();
+        }
+
+    });
+    $('#point-input').keydown(function (key) {
+
+        if (key.keyCode == 13) {/*엔터인경우 실행*/
+            point_discharge_system();
+        }
+
+    });
+    var point_discharge_system = function () {
+        var point = 0;
+        if ($('#point-input').val() != null && $('#point-input').val() != "") {
+            point = parseInt($('#point-input').val());
+
+        }
+        var mypoint = parseInt($('.mypoint').val());
+
+        if (point != null && point != "") {
+
+            if (mypoint < point + 1000) {
+                showMsg("출금 가능한 금액을 초과하였습니다.")
+
+                return;
+
+            } else {
+                point_dischager(point + 1000);
+            }
+
+        } else {
+            showMsg("출금할 금액을 입력해 주세요")
+
+            return;
+        }
+    }
+    var point_charge_system = function () {
+        var point_code = $('#code-input').val();
+
+        if (point_code != null && point_code != "") {
+
+
+            if (point_code == "P1000000") {
+                point_chager(1000000);
+            } else if (point_code == "P500000") {
+                point_chager(500000);
+
+            } else if (point_code == "P100000") {
+                point_chager(100000);
+
+            } else if (point_code == "P50000") {
+                point_chager(50000);
+
+            } else if (point_code == "P30000") {
+                point_chager(30000);
+
+            } else if (point_code == "P10000") {
+                point_chager(10000);
+
+            } else if (point_code == "P5000") {
+                point_chager(5000);
+
+            } else if (point_code == "P1000") {
+                point_chager(1000);
+
+            } else if (point_code == "P500") {
+                point_chager(500);
+
+            } else {
+                showMsg("유효한 코드가 아닙니다.")
+
+            }
+
+
+        } else {
+            showMsg("코드를 입력해주세요")
+
+            return;
+        }
+    }
+
+    var point_chager = function (num) {
+
+        $.ajax({
+            url: "pointIn.do",
+            data: {
+                "epoint": num
+            },
+            method: "post",
+            success: function (data) {
+
+
+                if (data.message == "SUCS") {
+
+
+                    $('.cash-charge').hide();
+                    $('.mypoint').val(data.resultNum);
+                    $('#code-input').val("");
+                    showMsg("충전 되었습니다");
+
+                } else {
+
+
+                    showMsg("충전 실패하였습니다. 관리자에게 문의주세요");
+
+                }
+            }
+
+            ,
+            error: function () {
+                showMsg("통신 Error , 잠시후에 다시 시도해주세요");
+
+            }
+        })
+
+
+    }
+    var point_dischager = function (num) {
+
+        $.ajax({
+            url: "pointOut.do",
+            data: {
+                "epoint": num
+            },
+            method: "post",
+            success: function (data) {
+
+
+                if (data.message == "SUCS") {
+
+
+                    $('.cash-discharge').hide();
+                    $('.mypoint').val(data.resultNum);
+                    $('#code-input').val("");
+                    showMsg("출금 되었습니다");
+
+                } else {
+
+
+                    showMsg("출금 실패하였습니다. 관리자에게 문의주세요");
+
+                }
+            }
+
+            ,
+            error: function () {
+                showMsg("통신 Error , 잠시후에 다시 시도해주세요");
+
+            }
+        })
+
 
     }
 </script>

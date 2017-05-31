@@ -28,6 +28,11 @@ public class SHUserServiceImpl implements SHUserService {
     }
 
     @Transactional(readOnly = true)
+    public String getPWD(SHUser user) {
+        return shUserDAO.getPWD(user);
+    }
+
+    @Transactional(readOnly = true)
     public int getID(SHUser user) {
 
         return shUserDAO.getID(user);
