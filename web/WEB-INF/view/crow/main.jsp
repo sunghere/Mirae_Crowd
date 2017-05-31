@@ -6,6 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+.list-section {height:400px; margin-bottom: 1%;}
+.list-main {width:30%; display: inline-block; margin-right: 2%;}
+.list-section .list-main:LAST-CHILD {margin-right:0;}
+.list-main img {width:100%; height:200px; border:1px solid #000;}
+.tags {float:left; clear:both;}
+.category {float:right;}
+</style>
 <script>
 $(function() {
 	var initList=function() {
@@ -16,12 +24,19 @@ $(function() {
 			success: function(data) {
 				var str="";
 				$.each(data, function(index, val) {
-					str += "<div class='col-md-4'>" +
+					if(index % 3 == 0) {
+						str += "<div class='col-md-12 list-section'>";
+					}
+					str += "<div class='list-main'>" +
 					"<img class='card-img-top img-fluid' alt=''>"+
 					"<div class='card-block'>"+val.title+"</div>"+
+					"<div class='card-block tags'>"+val.goalmoney+"</div>"+
+					"<div class='card-block'><span class='tags'>"+val.tag+"</span><span class='category'>"+val.category+"</span></div>"+
 					"</div>";
+					if(index % 3 == 2) {
+						str += "</div>"
+					}
 				})
-				alert("dddahdghdg");
 				$('#crowdlist').html(str);
 			},error:function(a,b,c){
 				
