@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -91,9 +93,14 @@ public class CrowdController {
     @ResponseBody
     public SHCrowd detailCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl detailCrowd--!");
-        shCrowdService.endFlag(shCrowd);
         SHCrowd getCrowd = shCrowdService.detailCrowd(shCrowd);
+        Date date = new Date();
+        SimpleDateFormat dateCheck = new SimpleDateFormat("yyyy-MM-dd");
+        if (getCrowd.getEdate().compareTo(dateCheck.format(date)) < 0) {
 
+            shCrowdService.endFlag(shCrowd);
+            getCrowd.setEndflag("1");
+        }
         return getCrowd;
     }
 

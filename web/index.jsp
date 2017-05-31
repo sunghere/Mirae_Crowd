@@ -16,7 +16,6 @@
 </head>
 <body>
 <%
-    out.print("ddddddddddddddddddddddddddddddddd");
     response.sendRedirect("/main.do");
 %>
 </body>

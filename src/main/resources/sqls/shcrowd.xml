@@ -8,14 +8,14 @@
     <insert id="addCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
         INSERT INTO SHCROWD(SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE) VALUES
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE,LATLNG) VALUES
         (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalmoney},0,0,#{tag},
         #{sdate},#{edate},#{category},
         <if test="address != null and address!=''">
             #{address}
         </if>
         <if test="address == null or address==''">''</if>
-        ,#{type},0,0,'0','0',sysdate)
+        ,#{type},0,0,'0','0',sysdate,#{latlng})
 
     </insert>
 
@@ -29,7 +29,7 @@
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD
         WHERE SEQ = #{seq}
 
     </select>
@@ -38,14 +38,14 @@
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD
         WHERE REQ = 0
     </select>
     <select id="myReqCrowdList" parameterType="com.sung.hee.user.model.SHUser"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD
         WHERE REQ = 0 AND ID = #{id}
     </select>
     <update id="accCrowd"
@@ -59,10 +59,10 @@
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM (
         SELECT ROW_NUMBER() OVER (
         ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1)
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD WHERE REQ = 1)
         WHERE 12 >= rnn
 
     </select>
@@ -70,19 +70,19 @@
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM (
         SELECT ROW_NUMBER() OVER (
         ORDER BY REF DESC, STEP ASC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1)
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD WHERE REQ = 1)
         WHERE rnn between #{rnn}+1 AND #{rnn}+12
     </select>
     <select id="listbySearchInit" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM (
         SELECT ROW_NUMBER() OVER (
         ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD WHERE REQ = 1
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
                 AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
@@ -101,10 +101,10 @@
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM (
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM (
         SELECT ROW_NUMBER() OVER (
         ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ FROM SHCROWD WHERE REQ = 1
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG FROM SHCROWD WHERE REQ = 1
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
                 AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}

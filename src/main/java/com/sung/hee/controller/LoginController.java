@@ -103,7 +103,6 @@ public class LoginController {
             , SHUser user, Model model) {
         SHUser login = shUserService.login(user);
         AjaxCheck check = new AjaxCheck();
-        logger.info("메일인증" + EncryptUtil.getMD5(user.getId()));
 
         logger.info("Welcome LoginController loginAf!---- " + login);
         if (login != null && !login.getId().equals("")) {

@@ -259,6 +259,7 @@
         <img src="image/shall.png"/>
     </div>
 </div>
+
 <script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
