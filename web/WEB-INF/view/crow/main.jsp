@@ -8,13 +8,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
 .list-section {height:400px; margin-bottom: 1%;}
-.list-main {width:30%; display: inline-block; margin-right: 2%;}
+.list-main {width:30%; display: inline-block; margin-right: 2%; cursor: pointer;}
 .list-section .list-main:LAST-CHILD {margin-right:0;}
 .list-main img {width:100%; height:200px; border:1px solid #000;}
-.tags {float:left; clear:both;}
+.main-info-section {font-size:14px; height:200px; padding:0 5%; border:1px solid #000;}
+.info-title {height:48px; line-height:24px; padding:5% 0; font-weight:bold; text-overflow: ellipsis;}
+.tags {float:left;}
 .category {float:right;}
 </style>
 <script>
+function loadimg(content) {
+	var content;
+}
+
 $(function() {
 	var initList=function() {
 		$.ajax({
@@ -27,11 +33,11 @@ $(function() {
 					if(index % 3 == 0) {
 						str += "<div class='col-md-12 list-section'>";
 					}
-					str += "<div class='list-main'>" +
-					"<img class='card-img-top img-fluid' alt=''>"+
-					"<div class='card-block'>"+val.title+"</div>"+
-					"<div class='card-block tags'>"+val.goalmoney+"</div>"+
-					"<div class='card-block'><span class='tags'>"+val.tag+"</span><span class='category'>"+val.category+"</span></div>"+
+					str += "<div class='list-main' data-target='#contentModal' data-toggle='modal' id='crowdcontent"+val.seq+"'>" +
+					"<img class='card-img-top img-fluid' alt='' src='"+loadimg(val.content)+"'>"+
+					"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
+					"<div class='card-block'>"+val.id+"</div>"+
+					"<div class='tags'>"+val.tag+"</div><div class='category'>"+val.category+"</div></div>"+
 					"</div>";
 					if(index % 3 == 2) {
 						str += "</div>"
@@ -47,6 +53,18 @@ $(function() {
 	initList();
 })
 </script>
+<%--컨텐츠 모달--%>
+<div id="contentModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="chatlist"></div>
+                <input type="text" class="form-control input-lg" id="chat-text">
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card-columns mb-3" id="crowdlist">
 
@@ -141,4 +159,5 @@ $(function() {
         <small class="text-muted">Last updated 12 mins ago</small>
     </p>
 </div>
+
 </div>
