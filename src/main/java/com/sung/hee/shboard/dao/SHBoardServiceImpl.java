@@ -2,6 +2,7 @@ package com.sung.hee.shboard.dao;
 
 import com.sung.hee.help.BoardParam;
 import com.sung.hee.shboard.model.SHBoard;
+import com.sung.hee.user.model.SHUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class SHBoardServiceImpl implements SHBoardService {
 
     @Transactional
     public SHBoard getBoard(SHBoard shboard) {
-       // shBoardDAO.updateReadCount(shboard);
+        // shBoardDAO.updateReadCount(shboard);
         return shBoardDAO.getBoard(shboard);
     }
 
@@ -81,6 +82,11 @@ public class SHBoardServiceImpl implements SHBoardService {
     public int getEntBoardTotalCount(BoardParam param) throws Exception {
         return shBoardDAO.getEntBoardTotalCount(param);
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<SHBoard> getMyBoardlist(SHUser shUser) {
+        return shBoardDAO.getMyBoardlist(shUser);
     }
 
 

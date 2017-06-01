@@ -258,14 +258,44 @@
     </div>
     <div class="sh-in-talk sh-remote">
         <img src="image/shtalk.png" class="chat"> <span hidden="hidden"
-                                                        data-target='#remoteModal' data-toggle="modal"
+                                                        data-target='#chag' data-toggle="modal"
                                                         id="chatbtn"></span>
     </div>
     <div class="sh-out-remote sh-remote">
         <img src="image/shall.png"/>
     </div>
 </div>
+<%--리플--%>
 
+<div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="sh-replybox sh-replybox-bottom">
+                    <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
+                    <div class="my_reply_cotent col-sm-12">
+                        <div class="row">
+                            <div class="form-group">
+                                <h2 class="cursive underline">Reply Write</h2>
+                                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
+                                <br>
+
+                                <textarea
+                                        class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
+                                        rows="4" id="bot-r-area"></textarea>
+                                <button class="btn btn-primary col-xs-3 col-sm-3 replyBt" type="button"
+                                        datasrc="oribt">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
 <script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
@@ -275,4 +305,5 @@
 <script src="<%=request.getContextPath()%>/js/scripts.js"></script>
 <script src="<%=request.getContextPath()%>/js/shlogin.js"></script>
 <script src="<%=request.getContextPath()%>/js/fblogin.js"></script>
+<script src="<%=request.getContextPath()%>/js/shreplypage.js"></script>
 <script src="<%=request.getContextPath()%>/js/chatscript.js"></script>

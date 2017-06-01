@@ -2,6 +2,7 @@ package com.sung.hee.shboard.dao;
 
 import com.sung.hee.help.BoardParam;
 import com.sung.hee.shboard.model.SHBoard;
+import com.sung.hee.user.model.SHUser;
 
 import java.util.List;
 
@@ -30,4 +31,5 @@ public interface SHBoardService {
 
     int getEntBoardTotalCount(BoardParam param) throws Exception;
 
+    List<SHBoard> getMyBoardlist(SHUser shUser);
 }

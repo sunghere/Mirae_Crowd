@@ -20,16 +20,10 @@
         </div>
         <div id="content_wrap">
             <section id="two">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
                             <tiles:insertAttribute name="main"/>
-                            <tiles:insertAttribute name="reply"/>
                             <hr class="primary">
-                        </div>
-                    </div>
-                </div>
             </section>
+            <tiles:insertAttribute name="reply"/>
 
         </div> <!--  //content_wrap -->
 

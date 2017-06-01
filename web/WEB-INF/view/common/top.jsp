@@ -19,31 +19,33 @@
                 <li>
                     <a title="메인" href="main.do"><i class="fa fa-home"></i>Main</a>
                 </li>
-                <li>
-                    <a title="일정" href="boardlist.do"><i class="fa fa-list-alt"></i>Board</a>
-                </li>
-                <li>
-                    <a title="회원가입" href="mycal.do"><i class="fa fa-calendar"></i>Calendar</a>
-                </li>
-                <c:if test="${ !empty login && login.auth eq 3 }">
-                    <li>
-                        <a title="투표" href="/polllist.do">Vote</a>
-                    </li>
+
+
+                <c:if test="${ !empty login}">
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Crowd
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-envira" aria-hidden="true"></i>Crowd
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a title="펀딩 신청" href="/crowdAdd.do">펀딩모집 신청</a>
                             </li>
+                            <li>
+                                <a title="일정" href="mycal.do"><i class="fa fa-calendar"></i>&nbsp; 일정</a>
+                            </li>
+                            <li>
+                                <a title="투표" href="/polllist.do">투표</a>
+                            </li>
                         </ul>
                     </li>
-
+                    <li>
+                        <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i></i>Board</a>
+                    </li>
                 </c:if>
                 <c:if test="${!empty login && login.auth eq 1}">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Admin
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>

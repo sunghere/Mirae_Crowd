@@ -129,15 +129,15 @@
             success: function (data) {
                 var myid = $('input[name="myid"]').attr('value');
                 $.each(data, function (index, val) {
-                    str += '<div class="sh-replybox"><div class="reply-block"><p>' + val.content + '</p>';
+                    str += '<div class="sh-replybox"><div class="reply-block"><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div><p>' + val.content + '</p>';
 
                     if (myid == val.id) {
-                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reeditBt btn cursive small">edit&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
+                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-edit-btn btn cursive small">edit&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
                     }
                     if ((myid != null) || myid != "") {
-                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="rereplyBt btn cursive small">reply&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
+                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-delete-btn btn cursive small">delete&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
                     }
-                    str += '</div><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div></div>';
+                    str += '</div></div>';
                 })
                 $('#replyReload').html(str)
 
@@ -152,11 +152,19 @@
 
 
     }
-    /* 리플+리플*/
+    /* 리플 삭제*/
     $('#replyReload').on('click', ".rereplyBt", function () {
 
-        $('#replyModalBt').click();
+        $.ajax({
+            url: "",
+            method: "post",
+            data: {"id":"${login.id}",},
+            success: function () {
+
+            }
+        })
     })
+    /*리플 수정*/
     $('#replyReload').on('click', ".reeditBt", function () {
 
         $('#replyModalBt').click();

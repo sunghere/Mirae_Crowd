@@ -2,6 +2,7 @@ package com.sung.hee.shboard.dao;
 
 import com.sung.hee.help.BoardParam;
 import com.sung.hee.shboard.model.SHBoard;
+import com.sung.hee.user.model.SHUser;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -76,5 +77,9 @@ public class SHBoardDAOImpl implements SHBoardDAO {
     public int getEntBoardTotalCount(BoardParam param) throws Exception {
         return (Integer) sqlSession.selectOne(ns + "getEntBoardTotalCount", param);
 
+    }
+
+    public List<SHBoard> getMyBoardlist(SHUser shUser) {
+        return sqlSession.selectList(ns+"getMyBoardlist",shUser);
     }
 }

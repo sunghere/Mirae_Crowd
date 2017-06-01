@@ -786,35 +786,36 @@ img::-moz-selection {
     top: 30%;
 }
 
+/*board detail*/
+
 /*리플을 위한 CSS들*/
-.sh-replybox .reply-block {
+.reply-block {
     background: lavenderblush;
     color: #565656;
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 2;
-    padding: 1.875rem 1.875rem 3rem;
     position: relative;
+
     border-radius: 1.5%;
-    margin: 1% 1%;
+    margin: 30px 10%;
     -moz-box-shadow: 1px 1px 1px #ce8483;
     -webkit-box-shadow: 1px 1px 1px #ce8483;
     box-shadow: 1px 1px 1px #ce8483;
 }
 
 .reply-author {
-    position: relative;
-    top: -40px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
     text-align: center;
     display: inline-block;
     /*padding-left: 41.5%;*/
-    width: 70px;
 }
 
 .reply-author-nickname {
-    /*display: inline-block;*/
-    width: 70px;
-    height: 70px;
+    width: 40px;
+    height: 40px;
     color: #2d2d2d;
     display: table-cell;
     vertical-align: middle;
@@ -830,30 +831,7 @@ img::-moz-selection {
 
 }
 
-.sh-replybox .reply-block:after {
-    background-color: inherit;
-    bottom: -7px;
-    display: inline-block;
-    content: "";
-    height: 14px;
-    left: 50%;
-    margin-left: -7px;
-    position: absolute;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    width: 14px;
-
-}
-
-/*.rereplyBt, .reeditBt {
-
-    padding: 0 0;
-    background-color: transparent;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-}*/
-.rereplyBt {
+.reply-delete-btn {
     position: relative;
 
     left: 35%;
@@ -862,7 +840,7 @@ img::-moz-selection {
 
 }
 
-.reeditBt {
+.reply-edit-btn {
     position: relative;
 
     left: 38%;
@@ -988,16 +966,30 @@ img::-moz-selection {
     margin-left: 15px;
 }
 
+#content_affix {
+    position: absolute;
+    left: 15%;
+    width: 50%;
+}
+
 #content_affix.affix {
     position: fixed;
     top: 120px;
-    left: 0;
-    width: 60%;
+    left: 15%;
     z-index: 2;
+    width: 30%;
+
+}
+
+#reply_cotent {
+    position: absolute;
+    right: 5%;
+    width: 40%;
 }
 
 #reply_cotent.affix {
     position: fixed;
+
     top: 10%;
     right: 0;
     margin-left: 5%;
@@ -1114,6 +1106,7 @@ img::-moz-selection {
     padding-left: 15%;
 
 }
+
 .writeListAffix.affix {
     position: fixed;
     left: 12%;
@@ -1149,11 +1142,13 @@ img::-moz-selection {
 
 /* 마이페이지*/
 .bg-inverse {
-    background-color: #292b2c!important;
+    background-color: #292b2c !important;
 }
+
 .card-inverse {
-    color: rgba(255,255,255,.65);
+    color: rgba(255, 255, 255, .65);
 }
+
 /* 1:1 채팅상담 */
 
 .chat_text {
@@ -1176,8 +1171,12 @@ img::-moz-selection {
     overflow: auto;
     padding: 20px 40px;
 }
-#go-back {float:left; cursor: pointer;}
+
+#go-back {
+    float: left;
+    cursor: pointer;
+}
 
 .line_none {
-    border-bottom : none;
+    border-bottom: none;
 }

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
 .list-section {height:400px; margin-bottom: 1%; background-color : #fff;}
-.list-main { cursor: pointer; padding: 2% 2%; } 
+.list-main { cursor: pointer; padding: 2% 2%; }
 .list-section .list-main:LAST-CHILD {margin-right:0;}
 .main-img-section {width:100%; height:200px;}
 .main-info-section {font-size:14px; height:200px; padding:2% 5%; background-color : #f8f8f8;}
@@ -25,22 +25,22 @@ padding : 0 5%;
 var toGoal = function(goalmoney, curmoney) {
 	var per = (curmoney/goalmoney)*100;
 // 	console.log($(".progress").children().addClass("progress-bar-danger"));
-	
+
 	return per;
 }
 var dateCountdown = function(edate) {
 	var today = new Date();
 	var edateArray = edate.split("-");
-	
+
 	var edateObj = new Date(edateArray[0], Number(edateArray[1])-1, edateArray[2]);
-	
+
 	var between = Math.floor((edateObj.getTime() - today.getTime())/1000/60/60/24);
 	if(between < 0) return 0;
 	else return between;
 }
 var imageInput = function(src_list,data) {
 	$.each(data, function(index, val) {
-		
+
 		var src=src_list[index];
 		$('#list-img'+val.seq).css({"background-image": 'url("'+src+'")', "-webkit-background-size": "cover",
 		  "-moz-background-size": "cover", "-o-background-size": "cover", "background-size": "100%"});
@@ -51,10 +51,10 @@ var imageCarrier = function(content) {
 	contentArray= content.split('src="') ;
 	if(contentArray[1] != null && contentArray[1] != "") {
 		var src=contentArray[1].split('"')
-		
+
 		return src[0];
 	} else {
-		
+
 	}
 	return "";
 }
@@ -85,12 +85,12 @@ $(function() {
 					var src = imageCarrier(val.content);
 					src_list.push(src);
 				})
-				
+
 				$('#crowdlist').html(str);
-				
+
 				imageInput(src_list,data);
 				$(".progress-bar").each(function(index,val) {
-					
+
 					if($(val).attr('aria-valuenow') < 30 ) {
 						$(val).addClass("progress-bar-danger");
 					} else if($(val).attr('aria-valuenow') >= 30 || $(val).attr('aria-valuenow') < 70) {
@@ -100,11 +100,11 @@ $(function() {
 					}
 				});
 			},error:function(a,b,c){
-				
+
 			}
 		})
 	};
-	
+
 	initList();
 })
 </script>

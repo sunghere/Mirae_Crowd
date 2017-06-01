@@ -22,7 +22,7 @@
         </thead>
         <tbody id="crowd-req-list">
         <tr>
-            <td class="text-center" colspan="4">신청목록이 없습니다.</td>
+            <td class="text-center" colspan="5">신청목록이 없습니다.</td>
         </tr>
         </tbody>
 

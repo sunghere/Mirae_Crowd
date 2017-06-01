@@ -36,6 +36,16 @@
 WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
 FROM SHBOARD WHERE ENT IS NULL
 	</select>
+    <select id="getMyBoardlist" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="com.sung.hee.shboard.model.SHBoard">
+        /*	SELECT ROWNUM as RNUM,SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT
+        FROM SHBOARD WHERE ENT IS NULL
+        ORDER BY REF ASC, STEP ASC*/
+        SELECT ROW_NUMBER() OVER (ORDER BY REF ASC, STEP ASC) rnn,SEQ ,ID ,TITLE,CONTENT,
+        WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
+        FROM SHBOARD WHERE ID=#{id}
+    </select>
     <select id="getEntBoardList"
             resultType="com.sung.hee.shboard.model.SHBoard">
        /* SELECT ROWNUM as RNUM,SEQ ,ID ,TITLE,CONTENT,
