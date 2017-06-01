@@ -1082,9 +1082,9 @@ img::-moz-selection {
 
 #showAboutBt {
     background-color: #fff;
-    position: relative;
-    bottom: 5%;
-    left: 52%;
+    position: absolute;
+    top: 18px;
+    right: 20px;
     padding: 3px 5px;
 }
 

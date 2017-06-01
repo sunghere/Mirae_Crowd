@@ -20,8 +20,8 @@
         </div>
         <div id="content_wrap">
             <section id="two" class="text-center">
-                            <tiles:insertAttribute name="main"/>
-                            <hr class="primary">
+                <tiles:insertAttribute name="main"/>
+                <hr class="primary">
             </section>
             <tiles:insertAttribute name="reply"/>
 
@@ -33,6 +33,7 @@
 
     </div>    <!--  //main_wrap -->
 </div><!--  //body_wrap -->
+<script src="<%=request.getContextPath()%>/js/shreplypage.js"></script>
 
 </body>
 </html>

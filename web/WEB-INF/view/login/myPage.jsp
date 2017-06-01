@@ -112,7 +112,7 @@
         </li>
         <li data-toggle="pill" class="side-point-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
         <li data-toggle="pill" class="side-board-btn"><a href="#" class="side-bar-text">내 글 모아보기</a></li>
-        <c:if test="${login.isent eq 1}">
+        <c:if test="${login.isent eq '1'}">
             <li data-toggle="pill" class="side-ent-btn"><a href="#" class="side-bar-text">기업</a></li>
 
         </c:if>
@@ -129,13 +129,14 @@
                                                                disabled></div>
 
     <div class="col-md-12 main-text text-left">
-        <span class="text-center sub-text">비밀번호</span> <c:if test=""><input type="password" class="black-control"
-                                                                            value="********"
-                                                                            disabled>&nbsp;<button type="button"
-        class="pwd-edit-btn btn btn-danger">
-        변경
-        </button>
-    </c:if>
+        <span class="text-center sub-text">비밀번호</span><input type="password" class="black-control"
+                                                             value="********"
+                                                             disabled>&nbsp;
+        <c:if test="${login.isSNS eq 0}">
+            <button type="button" class="pwd-edit-btn btn btn-danger">
+                변경
+            </button>
+        </c:if>
     </div>
 
     <div class="col-md-12 main-text text-left">
@@ -532,6 +533,8 @@
                 alert("비밀번호를 입력해주세요");
                 return
             } else {
+                $('.showMsg-close').click();
+
                 $.ajax({
                     url: "pwdCheck.do",
                     method: "post",
@@ -540,16 +543,18 @@
 
 
                         if (data.message == "SUCS") {
-                            $('.showMsg-close').click();
-
                             showMsg("변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3'>확인</button>")
 
+
                             $('#myMsg').on("click", '#pwd-edit-btn3', function () {
+
                                 var edit_pwd = $('#edit-pwd').val()
                                 if (edit_pwd.length < 5) {
                                     alert("비밀번호를 제대로 입력해주세요 (6자이상)");
                                     return
                                 } else {
+                                    $('.showMsg-close').click();
+
                                     $.ajax({
                                         url: "pwdUpdate.do",
                                         method: "post",
@@ -563,13 +568,14 @@
                                                 showMsg("변경 되었습니다.")
 
                                             } else {
-
+                                                alert("실패");
                                             }
                                         }
                                     })
                                 }
                             })
                         } else {
+                            alert("비밀번호가 일치하지않습니다.");
 
                         }
                     }

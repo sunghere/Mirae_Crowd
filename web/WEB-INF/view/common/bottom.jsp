@@ -305,5 +305,4 @@
 <script src="<%=request.getContextPath()%>/js/scripts.js"></script>
 <script src="<%=request.getContextPath()%>/js/shlogin.js"></script>
 <script src="<%=request.getContextPath()%>/js/fblogin.js"></script>
-<script src="<%=request.getContextPath()%>/js/shreplypage.js"></script>
 <script src="<%=request.getContextPath()%>/js/chatscript.js"></script>
