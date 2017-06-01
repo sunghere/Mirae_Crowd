@@ -7,20 +7,57 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
-.list-section {height:400px; margin-bottom: 1%;}
-.list-main {width:30%; display: inline-block; margin-right: 2%; cursor: pointer;}
+.list-section {height:400px; margin-bottom: 1%; background-color : #fff;}
+.list-main { cursor: pointer; padding: 2% 2%; } 
 .list-section .list-main:LAST-CHILD {margin-right:0;}
-.list-main img {width:100%; height:200px; border:1px solid #000;}
-.main-info-section {font-size:14px; height:200px; padding:0 5%; border:1px solid #000;}
-.info-title {height:48px; line-height:24px; padding:5% 0; font-weight:bold; text-overflow: ellipsis;}
+.main-img-section {width:100%; height:200px;}
+.main-info-section {font-size:14px; height:200px; padding:2% 5%; background-color : #f8f8f8;}
+.info-title {height:48px; line-height:24px; padding:5% 0; font-weight:bold; text-overflow: ellipsis; font-size: 17px;}
 .tags {float:left;}
 .category {float:right;}
+
+.container {
+padding : 0 5%;
+}
+.modal-content-main {width:90%; height:90%;}
 </style>
 <script>
-function loadimg(content) {
-	var content;
+var toGoal = function(goalmoney, curmoney) {
+	var per = (curmoney/goalmoney)*100;
+// 	console.log($(".progress").children().addClass("progress-bar-danger"));
+	
+	return per;
 }
-
+var dateCountdown = function(edate) {
+	var today = new Date();
+	var edateArray = edate.split("-");
+	
+	var edateObj = new Date(edateArray[0], Number(edateArray[1])-1, edateArray[2]);
+	
+	var between = Math.floor((edateObj.getTime() - today.getTime())/1000/60/60/24);
+	if(between < 0) return 0;
+	else return between;
+}
+var imageInput = function(src_list,data) {
+	$.each(data, function(index, val) {
+		
+		var src=src_list[index];
+		$('#list-img'+val.seq).css({"background-image": 'url("'+src+'")', "-webkit-background-size": "cover",
+		  "-moz-background-size": "cover", "-o-background-size": "cover", "background-size": "100%"});
+	})
+}
+var imageCarrier = function(content) {
+	var contentArray = new Array();
+	contentArray= content.split('src="') ;
+	if(contentArray[1] != null && contentArray[1] != "") {
+		var src=contentArray[1].split('"')
+		
+		return src[0];
+	} else {
+		
+	}
+	return "";
+}
 $(function() {
 	var initList=function() {
 		$.ajax({
@@ -29,21 +66,39 @@ $(function() {
 			data: {},
 			success: function(data) {
 				var str="";
+				var src_list = new Array();
 				$.each(data, function(index, val) {
-					if(index % 3 == 0) {
-						str += "<div class='col-md-12 list-section'>";
+					if(index % 3 == 0) {/*<div class='col-md-12 list-section'>  */
+						str += "";
 					}
-					str += "<div class='list-main' data-target='#contentModal' data-toggle='modal' id='crowdcontent"+val.seq+"'>" +
-					"<img class='card-img-top img-fluid' alt='' src='"+loadimg(val.content)+"'>"+
+					str += "<div class='list-main col-md-4 col-sm-12' data-target='#contentModal' data-toggle='modal' id='crowdcontent"+val.seq+"'>" +
+					"<div class='main-img-section' id='list-img"+val.seq+"'>"+
+					"<div class='progress'>"+
+				    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='"+toGoal(val.goalmoney, val.curmoney)+"' "+
+				    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div></div>"+
+					"</div>"+
 					"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
+					"<div class='card-block'>"+dateCountdown(val.edate)+"</div>"+
 					"<div class='card-block'>"+val.id+"</div>"+
 					"<div class='tags'>"+val.tag+"</div><div class='category'>"+val.category+"</div></div>"+
 					"</div>";
-					if(index % 3 == 2) {
-						str += "</div>"
-					}
+					var src = imageCarrier(val.content);
+					src_list.push(src);
 				})
+				
 				$('#crowdlist').html(str);
+				
+				imageInput(src_list,data);
+				$(".progress-bar").each(function(index,val) {
+					
+					if($(val).attr('aria-valuenow') < 30 ) {
+						$(val).addClass("progress-bar-danger");
+					} else if($(val).attr('aria-valuenow') >= 30 || $(val).attr('aria-valuenow') < 70) {
+						$(val).addClass("progress-bar-info");
+					} else {
+						$(val).addClass("progress-bar-success");
+					}
+				});
 			},error:function(a,b,c){
 				
 			}
@@ -54,9 +109,8 @@ $(function() {
 })
 </script>
 <%--컨텐츠 모달--%>
-<div id="contentModal" class="modal fade" tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog modal-md">
+<div id="contentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-content-main">
         <div class="modal-content">
             <div class="modal-body">
                 <div id="chatlist"></div>
@@ -66,98 +120,8 @@ $(function() {
     </div>
 </div>
 
-<div class="card-columns mb-3" id="crowdlist">
-
+<div class="card-columns mb-3">
+<div class='row'  id="crowdlist">
 </div>
-<div class="card">
-    <img class="card-img-top img-fluid" src="//placehold.it/600x200/444/fff?text=..." alt="Card image cap">
-    <div class="card-block">
-        <h4 class="card-title">New XL Grid Tier</h4>
-        <p class="card-text">With screens getting smaller, Bootstrap 4 introduces a new grid breakpoint with the
-            col-xl-* classes. This extra tier extends the media query range all the way down to 576 px. Eventhough the
-            new XL tier would make one think it’s been added to support extra large screens, it’s actually the
-            opposite.</p>
-    </div>
-</div>
-<div class="card card-block">
-    <blockquote class="card-blockquote">
-        <p>Bootstrap 4 will be lighter and easier to customize.</p>
-        <footer>
-            <small class="text-muted">
-                Someone famous like <cite title="Source Title">Mark Otto</cite>
-            </small>
-        </footer>
-    </blockquote>
-</div>
-<div class="card">
-    <img class="card-img-top img-fluid" src="//placehold.it/600x200/bbb/fff?text=..." alt="Card image cap">
-    <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </p>
-    </div>
-</div>
-<div class="card card-block card-inverse card-primary text-center">
-    <blockquote class="card-blockquote">
-        <p>Create masonry or Pinterest-style card layouts in Bootstrap 4.</p>
-        <footer>
-            <small>
-                Someone famous in <cite title="Source Title">Bootstrap</cite>
-            </small>
-        </footer>
-    </blockquote>
-</div>
-<div class="card card-block text-center">
-    <h4 class="card-title">Clever heading</h4>
-    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-    <p class="card-text">
-        <small class="text-muted">Last updated 5 mins ago</small>
-    </p>
-</div>
-<div class="card">
-    <img class="card-img img-fluid" src="//placehold.it/600x200/777/fff?text=..." alt="Card image">
-</div>
-<div class="card card-block text-right">
-    <blockquote class="card-blockquote">
-        <p>There are also some interesting new text classes to uppercase or capitalize.</p>
-        <footer>
-            <small class="text-muted">
-                Someone famous in <cite title="Source Title">Bootstrap</cite>
-            </small>
-        </footer>
-    </blockquote>
-</div>
-<div class="card card-block">
-    <h4 class="card-title">Responsive</h4>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-        This card has even longer content than the first to show that equal height action.</p>
-    <p class="card-text">
-        <small class="text-muted">Last updated 3 mins ago</small>
-    </p>
-</div>
-<div class="card">
-    <div class="card-block">
-        <ul class="list-unstyled">
-            <li class="text-capitalize"><code class="text-lowercase">text-capitalize</code> Capitalize each word</li>
-            <li class="text-uppercase"><code class="text-lowercase">text-uppercase</code> Uppercase text</li>
-            <li class="text-success"><code>text-success</code> Contextual colors for text</li>
-            <li><code>text-muted</code> <span class="text-muted">Lighten with muted</span></li>
-            <li><code>text-info</code> <span class="text-muted">Info text color</span></li>
-            <li><code>text-danger</code> <span class="text-muted">Danger text color</span></li>
-            <li><code>text-warning</code> <span class="text-muted">Warning text color</span></li>
-            <li><code>text-primary</code> <span class="text-primary">Primary text color</span></li>
-        </ul>
-    </div>
-</div>
-<div class="card card-block">
-    <h4 class="card-title">Heading</h4>
-    <p class="card-text">So now that you've seen some of what Bootstrap 4 has to offer, are you going to give it a
-        try?</p>
-    <p class="card-text">
-        <small class="text-muted">Last updated 12 mins ago</small>
-    </p>
 </div>
 
-</div>
