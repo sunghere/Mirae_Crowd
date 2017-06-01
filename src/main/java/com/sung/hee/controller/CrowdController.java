@@ -323,7 +323,7 @@ public class CrowdController {
 		while (randomList.size() < 7) {
 			count++;
 			randomList.add(tagList.get((int) (Math.random()*tagList.size())));
-			if(count > 200) {
+			if(count > 300) {
 				break;
 			}
 		}
