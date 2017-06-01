@@ -18,7 +18,7 @@
 .left {float:left;}
 .right {float:right;}
 .clear {clear:both;}
-.cbox {background-color: midnightblue; color: white; padding: 5px 10px; font-size:14px;}
+.cbox {background-color: midnightblue; color: white; padding: 5px 10px;}
 .tags {padding: 5px 0;}
 .progress {
     height: 15px;
@@ -26,6 +26,10 @@
     clear: both;
     margin-bottom: 5%;
 }
+.tagbox {background-color: #FFB2AF; color: white; margin-right:10px; padding: 0 10px; font-size:14px; display: inline-block;}
+.taglist {margin-bottom: 6%; line-height: 35px;}
+.tag-title {font-size: 16px; margin-right: 10px;}
+.tag-title>i {font-size: 20px; vertical-align: middle;}
 </style>
 <script>
     var toGoal = function (goalmoney, curmoney) {
@@ -119,11 +123,11 @@ $(function() {
 			data: {},
 			success: function(data) {
 				console.log(data);
-				str="";
+				str="<div class='tag-title'><i class='fa fa-tag' aria-hidden='true'></i> HOT 키워드 </div>";
 				
 				$.each(data, function(index, val) {
 					
-					str+="<span class='cbox'><i class='fa fa-hashtag' aria-hidden='true'></i>"+val+"</span>";
+					str+="<div class='tagbox'><i class='fa fa-hashtag' aria-hidden='true'></i>"+val+"</div>";
 				})
 				$(".taglist").html(str);
 			}
