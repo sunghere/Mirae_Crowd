@@ -12,9 +12,13 @@
 .list-section .list-main:LAST-CHILD {margin-right:0;}
 .main-img-section {width:100%; height:200px;}
 .main-info-section {font-size:14px; height:200px; padding:2% 5%; background-color : #f8f8f8;}
-.info-title {height:48px; line-height:24px; padding:5% 0; font-weight:bold; text-overflow: ellipsis; font-size: 17px;}
-.tags {float:left;}
-.category {float:right;}
+.info-title {height:60px; line-height:24px; padding:10px 0; font-weight:bold; text-overflow: ellipsis; font-size: 17px;}
+.info-id {margin-bottom:5%;}
+.progress-info {height:20px;}
+.tags, .info-curmoney{float:left;}
+.category, .info-date {float:right;}
+
+.progress {height:15px; background-color:#fff; clear:both; margin-bottom: 5%;}
 
 .container {
 padding : 0 5%;
@@ -26,7 +30,7 @@ var toGoal = function(goalmoney, curmoney) {
 	var per = (curmoney/goalmoney)*100;
 // 	console.log($(".progress").children().addClass("progress-bar-danger"));
 	
-	return per;
+	return Math.floor(per);
 }
 var dateCountdown = function(edate) {
 	var today = new Date();
@@ -72,16 +76,17 @@ $(function() {
 						str += "";
 					}
 					str += "<div class='list-main col-md-4 col-sm-12' data-target='#contentModal' data-toggle='modal' id='crowdcontent"+val.seq+"'>" +
-					"<div class='main-img-section' id='list-img"+val.seq+"'>"+
+					"<div class='main-img-section' id='list-img"+val.seq+"'></div>"+
+					"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
+					"<div class='card-block info-id'>"+val.id+"</div>"+
+					"<div class='progress-info'><span class='card-block info-curmoney'>"+val.curmoney+"원 달성</span>"+
+					"<span class='card-block info-date'>"+dateCountdown(val.edate)+"일 남음</span></div>"+
 					"<div class='progress'>"+
 				    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='"+toGoal(val.goalmoney, val.curmoney)+"' "+
-				    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div></div>"+
+				    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div>"+
 					"</div>"+
-					"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
-					"<div class='card-block'>"+dateCountdown(val.edate)+"</div>"+
-					"<div class='card-block'>"+val.id+"</div>"+
-					"<div class='tags'>"+val.tag+"</div><div class='category'>"+val.category+"</div></div>"+
-					"</div>";
+					"<div class='tags'>"+val.tag+"</div><div class='category'>"+val.category+"</div>"+
+					"</div></div>";
 					var src = imageCarrier(val.content);
 					src_list.push(src);
 				})
