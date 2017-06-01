@@ -42,6 +42,7 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         return shCrowdDAO.reqCrowdList();
     }
 
+    @Transactional
     public List<SHCrowd> myReqCrowdList(SHUser user) {
         return shCrowdDAO.myReqCrowdList(user);
 
@@ -125,7 +126,13 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         }
     }
 
+    @Transactional
     public void noCrowd(SHCrowd shCrowd) {
         shCrowdDAO.noCrowd(shCrowd);
     }
+
+	@Transactional(readOnly=true)
+	public List<String> findTag() {
+		return shCrowdDAO.findTag();
+	}
 }

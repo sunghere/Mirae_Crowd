@@ -1,12 +1,12 @@
 package com.sung.hee.shcrowd.dao;
 
+import java.util.List;
+
 import com.sung.hee.help.CrowdLike;
 import com.sung.hee.help.MyCrowd;
 import com.sung.hee.shcrowd.model.SHCrowd;
 import com.sung.hee.shcrowd.model.SHFund;
 import com.sung.hee.user.model.SHUser;
-
-import java.util.List;
 /*com.sung.hee.shcrowd.dao.SHCrowdDAO*/
 /**
  * Created by SungHere on 2017-05-24.
@@ -64,4 +64,6 @@ public interface SHCrowdDAO {
     void dePoint(String id);
 
     public void noCrowd(SHCrowd shCrowd); /* 요청 거절 */
+    
+    List<String> findTag();
 }

@@ -15,8 +15,11 @@
 .info-title {height:60px; line-height:24px; padding:10px 0; font-weight:bold; text-overflow: ellipsis; font-size: 17px;}
 .info-id {margin-bottom:5%;}
 .progress-info {height:20px;}
-.tags, .info-curmoney{float:left;}
-.category, .info-date {float:right;}
+.left {float:left;}
+.right {float:right;}
+.clear {clear:both;}
+.cbox {background-color: midnightblue; color: white; padding: 5px 10px; font-size:14px;}
+.tags {padding: 5px 0;}
 
 .progress {height:15px; background-color:#fff; clear:both; margin-bottom: 5%;}
 
@@ -79,13 +82,14 @@ $(function() {
 					"<div class='main-img-section' id='list-img"+val.seq+"'></div>"+
 					"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
 					"<div class='card-block info-id'>"+val.id+"</div>"+
-					"<div class='progress-info'><span class='card-block info-curmoney'>"+val.curmoney+"원 달성</span>"+
-					"<span class='card-block info-date'>"+dateCountdown(val.edate)+"일 남음</span></div>"+
+					"<div class='progress-info'><span class='card-block info-curmoney left'>"+val.curmoney+"원 달성</span>"+
+					"<span class='card-block info-date right'>"+dateCountdown(val.edate)+"일 남음</span></div>"+
 					"<div class='progress'>"+
 				    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='"+toGoal(val.goalmoney, val.curmoney)+"' "+
 				    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div>"+
 					"</div>"+
-					"<div class='tags'>"+val.tag+"</div><div class='category'>"+val.category+"</div>"+
+					"<div class='info-cat'><span class='tags left'>"+val.tag+"</span><span class='category cbox right'>"+val.category+"</span></div>"+
+					"<div class='info-like clear right'>"+val.likenum+"</div>"+
 					"</div></div>";
 					var src = imageCarrier(val.content);
 					src_list.push(src);
@@ -110,7 +114,26 @@ $(function() {
 		})
 	};
 	
+	var initTagList = function() {
+		$.ajax({
+			url:"taglist.do",
+			method:"POST",
+			data: {},
+			success: function(data) {
+				console.log(data);
+				str="";
+				
+				$.each(data, function(index, val) {
+					
+					str+="<span class='cbox'><i class='fa fa-hashtag' aria-hidden='true'></i>"+val+"</span>";
+				})
+				$(".taglist").html(str);
+			}
+		})
+	};
+	
 	initList();
+	initTagList();
 })
 </script>
 <%--컨텐츠 모달--%>
@@ -125,6 +148,7 @@ $(function() {
     </div>
 </div>
 
+<div class='taglist'></div>
 <div class="card-columns mb-3">
 <div class='row'  id="crowdlist">
 </div>

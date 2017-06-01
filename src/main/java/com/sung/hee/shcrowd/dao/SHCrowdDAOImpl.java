@@ -128,4 +128,9 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
     public void noCrowd(SHCrowd shCrowd) {
         sqlSession.update(ns+"noCrowd",shCrowd);
     }
+
+	@Override
+	public List<String> findTag() {
+		return sqlSession.selectList(ns+"findTag");
+	}
 }
