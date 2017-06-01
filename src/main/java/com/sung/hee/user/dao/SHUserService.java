@@ -25,4 +25,5 @@ public interface SHUserService {
 
     void dePoint(SHUser user) throws Exception;
 
+    void pwdUpdate(SHUser shUser);
 }

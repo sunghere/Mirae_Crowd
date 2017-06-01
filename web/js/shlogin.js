@@ -196,6 +196,7 @@
                 "pwd": data.id,
                 "name": data.properties.nickname,
                 "isent": 0,
+                "isSNS": "1",
                 "certi": 1
             },
             success: function (msg) {

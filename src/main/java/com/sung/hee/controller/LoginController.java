@@ -253,6 +253,52 @@ public class LoginController {
         return checkResult;
     }
 
+    @RequestMapping(value = "pwdCheck.do",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck pwdCheck(
+            SHUser shUser, HttpServletRequest request, Model model) throws Exception {
+//        logger.info("Welcome LoginController getEntName! " + new Date());
+        AjaxCheck checkResult = new AjaxCheck();
+        SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
+
+        if (sessionUser.getId().equals(shUser.getId())) {
+
+            if (shUserService.getPWD(shUser).equals(shUser.getPwd())) {
+                checkResult.setMessage("SUCS");
+
+            } else {
+                checkResult.setMessage("FAIL");
+
+            }
+        } else {
+            checkResult.setMessage("FAIL");
+
+        }
+
+
+        return checkResult;
+    }
+    @RequestMapping(value = "pwdUpdate.do",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck pwdUpdate(
+            SHUser shUser, HttpServletRequest request, Model model) throws Exception {
+//        logger.info("Welcome LoginController getEntName! " + new Date());
+        AjaxCheck checkResult = new AjaxCheck();
+        SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
+
+        if (sessionUser.getId().equals(shUser.getId())) {
+
+           shUserService.pwdUpdate(shUser);
+        } else {
+            checkResult.setMessage("FAIL");
+
+        }
+
+
+        return checkResult;
+    }
     @RequestMapping(value = "myPage.do",
             method = {RequestMethod.POST, RequestMethod.GET})
     public String myPage(

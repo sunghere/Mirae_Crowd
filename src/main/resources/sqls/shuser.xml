@@ -5,10 +5,10 @@
 <mapper namespace="SHUser">
 
     <insert id="regi" parameterType="com.sung.hee.user.model.SHUser">
-        INSERT INTO SHUSER(ID, NAME, PWD, AUTH, DEL,ISENT,ENT,ENTNAME,POINT,CERTI)
+        INSERT INTO SHUSER(ID, NAME, PWD, AUTH, DEL,ISENT,ENT,ENTNAME,POINT,CERTI,isSNS)
         VALUES (#{id},#{name},#{pwd},3, 0,#{isent},
         <if test="isent == 1">(SELECT ent FROM SHENT WHERE ENTNAME=#{entname}),#{entname}</if>
-        <if test="isent == 0">null,null</if>,0,#{certi})
+        <if test="isent == 0">null,null</if>,0,#{certi},#{isSNS})
     </insert>
     <update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
         UPDATE SHUSER SET CERTI=1 WHERE id=#{id}
@@ -41,4 +41,10 @@
                 UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
 
     </update>
+    <update id="pwdUpdate" parameterType="com.sung.hee.user.model.SHUser">
+
+        UPDATE SHUSER SET PWD = #{pwd} WHERE ID= #{id}
+
+    </update>
+
 </mapper>

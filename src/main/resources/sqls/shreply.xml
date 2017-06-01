@@ -43,7 +43,7 @@
       SELECT
     ROW_NUMBER()
     OVER (
-      ORDER BY REF ASC, STEP ASC ) rnn,
+      ORDER BY REF DESC, STEP ASC ) rnn,
     SEQ,
     r.ID,
     REF,
@@ -63,7 +63,25 @@
 
     <select id="getReplyListbyId" parameterType="com.sung.hee.shreply.model.SHReply"
             resultType="com.sung.hee.shreply.model.SHReply">
-
+    SELECT
+    ROW_NUMBER()
+    OVER (
+      ORDER BY REF DESC, STEP ASC ) rnn,
+    SEQ,
+    r.ID,
+    REF,
+    STEP,
+    DEPTH,
+    BTYPE,
+    WDATE,
+    CONTENT,
+    PARENT,
+    BPARENT,
+    r.DEL,
+    u.NAME
+  FROM SHREPLY r
+    JOIN SHUSER u ON r.ID = u.ID
+        WHERE r.ID = #{id}
     </select>
     <!--aaa-->
 

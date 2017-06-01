@@ -19,7 +19,7 @@
             <tiles:insertAttribute name="top_menu"/>
         </div>
         <div id="content_wrap">
-            <section id="two">
+            <section id="two" class="text-center">
                             <tiles:insertAttribute name="main"/>
                             <hr class="primary">
             </section>

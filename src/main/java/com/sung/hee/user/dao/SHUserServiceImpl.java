@@ -38,6 +38,7 @@ public class SHUserServiceImpl implements SHUserService {
         return shUserDAO.getID(user);
     }
 
+    @Transactional
     public void emailCerti(SHUser user) {
         shUserDAO.emailCerti(user);
     }
@@ -47,12 +48,19 @@ public class SHUserServiceImpl implements SHUserService {
         return shUserDAO.getEntUserlist(ent);
     }
 
+    @Transactional
     public void inPoint(SHUser user) throws Exception {
         shUserDAO.inPoint(user);
     }
 
+    @Transactional
     public void dePoint(SHUser user) throws Exception {
         shUserDAO.dePoint(user);
 
+    }
+
+    @Transactional
+    public void pwdUpdate(SHUser shUser) {
+        shUserDAO.pwdUpdate(shUser);
     }
 }

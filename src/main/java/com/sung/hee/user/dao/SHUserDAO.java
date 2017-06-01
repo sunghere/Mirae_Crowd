@@ -21,4 +21,7 @@ public interface SHUserDAO {
     void inPoint(SHUser user) throws Exception;
 
     void dePoint(SHUser user) throws Exception;
+    
+    void pwdUpdate(SHUser shUser);
+
 }

@@ -53,4 +53,8 @@ public class SHUserDAOImpl implements SHUserDAO {
         sqlSession.update(ns + "dePoint", user);
 
     }
+
+    public void pwdUpdate(SHUser shUser) {
+        sqlSession.update(ns + "pwdUpdate", shUser);
+    }
 }
