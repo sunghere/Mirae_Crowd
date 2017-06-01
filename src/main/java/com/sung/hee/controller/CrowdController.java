@@ -309,8 +309,8 @@ public class CrowdController {
 	@ResponseBody
 	public HashSet<String> getTagList(HttpServletRequest request, Model model) throws Exception {
 
-		List<String> tagList = new ArrayList<>();
-		HashSet<String> randomList = new HashSet<>();
+		List<String> tagList = new ArrayList();
+		HashSet<String> randomList = new HashSet();
 		List<String> tempList = shCrowdService.findTag();
 
 		for (String string : tempList) {
