@@ -23,16 +23,14 @@
             twoheight = $('#content_affix').height() + $('#reply_cotent').height() - 200;
 
         }
-        if (y > twoheight - 400) {
+        if (y > twoheight+200) {
             $('div.margin15.row').hide();
             $('.sh-replybox-bottom').show();
-            $('#reply_cotent').css({"height": $(window).height() - $('#footer').height() - 150});
 
         }
         else {
             $('div.margin15.row').show();
             $('.sh-replybox-bottom').hide();
-            $('#reply_cotent').css({"height": $(window).height() - $('#footer').height()});
 
         }
         if (document.body.clientWidth > 800) {
@@ -95,7 +93,6 @@
 
                 if (msg.message == "SUCS") {
                     $(".loginexit").click();
-
                     if (btSelector == 1) { //밑에 쓰기
                         $('#bot-r-area').val("");
 
@@ -105,6 +102,8 @@
 
                     }
                     replyReload();
+                    $('#reply_cotent').scrollTop($('#reply_cotent').prop('scrollHeight'))
+
                 } else {
                     alert("실패");
                 }
@@ -129,13 +128,13 @@
             success: function (data) {
                 var myid = $('input[name="myid"]').attr('value');
                 $.each(data, function (index, val) {
-                    str += '<div class="sh-replybox"><div class="reply-block"><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div><p>' + val.content + '</p>';
+                    str += '<div class="sh-replybox"><div class="reply-block"><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div><div class="reply-box-content">' + val.content + '</div>';
 
                     if (myid == val.id) {
-                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-edit-btn btn cursive small">edit&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
+                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-edit-btn btn cursive small"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
                     }
                     if ((myid != null) || myid != "") {
-                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-delete-btn btn cursive small">delete&nbsp;<i class="fa fa-reply-all" aria-hidden="true"></i></button>';
+                        str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-delete-btn btn cursive small"><i class="fa fa-trash" aria-hidden="true"></i></i></button>';
                     }
                     str += '</div></div>';
                 })

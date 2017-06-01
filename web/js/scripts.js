@@ -1,9 +1,6 @@
 (function ($) {
     /* 사이즈 초기화 */
     /*글쓰기*/
-    /*
-     $('.writeContent').css({"height": $(window).height() - 50});*/
-    $('#reply_cotent').css({"height": $(window).height() - $('#footer').height()});
 
     $('body').scrollspy({
         target: '.navbar-fixed-top, #myScrollspy',

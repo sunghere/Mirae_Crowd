@@ -20,19 +20,17 @@
 .clear {clear:both;}
 .cbox {background-color: midnightblue; color: white; padding: 5px 10px; font-size:14px;}
 .tags {padding: 5px 0;}
-
-.progress {height:15px; background-color:#fff; clear:both; margin-bottom: 5%;}
-
-.container {
-padding : 0 5%;
+.progress {
+    height: 15px;
+    background-color: #fff;
+    clear: both;
+    margin-bottom: 5%;
 }
-.modal-content-main {width:90%; height:90%;}
 </style>
 <script>
-var toGoal = function(goalmoney, curmoney) {
-	var per = (curmoney/goalmoney)*100;
+    var toGoal = function (goalmoney, curmoney) {
+        var per = (curmoney / goalmoney) * 100;
 // 	console.log($(".progress").children().addClass("progress-bar-danger"));
-	
 	return Math.floor(per);
 }
 var dateCountdown = function(edate) {
@@ -150,7 +148,7 @@ $(function() {
 
 <div class='taglist'></div>
 <div class="card-columns mb-3">
-<div class='row'  id="crowdlist">
-</div>
+    <div class='row' id="crowdlist">
+    </div>
 </div>
 

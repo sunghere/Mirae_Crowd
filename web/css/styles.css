@@ -795,56 +795,55 @@ img::-moz-selection {
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 2;
+    padding: 2%;
     position: relative;
-
     border-radius: 1.5%;
-    margin: 30px 10%;
+    margin: 20px 5%;
+    max-width: 300px;
     -moz-box-shadow: 1px 1px 1px #ce8483;
     -webkit-box-shadow: 1px 1px 1px #ce8483;
     box-shadow: 1px 1px 1px #ce8483;
 }
 
 .reply-author {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+
     text-align: center;
     display: inline-block;
+    min-width: 50px;
     /*padding-left: 41.5%;*/
 }
 
 .reply-author-nickname {
-    width: 40px;
-    height: 40px;
+    letter-spacing: 2px;
     color: #2d2d2d;
     display: table-cell;
     vertical-align: middle;
     font-size: 1.5rem;
     font-weight: 700;
-    letter-spacing: -1px;
     line-height: 1.2;
-    background-color: #fff;
-    border-radius: 99%;
-    -moz-box-shadow: 1px 1px 1px #ce8483;
-    -webkit-box-shadow: 1px 1px 1px #ce8483;
-    box-shadow: 1px 1px 1px #ce8483;
+    padding: 5%;
 
 }
 
-.reply-delete-btn {
-    position: relative;
+.reply-box-content {
+    padding-top: 5px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
-    left: 35%;
-    top: 10%;
+.reply-delete-btn {
+    position: absolute;
+    top: 0%;
+    right: 8%;
     background-color: transparent;
 
 }
 
 .reply-edit-btn {
-    position: relative;
-
-    left: 38%;
-    top: 10%;
+    position: absolute;
+    top: 0%;
+    right: 0%;
 
     background-color: transparent;
 
@@ -932,7 +931,7 @@ img::-moz-selection {
     padding: 5px;
 
     position: fixed;
-    right: 3%;
+    right: 2%;
     top: 60%;
     border-radius: 100px;
     background-color: lavenderblush;
@@ -969,7 +968,7 @@ img::-moz-selection {
 #content_affix {
     position: absolute;
     left: 15%;
-    width: 50%;
+    width: 35%;
 }
 
 #content_affix.affix {
@@ -977,25 +976,28 @@ img::-moz-selection {
     top: 120px;
     left: 15%;
     z-index: 2;
-    width: 30%;
+    width: 35%;
 
 }
 
 #reply_cotent {
+    min-width: 300px;
     position: absolute;
-    right: 5%;
-    width: 40%;
+    right: 15%;
+    top: 600px;
+    height: 600px;
+    margin-left: 5%;
+    margin-right: 5%;
+    overflow: scroll;
 }
 
 #reply_cotent.affix {
     position: fixed;
 
     top: 10%;
-    right: 0;
+    right: 15%;
     margin-left: 5%;
     margin-right: 5%;
-    padding-right: 10%;
-    padding-top: 40px;
     border-radius: 3%;
     overflow: scroll;
 

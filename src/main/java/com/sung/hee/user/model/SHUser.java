@@ -17,7 +17,6 @@ public class SHUser implements Serializable {
     private int point = 0;
     private int certi = 0;
 
-
     @Override
     public String toString() {
         return "SHUser{" +
@@ -31,9 +30,21 @@ public class SHUser implements Serializable {
                 ", epoint=" + epoint +
                 ", point=" + point +
                 ", certi=" + certi +
+                ", isSNS='" + isSNS + '\'' +
                 ", isent=" + isent +
                 '}';
     }
+
+    public String getIsSNS() {
+        return isSNS;
+    }
+
+    public void setIsSNS(String isSNS) {
+        this.isSNS = isSNS;
+    }
+
+    private String isSNS = "0";
+
 
     public int getCerti() {
         return certi;

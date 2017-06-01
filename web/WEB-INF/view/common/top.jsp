@@ -21,31 +21,35 @@
                 </li>
 
 
-                <c:if test="${ !empty login}">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-envira"
+                                                                                  aria-hidden="true"></i>Crowd
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <c:if test="${ !empty login}">
 
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-envira" aria-hidden="true"></i>Crowd
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
                             <li>
                                 <a title="펀딩 신청" href="/crowdAdd.do">펀딩모집 신청</a>
                             </li>
                             <li>
-                                <a title="일정" href="mycal.do"><i class="fa fa-calendar"></i>&nbsp; 일정</a>
-                            </li>
-                            <li>
                                 <a title="투표" href="/polllist.do">투표</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i></i>Board</a>
-                    </li>
-                </c:if>
+                        </c:if>
+
+                        <li>
+                            <a title="일정" href="mycal.do"><i class="fa fa-calendar"></i>&nbsp; 일정</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i></i>Board</a>
+                </li>
                 <c:if test="${!empty login && login.auth eq 1}">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Admin
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cogs"
+                                                                                      aria-hidden="true"></i>Admin
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>

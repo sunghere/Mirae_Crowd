@@ -129,8 +129,13 @@
                                                                disabled></div>
 
     <div class="col-md-12 main-text text-left">
-        <span class="text-center sub-text">비밀번호</span> <input type="password" class="black-control" value="********"
-                                                              disabled>
+        <span class="text-center sub-text">비밀번호</span> <c:if test=""><input type="password" class="black-control"
+                                                                            value="********"
+                                                                            disabled>&nbsp;<button type="button"
+        class="pwd-edit-btn btn btn-danger">
+        변경
+        </button>
+    </c:if>
     </div>
 
     <div class="col-md-12 main-text text-left">
@@ -244,6 +249,7 @@
 
 
 </div>
+
 
 <script>
     /*촉*/
@@ -482,7 +488,6 @@
     }
 
 
-
     /* 내글 불러오기*/
     var load_board_list = function () {
 
@@ -515,6 +520,66 @@
             }
         })
     }
+    /*비밀번호 변경*/
+    $('.pwd-edit-btn').click(function () {
+
+        showMsg("현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2'>확인</button>")
+
+        /*비밀번호변경- 현재비밀번호 입력 체크*/
+        $('#alertModal').on("click", '#pwd-edit-btn2', function () {
+            var cur_pwd = $('#cur-pwd').val()
+            if (cur_pwd.length < 2) {
+                alert("비밀번호를 입력해주세요");
+                return
+            } else {
+                $.ajax({
+                    url: "pwdCheck.do",
+                    method: "post",
+                    data: {"id": "${login.id}", "pwd": cur_pwd},
+                    success: function (data) {
+
+
+                        if (data.message == "SUCS") {
+                            $('.showMsg-close').click();
+
+                            showMsg("변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3'>확인</button>")
+
+                            $('#myMsg').on("click", '#pwd-edit-btn3', function () {
+                                var edit_pwd = $('#edit-pwd').val()
+                                if (edit_pwd.length < 5) {
+                                    alert("비밀번호를 제대로 입력해주세요 (6자이상)");
+                                    return
+                                } else {
+                                    $.ajax({
+                                        url: "pwdUpdate.do",
+                                        method: "post",
+                                        data: {"id": "${login.id}", "pwd": edit_pwd},
+                                        success: function (data) {
+
+
+                                            if (data.message == "SUCS") {
+                                                $('.showMsg-close').click();
+
+                                                showMsg("변경 되었습니다.")
+
+                                            } else {
+
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+
+                        }
+                    }
+                })
+            }
+        })
+
+
+    })
+    /*비밀번호변경- 나중 비밀번호 입력 체크*/
 
 
 </script>
