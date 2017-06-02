@@ -291,6 +291,9 @@ public class LoginController {
         if (sessionUser.getId().equals(shUser.getId())) {
 
            shUserService.pwdUpdate(shUser);
+
+            checkResult.setMessage("SUCS");
+
         } else {
             checkResult.setMessage("FAIL");
 

@@ -112,7 +112,7 @@
         </li>
         <li data-toggle="pill" class="side-point-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
         <li data-toggle="pill" class="side-board-btn"><a href="#" class="side-bar-text">내 글 모아보기</a></li>
-        <c:if test="${login.isent eq '1'}">
+        <c:if test="${login.isent eq 1}">
             <li data-toggle="pill" class="side-ent-btn"><a href="#" class="side-bar-text">기업</a></li>
 
         </c:if>
@@ -132,7 +132,7 @@
         <span class="text-center sub-text">비밀번호</span><input type="password" class="black-control"
                                                              value="********"
                                                              disabled>&nbsp;
-        <c:if test="${login.isSNS eq 0}">
+        <c:if test="${login.isSNS eq '0'}">
             <button type="button" class="pwd-edit-btn btn btn-danger">
                 변경
             </button>
@@ -521,13 +521,45 @@
             }
         })
     }
+    /* 내 댓글 불러오기*/
+    var load_reply_list = function () {
+
+        $.ajax({
+            url: "myReplyList.do",
+            method: "post",
+            data: {"id": "${login.id}"},
+            success: function (data) {
+                var str = "";
+                $.each(data, function (index, val) {
+                    var temp_date = new Date(val.wdate).format("yyyy-MM-dd");
+                    str += ' <tr class="_hover_tr">'
+                        + '<td class="text-center visible-md visible-lg">' + val.seq + '</td>'
+                        + '<td><div class="btn detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
+                        + val.tempSub + '</a></div></td>'
+                        + '<td class="text-center">' + val.readcount + '</td>'
+                        + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
+                    if (val.ent == 0) {
+                        str += '<td class="text-center  visible-md visible-lg">X</td>';
+
+                    } else {
+                        str += '<td class="text-center  visible-md visible-lg">O</td>';
+                    }
+                    str += +'</tr>';
+                });
+
+
+                $('#board-list').html(str);
+
+            }
+        })
+    }
     /*비밀번호 변경*/
     $('.pwd-edit-btn').click(function () {
 
-        showMsg("현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2'>확인</button>")
 
+        setTimeout("showMsg(\"현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2'>확인</button>\");", 100)
         /*비밀번호변경- 현재비밀번호 입력 체크*/
-        $('#alertModal').on("click", '#pwd-edit-btn2', function () {
+        $('#alertModal').click(function () {
             var cur_pwd = $('#cur-pwd').val()
             if (cur_pwd.length < 2) {
                 alert("비밀번호를 입력해주세요");
@@ -543,7 +575,7 @@
 
 
                         if (data.message == "SUCS") {
-                            showMsg("변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3'>확인</button>")
+                            setTimeout("showMsg(\"변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3'>확인</button>\");", 500)
 
 
                             $('#myMsg').on("click", '#pwd-edit-btn3', function () {
@@ -559,16 +591,16 @@
                                         url: "pwdUpdate.do",
                                         method: "post",
                                         data: {"id": "${login.id}", "pwd": edit_pwd},
-                                        success: function (data) {
+                                        success: function (mes) {
 
 
-                                            if (data.message == "SUCS") {
+                                            if (mes.message == "SUCS") {
                                                 $('.showMsg-close').click();
 
-                                                showMsg("변경 되었습니다.")
+                                                setTimeout(" showMsg('변경 되었습니다.')", 500);
 
                                             } else {
-                                                alert("실패");
+                                                setTimeout(" showMsg('실패.')", 500);
                                             }
                                         }
                                     })
