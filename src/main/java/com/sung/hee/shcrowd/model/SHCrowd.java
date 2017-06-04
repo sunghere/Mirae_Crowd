@@ -33,36 +33,28 @@ public class SHCrowd {
     private int del = 0;
     private String wdate;
     private String search_type = "search";
-    private String endflag = "0";
+    private String search = "";
+    public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	private String endflag = "0";
     private String reward = "0";
     private String latlng = "";
 
     @Override
-    public String toString() {
-        return "SHCrowd{" +
-                "rnn=" + rnn +
-                ", seq=" + seq +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", id='" + id + '\'' +
-                ", goalmoney=" + goalmoney +
-                ", likenum=" + likenum +
-                ", curmoney=" + curmoney +
-                ", tag='" + tag + '\'' +
-                ", sdate='" + sdate + '\'' +
-                ", edate='" + edate + '\'' +
-                ", category='" + category + '\'' +
-                ", address='" + address + '\'' +
-                ", type=" + type +
-                ", req=" + req +
-                ", del=" + del +
-                ", wdate='" + wdate + '\'' +
-                ", search_type='" + search_type + '\'' +
-                ", endflag='" + endflag + '\'' +
-                ", reward='" + reward + '\'' +
-                ", latlng='" + latlng + '\'' +
-                '}';
-    }
+	public String toString() {
+		return "SHCrowd [rnn=" + rnn + ", seq=" + seq + ", title=" + title + ", content=" + content + ", id=" + id
+				+ ", goalmoney=" + goalmoney + ", likenum=" + likenum + ", curmoney=" + curmoney + ", tag=" + tag
+				+ ", sdate=" + sdate + ", edate=" + edate + ", category=" + category + ", address=" + address
+				+ ", type=" + type + ", req=" + req + ", del=" + del + ", wdate=" + wdate + ", search_type="
+				+ search_type + ", search=" + search + ", endflag=" + endflag + ", reward=" + reward + ", latlng="
+				+ latlng + "]";
+	}
 
     public String getLatlng() {
         return latlng;

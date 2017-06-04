@@ -200,7 +200,7 @@
 
     <select id="findTag"
             resultType="java.lang.String">
-    SELECT TAG FROM SHCROWD
+    SELECT TAG FROM SHCROWD WHERE REQ=1
     </select>
 
 </mapper>
