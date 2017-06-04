@@ -230,29 +230,7 @@
         </div>
     </div>
 </div>
-<%--비밀번호 찾기 모달--%>
-<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header line_none">
-                <button type="button" id="pwdModal_close" class="close"
-                        data-dismiss="modal">
-                    <span class='close' aria-hidden="true">x</span> <span
-                        class="sr-only">Close</span>
-                </button>
-                <h3 class="title_Type" id='chat-title'>비밀번호 찾기</h3>
-            </div>
-            <div class="modal-body">
-            	<div>이메일을 입력해주세요</div>
-                <input type="text" class="form-control input-lg" id="chat-text">
-				<button type="button" class="btn btn-danger btn-lg center-block" data-dismiss="modal"
-                        aria-hidden="true">인증메일 발송
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <%--1:1문의 모달--%>
 <div id="chatModal" class="modal fade" tabindex="-1" role="dialog"
      aria-hidden="true">
