@@ -102,7 +102,7 @@ $(function() {
 		    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div>"+
 			"</div>"+
 			"<div class='info-cat'><span class='tags left'>"+val.tag+"</span><span class='category cbox right'>"+val.category+"</span></div>"+
-			"<div class='info-last clear'><span class='info-join left'>"+val.id+"명 참여중</span><span class='info-like right'><i class='fa fa-heart' aria-hidden='true'></i> "+val.likenum+"</span></div>"+
+			"<div class='info-last clear'><span class='info-join left'>"+val.pnum+"명 참여중</span><span class='info-like right'><i class='fa fa-heart' aria-hidden='true'></i> "+val.likenum+"</span></div>"+
 			"</div></div>";
 			var src = imageCarrier(val.content);
 			src_list.push(src);
