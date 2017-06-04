@@ -62,6 +62,16 @@
 
 
     </update>
+    <select id="crowdListAll"
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
+        SELECT ROW_NUMBER() OVER (
+        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1)
+
+    </select>
     <select id="crowdListInit"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
@@ -207,9 +217,9 @@
         UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
 
     </update>
-    
+
     <select id="findTag"
-    resultType="java.lang.String">
+            resultType="java.lang.String">
     SELECT TAG FROM SHCROWD
     </select>
 

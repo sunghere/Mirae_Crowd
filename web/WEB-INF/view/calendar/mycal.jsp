@@ -45,122 +45,86 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        var load_Cal = function (crowd) {
+            $("#calendar").fullCalendar({
+                defaultDate: $('#todays').attr("value"),
+                editable: true,
+                lang: "ko",
+                eventLimit: true,
+                events: crowd,
+                eventDrop: function (event, delta) {
+                    alert(event.title + ' was moved ' + delta + ' days\n' +
+                        '(should probably update your database)');
+                },
 
+                loading: function (bool) {
+                    if (bool) $('#loading').show();
+                    else $('#loading').hide();
+                },
+                eventMouseover: function (event, jsEvent, view) {
+                    var item = $(this);
+                    if (item.find('.nube').length == 0) {
+                        var info = '<div id="aboutModal" class="nube" tabindex="-1" role="dialog">' +
+                            '<div class="text-justify">' +
+                            '<img src="' + event.avatar + '" /> <div class="text-center">'
+                            + event.name + '<br/>' + event.start + ' <br/> '
+                            + event.end +
+                            '</div></div></div>';
+                        item.append(info);
+                    }
+                    if (parseInt(item.css('top')) <= 200) {
+                        item.find('.nube').css({'top': '20', 'bottom': 'auto'});
+                        item.parent().find('.fc-event').addClass('z0');
+                    }
+                    item.find('.nube').stop(true, true).fadeIn();
+                    $("#myModal").css({'top': '20', 'bottom': 'auto'});
+                    $("#myModal").prop("hidden", false).fadeIn();
 
-        $("#calendar").fullCalendar({
-            defaultDate: $('#todays').attr("value")
-            , editable: true
-            , lang: "ko"
-            , eventLimit: true
-            , events: [
-                {
-                    title: "All Day Event"
-                    , start: "2017-03-19"
                 },
-                {
-                    title: "Long Event"
-                    , start: "2017-03-21"
-                    , end: "2017-03-22"
+                eventMouseout: function (event, jsEvent, view) {
+                    var item = $(this);
+                    item.find('.nube').stop(true, true).fadeOut();
+                    $("#myModal").prop("hidden", true).fadeOut();
+
                 },
-                {
-                    id: 999
-                    , title: "Repeating Event"
-                    , start: "2017-03-23T16:00:00"
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
                 },
-                {
-                    id: 999
-                    , title: "Repeating Event"
-                    , start: "2017-03-16T16:00:00"
-                },
-                {
-                    title: "Conference"
-                    , start: "2017-03-11"
-                    , end: "2017-03-13"
-                },
-                {
-                    title: "Meeting"
-                    , start: "2017-03-12T10:30:00"
-                    , end: "2017-03-12T12:30:00"
-                },
-                {
-                    title: "Lunch"
-                    , start: "2017-03-12T12:00:00"
-                },
-                {
-                    title: "Meeting"
-                    , start: "2017-03-12T14:30:00"
-                },
-                {
-                    title: "Happy Hour"
-                    , start: "2017-03-12T17:30:00"
-                },
-                {
-                    title: "Dinner"
-                    , start: "2017-03-12T20:00:00"
-                },
-                {
-                    title: "Birthday Party"
-                    , start: "2017-03-13T07:00:00"
-                },
-                {
-                    title: "Click for Google"
-                    ,name: "dd"
-                    ,avatar: "<%=request.getContextPath()%>/image/rd.gif"
-                    ,url: "http://google.com/"
-                    ,start: "2017-03-28"
-                },
-                {
-                    title: "이나영 교수님.naver"
-                    ,
-                    url: "https://search.naver.com/search.naver?where=nexearch&query=%EC%9D%B4%EB%82%98%EC%98%81&sm=top_hty&fbm=1&ie=utf8"
-                    ,
-                    start: "2017-03-18"
+                eventRender: function (event, element) {
+
                 }
-            ], eventDrop: function (event, delta) {
-                alert(event.title + ' was moved ' + delta + ' days\n' +
-                    '(should probably update your database)');
-            },
 
-            loading: function (bool) {
-                if (bool) $('#loading').show();
-                else $('#loading').hide();
-            },
-            eventMouseover: function (event, jsEvent, view) {
-                var item = $(this);
-                if (item.find('.nube').length == 0) {
-                    var info = '<div id="aboutModal" class="nube" tabindex="-1" role="dialog">' +
-                        '<div class="text-justify">' +
-                        '<img src="' + event.avatar + '" /> <div class="text-center">'
-                        + event.name + '<br/>' + event.start + ' <br/> '
-                        + event.end +
-                        '</div></div></div>';
-                    item.append(info);
+            });
+
+        }
+
+        var load_Crowd = function () {
+            $.ajax({
+                url: "cListAll.do",
+                data: {},
+                method: "post",
+                success: function (data) {
+
+                    var item = new Array();
+
+                    $.each(data, function (index, val) {
+
+                        item.push({
+                            "title": val.title,
+                            "start": val.sdate,
+                            "end:": val.edate
+                        })
+
+
+                    })
+                    load_Cal(data);
                 }
-                if (parseInt(item.css('top')) <= 200) {
-                    item.find('.nube').css({'top': '20', 'bottom': 'auto'});
-                    item.parent().find('.fc-event').addClass('z0');
-                }
-                item.find('.nube').stop(true, true).fadeIn();
-                $("#myModal").css({'top': '20', 'bottom': 'auto'});
-                $("#myModal").prop("hidden", false).fadeIn();
+            })
+        }
 
-            },
-            eventMouseout: function (event, jsEvent, view) {
-                var item = $(this);
-                item.find('.nube').stop(true, true).fadeOut();
-                $("#myModal").prop("hidden", true).fadeOut();
 
-            },
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            eventRender: function (event, element) {
-
-            }
-
-        });
         // 왼쪽 버튼을 클릭하였을 경우
         jQuery("button.fc-prev-button").click(function () {
             var date = jQuery("#calendar").fullCalendar("getDate");

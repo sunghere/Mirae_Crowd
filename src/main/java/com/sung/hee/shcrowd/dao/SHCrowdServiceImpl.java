@@ -64,6 +64,11 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     }
 
     @Transactional(readOnly = true)
+    public List<SHCrowd> crowdListAll() {
+        return shCrowdDAO.crowdListAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<SHCrowd> listbySearchInit(SHCrowd crowd) {
         return shCrowdDAO.listbySearchInit(crowd);
     }
@@ -131,8 +136,8 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         shCrowdDAO.noCrowd(shCrowd);
     }
 
-	@Transactional(readOnly=true)
-	public List<String> findTag() {
-		return shCrowdDAO.findTag();
-	}
+    @Transactional(readOnly = true)
+    public List<String> findTag() {
+        return shCrowdDAO.findTag();
+    }
 }

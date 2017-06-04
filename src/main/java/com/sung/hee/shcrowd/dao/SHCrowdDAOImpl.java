@@ -62,6 +62,11 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
         return sqlSession.selectList(ns + "crowdList", crowd);
     }
 
+    public List<SHCrowd> crowdListAll() {
+        return sqlSession.selectList(ns + "crowdListAll");
+
+    }
+
     public List<SHCrowd> listbySearchInit(SHCrowd crowd) {
         return sqlSession.selectList(ns + "listbySearchInit", crowd);
     }
@@ -112,7 +117,7 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
     }
 
     public void addReward(SHCrowd shCrowd) {
-        sqlSession.update(ns+"addReward",shCrowd);
+        sqlSession.update(ns + "addReward", shCrowd);
     }
 
     public void inPoint(String id) {
@@ -126,11 +131,10 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
     }
 
     public void noCrowd(SHCrowd shCrowd) {
-        sqlSession.update(ns+"noCrowd",shCrowd);
+        sqlSession.update(ns + "noCrowd", shCrowd);
     }
 
-	@Override
-	public List<String> findTag() {
-		return sqlSession.selectList(ns+"findTag");
-	}
+    public List<String> findTag() {
+        return sqlSession.selectList(ns + "findTag");
+    }
 }
