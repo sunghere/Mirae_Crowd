@@ -27,7 +27,6 @@ public class MessageController {
     @RequestMapping(value = "messagelist.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHMessage> messagelist(SHMessage message, HttpServletRequest request, Model model) throws Exception {
-        logger.info("messagelist" + message);
         List<SHMessage> lists = messageService.messageList(message);
         SHUser shuser = (SHUser) request.getSession().getAttribute("login");
         if (shuser.getAuth() == 1) {
@@ -61,10 +60,8 @@ public class MessageController {
 
     @RequestMapping(value = "adminmessagelist.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<SHMessage> adminmessagelist(SHMessage message, Model model) throws Exception {
-        logger.info("adminmessagelist" + message);
+    public List<SHMessage> adminmessagelist(Model model) throws Exception {
         List<SHMessage> lists = messageService.messageListAll();
-        logger.info(lists + "----------------------------------------------------------------");
         return lists;
     }
 
