@@ -72,7 +72,7 @@
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1)
 
     </select>
-    <select id="crowdList"
+    <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
@@ -105,8 +105,8 @@
             <if test="search_type == 'tag'">
                 AND (TAG like '%'|| #{search} || '%')
             </if>
-            <if test="search_type == 'type'">
-                AND (TYPE like '%'|| #{search} || '%')
+            <if test="search_type == 'category'">
+                AND (CATEGORY like '%'|| #{search} || '%')
             </if>
         </if>
         )
