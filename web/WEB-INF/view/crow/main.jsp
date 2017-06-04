@@ -34,7 +34,6 @@
 .info-join {margin-top:8px;}
 .info-like {padding-top: 7px;}
 .info-like>i {color:red;}
-.search {float:right;}
 </style>
 <script>
 $(function() {
@@ -172,16 +171,17 @@ $(function() {
 			data: {"search":txt, "search_type":"search"},
 			success: function(data) {
 				make_list(data);
+				$("#search-text").val("");
 			}
 		})
 	}
 	
-	$(".search").keydown(function(key){
+	$(".search-box").keydown(function(key){
 		if(key.keyCode == 13) {
 			searchByText();
 		}
 	})
-	$(".search>i").click(function() {
+	$(".search-box>i").click(function() {
 		searchByText();
 	})
 	
@@ -192,7 +192,7 @@ $(function() {
 
 <div class="taglist"></div>
 <div class="card-columns mb-3">
-	<div class="input-group search col-sm-12 col-md-4">
+	<div class="input-group search-box col-sm-12 col-md-4" style="float:right">
 	  <input type="text" class="form-control" id="search-text" placeholder="Search for...">
 	  <span class="input-group-addon black-control">
 	    <i class="fa fa-search" aria-hidden="true"></i>
