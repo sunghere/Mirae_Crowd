@@ -10,6 +10,7 @@ public class SHReply implements Serializable {
     private String id;
     private String name;
     private String tempSub;
+    private String temp;
     private int rnn;
 
     public int getRnn() {
@@ -89,10 +90,10 @@ public class SHReply implements Serializable {
     }
 
     private String content;
-    private String temp;
 
     public String getTemp() {
-        temp = content.replace("&", "&amp;");
+        temp = content;
+        temp = temp.replace("&", "&amp;");
         temp = temp.replace("<", "&lt;");
         temp = temp.replace(">", "&gt;");
         return temp;

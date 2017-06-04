@@ -9,6 +9,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
+
+
+    .scroll-table tr {
+        width: 100%;
+        display: inline-table;
+        table-layout: fixed;
+    }
+
+    .scroll-table table {
+        height: 600px;
+        display: -moz-groupbox;
+    }
+
+    .scroll-table tbody {
+        overflow-y: scroll;
+        height: 600px;
+        padding-right: 3%;
+        position: absolute;
+    }
+
     body {
         background-color: #f0f0f0;
     }
@@ -38,6 +58,11 @@
         z-index: 8;
         min-height: 80%;
 
+    }
+
+    .table-overflow {
+        max-height: 500px;
+        overflow: scroll;
     }
 
     .main-top-navbar {
@@ -112,6 +137,7 @@
         </li>
         <li data-toggle="pill" class="side-point-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
         <li data-toggle="pill" class="side-board-btn"><a href="#" class="side-bar-text">내 글 모아보기</a></li>
+        <li data-toggle="pill" class="side-reply-btn"><a href="#" class="side-bar-text">나의 댓글</a></li>
         <c:if test="${login.isent eq 1}">
             <li data-toggle="pill" class="side-ent-btn"><a href="#" class="side-bar-text">기업</a></li>
 
@@ -224,17 +250,42 @@
     <div class="col-md-12 main-title text-left">내 글 모아보기</div>
     <div id="board-list-container">
 
-        <table class="table table-striped">
+        <table class="scroll-table table table-striped table-responsive">
             <thead class="thead-inverse">
             <tr>
                 <th class="text-center">글번호</th>
-                <th class="text-center col-md-6">제목</th>
+                <th class="text-center col-md-4">제목</th>
                 <th class="text-center">조회수</th>
                 <th class="text-center visible-md visible-lg">작성일</th>
                 <th class="text-center visible-md visible-lg">기업여부</th>
             </tr>
             </thead>
-            <tbody id="board-list">
+            <tbody id="board-list" class="table-overflow">
+            <tr>
+                <td class="text-center" colspan="5">작성목록이 없습니다.</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<div class="col-md-8 white-box margin-top-25" id="myreply" hidden="hidden">
+    <div class="col-md-12 main-title text-left">My Reply List</div>
+    <div id="reply-list-container">
+
+        <table class="scroll-table table table-striped table-responsive">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="text-center visible-md visible-lg">종류</th>
+                <th class="text-center">번호</th>
+                <th class="text-center col-md-4">내용</th>
+                <th class="text-center visible-md visible-lg">작성일</th>
+                <th class="text-center">Delete</th>
+            </tr>
+            </thead>
+            <tbody id="reply-list" class="table-overflow">
             <tr>
                 <td class="text-center" colspan="5">작성목록이 없습니다.</td>
             </tr>
@@ -288,6 +339,13 @@
         load_board_list();
 
     });
+    $('.side-reply-btn').click(function () {
+        all_hide();
+
+        $('#myreply').show();
+        load_reply_list();
+
+    });
     $('.side-ent-btn').click(function () {
         all_hide();
 
@@ -301,6 +359,7 @@
         $('#mycrowd-list').hide();
         $('#mypoint').hide();
         $('#myboard').hide();
+        $('#myreply').hide();
         $('#myent').hide();
 
         $('.cash-charge').hide();
@@ -502,7 +561,7 @@
                     var temp_date = new Date(val.wdate).format("yyyy-MM-dd");
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg">' + val.seq + '</td>'
-                        + '<td><div class="btn detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
+                        + '<td class="col-md-4"><div class="btn detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
                         + val.tempSub + '</a></div></td>'
                         + '<td class="text-center">' + val.readcount + '</td>'
                         + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
@@ -521,110 +580,143 @@
             }
         })
     }
+    /*댓글 삭제*/
+    var reply_delete = function (seq) {
+
+        $.ajax({
+            url: "replydel.do",
+            method: "post",
+            data: {"seq": seq},
+            success: function (data) {
+
+                if (data.message == "SUCS") {
+                    load_reply_list();
+                } else {
+                    setTimeout('showMsg("정상적인 처리가 되지 않았습니다.");', 500);
+
+                }
+
+
+            }
+        })
+    }
     /* 내 댓글 불러오기*/
     var load_reply_list = function () {
 
         $.ajax({
-            url: "myReplyList.do",
+            url: "myReplylist.do",
             method: "post",
             data: {"id": "${login.id}"},
             success: function (data) {
                 var str = "";
                 $.each(data, function (index, val) {
-                    var temp_date = new Date(val.wdate).format("yyyy-MM-dd");
-                    str += ' <tr class="_hover_tr">'
-                        + '<td class="text-center visible-md visible-lg">' + val.seq + '</td>'
-                        + '<td><div class="btn detail-btn">'
-                    if (val.type == 1) {
-                        +'<a href="boarddetail.do?seq=' + val.pseq + '">'
+                    str += ' <tr class="_hover_tr">';
+
+                    if (val.btype == 1) {
+                        str += '<td class="text-center visible-md visible-lg">' + '문의' + '</td>';
+
+                    } else if (val.btype == 2) {
+                        str += '<td class="text-center visible-md visible-lg">' + '일반펀드' + '</td>';
 
                     } else {
-                        +'<a href="boarddetail.do?seq=' + val.pseq + '">'
+                        str += '<td class="text-center visible-md visible-lg">' + '보상' + '</td>';
 
                     }
-                    +val.tempSub + '</a></div></td>'
-                    + '<td class="text-center">' + val.readcount + '</td>'
-                    + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
-                    if (val.ent == 0) {
-                        str += '<td class="text-center  visible-md visible-lg">X</td>';
+                    str += '<td class="text-center">' + val.seq + '</td>'
+                        + '<td class="col-md-4"><div class="btn detail-btn">'
+                    if (val.btype == 1) {
+
+                        +'<a href="boarddetail.do?seq=' + val.bparent + '">'
 
                     } else {
-                        str += '<td class="text-center  visible-md visible-lg">O</td>';
+                        +'<a href="crowd.do?seq=' + val.bparent + '">'
+
                     }
-                    str += +'</tr>';
+                    str += val.tempSub + '</a></div></td>'
+                        + '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>'
+                        + '<td class="text-center">'
+                        + '<button class="btn btn-danger re-remove-btn" data-src="' + val.seq + '">삭제</button></td>'
+                        + '</tr>';
                 });
 
 
-                $('#board-list').html(str);
+                $('#reply-list').html(str);
 
             }
         })
     }
-    /*비밀번호 변경*/
+
+    /* 비밀번호 변경 2단계창 클릭*/
+    var pwd_check_one = function () {
+        var cur_pwd = $('#cur-pwd').val()
+        if (cur_pwd.length < 2) {
+            alert("비밀번호를 입력해주세요");
+            return;
+        } else {
+            $('.showMsg-close').click();
+
+            $.ajax({
+                url: "pwdCheck.do",
+                method: "post",
+                data: {"id": "${login.id}", "pwd": cur_pwd},
+                success: function (data) {
+
+
+                    if (data.message == "SUCS") {
+                        setTimeout("showMsg(\"변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3' onclick='pwd_check_two()'>확인</button>\");", 500)
+
+
+                    } else {
+                        alert("비밀번호가 일치하지않습니다.");
+
+                    }
+                }
+            })
+        }
+    }
+    var pwd_check_two = function (edit_pwd) {
+        if (edit_pwd.length < 5) {
+            alert("비밀번호를 제대로 입력해주세요 (6자이상)");
+            return
+        } else {
+            $('.showMsg-close').click();
+
+            $.ajax({
+                url: "pwdUpdate.do",
+                method: "post",
+                data: {"id": "${login.id}", "pwd": edit_pwd},
+                success: function (mes) {
+
+
+                    if (mes.message == "SUCS") {
+                        $('.showMsg-close').click();
+
+                        setTimeout(" showMsg('변경 되었습니다.')", 500);
+
+                    } else {
+                        setTimeout(" showMsg('실패.')", 500);
+                    }
+                }
+            })
+        }
+
+    }
+
+
+    /*비밀번호 변경 1단계창 띄우기*/
     $('.pwd-edit-btn').click(function () {
 
 
-        setTimeout("showMsg(\"현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2'>확인</button>\");", 100)
-        /*비밀번호변경- 현재비밀번호 입력 체크*/
-        $('#alertModal').click(function () {
-            var cur_pwd = $('#cur-pwd').val()
-            if (cur_pwd.length < 2) {
-                alert("비밀번호를 입력해주세요");
-                return
-            } else {
-                $('.showMsg-close').click();
-
-                $.ajax({
-                    url: "pwdCheck.do",
-                    method: "post",
-                    data: {"id": "${login.id}", "pwd": cur_pwd},
-                    success: function (data) {
-
-
-                        if (data.message == "SUCS") {
-                            setTimeout("showMsg(\"변경할 비밀번호를 입력하세요<br> <input type='password' class='black-control' id='edit-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn3'>확인</button>\");", 500)
-
-
-                            $('#myMsg').on("click", '#pwd-edit-btn3', function () {
-
-                                var edit_pwd = $('#edit-pwd').val()
-                                if (edit_pwd.length < 5) {
-                                    alert("비밀번호를 제대로 입력해주세요 (6자이상)");
-                                    return
-                                } else {
-                                    $('.showMsg-close').click();
-
-                                    $.ajax({
-                                        url: "pwdUpdate.do",
-                                        method: "post",
-                                        data: {"id": "${login.id}", "pwd": edit_pwd},
-                                        success: function (mes) {
-
-
-                                            if (mes.message == "SUCS") {
-                                                $('.showMsg-close').click();
-
-                                                setTimeout(" showMsg('변경 되었습니다.')", 500);
-
-                                            } else {
-                                                setTimeout(" showMsg('실패.')", 500);
-                                            }
-                                        }
-                                    })
-                                }
-                            })
-                        } else {
-                            alert("비밀번호가 일치하지않습니다.");
-
-                        }
-                    }
-                })
-            }
-        })
+        setTimeout("showMsg(\"현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2' onclick='pwd_check_one()'>확인</button>\");", 100)
 
 
     })
-    /*비밀번호변경- 나중 비밀번호 입력 체크*/
 
+
+    $('#reply-list').on("click", ".re-remove-btn", function () {
+        var seq = $(this).attr('data-src');
+
+        showSelectMsg("reply_delete(" + seq + ")");
+    })
 
 </script>

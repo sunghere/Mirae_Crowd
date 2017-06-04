@@ -279,27 +279,25 @@
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span class='close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+                <h3 class="title_Type">Reply Edit</h3>
+            </div>
             <div class="modal-body">
-                <div class="sh-replybox sh-replybox-bottom">
-                    <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
-                    <div class="my_reply_cotent col-sm-12">
-                        <div class="row">
-                            <div class="form-group">
-                                <h2 class="cursive underline">Reply Write</h2>
-                                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
-                                <br>
+                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
+                <br>
 
-                                <textarea
-                                        class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
-                                        rows="4" id="bot-r-area"></textarea>
-                                <button class="btn btn-primary col-xs-3 col-sm-3 replyBt" type="button"
-                                        datasrc="oribt">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <textarea
+                        class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control reply-modal-area"
+                        rows="4" id="bot-r-area"></textarea>
+                <button class="btn btn-primary col-xs-3 col-sm-3 reply-modal-btn" type="button"
+                        datasrc="">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
+                </button>
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@
         <h2><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h2>
     </div>
 </div>
-<div id='reply_cotent' data-offset-top="455">s
+<div id='reply_cotent' data-offset-top="455">
 
     <div id="replyReload">
 

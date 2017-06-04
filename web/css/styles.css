@@ -823,7 +823,7 @@ img::-moz-selection {
     font-weight: 700;
     line-height: 1.2;
     padding: 5%;
-
+    width: 50px;
 }
 
 .reply-box-content {
@@ -836,7 +836,7 @@ img::-moz-selection {
 .reply-delete-btn {
     position: absolute;
     top: 0%;
-    right: 8%;
+    right: 10%;
     background-color: transparent;
 
 }

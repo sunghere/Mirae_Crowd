@@ -81,7 +81,7 @@
     u.NAME
   FROM SHREPLY r
     JOIN SHUSER u ON r.ID = u.ID
-        WHERE r.ID = #{id}
+        WHERE r.ID = #{id} AND r.DEL = 0
     </select>
     <!--aaa-->
 
