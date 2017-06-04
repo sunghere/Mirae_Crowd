@@ -46,7 +46,7 @@
         var temp_chk = 0;
         $.each(data, function (index, val) {
             if (myid == val.fromid) {
-                str += "<div class='text-right'><div class='chat_text'>" + val.content;
+                str += "<div class='text-right'><div class='chat_text'>" + val.temp;
             } else {
                 if (temp_chk == 0) {
                     if ($('input[name="myauth"]').attr('value') != 1) {
@@ -58,7 +58,7 @@
                     }
                     temp_chk = 1;
                 }
-                str += "<div class='text-left'><div class='chat_text'>" + val.content;
+                str += "<div class='text-left'><div class='chat_text'>" + val.temp;
             }
             str += "</div></div>"
 
