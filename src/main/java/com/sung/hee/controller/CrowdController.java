@@ -191,17 +191,9 @@ public class CrowdController {
         return list;
     }
 
-    /* 크라우드 리스트 by 검색결과 초기 */
-    @RequestMapping(value = "cSearchInit.do", method = RequestMethod.POST)
-    @ResponseBody
-    public List<SHCrowd> cSearchInit(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl cSearchInit--!");
-        List<SHCrowd> list = shCrowdService.listbySearchInit(shCrowd);
+  
 
-        return list;
-    }
-
-    /* 크라우드 리스트 by 검색결과 이어서 */
+    /* 크라우드 리스트 by 검색결과 + 태그 */
     @RequestMapping(value = "cSearch.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> cSearch(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
