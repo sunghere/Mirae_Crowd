@@ -75,13 +75,11 @@
     <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT rnn,count(*) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
         SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,s.SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE ,REQ,LATLNG,s.WDATE FROM SHCROWD s join SHFUND f on s.SEQ = f.PSEQ GROUP
-        BY s.seq WHERE REQ
-        = 1)
+        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT count(*) pnum,pseq FROM SHFund GROUP BY pseq) count on count.pseq=SHCROWD.seq WHERE REQ = 1)
         <if test="rnn == null and rnn ==''">
 
             WHERE 12 >= rnn
@@ -94,12 +92,11 @@
     </select>
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-        SELECT rnn,count(*) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT rnn,,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
         SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD s join SHFUND f on s.SEQ = f.PSEQ GROUP
-        BY s.seq WHERE REQ = 1
+        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT count(*) pnum,pseq FROM SHFund GROUP BY pseq) count on count.pseq=SHCROWD.seqWHERE REQ = 1
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
                 AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
