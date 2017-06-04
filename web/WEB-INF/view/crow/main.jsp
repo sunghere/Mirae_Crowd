@@ -112,14 +112,18 @@ $(function() {
 		
 		imageInput(src_list,data);
 		$(".progress-bar").each(function(index,val) {
-			
-			if($(val).attr('aria-valuenow') < 30 ) {
-				$(val).addClass("progress-bar-danger");
-			} else if($(val).attr('aria-valuenow') >= 30 || $(val).attr('aria-valuenow') < 70) {
-				$(val).addClass("progress-bar-info");
-			} else {
-				$(val).addClass("progress-bar-success");
-			}
+
+            if ($(val).attr('aria-valuenow') <= 20) {
+                $(val).addClass("progress-bar-danger");
+            } else if ($(val).attr('aria-valuenow') > 20 && $(val).attr('aria-valuenow') <= 40) {
+                $(val).addClass("progress-bar-warning");
+            } else if ($(val).attr('aria-valuenow') > 40 && $(val).attr('aria-valuenow') <= 60) {
+
+            } else if ($(val).attr('aria-valuenow') > 60 && $(val).attr('aria-valuenow') <= 80) {
+                $(val).addClass("progress-bar-info");
+            } else {
+                $(val).addClass("progress-bar-success");
+            }
 		});
 	}
 	var initTagList = function() {
