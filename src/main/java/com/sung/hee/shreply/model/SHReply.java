@@ -9,6 +9,7 @@ public class SHReply implements Serializable {
     private int seq;
     private String id;
     private String name;
+    private String tempSub;
     private int rnn;
 
     public int getRnn() {
@@ -28,6 +29,21 @@ public class SHReply implements Serializable {
     }
 
     public SHReply() {
+    }
+
+    public String getTempSub() {
+        tempSub = content;
+        if (tempSub.length() > 12) {
+            tempSub = tempSub.substring(0, 12) + "..";
+        }
+        tempSub = tempSub.replace("&", "&amp;");
+        tempSub = tempSub.replace("<", "&lt;");
+        tempSub = tempSub.replace(">", "&gt;");
+        return tempSub;
+    }
+
+    public void setTempSub(String tempSub) {
+        this.tempSub = content;
     }
 
     @Override

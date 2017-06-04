@@ -231,7 +231,7 @@
 </div>
 
 <%--리모콘 모달--%>
-<div id="remoteModal" class="modal fade" tabindex="-1" role="dialog"
+<div id="chatModal" class="modal fade" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -258,7 +258,7 @@
     </div>
     <div class="sh-in-talk sh-remote">
         <img src="image/shtalk.gif" class="chat"> <span hidden="hidden"
-                                                        data-target='#remoteModal' data-toggle="modal"
+                                                        data-target='#chatModal' data-toggle="modal"
                                                         id="chatbtn"></span>
     </div>
     <div class="sh-out-remote sh-remote">

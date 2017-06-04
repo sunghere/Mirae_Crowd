@@ -230,15 +230,15 @@
         </div>
     </div>
 </div>
-<%--리모콘 모달--%>
-<div id="remoteModal" class="modal fade" tabindex="-1" role="dialog"
+<%--1:1문의 모달--%>
+<div id="chatModal" class="modal fade" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header line_none">
-                <button type="button" id="remoteModal_close" class="close"
+                <button type="button" id="chatModal_close" class="close"
                         data-dismiss="modal">
-                    <span class='loginexit' aria-hidden="true">x</span> <span
+                    <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
                 <h3 class="title_Type" id='chat-title'>1:1 문의</h3>
@@ -258,7 +258,7 @@
     </div>
     <div class="sh-in-talk sh-remote">
         <img src="image/shtalk.png" class="chat"> <span hidden="hidden"
-                                                        data-target='#chag' data-toggle="modal"
+                                                        data-target='#chatModal' data-toggle="modal"
                                                         id="chatbtn"></span>
     </div>
     <div class="sh-out-remote sh-remote">

@@ -128,7 +128,7 @@
             success: function (data) {
                 var myid = $('input[name="myid"]').attr('value');
                 $.each(data, function (index, val) {
-                    str += '<div class="sh-replybox"><div class="reply-block"><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div><div class="reply-box-content">' + val.content + '</div>';
+                    str += '<div class="sh-replybox"><div class="reply-block"><div class="reply-author replybox-footer"><div class="reply-author-nickname">' + val.name + '</div></div><div class="reply-box-content">' + val.temp + '</div>';
 
                     if (myid == val.id) {
                         str += '<button type="button" id="_replySeq@' + val.seq + '" class="reply-edit-btn btn cursive small"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';

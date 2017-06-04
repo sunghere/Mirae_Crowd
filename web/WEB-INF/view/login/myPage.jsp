@@ -534,10 +534,17 @@
                     var temp_date = new Date(val.wdate).format("yyyy-MM-dd");
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg">' + val.seq + '</td>'
-                        + '<td><div class="btn detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
-                        + val.tempSub + '</a></div></td>'
-                        + '<td class="text-center">' + val.readcount + '</td>'
-                        + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
+                        + '<td><div class="btn detail-btn">'
+                    if (val.type == 1) {
+                        +'<a href="boarddetail.do?seq=' + val.pseq + '">'
+
+                    } else {
+                        +'<a href="boarddetail.do?seq=' + val.pseq + '">'
+
+                    }
+                    +val.tempSub + '</a></div></td>'
+                    + '<td class="text-center">' + val.readcount + '</td>'
+                    + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
                     if (val.ent == 0) {
                         str += '<td class="text-center  visible-md visible-lg">X</td>';
 
