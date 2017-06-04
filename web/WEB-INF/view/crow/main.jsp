@@ -13,7 +13,7 @@
 .main-img-section {width:100%; height:200px;}
 .main-info-section {font-size:14px; height:200px; padding:2% 5%; background-color : #f8f8f8;}
 .info-title {height:60px; line-height:24px; padding:10px 0; font-weight:bold; text-overflow: ellipsis; font-size: 17px;}
-.info-id {margin-bottom:5%;}
+.info-id {margin-bottom:10px;}
 .progress-info {height:20px;}
 .left {float:left;}
 .right {float:right;}
@@ -28,8 +28,10 @@
 }
 .tagbox {background-color: #FFB2AF; color: white; margin-right:10px; padding: 0 10px; font-size:14px; display: inline-block;}
 .taglist {margin-bottom: 6%; line-height: 35px;}
-.tag-title {font-size: 16px; margin-right: 10px;}
+.tag-title {font-size: 16px; margin-bottom: 10px;}
 .tag-title>i {font-size: 20px; vertical-align: middle;}
+.info-cat, .info-last {height:26px; margin-top:2px;}
+.info-join {margin-top:8px;}
 .info-like {padding-top: 7px;}
 .info-like>i {color:red;}
 </style>
@@ -93,14 +95,14 @@ $(function() {
 			"<div class='main-img-section' id='list-img"+val.seq+"'></div>"+
 			"<div class='main-info-section'><div class='card-block info-title'>"+val.title+"</div>"+
 			"<div class='card-block info-id'>"+val.id+"</div>"+
-			"<div class='progress-info'><span class='card-block info-curmoney left'>"+val.curmoney+"원 달성</span>"+
+			"<div class='progress-info'><span class='card-block info-curmoney left'>"+val.curmoney+"원 달성 ("+toGoal(val.goalmoney, val.curmoney)+"%)</span>"+
 			"<span class='card-block info-date right'>"+dateCountdown(val.edate)+"일 남음</span></div>"+
 			"<div class='progress'>"+
 		    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='"+toGoal(val.goalmoney, val.curmoney)+"' "+
 		    "aria-valuemin='0' aria-valuemax='100' style='width:"+toGoal(val.goalmoney, val.curmoney)+"%'></div>"+
 			"</div>"+
 			"<div class='info-cat'><span class='tags left'>"+val.tag+"</span><span class='category cbox right'>"+val.category+"</span></div>"+
-			"<div class='info-like clear right'><i class='fa fa-heart' aria-hidden='true'></i> "+val.likenum+"</div>"+
+			"<div class='info-last clear'><span class='info-join left'>"+val.id+"명 참여중</span><span class='info-like right'><i class='fa fa-heart' aria-hidden='true'></i> "+val.likenum+"</span></div>"+
 			"</div></div>";
 			var src = imageCarrier(val.content);
 			src_list.push(src);
@@ -126,11 +128,12 @@ $(function() {
 			method:"POST",
 			data: {},
 			success: function(data) {
-				str="<div class='tag-title'><i class='fa fa-tag' aria-hidden='true'></i> HOT 키워드 </div>";
+				str="<div class='tag-title'><i class='fa fa-tag' aria-hidden='true'></i> HOT 키워드 </div>"+
+				"<div class='tagbox'><i class='fa fa-hashtag' aria-hidden='true'></i>ALL</div>";
 				
 				$.each(data, function(index, val) {
 					
-					str+="<div class='tagbox' datasrc='"+val+"'><i class='fa fa-hashtag' aria-hidden='true'></i>"+val+"</div>";
+					str+="<div class='tagbox'><i class='fa fa-hashtag' aria-hidden='true'></i>"+val+"</div>";
 				})
 				$(".taglist").html(str);
 			}
@@ -138,7 +141,10 @@ $(function() {
 	};
 	$('.taglist').on("click","div.tagbox",function() {
 		var tag=$(this).prop("innerText");
-		
+		if(tag=="ALL") {
+			initList();
+			return;
+		}
 		$.ajax({
 			url:"cSearch.do",
 			method: "POST",
@@ -153,15 +159,10 @@ $(function() {
 		})
 	});
 	
-	var searchTag = function(tag) {
-		
-	}
-	
 	initList();
 	initTagList();
 })
 </script>
-
 
 <div class='taglist'></div>
 <div class="card-columns mb-3">
