@@ -70,7 +70,7 @@ var imageCarrier = function(content) {
 $(function() {
 	var initList=function() {
 		$.ajax({
-			url:"cListInit.do",
+			url:"crowdList.do",
 			method: "post",
 			data: {},
 			success: function(data) {

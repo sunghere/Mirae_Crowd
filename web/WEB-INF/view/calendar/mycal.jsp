@@ -44,7 +44,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/fullcal/locale/ko.js"></script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+    $(function () {
         var load_Cal = function (crowd) {
             $("#calendar").fullCalendar({
                 defaultDate: $('#todays').attr("value"),
@@ -136,23 +136,23 @@
             var date = jQuery("#calendar").fullCalendar("getDate");
             convertDate(date);
         });
+        // 받은 날짜값을 date 형태로 형변환 해주어야 한다.
+        function convertDate(date) {
+            var date = new Date(date);
+//        alert(date.yyyymmdd());
+        }
 
+        // 받은 날짜값을 YYYY-MM-DD 형태로 출력하기위한 함수.
+        Date.prototype.yyyymmdd = function () {
+            var yyyy = this.getFullYear().toString();
+            var mm = (this.getMonth() + 1).toString();
+            var dd = this.getDate().toString();
+            return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
+        }
+
+        load_Crowd();
     });
 
-
-    // 받은 날짜값을 date 형태로 형변환 해주어야 한다.
-    function convertDate(date) {
-        var date = new Date(date);
-//        alert(date.yyyymmdd());
-    }
-
-    // 받은 날짜값을 YYYY-MM-DD 형태로 출력하기위한 함수.
-    Date.prototype.yyyymmdd = function () {
-        var yyyy = this.getFullYear().toString();
-        var mm = (this.getMonth() + 1).toString();
-        var dd = this.getDate().toString();
-        return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
-    }
 
 </script>
 

@@ -54,10 +54,6 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
         sqlSession.update(ns + "accCrowd", crowd);
     }
 
-    public List<SHCrowd> crowdListInit() {
-        return sqlSession.selectList(ns + "crowdListInit");
-    }
-
     public List<SHCrowd> crowdList(SHCrowd crowd) {
         return sqlSession.selectList(ns + "crowdList", crowd);
     }
@@ -67,9 +63,6 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
 
     }
 
-    public List<SHCrowd> listbySearchInit(SHCrowd crowd) {
-        return sqlSession.selectList(ns + "listbySearchInit", crowd);
-    }
 
     public List<SHCrowd> listbySearch(SHCrowd crowd) {
         return sqlSession.selectList(ns + "listbySearch", crowd);

@@ -7,7 +7,7 @@ package com.sung.hee.shcrowd.model;
 public class SHCrowd {
 
 
-    private int rnn;
+    private String rnn;
     private int seq;
     private String title;
     private String content;
@@ -72,11 +72,11 @@ public class SHCrowd {
         this.latlng = latlng;
     }
 
-    public int getRnn() {
+    public String getRnn() {
         return rnn;
     }
 
-    public void setRnn(int rnn) {
+    public void setRnn(String rnn) {
         this.rnn = rnn;
     }
 

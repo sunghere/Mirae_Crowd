@@ -72,7 +72,7 @@
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1)
 
     </select>
-    <select id="crowdListInit"
+    <select id="crowdList"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
@@ -80,40 +80,15 @@
         SELECT ROW_NUMBER() OVER (
         ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1)
-        WHERE 12 >= rnn
+        <if test="rnn == null and rnn ==''">
 
-    </select>
-    <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
-            resultType="com.sung.hee.shcrowd.model.SHCrowd">
-
-        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-        SELECT ROW_NUMBER() OVER (
-        ORDER BY REF DESC, STEP ASC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1)
-        WHERE rnn between #{rnn}+1 AND #{rnn}+12
-    </select>
-    <select id="listbySearchInit" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
-            resultType="com.sung.hee.shcrowd.model.SHCrowd">
-        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-        SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD WHERE REQ = 1
-        <if test="search_type != '' and search_type != null">
-            <if test="search_type == 'search'">
-                AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
-                ||'%')
-            </if>
-            <if test="search_type == 'tag'">
-                AND (TAG like '%'|| #{search} || '%')
-            </if>
-            <if test="search_type == 'type'">
-                AND (TYPE like '%'|| #{search} || '%')
-            </if>
+            WHERE 12 >= rnn
         </if>
-        )
-        WHERE 12 >= rnn
+        <if test="rnn != null and rnn !=''">
+            WHERE rnn between #{rnn}+1 AND #{rnn}+12
+        </if>
+
+
     </select>
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
@@ -135,8 +110,13 @@
             </if>
         </if>
         )
-        WHERE rnn between #{rnn}+1 AND #{rnn}+12
+        <if test="rnn == null and rnn ==''">
 
+            WHERE 12 >= rnn
+        </if>
+        <if test="rnn != null and rnn !=''">
+            WHERE rnn between #{rnn}+1 AND #{rnn}+12
+        </if>
     </select>
     <select id="myCrowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.help.MyCrowd">

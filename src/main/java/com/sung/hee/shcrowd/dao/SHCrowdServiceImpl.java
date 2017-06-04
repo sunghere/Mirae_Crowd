@@ -53,10 +53,6 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         shCrowdDAO.accCrowd(crowd);
     }
 
-    @Transactional(readOnly = true)
-    public List<SHCrowd> crowdListInit() {
-        return shCrowdDAO.crowdListInit();
-    }
 
     @Transactional(readOnly = true)
     public List<SHCrowd> crowdList(SHCrowd crowd) {
@@ -66,11 +62,6 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     @Transactional(readOnly = true)
     public List<SHCrowd> crowdListAll() {
         return shCrowdDAO.crowdListAll();
-    }
-
-    @Transactional(readOnly = true)
-    public List<SHCrowd> listbySearchInit(SHCrowd crowd) {
-        return shCrowdDAO.listbySearchInit(crowd);
     }
 
     @Transactional(readOnly = true)

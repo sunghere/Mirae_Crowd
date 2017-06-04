@@ -179,16 +179,10 @@ public class CrowdController {
         return list;
     }
 
-    /* 크라우드 리스트 초기 */
-    @RequestMapping(value = "cListInit.do", method = RequestMethod.POST)
-    @ResponseBody
-    public List<SHCrowd> cListInit(HttpServletRequest request, Model model) throws Exception {
-        List<SHCrowd> list = shCrowdService.crowdListInit();
-        return list;
-    }
 
-    /* 크라우드 리스트 이어서 */
-    @RequestMapping(value = "cList.do", method = RequestMethod.POST)
+
+    /* 크라우드 리스트 */
+    @RequestMapping(value = "crowdList.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> cList(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl cList--!");

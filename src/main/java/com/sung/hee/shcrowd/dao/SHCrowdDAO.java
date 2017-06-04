@@ -29,13 +29,10 @@ public interface SHCrowdDAO {
 
     Integer crowdLikeNum(CrowdLike crowdLike); /* like 갯수 얻어오기*/
 
-    List<SHCrowd> crowdListInit(); /* 글 리스트 초기 */
 
-    List<SHCrowd> crowdList(SHCrowd crowd); /* 글 리스트 이어서 */
+    List<SHCrowd> crowdList(SHCrowd crowd); /* 글 리스트 */
 
     List<SHCrowd> crowdListAll(); /* 글 리스트 전부*/
-
-    List<SHCrowd> listbySearchInit(SHCrowd crowd); /* 검색 리스트 초기*/
 
     List<SHCrowd> listbySearch(SHCrowd crowd); /* 검색 리스트*/
 
