@@ -161,17 +161,7 @@ $(function() {
 	initTagList();
 })
 </script>
-<%--컨텐츠 모달--%>
-<div id="contentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-content-main">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div id="chatlist"></div>
-                <input type="text" class="form-control input-lg" id="chat-text">
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class='taglist'></div>
 <div class="card-columns mb-3">

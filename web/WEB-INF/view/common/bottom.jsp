@@ -265,6 +265,15 @@
         <img src="image/shall.png"/>
     </div>
 </div>
+<%--컨텐츠 모달--%>
+<div id="contentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-content-main">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 <%--리플--%>
 
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

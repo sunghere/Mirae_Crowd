@@ -180,7 +180,6 @@ public class CrowdController {
     }
 
 
-
     /* 크라우드 리스트 */
     @RequestMapping(value = "crowdList.do", method = RequestMethod.POST)
     @ResponseBody
@@ -191,7 +190,6 @@ public class CrowdController {
         return list;
     }
 
-  
 
     /* 크라우드 리스트 by 검색결과 + 태그 */
     @RequestMapping(value = "cSearch.do", method = RequestMethod.POST)

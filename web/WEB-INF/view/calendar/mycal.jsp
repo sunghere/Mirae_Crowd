@@ -11,7 +11,9 @@
     .fc-day-top.fc-sat {
         color: #0000FF;
     }
-
+    #calendar {
+        font-size: 17px;
+    }
     /* 일요일 */
     .fc-day-top.fc-sun {
         color: #FF0000;
@@ -24,12 +26,8 @@
         top: 0;
     }
 
-    #myModal {
-        position: fixed;
-        /*left: 0;*/
-        /*bottom: 10%;*/
-        z-index: 9999;
-        opacity: 1;
+    div#calendar {
+        z-index: -999;
     }
 
     .fc-view-container *, .fc-view-container *:before, .fc-view-container *:after {
@@ -53,8 +51,7 @@
                 eventLimit: true,
                 events: crowd,
                 eventDrop: function (event, delta) {
-                    alert(event.title + ' was moved ' + delta + ' days\n' +
-                        '(should probably update your database)');
+
                 },
 
                 loading: function (bool) {
@@ -62,29 +59,30 @@
                     else $('#loading').hide();
                 },
                 eventMouseover: function (event, jsEvent, view) {
-                    var item = $(this);
-                    if (item.find('.nube').length == 0) {
-                        var info = '<div id="aboutModal" class="nube" tabindex="-1" role="dialog">' +
-                            '<div class="text-justify">' +
-                            '<img src="' + event.avatar + '" /> <div class="text-center">'
-                            + event.name + '<br/>' + event.start + ' <br/> '
-                            + event.end +
-                            '</div></div></div>';
-                        item.append(info);
-                    }
-                    if (parseInt(item.css('top')) <= 200) {
-                        item.find('.nube').css({'top': '20', 'bottom': 'auto'});
-                        item.parent().find('.fc-event').addClass('z0');
-                    }
-                    item.find('.nube').stop(true, true).fadeIn();
-                    $("#myModal").css({'top': '20', 'bottom': 'auto'});
-                    $("#myModal").prop("hidden", false).fadeIn();
+                    /* var item = $(this);
+                     if (item.find('.nube').length == 0) {
+                     var info = '<div id="aboutModal" class="nube" tabindex="-1" role="dialog">' +
+                     '<div class="text-justify">' +
+                     '<img src="' + event.avatar + '" /> <div class="text-center">'
+                     + event.name + '<br/>' + event.start + ' <br/> '
+                     + event.end +
+                     '</div></div></div>';
+                     item.append(info);
+                     }
+                     if (parseInt(item.css('top')) <= 200) {
+                     item.find('.nube').css({'top': '20', 'bottom': 'auto'});
+                     item.parent().find('.fc-event').addClass('z0');
+                     }
+                     item.find('.nube').stop(true, true).fadeIn();*/
+                    /* $("#myModal").css({'top': '20', 'bottom': 'auto'});
+                     $("#myModal").prop("hidden", false).fadeIn();*/
 
                 },
                 eventMouseout: function (event, jsEvent, view) {
                     var item = $(this);
-                    item.find('.nube').stop(true, true).fadeOut();
-                    $("#myModal").prop("hidden", true).fadeOut();
+                    /* item.find('.nube').stop(true, true).fadeOut();*/
+                    /*
+                     $("#myModal").prop("hidden", true).fadeOut();*/
 
                 },
                 header: {
@@ -114,12 +112,13 @@
                         item.push({
                             "title": val.title,
                             "start": val.sdate,
-                            "end:": val.edate
+                            "end": val.edate,
+                            "color": random_color(val.category),
                         })
 
 
                     })
-                    load_Cal(data);
+                    load_Cal(item);
                 }
             })
         }
@@ -151,6 +150,43 @@
         }
 
         load_Crowd();
+
+        var random_color = function (category) {
+            var color = "";
+            if (category == "IT/인터넷") {
+            } else if (category == "의료") {
+                color = "#65c149";
+
+            } else if (category == "외식/식음료") {
+                color = "#c1499f";
+            } else if (category == "요리") {
+                color = "#591847";
+
+            } else if (category == "예술/엔터테인먼트") {
+                color = "#ccdbba";
+
+            } else if (category == "교육") {
+                color = "#a5a16b";
+
+            } else if (category == "생활/건강") {
+                color = "#6ba58d";
+
+            } else if (category == "여행/레저") {
+                color = "#4c5cad";
+
+            } else if (category == "쇼핑") {
+                color = "#870434";
+
+            } else if (category == "뷰티") {
+                color = "#512427";
+s
+            } else {
+                color = "midnightblue";
+
+            }
+
+            return color;
+        }
     });
 
 
