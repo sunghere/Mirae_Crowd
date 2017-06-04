@@ -12,7 +12,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" title="메인" href="main.do"><img src="image/logo/7.png" class="mylogo img-responsive"></a>
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar">
             <ul class="nav navbar-nav">

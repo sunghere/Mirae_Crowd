@@ -34,6 +34,7 @@
 .info-join {margin-top:8px;}
 .info-like {padding-top: 7px;}
 .info-like>i {color:red;}
+.search {float:right;}
 </style>
 <script>
 $(function() {
@@ -163,14 +164,41 @@ $(function() {
 		})
 	});
 	
+	var searchByText = function() {
+		var txt = $("#search-text").val();
+		$.ajax({
+			url:"cSearch.do",
+			method:"POST",
+			data: {"search":txt, "search_type":"search"},
+			success: function(data) {
+				make_list(data);
+			}
+		})
+	}
+	
+	$(".search").keydown(function(key){
+		if(key.keyCode == 13) {
+			searchByText();
+		}
+	})
+	$(".search>i").click(function() {
+		searchByText();
+	})
+	
 	initList();
 	initTagList();
 })
 </script>
 
-<div class='taglist'></div>
+<div class="taglist"></div>
 <div class="card-columns mb-3">
-    <div class='row' id="crowdlist">
+	<div class="input-group search col-sm-12 col-md-4">
+	  <input type="text" class="form-control" id="search-text" placeholder="Search for...">
+	  <span class="input-group-addon black-control">
+	    <i class="fa fa-search" aria-hidden="true"></i>
+	  </span>
+	</div>
+    <div class='row clear' id="crowdlist">
     </div>
 </div>
 
