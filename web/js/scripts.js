@@ -29,14 +29,6 @@
     });
     /* 스크롤 이벤트*/
     $(document).scroll(function () {
-        var y = $(this).scrollTop();
-        if (y > $(window).height() / 4) {
-            $('#top_scroll').show();
-            $('#last_scroll').hide();
-        } else {
-            $('#top_scroll').hide();
-            $('#last_scroll').show();
-        }
 
 
         if (!$('.writeListAffix').hasClass('affix')) {
