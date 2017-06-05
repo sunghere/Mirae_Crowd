@@ -53,7 +53,7 @@
                     "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalmoney, val.curmoney) + "%'></div>" +
                     "</div>" +
                     "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
-                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i> " + val.likenum + "</span></div>" +
+                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='"+val.seq+"'> " + val.likenum + "</span></div>" +
                     "</div></div>";
                 var src = imageCarrier(val.content);
                 src_list.push(src);

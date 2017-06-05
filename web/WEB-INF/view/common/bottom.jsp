@@ -335,7 +335,14 @@ $(function() {
 				"pseq":pseq,
 				"id": "${login.id}"
 			}, success: function(data) {
-				 check_like(pseq);
+				
+				if(data.message == "FAIL") {
+					shomwMsg()
+				} else {
+					
+				$('.like-num[data-src="'+pseq+'"]').html(data.message);
+				}
+				check_like(pseq);
 				
 				
 			}
