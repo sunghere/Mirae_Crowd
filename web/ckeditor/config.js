@@ -10,6 +10,8 @@ CKEDITOR.editorConfig = function (config) {
     config.language = 'ko';   //언어설정
     config.uiColor = '#EEEEEE';  //ui 색상
 
+    /* plugin*/
+    config.extraPlugins = 'youtube';
 
     config.font_defaultLabel = 'Gulim';
     config.font_names = 'Gulim/Gulim;Dotum/Dotum;Batang/Batang;Gungsuh/Gungsuh/Arial/Arial;Tahoma/Tahoma;Verdana/Verdana';
@@ -39,11 +41,12 @@ CKEDITOR.editorConfig = function (config) {
 
     // Remove some buttons provided by the standard plugins, which are
     // not needed in the Standard(s) toolbar.
-    config.removeButtons = 'Underline,Subscript,Superscript';
+    config.removeButtons = 'Underline,Subscript,Superscript,Source';
 
     // Set the most common block elements.
     config.format_tags = 'p;h1;h2;h3;pre';
 
     // Simplify the dialog windows.
     config.removeDialogTabs = 'image:advanced;link:advanced';
+
 };

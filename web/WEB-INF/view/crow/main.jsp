@@ -39,7 +39,7 @@
         }
         imageCarrier = function (content) {
             var contentArray = new Array();
-            contentArray = content.split('src="');
+            contentArray = content.split('alt="" src="');
             if (contentArray[1] != null && contentArray[1] != "") {
                 var src = contentArray[1].split('"')
 
