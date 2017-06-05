@@ -12,25 +12,6 @@ public class SHFund {
     private String id;
     private String wdate;
 
-    @Override
-    public String toString() {
-        return "SHFund{" +
-                "seq=" + seq +
-                ", pseq=" + pseq +
-                ", id='" + id + '\'' +
-                ", wdate='" + wdate + '\'' +
-                ", money=" + money +
-                '}';
-    }
-
-    public String getWdate() {
-        return wdate;
-    }
-
-    public void setWdate(String wdate) {
-        this.wdate = wdate;
-    }
-
     private int money;
 
     public int getSeq() {
@@ -64,4 +45,22 @@ public class SHFund {
     public void setMoney(int money) {
         this.money = money;
     }
+    public String getWdate() {
+        return wdate;
+    }
+
+    public void setWdate(String wdate) {
+        this.wdate = wdate;
+    }
+    @Override
+    public String toString() {
+        return "SHFund{" +
+                "seq=" + seq +
+                ", pseq=" + pseq +
+                ", id='" + id + '\'' +
+                ", wdate='" + wdate + '\'' +
+                ", money=" + money +
+                '}';
+    }
+
 }

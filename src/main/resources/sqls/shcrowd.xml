@@ -120,7 +120,7 @@
             WHERE rnn between #{rnn}+1 AND #{rnn}+12
         </if>
     </select>
-    <select id="myCrowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+    <select id="myCrowdList" parameterType="com.sung.hee.help.MyCrowd"
             resultType="com.sung.hee.help.MyCrowd">
 
 
