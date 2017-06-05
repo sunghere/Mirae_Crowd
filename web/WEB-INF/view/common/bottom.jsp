@@ -304,9 +304,23 @@
 <script>
 $(function() {
 	$("#crowdlist").on("click",".list-main",function() {
-		
 		var seq =$(this).attr('data-src');
 		detail_load(seq);
+	})
+	
+	$(".detail-summary").on("click", ".detail-like", function(){
+		var pseq = "";
+		var id = "";
+		$.ajax({
+			url: "crowdLike.do",
+			method: "POST",
+			data: {
+				"pseq":pseq,
+				"id":id
+			}, success: function(data) {
+				
+			}
+		})
 	})
 	
 	detail_load = function(seq) {
@@ -403,7 +417,10 @@ $(function() {
         </div>
     </div>
 </div>
+<!-- 리플 모달 버튼 -->
 <button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
+<!-- 디테일 모달 버튼 -->
+<input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
 <script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;

@@ -140,8 +140,7 @@
         initTagList();
     })
 </script>
-<!-- 디테일 모달 버튼 -->
-<input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
+<!-- 태그리스트 -->
 <div class="taglist"></div>
 <div class="card-columns mb-3">
     <div class="input-group search-box col-sm-12 col-md-4 col-lg-3" style="float:right">
