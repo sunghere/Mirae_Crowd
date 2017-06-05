@@ -6,123 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<style>
-    .list-section {
-        height: 400px;
-        margin-bottom: 1%;
-        background-color: #fff;
-    }
-
-    .list-main {
-        cursor: pointer;
-        padding: 2% 2%;
-    }
-
-    .list-section .list-main:LAST-CHILD {
-        margin-right: 0;
-    }
-
-    .main-img-section {
-        width: 100%;
-        height: 200px;
-    }
-
-    .main-info-section {
-        font-size: 14px;
-        height: 200px;
-        padding: 2% 5%;
-        background-color: #f8f8f8;
-    }
-
-    .info-title {
-        height: 60px;
-        line-height: 24px;
-        padding: 10px 0;
-        font-weight: bold;
-        text-overflow: ellipsis;
-        font-size: 17px;
-    }
-
-    .info-id {
-        margin-bottom: 10px;
-    }
-
-    .progress-info {
-        height: 20px;
-    }
-
-    .left {
-        float: left;
-    }
-
-    .right {
-        float: right;
-    }
-
-    .clear {
-        clear: both;
-    }
-
-    .cbox {
-        background-color: midnightblue;
-        color: white;
-        padding: 5px 10px;
-    }
-
-    .tags {
-        padding: 5px 0;
-    }
-
-    .progress {
-        height: 15px;
-        background-color: #fff;
-        clear: both;
-        margin-bottom: 5%;
-    }
-
-    .tagbox {
-        cursor: pointer;
-        background-color: #FFB2AF;
-        color: white;
-        margin-right: 10px;
-        padding: 10px;
-        border-radius: 0;
-        font-size: 14px;
-        display: inline-block;
-    }
-
-    .taglist {
-        margin-bottom: 6%;
-        line-height: 35px;
-    }
-
-    .tag-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-
-    .tag-title > i {
-        font-size: 20px;
-        vertical-align: middle;
-    }
-
-    .info-cat, .info-last {
-        height: 26px;
-        margin-top: 2px;
-    }
-
-    .info-join {
-        margin-top: 8px;
-    }
-
-    .info-like {
-        padding-top: 7px;
-    }
-
-    .info-like > i {
-        color: red;
-    }
-</style>
 <script>
     $(function () {
         toGoal = function (goalmoney, curmoney) {
@@ -144,7 +27,7 @@
             $.each(data, function (index, val) {
 
                 var src = src_list[index];
-                $('#list-img' + val.seq).css({ 
+                $('#list-img' + val.seq).css({
                     "background-image": 'url("' + src + '")',
                     "-webkit-background-size": "cover",
                     "-moz-background-size": "cover",
@@ -189,14 +72,14 @@
                     "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
                     "<div class='main-info-section'><div class='card-block info-title'>" + val.title + "</div>" +
                     "<div class='card-block info-id'>" + val.id + "</div>" +
-                    "<div class='progress-info'><span class='card-block info-curmoney left'>" + val.curmoney + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
-                    "<span class='card-block info-date right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
+                    "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + val.curmoney + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
+                    "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
                     "<div class='progress'>" +
                     "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalmoney, val.curmoney) + "' " +
                     "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalmoney, val.curmoney) + "%'></div>" +
                     "</div>" +
-                    "<div class='info-cat'><span class='tags left'>" + val.tag + "</span><span class='category cbox right'>" + val.category + "</span></div>" +
-                    "<div class='info-last clear'><span class='info-join left'>" + val.pnum + "명 참여중</span><span class='info-like right'><i class='fa fa-heart' aria-hidden='true'></i> " + val.likenum + "</span></div>" +
+                    "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
+                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i> " + val.likenum + "</span></div>" +
                     "</div></div>";
                 var src = imageCarrier(val.content);
                 src_list.push(src);
@@ -283,7 +166,7 @@
         initTagList();
     })
 </script>
-<!-- 디테일 모달 버튼  -->
+<!-- 디테일 모달 버튼 -->
 <input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
 <div class="taglist"></div>
 <div class="card-columns mb-3">
@@ -293,7 +176,7 @@
 	    <i class="fa fa-search" aria-hidden="true"></i>
 	  </span>
     </div>
-    <div class='row clear' id="crowdlist">
+    <div class='row div-clear' id="crowdlist">
     </div>
 </div>
 

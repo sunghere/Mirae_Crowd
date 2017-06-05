@@ -277,8 +277,8 @@
         <div class="modal-content">
             <div class="modal-body">
             	<div class="row">
-	            	<div class="detail-content left"></div>
-	            	<div class="detail-reply right"></div>
+	            	<div class="detail-content float-left"></div>
+	            	<div class="detail-reply float-right"></div>
             	</div>
             </div>
         </div>
