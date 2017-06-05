@@ -83,14 +83,12 @@
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT COUNT(*)
         PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
         SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 1 AND ENDFLAG='0')
-        <if test="rnn == null OR rnn =='' OR rnn==0">
-
+        <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
-        <if test="rnn != null and rnn !='' and rnn !=0">
+        <if test="rnn != null and rnn !=''">
             WHERE rnn between #{rnn}+1 AND #{rnn}+12
         </if>
-
 
     </select>
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
@@ -116,11 +114,10 @@
             </if>
         </if>
         )
-        <if test="rnn == null OR rnn =='' OR rnn==0">
-
+        <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
-        <if test="rnn != null and rnn !='' and rnn !=0">
+        <if test="rnn != null and rnn !=''">
             WHERE rnn between #{rnn}+1 AND #{rnn}+12
         </if>
     </select>

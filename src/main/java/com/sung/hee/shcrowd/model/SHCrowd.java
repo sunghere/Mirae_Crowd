@@ -6,7 +6,7 @@ package com.sung.hee.shcrowd.model;
 public class SHCrowd {
 
 
-    private String rnn;
+    private String rnn="";
     private int seq;
 
 

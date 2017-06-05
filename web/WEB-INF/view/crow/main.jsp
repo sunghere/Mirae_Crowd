@@ -104,6 +104,9 @@
                 $(".search").attr('data-src', "");
                 $(".search_type").attr('data-src', "");
                 return;
+            } else {
+                $(".search").attr('data-src', tag);
+                $(".search_type").attr('data-src', "tag");
             }
             $.ajax({
                 url: "cSearch.do",
@@ -112,9 +115,7 @@
                 success: function (data) {
                     make_list(data, 0);
                 }, error: function (a, b, c) {
-                    console.log(a)
-                    console.log(b)
-                    console.log(c)
+
                 }
             })
         });
