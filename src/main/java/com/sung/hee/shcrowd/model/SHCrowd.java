@@ -12,6 +12,20 @@ public class SHCrowd {
 
     private int pnum;
     private String title = "";
+
+    public String getTitleTemp() {
+        titleTemp = title;
+        titleTemp = titleTemp.replace("&", "&amp;");
+        titleTemp = titleTemp.replace("<", "&lt;");
+        titleTemp = titleTemp.replace(">", "&gt;");
+        return titleTemp;
+    }
+
+    public void setTitleTemp(String titleTemp) {
+        this.titleTemp = titleTemp;
+    }
+
+    private String titleTemp = "";
     private String titleSub = "";
     private String content;
 
@@ -30,8 +44,8 @@ public class SHCrowd {
 
     public String getTitleSub() {
         titleSub = title;
-        if (titleSub.length() > 14) {
-            titleSub = titleSub.substring(0, 14) + "..";
+        if (titleSub.length() > 20) {
+            titleSub = titleSub.substring(0, 19) + "..";
 
         }
         titleSub = titleSub.replace("&", "&amp;");
