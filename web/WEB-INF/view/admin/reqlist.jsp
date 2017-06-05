@@ -91,6 +91,14 @@
             }
         })
     }
+    /* 디테일 보여주기*/
+    $('#crowd-req-list').on("click", ".crowd-detail-btn", function () {
+        var seq = $(this).attr("data-src");
+
+        detail_load(seq);
+
+    })
+    /* 리스트 불러오기 */
     var load_list = function () {
         $.ajax({
             url: "reqList.do",
@@ -102,7 +110,7 @@
                 $.each(data, function (index, val) {
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg">' + val.wdate + '</td>'
-                        + '<td><div class="btn detail-btn" data-src="' + val.seq + '">'
+                        + '<td><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleTemp + '</div></td>'
                         + '<td class="text-center visible-md visible-lg">' + val.category + '</td>'
 

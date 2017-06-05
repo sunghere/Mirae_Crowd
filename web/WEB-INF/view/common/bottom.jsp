@@ -267,22 +267,65 @@
     </div>
 </div>
 <style>
-.detail-body {font-size:14px;}
-.detail-body img {max-width: 100%; margin-bottom: 10px;}
-.detail-title {font-size:25px; font-weight: bold; text-align: center; line-height: 35px;}
-.detail-cat {font-size: 20px; margin-right: 10px;}
-.detail-summary {height:80%; overflow: hidden;}
-.detail-summary div {margin-bottom: 10px;}
-.detail-goalmoney {font-size: 20px; font-weight: bold;}
-.detail-like {position: absolute; right: 5%; display: inline-block; font-size: 40px; color:#FFB2AF; padding-top: 15px;}
-.detail-detail {height:80%; position: relative; overflow-y: scroll;}
-#detailModal > div {width: 90%;}
+    .detail-body {
+        font-size: 14px;
+    }
+
+    .detail-body img {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .detail-title {
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 35px;
+    }
+
+    .detail-cat {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .detail-summary {
+        height: 80%;
+        overflow: hidden;
+    }
+
+    .detail-summary div {
+        margin-bottom: 10px;
+    }
+
+    .detail-goalmoney {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .detail-like {
+        position: absolute;
+        right: 5%;
+        display: inline-block;
+        font-size: 40px;
+        color: #FFB2AF;
+        padding-top: 15px;
+    }
+
+    .detail-detail {
+        height: 80%;
+        position: relative;
+        overflow-y: scroll;
+    }
+
+    #detailModal > div {
+        width: 90%;
+    }
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-content-main">
         <div class="modal-content">
-        	<div class="modal-header">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">x</span>
                     <span class="sr-only">Close</span>
@@ -290,10 +333,10 @@
                 <h3 class="detail-title"></h3>
             </div>
             <div class="modal-body">
-            	<div class="row detail-body">
-	            	<div class="detail-summary col-sm-12 col-md-4"></div>
-	            	<div class="detail-detail col-sm-12 col-md-8"></div>
-            	</div>
+                <div class="row detail-body">
+                    <div class="detail-summary col-sm-12 col-md-4"></div>
+                    <div class="detail-detail col-sm-12 col-md-8"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -302,117 +345,126 @@
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
 
 <script>
-$(function() {
-	$("#crowdlist").on("click",".list-main",function() {
-		var seq =$(this).attr('data-src');
-		detail_load(seq);
-	})
-	var check_like = function (pseq) {
-		
-		$.ajax({
-			url : "checkLike.do",
-			data : {"id":"${login.id}","pseq":pseq},
-			method : "post",
-			success : function (data) {
-				
-				if(data.message == "Over") {
-					$('.detail-like').html("<i class='fa fa-heart' aria-hidden='true'></i>");
-					return;
-				} else {
-					$('.detail-like').html("<i class='fa fa-heart-o' aria-hidden='true'></i>");		
-					return;
-				}
-				
-			}
-		})
-	}
-	$(".detail-summary").on("click", ".detail-like", function(){
-		var pseq = $(this).attr('data-src');
-		$.ajax({
-			url: "crowdLike.do",
-			method: "POST",
-			data: {
-				"pseq":pseq,
-				"id": "${login.id}"
-			}, success: function(data) {
-				
-				if(data.message == "FAIL") {
-					shomwMsg()
-				} else {
-					
-				$('.like-num[data-src="'+pseq+'"]').html(data.message);
-				}
-				check_like(pseq);
-				
-				
-			}
-		})
-	})
-	
-	detail_load = function(seq) {
-		$.ajax({
-			url: "detailCrowd.do",
-			method: "POST",
-			data:{"seq":seq},
-			success: function(data) {
-				var src = imageCarrier(data.content);
-				var str_title = "<span class='cbox detail-cat'>"+data.category+"</span>"+data.titleTemp;
-				
-				var str_summary = "<div class='detail-img'><img src='"+src+"'></div>"+
-				"<div class='detail-like btn btn-default' data-src='"+data.seq+"'><i class='fa fa-heart-o' aria-hidden='true'></i></div>"+
-				"<div>"+data.id+"</div>"+
-				"<div class='detail-date'>"+data.sdate+" ~ "+data.edate+"</div>"+
-				"<div class='detail-goalmoney'>목표금액 : "+money_setComma(data.goalmoney)+"원</div>"+
-				"<div class='progress'>" +
-	            "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
-	            "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
-	            "</div>" +
-				"<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
-	            "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
-				"<div id='detail-map' style='height: 300px; width: 300px'></div>";
-				
-				var str_detail = "<div>"+data.content+"</div>";
-	            
-				$(".detail-title").html(str_title);
-				$(".detail-summary").html(str_summary);
-				$(".detail-detail").html(str_detail);
-				var detail_latlng = data.latlng.split('*');
-				if(detail_latlng.length >1){
-				map_load('detail-map',detail_latlng[0],detail_latlng[1]);
-				}
-				check_like(seq);
-				$('#detail-modal-btn').click();
-			}
-		})
-	}
-	
-	var map_load = function (tagId,lat,lng) {
-        var mylatlng = new naver.maps.LatLng(lat, lng);
+    $(function () {
+        $("#crowdlist").on("click", ".list-main", function () {
+            var seq = $(this).attr('data-src');
+            detail_load(seq);
+        })
+        var check_like = function (pseq) {
 
-        var mapOptions = {
-            center: mylatlng,
-            zoom: 13,
-            scaleControl: false,
-            logoControl: false,
-            mapDataControl: false,
-            mapTypeControl: true,
-            zoomControl: true,
-            minZoom: 1
-        };
+            $.ajax({
+                url: "checkLike.do",
+                data: {"id": "${login.id}", "pseq": pseq},
+                method: "post",
+                success: function (data) {
 
-        
+                    if (data.message == "Over") {
+                        $('.detail-like').html("<i class='fa fa-heart' aria-hidden='true'></i>");
+                        return;
+                    } else {
+                        $('.detail-like').html("<i class='fa fa-heart-o' aria-hidden='true'></i>");
+                        return;
+                    }
+
+                }
+            })
+        }
+        $(".detail-summary").on("click", ".detail-like", function () {
+            var pseq = $(this).attr('data-src');
+
+            var id = "${login.id}";
+
+            if (id == "" || id == null) {
+                showMsg("로그인 해주세요")
+                return;
+            }
+
+            $.ajax({
+                url: "crowdLike.do",
+                method: "POST",
+                data: {
+                    "pseq": pseq,
+                    "id": "${login.id}"
+                }, success: function (data) {
+
+                    if (data.message == "FAIL") {
+                        showMsg("잠시후 다시 시도해주세요")
+                    } else {
+
+                        $('.like-num[data-src="' + pseq + '"]').html(data.message);
+                    }
+                    check_like(pseq);
+
+
+                }, error: function () {
+
+                    showMsg("잠시후 다시 시도해주세요")
+                }
+            })
+        })
+
+        detail_load = function (seq) {
+            $.ajax({
+                url: "detailCrowd.do",
+                method: "POST",
+                data: {"seq": seq},
+                success: function (data) {
+                    var src = imageCarrier(data.content);
+                    var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp;
+
+                    var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
+                        "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
+                        "<div>" + data.id + "</div>" +
+                        "<div class='detail-date'>" + data.sdate + " ~ " + data.edate + "</div>" +
+                        "<div class='detail-goalmoney'>목표금액 : " + money_setComma(data.goalmoney) + "원</div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
+                        "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
+                        "</div>" +
+                        "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
+                        "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
+                        "<div id='detail-map' style='height: 300px; width: 300px'></div>";
+
+                    var str_detail = "<div>" + data.content + "</div>";
+
+                    $(".detail-title").html(str_title);
+                    $(".detail-summary").html(str_summary);
+                    $(".detail-detail").html(str_detail);
+                    var detail_latlng = data.latlng.split('*');
+                    if (detail_latlng.length > 1) {
+                        map_load('detail-map', detail_latlng[0], detail_latlng[1]);
+                    }
+                    check_like(seq);
+                    $('#detail-modal-btn').click();
+                }
+            })
+        }
+
+        var map_load = function (tagId, lat, lng) {
+            var mylatlng = new naver.maps.LatLng(lat, lng);
+
+            var mapOptions = {
+                center: mylatlng,
+                zoom: 13,
+                scaleControl: false,
+                logoControl: false,
+                mapDataControl: false,
+                mapTypeControl: true,
+                zoomControl: true,
+                minZoom: 1
+            };
+
+
             var map = new naver.maps.Map(tagId, mapOptions);
 
             var marker = new naver.maps.Marker({
                 position: mylatlng,
                 map: map
             });
-            
 
 
         }
-})
-  
+    })
 
 
 </script>
