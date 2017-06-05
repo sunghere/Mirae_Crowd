@@ -255,7 +255,8 @@
 <%--리모콘--%>
 <div id="_sildebtn">
     <div class="sh-in-search sh-remote">
-        <img src="image/shsearch.png">
+        <img src="image/shsearch.png" class="search-remote">
+        <span hidden="hidden" data-target="#searchModal" data-toggle="modal" id="search-btn"></span>
     </div>
     <div class="sh-in-talk sh-remote">
         <img src="image/shtalk.png" class="chat"> <span hidden="hidden"
@@ -352,6 +353,11 @@
 
 <script>
     $(function () {
+    	/* search 버튼 클릭 */
+    	$(".search-remote").click(function() {
+    		$("#search-btn").click();
+    	})
+    	
         $("#crowdlist").on("click", ".list-main", function () {
             var seq = $(this).attr('data-src');
             detail_load(seq);
@@ -427,7 +433,7 @@
 
                     var src = imageCarrier(data.content);
                     var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp +
-                        "<span class='detail-fund btn btn-info'></span>";
+                        "<span class='detail-fund btn btn-info'>펀딩하기</span>";
 
                     var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
@@ -485,6 +491,26 @@
 
 
 </script>
+
+<%--검색 모달--%>
+<div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" id="searchModal_close" class="close"
+                        data-dismiss="modal">
+                    <span class='close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+                <input type="text" class="form-control input-lg" id="chat-text">
+            </div>
+            <div class="modal-body">
+                <div id="chatlist"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%--리플--%>
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

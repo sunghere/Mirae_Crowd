@@ -743,10 +743,10 @@
                         + '<td class="col-md-4"><div class="btn">'
                     if (val.btype == 1) {
 
-                        +'<a href="boarddetail.do?seq=' + val.bparent + '">'
+                      str+=  '<a href="boarddetail.do?seq=' + val.bparent + '">'
 
                     } else {
-                        +'<a class="crowd-detail-btn" data-src="' + val.bparent + '">'
+                    	 str+='<a class="crowd-detail-btn" data-src="' + val.bparent + '">'
 
                     }
                     str += val.tempSub + '</a></div></td>'
