@@ -282,6 +282,12 @@
         text-align: center;
         line-height: 35px;
     }
+    
+    .detail-fund {
+    	background: #eee;
+    	border-radius: 3px;
+    	float:right;
+    }
 
     .detail-cat {
         font-size: 20px;
@@ -419,7 +425,8 @@
                 	}
                 	
                     var src = imageCarrier(data.content);
-                    var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp;
+                    var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp +
+                    "<span class='detail-fund'>펀딩하기</span>";
 
                     var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
