@@ -268,8 +268,9 @@
 </div>
 <style>
 .detail-body {font-size:14px;}
-.detail-body img {max-width: 100%;}
+.detail-body img {max-width: 100%; margin-bottom: 10px;}
 .detail-title {font-size:25px; font-weight: bold; text-align: center;}
+.detail-cat {font-size: 20px; margin-right: 10px;}
 .detail-content {height:90%; overflow: hidden;}
 .detail-reply {height:90%; position: relative; overflow-y: scroll;}
 #detailModal > div {width: 90%;}
@@ -278,7 +279,7 @@
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-content-main">
         <div class="modal-content">
-        	<div class="modal-header line_none">
+        	<div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">x</span>
                     <span class="sr-only">Close</span>
@@ -310,10 +311,9 @@ $(function() {
 				var src = imageCarrier(data.content);
 				var str_title = "<span class='cbox detail-cat'>"+data.category+"</span>"+data.titleTemp;
 				
-				
 				var str_summary = "<div class='detail-img'><img src='"+src+"'></div>"+
 				"<div>"+data.id+"</div>"+
-				"<div>"+data.goalmoney+"</div>"+
+				"<div>"+getNumber(data.goalmoney)+"</div>"+
 				"<div class='progress-info'><span class='card-block info-curmoney left'>" + data.curmoney + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
                 "<span class='card-block info-date right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
 				"<div class='progress'>" +
@@ -325,8 +325,7 @@ $(function() {
 				
 				
 				
-				var str_detail = "<div>"+data.wdate+"</div>"+
-				"<div>"+data.content+"</div>";
+				var str_detail = "<div>"+data.content+"</div>";
                 
 				$(".detail-title").html(str_title);
 				$(".detail-content").html(str_summary);
