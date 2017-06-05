@@ -269,10 +269,13 @@
 <style>
 .detail-body {font-size:14px;}
 .detail-body img {max-width: 100%; margin-bottom: 10px;}
-.detail-title {font-size:25px; font-weight: bold; text-align: center;}
+.detail-title {font-size:25px; font-weight: bold; text-align: center; line-height: 35px;}
 .detail-cat {font-size: 20px; margin-right: 10px;}
-.detail-content {height:90%; overflow: hidden;}
-.detail-reply {height:90%; position: relative; overflow-y: scroll;}
+.detail-summary {height:80%; overflow: hidden;}
+.detail-summary div {margin-bottom: 10px;}
+.detail-goalmoney {font-size: 20px; font-weight: bold;}
+.detail-like {position: absolute; right: 5%; display: inline-block; font-size: 40px; color:#FFB2AF; padding-top: 15px;}
+.detail-detail {height:80%; position: relative; overflow-y: scroll;}
 #detailModal > div {width: 90%;}
 </style>
 <%--디테일 모달--%>
@@ -303,6 +306,10 @@ $(function() {
 	$("#crowdlist").on("click",".list-main",function() {
 		
 		var seq =$(this).attr('data-src');
+		detail_load(seq);
+	})
+	
+	detail_load = function(seq) {
 		$.ajax({
 			url: "detailCrowd.do",
 			method: "POST",
@@ -312,21 +319,20 @@ $(function() {
 				var str_title = "<span class='cbox detail-cat'>"+data.category+"</span>"+data.titleTemp;
 				
 				var str_summary = "<div class='detail-img'><img src='"+src+"'></div>"+
+				"<div class='detail-like btn btn-default'><i class='fa fa-heart-o' aria-hidden='true'></i></div>"+
 				"<div>"+data.id+"</div>"+
-				"<div>"+money_setComma(data.goalmoney)+"</div>"+
-				"<div class='progress-info'><span class='card-block info-curmoney left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
-                "<span class='card-block info-date right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
+				"<div class='detail-date'>"+data.sdate+" ~ "+data.edate+"</div>"+
+				"<div class='detail-goalmoney'>목표금액 : "+money_setComma(data.goalmoney)+"원</div>"+
 				"<div class='progress'>" +
-                "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
-                "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
-                "</div>" +
-				"<div>"+data.likenum+"</div>"+
-				"<div id='detail-map' style='height: 300px; width: 270px'></div>";
-				
-				
+	            "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
+	            "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
+	            "</div>" +
+				"<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
+	            "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
+				"<div id='detail-map' style='height: 300px; width: 300px'></div>";
 				
 				var str_detail = "<div>"+data.content+"</div>";
-                
+	            
 				$(".detail-title").html(str_title);
 				$(".detail-summary").html(str_summary);
 				$(".detail-detail").html(str_detail);
@@ -337,7 +343,8 @@ $(function() {
 				$('#detail-modal-btn').click();
 			}
 		})
-	})
+	}
+	
 	var map_load = function (tagId,lat,lng) {
         var mylatlng = new naver.maps.LatLng(lat, lng);
 
