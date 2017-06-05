@@ -203,7 +203,7 @@
 
     <select id="findTag"
             resultType="java.lang.String">
-        SELECT TAG FROM SHCROWD WHERE REQ=1
+        SELECT TAG FROM SHCROWD WHERE REQ=1 AND ENDFLAG ='0'
     </select>
 
 </mapper>

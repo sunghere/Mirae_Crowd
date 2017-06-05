@@ -353,11 +353,11 @@
 
 <script>
     $(function () {
-    	/* search 버튼 클릭 */
-    	$(".search-remote").click(function() {
-    		$("#search-btn").click();
-    	})
-    	
+        /* search 버튼 클릭 */
+        $(".search-remote").click(function () {
+            $("#search-btn").click();
+        })
+
         $("#crowdlist").on("click", ".list-main", function () {
             var seq = $(this).attr('data-src');
             detail_load(seq);
@@ -446,7 +446,7 @@
                         "</div>" +
                         "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
-                        "<div id='detail-map' style='height: 300px; width: 300px'></div>";
+                        "<div id='detail-map' style='height: 300px; width: 100%'></div>";
 
                     var str_detail = "<div>" + data.content + "</div>";
 
@@ -464,6 +464,8 @@
         }
 
         var map_load = function (tagId, lat, lng) {
+
+
             var mylatlng = new naver.maps.LatLng(lat, lng);
 
             var mapOptions = {
@@ -485,8 +487,8 @@
                 map: map
             });
 
-
         }
+
     })
 
 
@@ -503,10 +505,9 @@
                     <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
-                <input type="text" class="form-control input-lg" id="chat-text">
+                <input type="text" class="form-control input-lg">
             </div>
             <div class="modal-body">
-                <div id="chatlist"></div>
             </div>
         </div>
     </div>
