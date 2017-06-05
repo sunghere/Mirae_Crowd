@@ -110,7 +110,7 @@
                     $.each(data, function (index, val) {
 
                         item.push({
-                            "title": val.title,
+                            "title": val.titleTemp,
                             "start": val.sdate,
                             "end": val.edate,
                             "color": random_color(val.category),

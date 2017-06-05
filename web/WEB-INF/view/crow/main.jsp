@@ -68,7 +68,7 @@
 
                 str += "<div class='list-main col-md-4 col-sm-12' data-src='" + val.seq + "' last-num='" + val.rnn + "'>" +
                     "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
-                    "<div class='main-info-section'><div class='card-block info-title'>" + val.title + "</div>" +
+                    "<div class='main-info-section'><div class='card-block info-title'>" + val.titleTemp + "</div>" +
                     "<div class='card-block info-id'>" + val.id + "</div>" +
                     "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + val.curmoney + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
                     "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +

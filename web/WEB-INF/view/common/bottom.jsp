@@ -267,8 +267,10 @@
     </div>
 </div>
 <style>
-.detail-content {height:90%; overflow: hidden; padding:10px 20px}
-.detail-reply {height:90%; position: relative; overflow-y: scroll; padding-right:20px;}
+.detail-body {font-size:14px;}
+.detail-body img {max-width: 100%;}
+.detail-content {height:90%; overflow: hidden;}
+.detail-reply {height:90%; position: relative; overflow-y: scroll;}
 #detailModal > div {width: 90%;}
 </style>
 <%--디테일 모달--%>
@@ -276,9 +278,9 @@
     <div class="modal-dialog modal-content-main">
         <div class="modal-content">
             <div class="modal-body">
-            	<div class="row">
+            	<div class="row detail-body">
 	            	<div class="detail-content col-sm-12 col-md-4"></div>
-	            	<div class="detail-reply col-sm-12 col-md-7"></div>
+	            	<div class="detail-reply col-sm-12 col-md-8"></div>
             	</div>
             </div>
         </div>
@@ -298,7 +300,8 @@ $(function() {
 			data:{"seq":seq},
 			success: function(data) {
 				var src = imageCarrier(data.content);
-				var str1 = "<div class='detail-img'><img src='"+src+"'></div>"+
+				var str1 = "<div>"+data.titleTemp+"</div>"+
+				"<div class='detail-img'><img src='"+src+"'></div>"+
 				"<div>"+data.id+"</div>"+
 				"<div>"+data.goalmoney+"</div>"+
 				"<div class='progress-info'><span class='card-block info-curmoney left'>" + data.curmoney + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
@@ -309,6 +312,7 @@ $(function() {
                 "</div>" +
 				"<div>"+data.likenum+"</div>"+
 				"<div id='detail-map' style='height: 300px; width: 270px'></div>";
+				
 				var str2 = "<div>"+data.wdate+"</div>"+
 				"<div>"+data.content+"</div>";
                 

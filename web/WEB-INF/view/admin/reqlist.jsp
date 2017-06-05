@@ -103,7 +103,7 @@
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg">' + val.wdate + '</td>'
                         + '<td><div class="btn detail-btn" data-src="' + val.seq + '">'
-                        + val.title + '</div></td>'
+                        + val.titleTemp + '</div></td>'
                         + '<td class="text-center visible-md visible-lg">' + val.category + '</td>'
 
                         + '<td class="text-center">' + val.id + '</td>'
