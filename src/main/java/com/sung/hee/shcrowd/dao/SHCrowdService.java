@@ -39,6 +39,8 @@ public interface SHCrowdService {
 
     Integer crowdLike(CrowdLike crowdLike) throws Exception; /* 좋아요 기능 */
 
+    Integer crowdLikeChk(CrowdLike crowdLike); /* 좋아요 중복체크 */
+    
     void endFlag(SHCrowd crowd) throws Exception; /* 끝남체크*/
 
     void finishReward(SHCrowd shCrowd) throws Exception; /* 펀딩 종료후 금액 수령*/

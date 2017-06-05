@@ -254,10 +254,10 @@ public class CrowdController {
     public AjaxCheck crowdLike(CrowdLike crowdLike, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl crowdLike--!");
         AjaxCheck checkResult = new AjaxCheck();
-
+        int likeNum=0;
         try {
-            shCrowdService.crowdLike(crowdLike);
-            checkResult.setMessage("SUCS");
+        	likeNum=shCrowdService.crowdLike(crowdLike);
+            checkResult.setMessage(""+likeNum);
 
         } catch (Exception e) {
 
@@ -292,7 +292,21 @@ public class CrowdController {
 
         return "redirect:" + getDoRef(request.getHeader("Referer"));
     }
+   /*좋아요 체크 이미 좋아요 했으면 over 안했으면 아무거나보내라*/
+    @RequestMapping(value = "checkLike.do", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck checkLike(CrowdLike crowdLike,HttpServletRequest request, Model model) throws Exception {
 
+    	AjaxCheck result = new AjaxCheck();
+
+    	int checkNum =shCrowdService.crowdLikeChk(crowdLike);
+    	if(checkNum >0) {
+    		result.setMessage("Over");
+    	} else {
+    		result.setMessage("OK");
+    	}
+        return result;
+    }
     /* 크라우드 태그 */
     @RequestMapping(value = "taglist.do", method = RequestMethod.POST)
     @ResponseBody

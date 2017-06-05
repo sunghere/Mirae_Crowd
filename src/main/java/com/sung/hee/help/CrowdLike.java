@@ -6,19 +6,24 @@ package com.sung.hee.help;
 public class CrowdLike {
 
     private int seq;
+    private int pseq;
 
-    private String id;
+    public int getPseq() {
+		return pseq;
+	}
+
+	public void setPseq(int pseq) {
+		this.pseq = pseq;
+	}
+
+	private String id;
 
     private int like;
 
     @Override
-    public String toString() {
-        return "CrowdLike{" +
-                "seq=" + seq +
-                ", id='" + id + '\'' +
-                ", like=" + like +
-                '}';
-    }
+	public String toString() {
+		return "CrowdLike [seq=" + seq + ", pseq=" + pseq + ", id=" + id + ", like=" + like + "]";
+	}
 
     public int getLike() {
         return like;

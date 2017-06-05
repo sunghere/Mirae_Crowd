@@ -167,7 +167,7 @@
 
     </select>
     <select id="crowdLikeNum" parameterType="com.sung.hee.help.CrowdLike"
-            resultType="com.sung.hee.shcrowd.model.SHCrowd">
+            resultType="java.lang.Integer">
         SELECT LIKENUM FROM SHCROWD WHERE SEQ=#{pseq}
 
     </select>

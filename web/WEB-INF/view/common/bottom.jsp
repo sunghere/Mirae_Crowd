@@ -307,17 +307,36 @@ $(function() {
 		var seq =$(this).attr('data-src');
 		detail_load(seq);
 	})
-	
+	var check_like = function (pseq) {
+		
+		$.ajax({
+			url : "checkLike.do",
+			data : {"id":"${login.id}","pseq":pseq},
+			method : "post",
+			success : function (data) {
+				
+				if(data.message == "Over") {
+					$('.detail-like').html("<i class='fa fa-heart' aria-hidden='true'></i>");
+					return;
+				} else {
+					$('.detail-like').html("<i class='fa fa-heart-o' aria-hidden='true'></i>");		
+					return;
+				}
+				
+			}
+		})
+	}
 	$(".detail-summary").on("click", ".detail-like", function(){
-		var pseq = "";
-		var id = "";
+		var pseq = $(this).attr('data-src');
 		$.ajax({
 			url: "crowdLike.do",
 			method: "POST",
 			data: {
 				"pseq":pseq,
-				"id":id
+				"id": "${login.id}"
 			}, success: function(data) {
+				 check_like(pseq);
+				
 				
 			}
 		})
@@ -333,7 +352,7 @@ $(function() {
 				var str_title = "<span class='cbox detail-cat'>"+data.category+"</span>"+data.titleTemp;
 				
 				var str_summary = "<div class='detail-img'><img src='"+src+"'></div>"+
-				"<div class='detail-like btn btn-default'><i class='fa fa-heart-o' aria-hidden='true'></i></div>"+
+				"<div class='detail-like btn btn-default' data-src='"+data.seq+"'><i class='fa fa-heart-o' aria-hidden='true'></i></div>"+
 				"<div>"+data.id+"</div>"+
 				"<div class='detail-date'>"+data.sdate+" ~ "+data.edate+"</div>"+
 				"<div class='detail-goalmoney'>목표금액 : "+money_setComma(data.goalmoney)+"원</div>"+
@@ -354,6 +373,7 @@ $(function() {
 				if(detail_latlng.length >1){
 				map_load('detail-map',detail_latlng[0],detail_latlng[1]);
 				}
+				check_like(seq);
 				$('#detail-modal-btn').click();
 			}
 		})

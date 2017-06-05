@@ -131,4 +131,8 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     public List<String> findTag() {
         return shCrowdDAO.findTag();
     }
+    @Transactional(readOnly = true)
+	public Integer crowdLikeChk(CrowdLike crowdLike) {
+    	return shCrowdDAO.crowdLikeChk(crowdLike);
+	}
 }
