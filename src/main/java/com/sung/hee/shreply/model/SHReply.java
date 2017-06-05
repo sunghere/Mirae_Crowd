@@ -89,7 +89,7 @@ public class SHReply implements Serializable {
         this.del = del;
     }
 
-    private String content;
+    private String content="";
 
     public String getTemp() {
         temp = content;

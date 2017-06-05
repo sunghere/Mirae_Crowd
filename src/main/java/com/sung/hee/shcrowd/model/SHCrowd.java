@@ -44,8 +44,8 @@ public class SHCrowd {
 
     public String getTitleSub() {
         titleSub = title;
-        if (titleSub.length() > 20) {
-            titleSub = titleSub.substring(0, 19) + "..";
+        if (titleSub.length() > 15) {
+            titleSub = titleSub.substring(0, 15) + "..";
 
         }
         titleSub = titleSub.replace("&", "&amp;");

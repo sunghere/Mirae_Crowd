@@ -7,8 +7,8 @@ package com.sung.hee.help;
 public class MyCrowd {
     private int seq;
     private int myseq;
-    private String title;
-    private String titleSub;
+    private String title="";
+    private String titleSub="";
 
 
     private String id;
@@ -23,15 +23,13 @@ public class MyCrowd {
     private String wdate;
     private int money;
 
-
-    private int type;
-
     @Override
     public String toString() {
         return "MyCrowd{" +
                 "seq=" + seq +
                 ", myseq=" + myseq +
                 ", title='" + title + '\'' +
+                ", titleSub='" + titleSub + '\'' +
                 ", id='" + id + '\'' +
                 ", goalMoney=" + goalMoney +
                 ", curMoney=" + curMoney +
@@ -40,14 +38,20 @@ public class MyCrowd {
                 ", edate='" + edate + '\'' +
                 ", category='" + category + '\'' +
                 ", wdate='" + wdate + '\'' +
-                ", type=" + type +
                 ", money=" + money +
+                ", type=" + type +
                 '}';
     }
+
+    public MyCrowd() {
+    }
+
+    private int type;
+
     public String getTitleSub() {
         titleSub = title;
-        if (titleSub.length() > 10) {
-            titleSub = titleSub.substring(0, 10) + "...";
+        if (titleSub.length() > 15) {
+            titleSub = titleSub.substring(0, 15) + "...";
 
         }
         titleSub = titleSub.replace("&", "&amp;");
@@ -57,7 +61,7 @@ public class MyCrowd {
     }
 
     public void setTitleSub(String titleSub) {
-        this.titleSub = title;
+        this.titleSub = titleSub;
     }
     public String getId() {
         return id;
