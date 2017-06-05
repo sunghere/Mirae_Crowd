@@ -1171,7 +1171,7 @@ img::-moz-selection {
 
 #chatlist {
     height: 650px;
-    overflow: auto;
+    overflow: scroll;
     padding: 20px 40px;
 }
 

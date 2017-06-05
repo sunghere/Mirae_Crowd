@@ -266,21 +266,60 @@
         <img src="image/shall.png"/>
     </div>
 </div>
-<%--컨텐츠 모달--%>
-<div id="contentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-content-main modal-lg">
+<style>
+.detail-content {height:90%; position: absolute; overflow: hidden; width:37%; padding:10px 20px}
+.detail-reply {height:90%; position: relative; overflow-y: scroll; width: 60%; padding-right:20px;}
+#detailModal > div {width: 90%;}
+</style>
+<%--디테일 모달--%>
+<div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-content-main">
         <div class="modal-content">
             <div class="modal-body">
             	<div class="row">
-	            	<div class="content-content left" style="overflow-y:scroll">asdf</div>
-	            	<div class="content-reply right">fdas</div>
+	            	<div class="detail-content left"></div>
+	            	<div class="detail-reply right"></div>
             	</div>
             </div>
         </div>
     </div>
 </div>
-<%--리플--%>
+<script>
+$(function() {
+	$("#crowdlist").on("click",".list-main",function() {
+		
+		var seq =$(this).attr('data-src');
+		$.ajax({
+			url: "detailCrowd.do",
+			method: "POST",
+			data:{"seq":seq},
+			success: function(data) {
+				var src = imageCarrier(data.content);
+				var str1 = "<div class='detail-img'><img src='"+src+"'></div>"+
+				"<div>"+data.id+"</div>"+
+				"<div>"+data.goalmoney+"</div>"+
+				"<div class='progress-info'><span class='card-block info-curmoney left'>" + data.curmoney + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
+                "<span class='card-block info-date right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
+				"<div class='progress'>" +
+                "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
+                "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
+                "</div>" +
+				"<div>"+data.likenum+"</div>";
+				var str2 = "<div>"+data.content+"</div>";
+                
+				$(".detail-content").html(str1);
+				$(".detail-reply").html(str2);
+				
+				
+				$('#detail-modal-btn').click();
+			}
+		})
+	})
+	
+})
+</script>
 
+<%--리플--%>
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
