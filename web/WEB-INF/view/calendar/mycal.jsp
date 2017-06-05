@@ -219,7 +219,7 @@ s
             <p class="text-center">ㅇㅇㅇ</p>
             <p class="text-center">ㅇㅇㅇㅇ</p>
             <br/>
-            <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i
+            <button type="button" class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i
                     class="ion-android-close"></i></button>
         </div>
     </div>

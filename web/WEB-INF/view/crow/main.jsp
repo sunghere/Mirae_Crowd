@@ -8,21 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     $(function () {
-        toGoal = function (goalmoney, curmoney) {
-            var per = (curmoney / goalmoney) * 100;
-// 	console.log($(".progress").children().addClass("progress-bar-danger"));
-            return Math.floor(per);
-        }
-        dateCountdown = function (edate) {
-            var today = new Date();
-            var edateArray = edate.split("-");
 
-            var edateObj = new Date(edateArray[0], Number(edateArray[1]) - 1, edateArray[2]);
 
-            var between = Math.floor((edateObj.getTime() - today.getTime()) / 1000 / 60 / 60 / 24);
-            if (between < 0) return 0;
-            else return between;
-        }
         var imageInput = function (src_list, data) {
             $.each(data, function (index, val) {
 
@@ -37,18 +24,7 @@
                 });
             })
         }
-        imageCarrier = function (content) {
-            var contentArray = new Array();
-            contentArray = content.split('alt="" src="');
-            if (contentArray[1] != null && contentArray[1] != "") {
-                var src = contentArray[1].split('"')
 
-                return src[0];
-            } else {
-
-            }
-            return "";
-        }
         var initList = function () {
             $.ajax({
                 url: "crowdList.do",

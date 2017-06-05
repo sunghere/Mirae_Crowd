@@ -46,7 +46,7 @@
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD
-        WHERE REQ = 0 AND ID = #{id}
+        WHERE ID = #{id}
     </select>
     <update id="accCrowd"
             parameterType="com.sung.hee.shcrowd.model.SHCrowd">

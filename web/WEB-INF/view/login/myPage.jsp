@@ -35,6 +35,12 @@
         position: absolute;
     }
 
+    .input-group-addon.black-control {
+        border-radius: 290px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     #pad-5-30 {
         padding: 5% 30%;
     }
@@ -206,9 +212,9 @@
         <table class="scroll-table table table-striped table-responsive">
             <thead class="thead-inverse">
             <tr>
-                <th class="text-center small">시작일/마감일</th>
+                <th class="text-center">마감일</th>
                 <th class="text-center col-md-4">제목</th>
-                <th class="text-center col-md-3 small">나의/현재/목표(금액)</th>
+                <th class="text-center col-md-3 small">투자/현재/목표(원)</th>
                 <th class="text-center visible-md visible-lg">카테고리</th>
                 <th class="text-center visible-md visible-lg">투자일</th>
             </tr>
@@ -233,18 +239,17 @@
         <table class="scroll-table table table-striped table-responsive">
             <thead class="thead-inverse">
             <tr>
-                <th class="text-center">작성일</th>
+                <th class="text-center visible-md visible-lg">Start</th>
+                <th class="text-center">End</th>
                 <th class="text-center col-md-3">제목</th>
-                <th class="text-center visible-md visible-lg">카테고리</th>
-                <th class="text-center">현재금액/목표금액/참여인원</th>
-                <th class="text-center">시작일/종료일</th>
-                <th class="text-center visible-md visible-lg">승인여부</th>
+                <th class="text-center">현재/목표(원)</th>
+                <th class="text-center ">승인여부</th>
                 <th class="text-center">마감/보상</th>
             </tr>
             </thead>
             <tbody id="crowd-list" class="table-overflow">
             <tr>
-                <td class="text-center" colspan="7">작성목록이 없습니다.</td>
+                <td class="text-center" colspan="6">작성목록이 없습니다.</td>
             </tr>
             </tbody>
 
@@ -272,7 +277,7 @@
         <p>결제 시스템에서 발급받은 코드를 입력해주세요.</p>
         <div class="col-md-12 main-text text-center">
             <input type="search" class="black-control" id="code-input" value="">
-            <button class="btn btn-info cash-charge-ok-btn">확인</button>
+            <button type="button" class="btn btn-info cash-charge-ok-btn">확인</button>
 
         </div>
 
@@ -286,7 +291,7 @@
         <div class="col-md-12 main-text text-center">
             <input type="search" class="black-control" id="point-input"
                    value="" placeholder="ex) 1000">
-            <button class="btn btn-info cash-discharge-ok-btn">확인</button>
+            <button type="button" class="btn btn-info cash-discharge-ok-btn">확인</button>
 
         </div>
 
@@ -370,6 +375,7 @@
         all_hide();
 
         $('#mycrowd-list').show();
+        load_crowd_list();
 
     });
 
@@ -644,10 +650,10 @@
 
                 $.each(data, function (index, val) {
                     str += ' <tr class="_hover_tr">'
-                        + '<td class="text-center small">' + val.sdate + '~' + val.edate.substr(5) + '</td>'
-                        + '<td class="col-md-4"><div class="btn detail-btn" data-src=' + val.seq + '">'
+                        + '<td class="text-center">' + val.edate.substr(5) + '</td>'
+                        + '<td class="col-md-4"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleSub + '</div></td>'
-                        + '<td class="text-center col-md-3 small">' + val.money + '/' + val.curMoney + '/' + val.goalMoney + '</td>';
+                        + '<td class="text-center col-md-3">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.type == 2) {
                         str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
@@ -666,7 +672,7 @@
             }
         })
     }
-    /* 내 펀드(투자내역) 불러오기*/
+    /* 내 크라우드펀딩 모집 신청내역 불러오기*/
     var load_crowd_list = function () {
         $.ajax({
             url: "myReq.do",
@@ -674,29 +680,35 @@
             data: {"id": "${login.id}"},
             success: function (data) {
                 var str = "";
-                /*   <th class="text-center">작성일</th>
-                 <th class="text-center col-md-3">제목</th>
-                 <th class="text-center visible-md visible-lg">카테고리</th>
-                 <th class="text-center">현재금액/목표금액/참여인원</th>
-                 <th class="text-center">시작일/종료일</th>
-                 <th class="text-center visible-md visible-lg">승인여부</th>
-                 <th class="text-center">마감/보상</th>*/
+
                 $.each(data, function (index, val) {
                     str += ' <tr class="_hover_tr">'
-                        + '<td class="col-md-3"><div class="btn detail-btn" data-src=' + val.seq + '">'
+                        + '<td class="text-center visible-md visible-lg small">' + val.sdate + '</td>'
+                        + '<td class="text-center">' + '~' + val.edate.substr(5) + '</td>'
+                        + '<td class="col-md-3"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleSub + '</div></td>'
-                        + '<td class="text-center small">' + val.curMoney + '/' + val.goalMoney + '/' + val.pnum + '</td>'
-                        + '<td class="text-center small">' + val.wdate + '~' + val.edate.substr(5) + '</td>';
+                        + '<td class="text-center">' + money_setComma(val.curmoney) + '/' + money_setComma(val.goalmoney) + '</td>';
 
-                    if (val.type == 2) {
-                        str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
+                    if (val.req == 2) {
+                        str += '<td class="text-center visible-md visible-lg">' + '<div class="btn btn-danger">거절</div>' + '</td>';
+
+                    } else if (val.req == 1) {
+                        str += '<td class="text-center visible-md visible-lg">' + '<div class="btn btn-info">승인</div>' + '</td>';
 
                     } else {
-                        str += '<td class="text-center visible-md visible-lg">' + '보상' + '</td>';
+                        str += '<td class="text-center visible-md visible-lg ">' + '<div class="btn btn-warning">대기</div>' + '</td>';
 
                     }
-                    str += '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>';
-                    +'</tr>';
+                    if (val.endflag == "1" && val.reward == "0")
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info reword-btn">지급받기</button>' + '</td>';
+                    else if (val.endflag == "1" && val.reward == "1")
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn black-control reword-btn" disabled>지급완료</button>' + '</td>';
+                    else if (val.endflag == "0" && val.req == 0)
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-warning" disabled>미진행</button>' + '</td>';
+                    else {
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info" disabled>진행중</button>' + '</td>';
+                    }
+                    str += '</tr>';
                 });
 
 
@@ -728,19 +740,19 @@
 
                     }
                     str += '<td class="text-center">' + val.seq + '</td>'
-                        + '<td class="col-md-4"><div class="btn detail-btn">'
+                        + '<td class="col-md-4"><div class="btn">'
                     if (val.btype == 1) {
 
                         +'<a href="boarddetail.do?seq=' + val.bparent + '">'
 
                     } else {
-                        +'<a href="crowd.do?seq=' + val.bparent + '">'
+                        +'<a class="crowd-detail-btn" data-src="' + val.bparent + '">'
 
                     }
                     str += val.tempSub + '</a></div></td>'
                         + '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>'
                         + '<td class="text-center">'
-                        + '<button class="btn btn-danger re-remove-btn" data-src="' + val.seq + '">삭제</button></td>'
+                        + '<button type="button" class="btn btn-danger re-remove-btn" data-src="' + val.seq + '">삭제</button></td>'
                         + '</tr>';
                 });
 
@@ -836,11 +848,19 @@
 
     })
 
-
+    /* 리플 삭제 버튼*/
     $('#reply-list').on("click", ".re-remove-btn", function () {
         var seq = $(this).attr('data-src');
 
         showSelectMsg("reply_delete(" + seq + ")");
     })
 
+    /* 크라우드 상세보기*/
+    $('#crowd-list, #fund-list').on("click", ".crowd-detail-btn", function () {
+        var seq = $(this).attr('data-src');
+        console.log(seq);
+
+        detail_load(seq);
+
+    })
 </script>

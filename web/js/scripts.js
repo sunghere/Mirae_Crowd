@@ -199,12 +199,41 @@
         //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자
         //[0-9] => \d , [^0-9] => \D
         var rgx2 = /(\d+)(\d{3})/;
-        var outNum="";
-        outNum = ''+inNum;
+        var outNum = "";
+        outNum = '' + inNum;
         while (rgx2.test(outNum)) {
             outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
         }
         return outNum;
 
+    }
+    /*이미지를 파싱해주는부분*/
+    imageCarrier = function (content) {
+        var contentArray = new Array();
+        contentArray = content.split('alt="" src="');
+        if (contentArray[1] != null && contentArray[1] != "") {
+            var src = contentArray[1].split('"')
+
+            return src[0];
+        } else {
+
+        }
+        return "";
+    }
+    /* 현재금액과 목표금액을 매개변수로 퍼센트를 계산*/
+    toGoal = function (goalmoney, curmoney) {
+        var per = (curmoney / goalmoney) * 100;
+        return Math.floor(per);
+    }
+    /* 일자를 계산해 몇일남은지를 계산해준다.*/
+    dateCountdown = function (edate) {
+        var today = new Date();
+        var edateArray = edate.split("-");
+
+        var edateObj = new Date(edateArray[0], Number(edateArray[1]) - 1, edateArray[2]);
+
+        var between = Math.floor((edateObj.getTime() - today.getTime()) / 1000 / 60 / 60 / 24);
+        if (between < 0) return 0;
+        else return between;
     }
 })(jQuery);
