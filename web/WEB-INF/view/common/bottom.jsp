@@ -282,11 +282,11 @@
         text-align: center;
         line-height: 35px;
     }
-    
+
     .detail-fund {
-    	background: #eee;
-    	border-radius: 3px;
-    	float:right;
+        border-radius: 3px;
+        float: right;
+        margin: 5px 20px;
     }
 
     .detail-cat {
@@ -408,9 +408,10 @@
                 }
             })
         })
-        
-        image_hide = function(content) {
-        	
+
+        image_hide = function (content) {
+
+            $('.detail-detail').find('img:first-child').prop("hidden", true);
         }
 
         detail_load = function (seq) {
@@ -419,14 +420,14 @@
                 method: "POST",
                 data: {"seq": seq},
                 success: function (data) {
-                	if(data.endflag == "1" ) {
-                		showMsg("이미 종료되었습니다");
-                		return;
-                	}
-                	
+                    if (data.endflag == "1") {
+                        showMsg("이미 종료되었습니다");
+                        return;
+                    }
+
                     var src = imageCarrier(data.content);
                     var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp +
-                    "<span class='detail-fund'>펀딩하기</span>";
+                        "<span class='detail-fund btn btn-info'></span>";
 
                     var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
@@ -512,6 +513,9 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" class="search_type" data-src="">
+<input type="hidden" class="search" data-src="">
 <!-- 리플 모달 버튼 -->
 <button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
 <!-- 디테일 모달 버튼 -->

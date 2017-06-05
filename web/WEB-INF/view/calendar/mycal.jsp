@@ -11,9 +11,11 @@
     .fc-day-top.fc-sat {
         color: #0000FF;
     }
+
     #calendar {
         font-size: 17px;
     }
+
     /* 일요일 */
     .fc-day-top.fc-sun {
         color: #FF0000;
@@ -84,6 +86,11 @@
                     /*
                      $("#myModal").prop("hidden", true).fadeOut();*/
 
+                },eventClick: function (event) {
+
+                    var seq = event.seq;
+
+                    detail_load(seq);
                 },
                 header: {
                     left: 'prev,next today',
@@ -110,6 +117,7 @@
                     $.each(data, function (index, val) {
 
                         item.push({
+                            "seq": val.seq,
                             "title": val.titleTemp,
                             "start": val.sdate,
                             "end": val.edate,
@@ -179,7 +187,7 @@
 
             } else if (category == "뷰티") {
                 color = "#512427";
-s
+                s
             } else {
                 color = "midnightblue";
 
@@ -219,8 +227,9 @@ s
             <p class="text-center">ㅇㅇㅇ</p>
             <p class="text-center">ㅇㅇㅇㅇ</p>
             <br/>
-            <button type="button" class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK <i
-                    class="ion-android-close"></i></button>
+            <button type="button" class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK
+                <i
+                        class="ion-android-close"></i></button>
         </div>
     </div>
 </div>

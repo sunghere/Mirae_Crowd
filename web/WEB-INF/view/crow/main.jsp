@@ -31,13 +31,13 @@
                 method: "post",
                 data: {},
                 success: function (data) {
-                    make_list(data);
+                    make_list(data, 0);
                 }, error: function (a, b, c) {
 
                 }
             })
         };
-        var make_list = function (data) {
+        make_list = function (data, sel) {
             var str = "";
             var src_list = new Array();
             $.each(data, function (index, val) {
@@ -53,14 +53,17 @@
                     "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalmoney, val.curmoney) + "%'></div>" +
                     "</div>" +
                     "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
-                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='"+val.seq+"'> " + val.likenum + "</span></div>" +
+                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='" + val.seq + "'> " + val.likenum + "</span></div>" +
                     "</div></div>";
                 var src = imageCarrier(val.content);
                 src_list.push(src);
             })
+            if (sel == 1) {
+                $('#crowdlist').html($('#crowdlist').html() + str);
+            } else {
+                $('#crowdlist').html(str);
 
-            $('#crowdlist').html(str);
-
+            }
             imageInput(src_list, data);
             $(".progress-bar").each(function (index, val) {
 
@@ -98,6 +101,8 @@
             var tag = $(this).prop("innerText");
             if (tag == "ALL") {
                 initList();
+                $(".search").attr('data-src', "");
+                $(".search_type").attr('data-src', "");
                 return;
             }
             $.ajax({
@@ -105,7 +110,7 @@
                 method: "POST",
                 data: {"search": tag, "search_type": "tag"},
                 success: function (data) {
-                    make_list(data);
+                    make_list(data, 0);
                 }, error: function (a, b, c) {
                     console.log(a)
                     console.log(b)
@@ -121,8 +126,10 @@
                 method: "POST",
                 data: {"search": txt, "search_type": "search"},
                 success: function (data) {
-                    make_list(data);
+                    make_list(data, 0);
                     $("#search-text").val("");
+                    $(".search").attr('data-src', txt);
+                    $(".search_type").attr('data-src', "search");
                 }
             })
         }

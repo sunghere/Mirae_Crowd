@@ -3,19 +3,32 @@
     var loadList_byScroll = function () {
 
         var last = $('.list-main').last().attr('last-num');
-        alert(last);
-        $.ajax({
-            url: "crowdList.do",
-            method: "post",
-            data: {"rnn": last},
-            success: function (data) {
-                alert("응")
-                console.log(data);
 
-            }, error: function (a, b, c) {
+        if (last % 12 == 0) { /* 12개씩 불러오므로 나머지가 0인경우는 자료가 더있다.*/
 
+
+            var search_type = $('.search_type').attr('data-src');
+            var search = $('.search').attr('data-src');
+            var url = "crowdList.do";
+            if (search_type == "tag" || search_type == "search") {
+                var url = "cSearch.do";
             }
-        })
+            $.ajax({
+                url: url,
+                method: "post",
+                data: {"rnn": last, "search_type": search_type, "search": search},
+                success: function (data) {
+                    make_list(data,1);
+                    console.log('...'+search_type);
+                }, error: function (a, b, c) {
+
+                }
+            })
+
+        } else {/*나머지가 0이 아닌경우 자료가 더이상 없다.*/
+
+
+        }
     }
 
     /* 스크롤 이벤트 */
