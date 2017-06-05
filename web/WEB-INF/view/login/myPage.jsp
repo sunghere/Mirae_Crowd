@@ -226,23 +226,25 @@
 </div>
 
 <div class="col-md-8 white-box margin-top-25" id="mycrowd-list" hidden="hidden">
-    <div class="col-md-12 main-title text-left">내 펀딩모집</div>
+    <div class="col-md-12 main-title text-left">My Crowd List</div>
 
     <div id="crowd-list-container">
 
         <table class="scroll-table table table-striped table-responsive">
             <thead class="thead-inverse">
             <tr>
-                <th class="text-center">번호</th>
-                <th class="text-center col-md-4">제목</th>
-                <th class="text-center">조회수</th>
-                <th class="text-center visible-md visible-lg">작성일</th>
-                <th class="text-center visible-md visible-lg">기업여부</th>
+                <th class="text-center">작성일</th>
+                <th class="text-center col-md-3">제목</th>
+                <th class="text-center visible-md visible-lg">카테고리</th>
+                <th class="text-center">현재금액/목표금액/참여인원</th>
+                <th class="text-center">시작일/종료일</th>
+                <th class="text-center visible-md visible-lg">승인여부</th>
+                <th class="text-center">마감/보상</th>
             </tr>
             </thead>
             <tbody id="crowd-list" class="table-overflow">
             <tr>
-                <td class="text-center" colspan="5">작성목록이 없습니다.</td>
+                <td class="text-center" colspan="7">작성목록이 없습니다.</td>
             </tr>
             </tbody>
 
@@ -293,7 +295,7 @@
 </div>
 
 <div class="col-md-8 white-box margin-top-25" id="myboard" hidden="hidden">
-    <div class="col-md-12 main-title text-left">내 글 모아보기</div>
+    <div class="col-md-12 main-title text-left">My Board List</div>
     <div id="board-list-container">
 
         <table class="scroll-table table table-striped table-responsive">
@@ -664,7 +666,45 @@
             }
         })
     }
+    /* 내 펀드(투자내역) 불러오기*/
+    var load_crowd_list = function () {
+        $.ajax({
+            url: "myReq.do",
+            method: "post",
+            data: {"id": "${login.id}"},
+            success: function (data) {
+                var str = "";
+                /*   <th class="text-center">작성일</th>
+                 <th class="text-center col-md-3">제목</th>
+                 <th class="text-center visible-md visible-lg">카테고리</th>
+                 <th class="text-center">현재금액/목표금액/참여인원</th>
+                 <th class="text-center">시작일/종료일</th>
+                 <th class="text-center visible-md visible-lg">승인여부</th>
+                 <th class="text-center">마감/보상</th>*/
+                $.each(data, function (index, val) {
+                    str += ' <tr class="_hover_tr">'
+                        + '<td class="col-md-3"><div class="btn detail-btn" data-src=' + val.seq + '">'
+                        + val.titleSub + '</div></td>'
+                        + '<td class="text-center small">' + val.curMoney + '/' + val.goalMoney + '/' + val.pnum + '</td>'
+                        + '<td class="text-center small">' + val.wdate + '~' + val.edate.substr(5) + '</td>';
 
+                    if (val.type == 2) {
+                        str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
+
+                    } else {
+                        str += '<td class="text-center visible-md visible-lg">' + '보상' + '</td>';
+
+                    }
+                    str += '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>';
+                    +'</tr>';
+                });
+
+
+                $('#crowd-list').html(str);
+
+            }
+        })
+    }
     /* 내 댓글 불러오기*/
     var load_reply_list = function () {
 
