@@ -144,7 +144,7 @@
             $.each(data, function (index, val) {
 
                 var src = src_list[index];
-                $('#list-img' + val.seq).css({
+                $('#list-img' + val.seq).css({ 
                     "background-image": 'url("' + src + '")',
                     "-webkit-background-size": "cover",
                     "-moz-background-size": "cover",
