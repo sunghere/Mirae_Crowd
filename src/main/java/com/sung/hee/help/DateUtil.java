@@ -1,6 +1,7 @@
 package com.sung.hee.help;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 //<%=%>일때만 사용하고  JSTL과 함께 사용할 때는 static을 제거하고 get을 붙여
@@ -74,5 +75,11 @@ public class DateUtil {
         String s = String.format(t,
                 barWidth(acount, total), barRatio(acount, total));
         return s;
+    }
+    
+    public static String changeDateType(Date dd) {
+    	SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+    	String date = fm.format(dd);
+    	return date;
     }
 }

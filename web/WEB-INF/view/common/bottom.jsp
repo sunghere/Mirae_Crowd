@@ -268,9 +268,13 @@
 </div>
 <%--컨텐츠 모달--%>
 <div id="contentModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-content-main">
+    <div class="modal-dialog modal-content-main modal-lg">
         <div class="modal-content">
             <div class="modal-body">
+            	<div class="row">
+	            	<div class="content-content left" style="overflow-y:scroll">asdf</div>
+	            	<div class="content-reply right">fdas</div>
+            	</div>
             </div>
         </div>
     </div>

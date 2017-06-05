@@ -7,7 +7,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/>
 
-
 <%
     List<SHPoll> plists = new ArrayList<>();
     Object Oflist = request.getAttribute("plists");
@@ -24,7 +23,6 @@
             <th>질문</th>
             <th>시작일</th>
             <th>끝나는날</th>
-            <th>질문항수</th>
             <th>투표수</th>
             <th>등록일</th>
         </tr>
@@ -42,8 +40,6 @@
             <td><%=poll.getSdate() %>
             </td>
             <td><%=DateUtil.pollState(poll.getEdate())%><%=poll.getEdate() %>
-            </td>
-            <td><%=poll.getItemcount() %>
             </td>
             <td><%=poll.getPolltotal() %>
             </td>
