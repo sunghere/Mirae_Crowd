@@ -201,14 +201,12 @@ public class CrowdController {
         return list;
     }
 
+
     /* 내 펀딩 리스트 */
     @RequestMapping(value = "mFundList.do", method = RequestMethod.POST)
     @ResponseBody
     public List<MyCrowd> mFundList(MyCrowd myCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl mFundList--!");
         List<MyCrowd> list = shCrowdService.myCrowdList(myCrowd);
-        logger.info("CrowdControl mFundList--!" + list);
-
         return list;
     }
 
@@ -231,7 +229,7 @@ public class CrowdController {
         return checkResult;
     }
 
-    /* 크라우드 펀드하기(투자) */
+    /* 크라우드 펀드 취소(투자) */
     @RequestMapping(value = "fundCancel.do", method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck fundCancel(SHFund shFund, HttpServletRequest request, Model model) throws Exception {

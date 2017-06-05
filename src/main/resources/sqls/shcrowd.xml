@@ -78,9 +78,11 @@
         SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
         SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT count(*) pnum,pseq FROM
-        SHFund GROUP BY pseq) count on count.pseq=SHCROWD.seq WHERE REQ = 1)
+        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, NVL(COUNTS.CURMONEY,0)
+        AS CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT COUNT(*)
+        PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
+        SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 1)
         <if test="rnn == null and rnn ==''">
 
             WHERE 12 >= rnn
@@ -96,9 +98,11 @@
         SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
         SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT count(*) pnum,pseq FROM
-        SHFund GROUP BY pseq) count on count.pseq=SHCROWD.seq WHERE REQ = 1
+        ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, NVL(COUNTS.CURMONEY,0)
+        AS CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT COUNT(*)
+        PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
+        SHFUND GROUP BY PSEQ) COUNTS ON COUNTS.PSEQ=SHCROWD.SEQ WHERE REQ = 1
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
                 AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}

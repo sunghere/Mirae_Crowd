@@ -65,10 +65,8 @@
             var str = "";
             var src_list = new Array();
             $.each(data, function (index, val) {
-                if (index % 3 == 0) {/*<div class='col-md-12 list-section'>  */
-                    str += "";
-                }
-                str += "<div class='list-main col-md-4 col-sm-12' data-src='" + val.seq + "'>" +
+
+                str += "<div class='list-main col-md-4 col-sm-12' data-src='" + val.seq + "' last-num='" + val.rnn + "'>" +
                     "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
                     "<div class='main-info-section'><div class='card-block info-title'>" + val.title + "</div>" +
                     "<div class='card-block info-id'>" + val.id + "</div>" +
@@ -180,3 +178,5 @@
     </div>
 </div>
 
+
+<script src="<%=request.getContextPath()%>/js/shScroll.js"></script>
