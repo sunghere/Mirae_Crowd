@@ -46,7 +46,7 @@
                     </div>
                 </form>
                 <span class="pull-right text-muted"><a
-                        href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee</span>
+                        href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee & Jiyoon Lee(Thank you)</span>
 
             </div>
             <div class="col-xs-12 col-sm-3 column">
