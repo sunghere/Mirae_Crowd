@@ -195,12 +195,12 @@
 
     /* 금액 000 마다 콤마 찍어주는 function*/
 
-    var money_setComma = function (inNum) {
+    money_setComma = function (inNum) {
         //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자
         //[0-9] => \d , [^0-9] => \D
         var rgx2 = /(\d+)(\d{3})/;
-        var outNum;
-        outNum = inNum;
+        var outNum="";
+        outNum = ''+inNum;
         while (rgx2.test(outNum)) {
             outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
         }

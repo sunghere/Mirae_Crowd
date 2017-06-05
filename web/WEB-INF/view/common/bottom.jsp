@@ -288,8 +288,8 @@
             </div>
             <div class="modal-body">
             	<div class="row detail-body">
-	            	<div class="detail-content col-sm-12 col-md-4"></div>
-	            	<div class="detail-reply col-sm-12 col-md-8"></div>
+	            	<div class="detail-summary col-sm-12 col-md-4"></div>
+	            	<div class="detail-detail col-sm-12 col-md-8"></div>
             	</div>
             </div>
         </div>
@@ -313,8 +313,8 @@ $(function() {
 				
 				var str_summary = "<div class='detail-img'><img src='"+src+"'></div>"+
 				"<div>"+data.id+"</div>"+
-				"<div>"+getNumber(data.goalmoney)+"</div>"+
-				"<div class='progress-info'><span class='card-block info-curmoney left'>" + data.curmoney + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
+				"<div>"+money_setComma(data.goalmoney)+"</div>"+
+				"<div class='progress-info'><span class='card-block info-curmoney left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
                 "<span class='card-block info-date right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
 				"<div class='progress'>" +
                 "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
@@ -328,8 +328,8 @@ $(function() {
 				var str_detail = "<div>"+data.content+"</div>";
                 
 				$(".detail-title").html(str_title);
-				$(".detail-content").html(str_summary);
-				$(".detail-reply").html(str_detail);
+				$(".detail-summary").html(str_summary);
+				$(".detail-detail").html(str_detail);
 				var detail_latlng = data.latlng.split('*');
 				if(detail_latlng.length >1){
 				map_load('detail-map',detail_latlng[0],detail_latlng[1]);

@@ -70,7 +70,7 @@
                     "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
                     "<div class='main-info-section'><div class='card-block info-title'>" + val.titleTemp + "</div>" +
                     "<div class='card-block info-id'>" + val.id + "</div>" +
-                    "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + val.curmoney + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
+                    "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(val.curmoney) + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
                     "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
                     "<div class='progress'>" +
                     "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalmoney, val.curmoney) + "' " +
