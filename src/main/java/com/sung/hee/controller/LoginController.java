@@ -31,8 +31,6 @@ public class LoginController {
 
     @Autowired
     private SHEntService shEntService;
-
-
     @Autowired
     private EmailSender emailSender;
 
@@ -279,6 +277,7 @@ public class LoginController {
 
         return checkResult;
     }
+
     @RequestMapping(value = "pwdUpdate.do",
             method = RequestMethod.POST)
     @ResponseBody
@@ -290,7 +289,7 @@ public class LoginController {
 
         if (sessionUser.getId().equals(shUser.getId())) {
 
-           shUserService.pwdUpdate(shUser);
+            shUserService.pwdUpdate(shUser);
 
             checkResult.setMessage("SUCS");
 
@@ -302,6 +301,7 @@ public class LoginController {
 
         return checkResult;
     }
+
     @RequestMapping(value = "myPage.do",
             method = {RequestMethod.POST, RequestMethod.GET})
     public String myPage(

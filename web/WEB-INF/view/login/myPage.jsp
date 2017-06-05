@@ -9,7 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
+    #point-group {
+        width: 10px;
+    }
 
+    .input-group .black-control {
+        border-radius: 0;
+    }
 
     .scroll-table tr {
         width: 100%;
@@ -27,6 +33,10 @@
         height: 600px;
         padding-right: 3%;
         position: absolute;
+    }
+
+    #pad-5-30 {
+        padding: 5% 30%;
     }
 
     body {
@@ -192,8 +202,24 @@
 <div class="col-md-8 white-box margin-top-25" id="myfund-list" hidden="hidden">
     <div class="col-md-12 main-title text-left">내 투자내역</div>
 
-    <div id="fund-list">
+    <div id="fund-list-container">
+        <table class="scroll-table table table-striped table-responsive">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="text-center small">시작일/마감일</th>
+                <th class="text-center col-md-4">제목</th>
+                <th class="text-center col-md-3 small">나의/현재/목표(금액)</th>
+                <th class="text-center visible-md visible-lg">카테고리</th>
+                <th class="text-center visible-md visible-lg">투자일</th>
+            </tr>
+            </thead>
+            <tbody id="fund-list" class="table-overflow">
+            <tr>
+                <td class="text-center" colspan="5">작성목록이 없습니다.</td>
+            </tr>
+            </tbody>
 
+        </table>
 
     </div>
 
@@ -202,8 +228,25 @@
 <div class="col-md-8 white-box margin-top-25" id="mycrowd-list" hidden="hidden">
     <div class="col-md-12 main-title text-left">내 펀딩모집</div>
 
-    <div id="crowd-list">
+    <div id="crowd-list-container">
 
+        <table class="scroll-table table table-striped table-responsive">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="text-center">번호</th>
+                <th class="text-center col-md-4">제목</th>
+                <th class="text-center">조회수</th>
+                <th class="text-center visible-md visible-lg">작성일</th>
+                <th class="text-center visible-md visible-lg">기업여부</th>
+            </tr>
+            </thead>
+            <tbody id="crowd-list" class="table-overflow">
+            <tr>
+                <td class="text-center" colspan="5">작성목록이 없습니다.</td>
+            </tr>
+            </tbody>
+
+        </table>
 
     </div>
 
@@ -213,11 +256,14 @@
     <div class="col-md-12 main-title text-left">포인트 관리</div>
 
 
-    <div class="col-md-12 main-text text-left">
-        <span class="text-center sub-text">잔액</span> <input type="search" class="black-control mypoint"
-                                                            value="${login.point}" disabled>
-        <button class="btn btn-info cash-charge-btn">충전</button>
-        <button class="btn btn-info cash-discharge-btn">출금</button>
+    <div class="col-md-12 main-text text-left" id="pad-5-30">
+        <div class="input-group" id="point-group">
+            <span class="input-group-addon text-center black-control">잔액</span>
+            <input type="search" class="black-control mypoint" value="${login.point}" disabled>
+            <span class="btn btn-info input-group-addon cash-charge-btn">충전</span>
+            <span class="btn btn-danger input-group-addon cash-discharge-btn">출금</span>
+        </div>
+
     </div>
     <div class="cash-charge" hidden="hidden">
 
@@ -253,7 +299,7 @@
         <table class="scroll-table table table-striped table-responsive">
             <thead class="thead-inverse">
             <tr>
-                <th class="text-center">글번호</th>
+                <th class="text-center">번호</th>
                 <th class="text-center col-md-4">제목</th>
                 <th class="text-center">조회수</th>
                 <th class="text-center visible-md visible-lg">작성일</th>
@@ -315,7 +361,7 @@
         all_hide();
 
         $('#myfund-list').show();
-
+        load_fund_list();
     });
 
     $('.side-crowd-btn').click(function () {
@@ -404,6 +450,7 @@
         }
 
     });
+    /* 포인트 출금 fun */
     var point_discharge_system = function () {
         var point = 0;
         if ($('#point-input').val() != null && $('#point-input').val() != "") {
@@ -429,6 +476,7 @@
             return;
         }
     }
+    /*포인트 충전 fun*/
     var point_charge_system = function () {
         var point_code = $('#code-input').val();
 
@@ -474,6 +522,7 @@
         }
     }
 
+    /*포인트 충전 fun을 부르기전 인증처리*/
     var point_chager = function (num) {
 
         $.ajax({
@@ -510,6 +559,8 @@
 
 
     }
+
+    /*포인트 출금을 하기전 인증처리*/
     var point_dischager = function (num) {
 
         $.ajax({
@@ -580,26 +631,40 @@
             }
         })
     }
-    /*댓글 삭제*/
-    var reply_delete = function (seq) {
-
+    /* 내 펀드(투자내역) 불러오기*/
+    var load_fund_list = function () {
         $.ajax({
-            url: "replydel.do",
+            url: "mFundList.do",
             method: "post",
-            data: {"seq": seq},
+            data: {"id": "${login.id}"},
             success: function (data) {
+                var str = "";
 
-                if (data.message == "SUCS") {
-                    load_reply_list();
-                } else {
-                    setTimeout('showMsg("정상적인 처리가 되지 않았습니다.");', 500);
+                $.each(data, function (index, val) {
+                    str += ' <tr class="_hover_tr">'
+                        + '<td class="text-center small">' + val.sdate + '~' + val.edate.substr(5) + '</td>'
+                        + '<td class="col-md-4"><div class="btn detail-btn" data-src=' + val.seq + '">'
+                        + val.titleSub + '</div></td>'
+                        + '<td class="text-center col-md-3 small">' + val.money + '/' + val.curMoney + '/' + val.goalMoney + '</td>';
 
-                }
+                    if (val.type == 2) {
+                        str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
 
+                    } else {
+                        str += '<td class="text-center visible-md visible-lg">' + '보상' + '</td>';
+
+                    }
+                    str += '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>';
+                    +'</tr>';
+                });
+
+
+                $('#fund-list').html(str);
 
             }
         })
     }
+
     /* 내 댓글 불러오기*/
     var load_reply_list = function () {
 
@@ -645,7 +710,26 @@
             }
         })
     }
+    /*댓글 삭제*/
+    var reply_delete = function (seq) {
 
+        $.ajax({
+            url: "replydel.do",
+            method: "post",
+            data: {"seq": seq},
+            success: function (data) {
+
+                if (data.message == "SUCS") {
+                    load_reply_list();
+                } else {
+                    setTimeout('showMsg("정상적인 처리가 되지 않았습니다.");', 500);
+
+                }
+
+
+            }
+        })
+    }
     /* 비밀번호 변경 2단계창 클릭*/
     var pwd_check_one = function () {
         var cur_pwd = $('#cur-pwd').val()

@@ -3,7 +3,6 @@ package com.sung.hee.shcrowd.model;
 /**
  * Created by SungHere on 2017-05-24.
  */
-/*com.sung.hee.shcrowd.model.SHCrowd*/
 public class SHCrowd {
 
 
@@ -12,7 +11,8 @@ public class SHCrowd {
 
 
     private int pnum;
-    private String title;
+    private String title = "";
+    private String titleSub = "";
     private String content;
 
     private String id;
@@ -28,6 +28,21 @@ public class SHCrowd {
     private String category;
     private String address;
 
+    public String getTitleSub() {
+        titleSub = title;
+        if (titleSub.length() > 14) {
+            titleSub = titleSub.substring(0, 14) + "..";
+
+        }
+        titleSub = titleSub.replace("&", "&amp;");
+        titleSub = titleSub.replace("<", "&lt;");
+        titleSub = titleSub.replace(">", "&gt;");
+        return titleSub;
+    }
+
+    public void setTitleSub(String titleSub) {
+        this.titleSub = title;
+    }
 
     private int type = 2;/*기본형 = 2,보상형=3 등등..*/
 

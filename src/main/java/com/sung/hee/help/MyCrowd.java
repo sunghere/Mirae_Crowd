@@ -8,6 +8,10 @@ public class MyCrowd {
     private int seq;
     private int myseq;
     private String title;
+    private String titleSub;
+
+
+    private String id;
 
     private int goalMoney;
     private int curMoney;
@@ -17,19 +21,10 @@ public class MyCrowd {
     private String edate;
     private String category;
     private String wdate;
-
+    private int money;
 
 
     private int type;
-    private int money;
-
-    public String getWdate() {
-        return wdate;
-    }
-
-    public void setWdate(String wdate) {
-        this.wdate = wdate;
-    }
 
     @Override
     public String toString() {
@@ -37,6 +32,7 @@ public class MyCrowd {
                 "seq=" + seq +
                 ", myseq=" + myseq +
                 ", title='" + title + '\'' +
+                ", id='" + id + '\'' +
                 ", goalMoney=" + goalMoney +
                 ", curMoney=" + curMoney +
                 ", tag='" + tag + '\'' +
@@ -47,6 +43,36 @@ public class MyCrowd {
                 ", type=" + type +
                 ", money=" + money +
                 '}';
+    }
+    public String getTitleSub() {
+        titleSub = title;
+        if (titleSub.length() > 10) {
+            titleSub = titleSub.substring(0, 10) + "...";
+
+        }
+        titleSub = titleSub.replace("&", "&amp;");
+        titleSub = titleSub.replace("<", "&lt;");
+        titleSub = titleSub.replace(">", "&gt;");
+        return titleSub;
+    }
+
+    public void setTitleSub(String titleSub) {
+        this.titleSub = title;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getWdate() {
+        return wdate;
+    }
+
+    public void setWdate(String wdate) {
+        this.wdate = wdate;
     }
 
     public int getSeq() {

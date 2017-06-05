@@ -207,6 +207,7 @@ public class CrowdController {
     public List<MyCrowd> mFundList(MyCrowd myCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl mFundList--!");
         List<MyCrowd> list = shCrowdService.myCrowdList(myCrowd);
+        logger.info("CrowdControl mFundList--!" + list);
 
         return list;
     }
