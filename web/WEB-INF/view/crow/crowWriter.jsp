@@ -190,7 +190,7 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <div class="input-group modal-header-body">
-                    <input id="addr-tf" class="form-control" name="addr-tf" placeholder="입력창을 클릭해주세요"
+                    <input id="addr-tf" class="form-control" name="addr-tf" placeholder="클릭하시면 검색가능합니다."
                            type="search"/>
                     <span class="bSearch input-group-addon black-control">&nbsp;<i class="icon ion-search"></i>&nbsp;
                                             </span>
@@ -410,7 +410,7 @@
 
 
                 $("#addr-tf").val(fullAddr);
-                $(".bSearch").focus();
+                $('.bSearch').click()
             }
         }).open();
     }
@@ -596,7 +596,7 @@
         map.setCenter(latlng);          // 중심 좌표 이동
         map.setZoom(13);              // 줌 레벨 변경
         marker.setPosition(latlng);     // 마크 이동
-        updateInfoWindow(latlng, 0);       // 정보창 표현
+        updateInfoWindow(latlng, 1);       // 정보창 표현
         $("#bAddress").focus();
     }
     $('#addr-tf').click(function () {

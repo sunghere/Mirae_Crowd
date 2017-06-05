@@ -267,8 +267,8 @@
     </div>
 </div>
 <style>
-.detail-content {height:90%; position: absolute; overflow: hidden; width:37%; padding:10px 20px}
-.detail-reply {height:90%; position: relative; overflow-y: scroll; width: 60%; padding-right:20px;}
+.detail-content {height:90%; overflow: hidden; padding:10px 20px}
+.detail-reply {height:90%; position: relative; overflow-y: scroll; padding-right:20px;}
 #detailModal > div {width: 90%;}
 </style>
 <%--디테일 모달--%>
@@ -277,13 +277,16 @@
         <div class="modal-content">
             <div class="modal-body">
             	<div class="row">
-	            	<div class="detail-content float-left"></div>
-	            	<div class="detail-reply float-right"></div>
+	            	<div class="detail-content col-sm-12 col-md-4"></div>
+	            	<div class="detail-reply col-sm-12 col-md-7"></div>
             	</div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
+
 <script>
 $(function() {
 	$("#crowdlist").on("click",".list-main",function() {
@@ -304,19 +307,50 @@ $(function() {
                 "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
                 "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
                 "</div>" +
-				"<div>"+data.likenum+"</div>";
-				var str2 = "<div>"+data.content+"</div>";
+				"<div>"+data.likenum+"</div>"+
+				"<div id='detail-map' style='height: 300px; width: 270px'></div>";
+				var str2 = "<div>"+data.wdate+"</div>"+
+				"<div>"+data.content+"</div>";
                 
 				$(".detail-content").html(str1);
 				$(".detail-reply").html(str2);
-				
-				
+				var detail_latlng = data.latlng.split('*');
+				if(detail_latlng.length >1){
+				map_load('detail-map',detail_latlng[0],detail_latlng[1]);
+				}
 				$('#detail-modal-btn').click();
 			}
 		})
 	})
-	
+	var map_load = function (tagId,lat,lng) {
+        var mylatlng = new naver.maps.LatLng(lat, lng);
+
+        var mapOptions = {
+            center: mylatlng,
+            zoom: 13,
+            scaleControl: false,
+            logoControl: false,
+            mapDataControl: false,
+            mapTypeControl: true,
+            zoomControl: true,
+            minZoom: 1
+        };
+
+        
+            var map = new naver.maps.Map(tagId, mapOptions);
+
+            var marker = new naver.maps.Marker({
+                position: mylatlng,
+                map: map
+            });
+            
+
+
+        }
 })
+  
+
+
 </script>
 
 <%--리플--%>
