@@ -402,6 +402,10 @@
                 }
             })
         })
+        
+        image_hide = function(content) {
+        	
+        }
 
         detail_load = function (seq) {
             $.ajax({
@@ -409,6 +413,11 @@
                 method: "POST",
                 data: {"seq": seq},
                 success: function (data) {
+                	if(data.endflag == "1" ) {
+                		showMsg("이미 종료되었습니다");
+                		return;
+                	}
+                	
                     var src = imageCarrier(data.content);
                     var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp;
 
