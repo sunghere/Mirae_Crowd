@@ -337,6 +337,7 @@
 
     .search-info-section {padding:10px; font-size:14px; width:60%; float:left; background: #f8f8f8; height: 100px;}
     .search-info-section div {margin-bottom: 10px;}
+    .go-back-search {margin-bottom:10px;}
 
 </style>
 <%--디테일 모달--%>
@@ -575,22 +576,27 @@
             });
 
         }
+        
+        /* 모달 검색리스트 */
+        search_list = function() {
+        	$.ajax({
+                url: "searchCategory.do",
+                method: "POST",
+                data: {"search": $("#modal-search-text").val()},
+                success: function (data) {
+                    str = "";
+                    $.each(data, function (i, val) {
+                        str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
+                    })
+                    $("#searchlist").html(str);
+                }
+            })
+        }
 
 		/* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
-                $.ajax({
-                    url: "searchCategory.do",
-                    method: "POST",
-                    data: {"search": $("#modal-search-text").val()},
-                    success: function (data) {
-                        str = "";
-                        $.each(data, function (i, val) {
-                            str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
-                        })
-                        $("#searchlist").html(str);
-                    }
-                })
+            	search_list();
             }
         });
         
@@ -606,7 +612,7 @@
         			"search":$("#modal-search-text").val()
         		},
         		success: function(data) {
-        			str = "";
+        			str = "<div class='btn btn-warning go-back-search'>뒤로 가기</div>";
       				var src_list = new Array();
         			$.each(data, function(i, val){
         				str += "<div class='crowd-detail-btn list-search' data-src='"+val.seq+"'>"+
@@ -623,6 +629,11 @@
         			searchImageInput(src_list, data);
         		}
         	})
+        })
+        
+        /* 검색리스트 뒤로가기 */
+        $("#searchlist").on("click", ".go-back-search", function() {
+        	search_list();
         })
         
         $("#searchlist").on("click", ".list-search", function () {
