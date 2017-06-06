@@ -278,9 +278,9 @@ public class CrowdController {
             checkResult.setMessage("FAIL");
 
         } else {
+            SHCrowd temp = shCrowdService.detailCrowd(shCrowd);
             try {
-                shCrowd.setCurMoney(shCrowdService.detailCrowd(shCrowd).getCurMoney());
-                shCrowdService.finishReward(shCrowd);
+                shCrowdService.finishReward(temp);
                 checkResult.setMessage("SUCS");
 
             } catch (Exception e) {
@@ -340,7 +340,7 @@ public class CrowdController {
 
         return randomList;
     }
-    
+
     /*모달 카테고리 서치*/
     @RequestMapping(value = "searchCategory.do", method = RequestMethod.POST)
     @ResponseBody
