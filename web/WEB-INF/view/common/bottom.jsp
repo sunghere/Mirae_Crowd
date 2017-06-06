@@ -285,7 +285,7 @@
     }
 
     .detail-fund-btn {
-        font-size: 20;
+        font-size: 20px;
         border-radius: 3px;
         float: right;
         right: 40px;
@@ -462,7 +462,7 @@
 
                     var src = imageCarrier(data.content);
                     var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp +
-                        "<span class='detail-fund btn btn-info'>펀딩하기</span>";
+                        "<span class='detail-fund-btn btn btn-info'>펀딩하기</span>";
 
                     var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
