@@ -115,6 +115,7 @@
     $(window).resize(function () {
             var height = $('#footer').height() + 50;
             $("#content_wrap").css({"margin-bottom": height});
+
         }
     );
 

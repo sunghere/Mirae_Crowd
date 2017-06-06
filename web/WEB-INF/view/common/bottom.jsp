@@ -287,10 +287,7 @@
     .detail-fund-btn {
         font-size: 20px;
         border-radius: 3px;
-        float: right;
-        right: 40px;
-        top: 50px;
-        position: absolute;
+        margin-bottom: 20px;
     }
 
     .detail-cat {
@@ -322,6 +319,7 @@
     }
 
     .detail-detail {
+        padding: 0 5%;
         height: 80%;
         position: relative;
         overflow-y: scroll;
@@ -330,11 +328,18 @@
     #detailModal > div {
         width: 90%;
     }
-    
-    .list-search {height:100px; margin-bottom:20px;}
-    
-    .search-img-section {width:40%; float:left; height:100px;}
-    
+
+    .list-search {
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .search-img-section {
+        width: 40%;
+        float: left;
+        height: 100px;
+    }
+
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -356,12 +361,68 @@
         </div>
     </div>
 </div>
+
+
+<%--검색 모달--%>
+<div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" id="searchModal_close" class="close"
+                        data-dismiss="modal">
+                    <span class='close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+                <input type="text" class="form-control input-lg" id="modal-search-text">
+            </div>
+            <div class="modal-body">
+                <div id="searchlist"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--리플--%>
+<div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span class='close' aria-hidden="true">x</span> <span
+                        class="sr-only">Close</span>
+                </button>
+                <h3 class="title_Type">Reply Edit</h3>
+            </div>
+            <div class="modal-body">
+                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
+                <br>
+
+                <textarea
+                        class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control reply-modal-area"
+                        rows="4" id="bot-r-area"></textarea>
+                <button class="btn btn-primary col-xs-3 col-sm-3 reply-modal-btn" type="button"
+                        datasrc="">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="search_type" data-src="">
+<input type="hidden" class="search" data-src="">
+<!-- 리플 모달 버튼 -->
+<button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
+<!-- 디테일 모달 버튼 -->
+<input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
 <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
 
 <script>
     $(function () {
-    	var searchImageInput = function (src_list, data) {
+        var searchImageInput = function (src_list, data) {
             $.each(data, function (index, val) {
 
                 var src = src_list[index];
@@ -375,10 +436,10 @@
                 });
             })
         }
-    	
+
         /* search 버튼 클릭 */
         $(".search-remote").click(function () {
-            $("#search-btn").click(); 
+            $("#search-btn").click();
             setTimeout('$("#modal-search-text").focus()', 500);
         })
 
@@ -461,10 +522,9 @@
                     }
 
                     var src = imageCarrier(data.content);
-                    var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp +
-                        "<span class='detail-fund-btn btn btn-info'>펀딩하기</span>";
+                    var str_title = "<span class='cbox detail-cat'>" + data.category + "</span>" + data.titleTemp;
 
-                    var str_summary = "<div class='detail-img'><img src='" + src + "'></div>" +
+                    var str_summary = "<div class='detail-img'><img class='center-block' src='" + src + "'></div>" +
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
                         "<div>" + data.id + "</div>" +
                         "<div class='detail-date'>" + data.sdate + " ~ " + data.edate + "</div>" +
@@ -475,7 +535,7 @@
                         "</div>" +
                         "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(data.curMoney) + "원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
-                        "<div style='width: 100%; height:300px'><div id='detail-map' style='height: 300px; width: 100%'></div></div>";
+                        "<div style='width: 100%; height:300px'>" + "<span class='detail-fund-btn center-block btn btn-info' data-src='" + data.seq + "'>펀딩하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
                     var str_detail = "<div>" + data.content + "</div>";
 
@@ -488,6 +548,8 @@
                     }
                     check_like(seq);
                     $('#detail-modal-btn').click();
+
+                    setTimeout("image_hide();", 500);
                 }
             })
         }
@@ -517,112 +579,63 @@
             });
 
         }
-        
-        $("#modal-search-text").keydown(function(key){
-        	if(key.keyCode == 13) {
-        		$.ajax({
-        			url: "searchCategory.do",
-        			method: "POST",
-        			data: {"search":$("#modal-search-text").val()},
-        			success: function(data) {
-        				str = "";
-        				$.each(data, function(i, val) {
-        					str+="<div class='search-cat btn-default' data-src='"+val.category+"'>"+val.category+"<span class='badge'>"+val.cnt+"</span></div>";
-        				})
-        				$("#searchlist").html(str);
-        			}
-        		})
-        	}
+
+
+        $("#modal-search-text").keydown(function (key) {
+            if (key.keyCode == 13) {
+                $.ajax({
+                    url: "searchCategory.do",
+                    method: "POST",
+                    data: {"search": $("#modal-search-text").val()},
+                    success: function (data) {
+                        str = "";
+                        $.each(data, function (i, val) {
+                            str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
+                        })
+                        $("#searchlist").html(str);
+                    }
+                })
+            }
         });
-        
-        $("#searchlist").on("click", ".search-cat", function() {
-        	var cat =  $(this).attr('data-src');
-        	$.ajax({
-        		url:"cSearch.do",
-        		method: "POST",
-        		data: {
-        			"search_type":"category",
-        			"category": cat,
-        			"search":$("#modal-search-text").val()
-        		},
-        		success: function(data) {
-        			str = "";
-      				var src_list = new Array();
-        			$.each(data, function(i, val){
-        				str += "<div class='crowd-detail-btn list-search'>"+
-	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
-	        				"<div>"+val.titleTemp+"</div>"+
-	        				"</div>";
-        				var src = imageCarrier(val.content);
-        				src_list.push(src);
-        			})
-        			$("#searchlist").html(str);
-        			searchImageInput(src_list, data);
-        		}
-        	})
+
+        $("#searchlist").on("click", ".search-cat", function () {
+            var cat = $(this).attr('data-src');
+            $.ajax({
+                url: "cSearch.do",
+                method: "POST",
+                data: {
+                    "search_type": "category",
+                    "category": cat,
+                    "search": $("#modal-search-text").val()
+                },
+                success: function (data) {
+                    str = "";
+                    var src_list = new Array();
+                    $.each(data, function (i, val) {
+                        str += "<div class='crowd-detail-btn list-search'>" +
+                            "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
+                            "<div>" + val.titleTemp + "</div>" +
+                            "</div>";
+                        var src = imageCarrier(val.content);
+                        src_list.push(src);
+                    })
+                    $("#searchlist").html(str);
+                    searchImageInput(src_list, data);
+                }
+            })
         })
 
     })
+    /* 펀딩하기 버튼*/
+    $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
 
-</script>
+        showMsg('<h4>경고</h4><div class="text-center">저는 투자의 위험성을알고있으며,<br> 이에 동의합니다<div>'
+            + '<div class="btn - group" data-toggle="buttons">'
+            + '<label class="btn btn-danger"><input type="checkbox" autocomplete = "off"><i class="fa fa-check" aria-hidden="true"></i>' +
+            +'</label></div>');
+    });
 
-
-<%--검색 모달--%>
-<div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header line_none">
-                <button type="button" id="searchModal_close" class="close"
-                        data-dismiss="modal">
-                    <span class='close' aria-hidden="true">x</span> <span
-                        class="sr-only">Close</span>
-                </button>
-                <input type="text" class="form-control input-lg" id="modal-search-text">
-            </div>
-            <div class="modal-body">
-                <div id="searchlist"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<%--리플--%>
-<div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header line_none">
-                <button type="button" class="close"
-                        data-dismiss="modal">
-                    <span class='close' aria-hidden="true">x</span> <span
-                        class="sr-only">Close</span>
-                </button>
-                <h3 class="title_Type">Reply Edit</h3>
-            </div>
-            <div class="modal-body">
-                <div class="black-control col-xs-6 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
-                <br>
-
-                <textarea
-                        class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control reply-modal-area"
-                        rows="4" id="bot-r-area"></textarea>
-                <button class="btn btn-primary col-xs-3 col-sm-3 reply-modal-btn" type="button"
-                        datasrc="">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<input type="hidden" class="search_type" data-src="">
-<input type="hidden" class="search" data-src="">
-<!-- 리플 모달 버튼 -->
-<button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
-<!-- 디테일 모달 버튼 -->
-<input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
-<script>
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
 </script>

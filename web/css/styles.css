@@ -1264,6 +1264,7 @@ img::-moz-selection {
     color: white;
     margin-right: 10px;
     padding: 10px;
+    margin-bottom: 15px;
     border-radius: 0;
     font-size: 14px;
     display: inline-block;
@@ -1312,6 +1313,15 @@ img::-moz-selection {
     padding: 5px 20px;
     background-color: midnightblue;
 }
+
 .scroll-end-btn a {
     color: white;
+}
+
+/* checkbox*/
+.btn>i {
+    opacity: 0;
+}
+.btn.active>i {
+    opacity: 1;
 }
