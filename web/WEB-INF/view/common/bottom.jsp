@@ -359,8 +359,13 @@
         })
 
         $("#crowdlist").on("click", ".list-main", function () {
+
+
             var seq = $(this).attr('data-src');
-            detail_load(seq);
+
+            if (seq != 9999 && seq != '9999') {
+                detail_load(seq);
+            }
         })
         var check_like = function (pseq) {
 
