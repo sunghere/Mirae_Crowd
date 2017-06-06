@@ -331,6 +331,8 @@
         width: 90%;
     }
     
+    .list-search {height:100px; margin-bottom:20px;}
+    
     .search-img-section {width:40%; float:left; height:100px;}
     
 </style>
@@ -363,7 +365,7 @@
             $.each(data, function (index, val) {
 
                 var src = src_list[index];
-                $('#list-img' + val.seq).css({
+                $('#search-list-img' + val.seq).css({
                     "background-image": 'url("' + src + '")',
                     "-webkit-background-size": "cover",
                     "-moz-background-size": "cover",
@@ -547,8 +549,8 @@
         			str = "";
       				var src_list = new Array();
         			$.each(data, function(i, val){
-        				str += "<div class='crowd-detail-btn'>"+
-	        				"<div class='search-img-section' id='list-img"+val.seq+"'></div>"+
+        				str += "<div class='crowd-detail-btn list-search'>"+
+	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
 	        				"<div>"+val.titleTemp+"</div>"+
 	        				"</div>";
         				var src = imageCarrier(val.content);
