@@ -520,7 +520,6 @@ fieldset[disabled] .btn-default.active {
 .btn.btn-primary {
     background-color: transparent;
     border: 1px solid #f0f0f0;
-    border-color: #f0f0f0;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -585,7 +584,7 @@ img::-moz-selection {
 
 .help-tip:hover p {
     display: block;
-    transform-origin: 100% 0%;
+    transform-origin: 100% 0;
 
     -webkit-animation: fadeIn 0.3s ease-in-out;
     animation: fadeIn 0.3s ease-in-out;
@@ -835,7 +834,7 @@ img::-moz-selection {
 
 .reply-delete-btn {
     position: absolute;
-    top: 0%;
+    top: 0;
     right: 10%;
     background-color: transparent;
 
@@ -843,8 +842,8 @@ img::-moz-selection {
 
 .reply-edit-btn {
     position: absolute;
-    top: 0%;
-    right: 0%;
+    top: 0;
+    right: 0;
 
     background-color: transparent;
 
@@ -855,7 +854,7 @@ img::-moz-selection {
 .mylogo {
     position: relative;
     bottom: 15px;
-    left: 0px;
+    left: 0;
     width: 50px;
     height: 50px;
 
@@ -1057,7 +1056,7 @@ img::-moz-selection {
 }
 
 .panel-body p {
-    font-family: "Nanum Gothic";
+    font-family: "Nanum Gothic", serif;
     font-size: 14px;
 }
 
@@ -1122,7 +1121,7 @@ img::-moz-selection {
 .writeListAffix li {
 
     font-size: 18px;
-    font-family: "Nanum Gothic";
+    font-family: "Nanum Gothic", serif;
     border-bottom: solid rgba(221, 221, 221, 0.7);
 }
 
@@ -1331,4 +1330,19 @@ img::-moz-selection {
 }
 .check-btn.active>i {
     opacity: 1;
+}
+
+/* 펀딩전 모달CSS*/
+.mini-warning-header {
+    background: pink;
+    color: white;
+    padding: 10px;
+    margin: 5px 30px 0;
+}
+.mini-warning-body {
+    border: solid pink;
+    margin: 0 30px 10px;
+    border-top: none;
+    padding-bottom: 10px;
+    padding-top: 20px;
 }
