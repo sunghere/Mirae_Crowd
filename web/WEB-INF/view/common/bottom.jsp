@@ -329,9 +329,11 @@
         width: 90%;
     }
     
+    
     #searchModal {z-index: 1049;}
     
-    .list-search {height:100px; margin-bottom:20px;}
+    .search-cat {cursor: pointer;}
+    .list-search {height:100px; margin-bottom:20px; cursor: pointer;}
     
     .search-img-section {width:40%; float:left; height:100px;}
 
@@ -365,7 +367,7 @@
 <%--검색 모달--%>
 <div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-md search-md">
         <div class="modal-content">
             <div class="modal-header line_none">
                 <button type="button" id="searchModal_close" class="close"
@@ -373,10 +375,11 @@
                     <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
-                <input type="text" class="form-control input-lg" id="modal-search-text">
+                <input type="text" class="form-control input-lg" id="modal-search-text" placeholder="Search For...">
             </div>
             <div class="modal-body">
                 <div id="searchlist"></div>
+                <div id="searchresult" hidden="hidden"></div>
             </div>
         </div>
     </div>
@@ -577,26 +580,24 @@
 
         }
         
-        /* 모달 검색리스트 */
-        search_list = function() {
-        	$.ajax({
-                url: "searchCategory.do",
-                method: "POST",
-                data: {"search": $("#modal-search-text").val()},
-                success: function (data) {
-                    str = "";
-                    $.each(data, function (i, val) {
-                        str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
-                    })
-                    $("#searchlist").html(str);
-                }
-            })
-        }
-
 		/* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
-            	search_list();
+            	$.ajax({
+                    url: "searchCategory.do",
+                    method: "POST",
+                    data: {"search": $("#modal-search-text").val()},
+                    success: function (data) {
+                        str = "";
+                        $.each(data, function (i, val) {
+                            str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
+                        })
+                        $("#searchlist").html(str);
+
+            			$("#searchlist").show();
+                    	$("#searchresult").hide();
+                    }
+                })
             }
         });
         
@@ -612,7 +613,7 @@
         			"search":$("#modal-search-text").val()
         		},
         		success: function(data) {
-        			str = "<div class='btn btn-warning go-back-search'>뒤로 가기</div>";
+        			str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
       				var src_list = new Array();
         			$.each(data, function(i, val){
         				str += "<div class='crowd-detail-btn list-search' data-src='"+val.seq+"'>"+
@@ -625,15 +626,20 @@
         				var src = imageCarrier(val.content);
         				src_list.push(src);
         			})
-        			$("#searchlist").html(str);
+        			$("#searchresult").html(str);
         			searchImageInput(src_list, data);
+        			
+        			$("#searchlist").hide();
+                	$("#searchresult").show();
         		}
         	})
         })
         
         /* 검색리스트 뒤로가기 */
-        $("#searchlist").on("click", ".go-back-search", function() {
-        	search_list();
+        $("#searchresult").on("click", ".go-back-search", function() {
+        	$("#searchlist").show();
+        	$("#searchresult").hide();
+        	
         })
         
         $("#searchlist").on("click", ".list-search", function () {
