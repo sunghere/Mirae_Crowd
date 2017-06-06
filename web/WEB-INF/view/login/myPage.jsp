@@ -700,9 +700,9 @@
 
                     }
                     if (val.endflag == "1" && val.reward == "0")
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info reword-btn">지급받기</button>' + '</td>';
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info reward-btn" data-src="' + val.seq + '">지급받기</button>' + '</td>';
                     else if (val.endflag == "1" && val.reward == "1")
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn black-control reword-btn" disabled>지급완료</button>' + '</td>';
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn black-control" disabled>지급완료</button>' + '</td>';
                     else if (val.endflag == "0" && val.req == 0)
                         str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-warning" disabled>미진행</button>' + '</td>';
                     else {
@@ -865,16 +865,17 @@
     })
     /*크라우드 보상받기 모달*/
 
-    $('#crowd-list').on('click', '.reword-btn', function () {
+    $('#crowd-list').on('click', '.reward-btn', function () {
 
-        var seq = $(this).attr('data-src');
 
-        showSelectMsg("crowd_reward("+seq+")");
+        var seq = $(this).attr("data-src");
+        showSelectMsg("crowd_reward(" + seq + ")");
 
 
     })
     /* 크라우드 펀딩 보상받기 이벤트*/
     var crowd_reward = function (seq) {
+
         $.ajax({
             url: "cfinish.do",
             data: {"id": "${login.id}", "seq": seq},
@@ -884,10 +885,10 @@
                 if (data.message == "SUCS") {
 
                     load_crowd_list();
-                    setTimeout('showMsg("재 로그인시 반영됩니다.")',500);
+                    setTimeout('showMsg("재 로그인시 반영됩니다.")', 500);
 
                 } else {
-                    setTimeout('showMsg("잠시후 다시 시도해주세요")',500);
+                    setTimeout('showMsg("잠시후 다시 시도해주세요")', 500);
 
                 }
             }

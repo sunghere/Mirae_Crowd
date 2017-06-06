@@ -284,10 +284,13 @@
         line-height: 35px;
     }
 
-    .detail-fund {
+    .detail-fund-btn {
+        font-size: 20;
         border-radius: 3px;
         float: right;
-        margin: 5px 20px;
+        right: 40px;
+        top: 50px;
+        position: absolute;
     }
 
     .detail-cat {
