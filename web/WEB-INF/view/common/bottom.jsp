@@ -499,6 +499,7 @@
 
 </script>
 
+
 <%--검색 모달--%>
 <div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -510,9 +511,10 @@
                     <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
-                <input type="text" class="form-control input-lg">
+                <input type="text" class="form-control input-lg" id="modal-search-text">
             </div>
             <div class="modal-body">
+                <div id="searchlist"></div>
             </div>
         </div>
     </div>
