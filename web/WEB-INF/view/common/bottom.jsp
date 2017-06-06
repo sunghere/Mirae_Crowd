@@ -328,13 +328,29 @@
     #detailModal > div {
         width: 90%;
     }
-    
-    .list-search {height:100px; margin-bottom:20px;}
-    
-    .search-img-section {width:40%; float:left; height:100px;}
 
-    .search-info-section {padding:10px; font-size:15px; width:60%; float:left; background: #f8f8f8;}
-    .search-info-section div {margin-bottom: 10px;}
+    .list-search {
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .search-img-section {
+        width: 40%;
+        float: left;
+        height: 100px;
+    }
+
+    .search-info-section {
+        padding: 10px;
+        font-size: 15px;
+        width: 60%;
+        float: left;
+        background: #f8f8f8;
+    }
+
+    .search-info-section div {
+        margin-bottom: 10px;
+    }
 
 </style>
 <%--디테일 모달--%>
@@ -574,7 +590,7 @@
 
         }
 
-		/* 모달 검색 */
+        /* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
                 $.ajax({
@@ -591,36 +607,36 @@
                 })
             }
         });
-        
+
         /* 서치 모달 카테고리 클릭 시 리스트 */
-        $("#searchlist").on("click", ".search-cat", function() {
-        	var cat =  $(this).attr('data-src');
-        	$.ajax({
-        		url:"cSearch.do",
-        		method: "POST",
-        		data: {
-        			"search_type":"category",
-        			"category": cat,
-        			"search":$("#modal-search-text").val()
-        		},
-        		success: function(data) {
-        			str = "";
-      				var src_list = new Array();
-        			$.each(data, function(i, val){
-        				str += "<div class='crowd-detail-btn list-search'>"+
-	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
-	        				"<div class='search-info-section'>"+
-	        				"<div>"+val.titleTemp+"</div>"+
-	        				"<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
-	        				"<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
-	        				"</div></div>";
-        				var src = imageCarrier(val.content);
-        				src_list.push(src);
-        			})
-        			$("#searchlist").html(str);
-        			searchImageInput(src_list, data);
-        		}
-        	})
+        $("#searchlist").on("click", ".search-cat", function () {
+            var cat = $(this).attr('data-src');
+            $.ajax({
+                url: "cSearch.do",
+                method: "POST",
+                data: {
+                    "search_type": "category",
+                    "category": cat,
+                    "search": $("#modal-search-text").val()
+                },
+                success: function (data) {
+                    str = "";
+                    var src_list = new Array();
+                    $.each(data, function (i, val) {
+                        str += "<div class='crowd-detail-btn list-search'>" +
+                            "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
+                            "<div class='search-info-section'>" +
+                            "<div>" + val.titleTemp + "</div>" +
+                            "<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
+                            "<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
+                            "</div></div>";
+                        var src = imageCarrier(val.content);
+                        src_list.push(src);
+                    })
+                    $("#searchlist").html(str);
+                    searchImageInput(src_list, data);
+                }
+            })
         })
 
     })
@@ -628,10 +644,10 @@
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
 
-        showMsg('<h4>경고</h4><div class="text-center">저는 투자의 위험성을알고있으며,<br> 이에 동의합니다<div><br>'
+        showMsg('<h4>경고</h4><div class="text-center">저는 투자의 위험성을 <br>알고 있습니다<div><br>'
             + '<div class="btn-group" data-toggle="buttons">'
-            + '<label class="btn btn-danger check-btn"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>'
-            +'</label></div>');
+            + '<label class="btn btn-danger check-btn"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>확인'
+            + '</label></div></div>');
     });
 
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
