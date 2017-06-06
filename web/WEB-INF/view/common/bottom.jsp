@@ -333,7 +333,7 @@
     
     .search-img-section {width:40%; float:left; height:100px;}
 
-    .search-info-section {padding:10px; font-size:15px; width:60%; float:left; background: #f8f8f8;}
+    .search-info-section {padding:10px; font-size:14px; width:60%; float:left; background: #f8f8f8; height: 100px;}
     .search-info-section div {margin-bottom: 10px;}
 
 </style>
@@ -610,7 +610,7 @@
         				str += "<div class='crowd-detail-btn list-search'>"+
 	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
 	        				"<div class='search-info-section'>"+
-	        				"<div>"+val.titleTemp+"</div>"+
+	        				"<div><strong>"+val.titleTemp+"</strong></div>"+
 	        				"<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
 	        				"<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
 	        				"</div></div>";
