@@ -446,7 +446,7 @@
                         "</div>" +
                         "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
-                        "<div id='detail-map' style='height: 300px; width: 100%'></div>";
+                        "<div style='width: 100%; height:300px'><div id='detail-map' style='height: 300px; width: 100%'></div></div>";
 
                     var str_detail = "<div>" + data.content + "</div>";
 
