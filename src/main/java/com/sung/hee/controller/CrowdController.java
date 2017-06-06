@@ -339,6 +339,14 @@ public class CrowdController {
 
         return randomList;
     }
+    
+    /*모달 카테고리 서치*/
+    @RequestMapping(value = "searchCategory.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<SHCrowd> searchCategory(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl searchCategory--!");
+        return shCrowdService.searchCategory(shCrowd);
+    }
 
     public String getDoRef(String ref) {
 
