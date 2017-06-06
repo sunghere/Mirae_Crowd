@@ -328,25 +328,16 @@
     #detailModal > div {
         width: 90%;
     }
+    
+    #searchModal {z-index: 1049;}
 
-    .list-search {
-        height: 100px;
-        margin-bottom: 20px;
-    }
+    .list-search {height:100px; margin-bottom:20px;}
+    
+    .search-img-section {width:40%; float:left; height:100px;}
 
-    .search-img-section {
-        width: 40%;
-        float: left;
-        height: 100px;
-    }
-
-    .search-info-section {
-        padding: 10px;
-        font-size: 15px;
-        width: 60%;
-        float: left;
-        background: #f8f8f8;
-    }
+    .search-info-section {padding:10px; font-size:14px; width:60%; float:left; background: #f8f8f8; height: 100px;}
+    .search-info-section div {margin-bottom: 10px;}
+    .go-back-search {margin-bottom:10px;}
 
     .search-info-section div {
         margin-bottom: 10px;
@@ -590,53 +581,69 @@
 
         }
 
-        /* 모달 검색 */
+        /* 모달 검색리스트 */
+        search_list = function() {
+        	$.ajax({
+                url: "searchCategory.do",
+                method: "POST",
+                data: {"search": $("#modal-search-text").val()},
+                success: function (data) {
+                    str = "";
+                    $.each(data, function (i, val) {
+                        str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
+                    })
+                    $("#searchlist").html(str);
+                }
+            })
+        }
+
+		/* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
-                $.ajax({
-                    url: "searchCategory.do",
-                    method: "POST",
-                    data: {"search": $("#modal-search-text").val()},
-                    success: function (data) {
-                        str = "";
-                        $.each(data, function (i, val) {
-                            str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
-                        })
-                        $("#searchlist").html(str);
-                    }
-                })
+            	search_list();
             }
         });
 
         /* 서치 모달 카테고리 클릭 시 리스트 */
-        $("#searchlist").on("click", ".search-cat", function () {
-            var cat = $(this).attr('data-src');
-            $.ajax({
-                url: "cSearch.do",
-                method: "POST",
-                data: {
-                    "search_type": "category",
-                    "category": cat,
-                    "search": $("#modal-search-text").val()
-                },
-                success: function (data) {
-                    str = "";
-                    var src_list = new Array();
-                    $.each(data, function (i, val) {
-                        str += "<div class='crowd-detail-btn list-search'>" +
-                            "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
-                            "<div class='search-info-section'>" +
-                            "<div>" + val.titleTemp + "</div>" +
-                            "<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
-                            "<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
-                            "</div></div>";
-                        var src = imageCarrier(val.content);
-                        src_list.push(src);
-                    })
-                    $("#searchlist").html(str);
-                    searchImageInput(src_list, data);
-                }
-            })
+        $("#searchlist").on("click", ".search-cat", function() {
+        	var cat =  $(this).attr('data-src');
+        	$.ajax({
+        		url:"cSearch.do",
+        		method: "POST",
+        		data: {
+        			"search_type":"category",
+        			"category": cat,
+        			"search":$("#modal-search-text").val()
+        		},
+        		success: function(data) {
+        			str = "<div class='btn btn-warning go-back-search'>뒤로 가기</div>";
+      				var src_list = new Array();
+        			$.each(data, function(i, val){
+        				str += "<div class='crowd-detail-btn list-search' data-src='"+val.seq+"'>"+
+	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
+	        				"<div class='search-info-section'>"+
+	        				"<div><strong>"+val.titleTemp+"</strong></div>"+
+	        				"<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
+	        				"<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
+	        				"</div></div>";
+        				var src = imageCarrier(val.content);
+        				src_list.push(src);
+        			})
+        			$("#searchlist").html(str);
+        			searchImageInput(src_list, data);
+        		}
+        	})
+        })
+
+        /* 검색리스트 뒤로가기 */
+        $("#searchlist").on("click", ".go-back-search", function() {
+        	search_list();
+        })
+
+        $("#searchlist").on("click", ".list-search", function () {
+        	var seq = $(this).attr("data-src");
+        	detail_load(seq);
+
         })
 
     })
