@@ -328,11 +328,11 @@
     #detailModal > div {
         width: 90%;
     }
-    
+
     #searchModal {z-index: 1049;}
 
     .list-search {height:100px; margin-bottom:20px;}
-    
+
     .search-img-section {width:40%; float:left; height:100px;}
 
     .search-info-section {padding:10px; font-size:14px; width:60%; float:left; background: #f8f8f8; height: 100px;}
@@ -651,12 +651,17 @@
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
 
-        showMsg('<h4>경고</h4><div class="text-center">저는 투자의 위험성을 <br>알고 있습니다<div><br>'
+        showMsg('<h4 class="mini-warning-header">경고</h4><div class="text-center mini-warning-body">저는 투자의 위험성을 <br>알고 있습니다<div><br>'
             + '<div class="btn-group" data-toggle="buttons">'
             + '<label class="btn btn-danger check-btn"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>확인'
             + '</label></div></div>');
     });
+    /* */
 
+    $('#myMsg').on("click",".check-btn",function () {
+       /* $('showMsg-close').click();*/
+        $('.mini-warning-body').fadeOut();
+    })
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
 </script>
