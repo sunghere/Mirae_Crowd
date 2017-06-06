@@ -1322,6 +1322,6 @@ img::-moz-selection {
 .check-btn>i {
     opacity: 0;
 }
-.check-bt.active>i {
+.check-btn.active>i {
     opacity: 1;
 }
