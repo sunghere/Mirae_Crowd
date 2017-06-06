@@ -373,7 +373,7 @@
     	
         /* search 버튼 클릭 */
         $(".search-remote").click(function () {
-            $("#search-btn").click();
+            $("#search-btn").click(); 
             setTimeout('$("#modal-search-text").focus()', 500);
         })
 
