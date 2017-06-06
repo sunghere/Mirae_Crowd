@@ -328,17 +328,12 @@
     #detailModal > div {
         width: 90%;
     }
+    
+    .list-search {height:100px; margin-bottom:20px;}
+    
+    .search-img-section {width:40%; float:left; height:100px;}
 
-    .list-search {
-        height: 100px;
-        margin-bottom: 20px;
-    }
-
-    .search-img-section {
-        width: 40%;
-        float: left;
-        height: 100px;
-    }
+    .search-info-section {padding:10px; font-size:15px;}
 
 </style>
 <%--디테일 모달--%>
@@ -548,8 +543,6 @@
                     }
                     check_like(seq);
                     $('#detail-modal-btn').click();
-
-                    setTimeout("image_hide();", 500);
                 }
             })
         }
@@ -597,32 +590,33 @@
                 })
             }
         });
-
-        $("#searchlist").on("click", ".search-cat", function () {
-            var cat = $(this).attr('data-src');
-            $.ajax({
-                url: "cSearch.do",
-                method: "POST",
-                data: {
-                    "search_type": "category",
-                    "category": cat,
-                    "search": $("#modal-search-text").val()
-                },
-                success: function (data) {
-                    str = "";
-                    var src_list = new Array();
-                    $.each(data, function (i, val) {
-                        str += "<div class='crowd-detail-btn list-search'>" +
-                            "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
-                            "<div>" + val.titleTemp + "</div>" +
-                            "</div>";
-                        var src = imageCarrier(val.content);
-                        src_list.push(src);
-                    })
-                    $("#searchlist").html(str);
-                    searchImageInput(src_list, data);
-                }
-            })
+        
+        $("#searchlist").on("click", ".search-cat", function() {
+        	var cat =  $(this).attr('data-src');
+        	$.ajax({
+        		url:"cSearch.do",
+        		method: "POST",
+        		data: {
+        			"search_type":"category",
+        			"category": cat,
+        			"search":$("#modal-search-text").val()
+        		},
+        		success: function(data) {
+        			str = "";
+      				var src_list = new Array();
+        			$.each(data, function(i, val){
+        				str += "<div class='crowd-detail-btn list-search'>"+
+	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
+	        				"<div class='search-info-section'>"+
+	        				"<div>"+val.titleTemp+"</div>"+
+	        				"</div></div>";
+        				var src = imageCarrier(val.content);
+        				src_list.push(src);
+        			})
+        			$("#searchlist").html(str);
+        			searchImageInput(src_list, data);
+        		}
+        	})
         })
 
     })
