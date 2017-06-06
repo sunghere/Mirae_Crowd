@@ -135,4 +135,9 @@ public class SHCrowdServiceImpl implements SHCrowdService {
 	public Integer crowdLikeChk(CrowdLike crowdLike) {
     	return shCrowdDAO.crowdLikeChk(crowdLike);
 	}
+
+    @Transactional(readOnly = true)
+	public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
+		return shCrowdDAO.searchCategory(shCrowd);
+	}
 }

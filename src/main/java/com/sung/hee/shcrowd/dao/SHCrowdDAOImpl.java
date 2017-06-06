@@ -130,4 +130,8 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
     public List<String> findTag() {
         return sqlSession.selectList(ns + "findTag");
     }
+
+	public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
+		return sqlSession.selectList(ns + "searchCategory", shCrowd);
+	}
 }

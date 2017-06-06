@@ -48,4 +48,6 @@ public interface SHCrowdService {
     void noCrowd(SHCrowd shCrowd); /* 요청 거절 */
 
     List<String> findTag();
+    
+    List<SHCrowd> searchCategory(SHCrowd shCrowd); /*검색결과 카테고리로 묶기*/
 }

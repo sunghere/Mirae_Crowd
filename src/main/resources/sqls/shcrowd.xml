@@ -110,7 +110,8 @@
                 AND (TAG like '%'|| #{search} || '%')
             </if>
             <if test="search_type == 'category'">
-                AND (CATEGORY like '%'|| #{search} || '%')
+                AND (CATEGORY like '%'|| #{category} || '%') AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
+                ||'%')
             </if>
         </if>
         )
@@ -204,6 +205,13 @@
     <select id="findTag"
             resultType="java.lang.String">
         SELECT TAG FROM SHCROWD WHERE REQ=1 AND ENDFLAG ='0'
+    </select>
+    
+    <select id="searchCategory" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
+    resultType="com.sung.hee.shcrowd.model.SHCrowd">
+    	SELECT COUNT(*) CNT, CATEGORY FROM SHCROWD
+		WHERE TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search} ||'%'
+		GROUP BY CATEGORY
     </select>
 
 </mapper>

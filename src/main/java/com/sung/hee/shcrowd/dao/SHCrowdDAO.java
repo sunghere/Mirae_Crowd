@@ -66,4 +66,6 @@ public interface SHCrowdDAO {
     void noCrowd(SHCrowd shCrowd); /* 요청 거절 */
 
     List<String> findTag();
+    
+    List<SHCrowd> searchCategory(SHCrowd shCrowd);
 }
