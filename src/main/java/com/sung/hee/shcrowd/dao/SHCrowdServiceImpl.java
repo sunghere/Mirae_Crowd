@@ -124,19 +124,12 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     public void finishReward(SHCrowd shCrowd) throws Exception {
         SHUser shUser = new SHUser();
         shUser.setId(shCrowd.getId());
-        System.out.println("1");
 
-        SHCrowd detail = shCrowdDAO.detailCrowd(shCrowd);
-        System.out.println("2");
-
-        shUser.setEpoint(detail.getCurMoney());
-        System.out.println("3");
+        shUser.setEpoint(shCrowd.getCurMoney());
 
         shCrowdDAO.finishReward(shCrowd);
-        System.out.println("4");
 
         shCrowdDAO.inPoint(shUser);
-        System.out.println("5");
 
     }
 

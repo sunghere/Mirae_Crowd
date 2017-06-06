@@ -279,6 +279,7 @@ public class CrowdController {
 
         } else {
             try {
+                shCrowd.setCurMoney(shCrowdService.detailCrowd(shCrowd).getCurMoney());
                 shCrowdService.finishReward(shCrowd);
                 checkResult.setMessage("SUCS");
 
