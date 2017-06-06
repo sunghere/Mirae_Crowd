@@ -329,6 +329,8 @@
         width: 90%;
     }
     
+    #searchModal {z-index: 1049;}
+    
     .list-search {height:100px; margin-bottom:20px;}
     
     .search-img-section {width:40%; float:left; height:100px;}
@@ -607,7 +609,7 @@
         			str = "";
       				var src_list = new Array();
         			$.each(data, function(i, val){
-        				str += "<div class='crowd-detail-btn list-search'>"+
+        				str += "<div class='crowd-detail-btn list-search' data-src='"+val.seq+"'>"+
 	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
 	        				"<div class='search-info-section'>"+
 	        				"<div><strong>"+val.titleTemp+"</strong></div>"+
@@ -621,6 +623,12 @@
         			searchImageInput(src_list, data);
         		}
         	})
+        })
+        
+        $("#searchlist").on("click", ".list-search", function () {
+        	var seq = $(this).attr("data-src");
+        	detail_load(seq);
+        	
         })
 
     })
