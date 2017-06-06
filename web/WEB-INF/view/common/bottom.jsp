@@ -626,7 +626,7 @@
 
         showMsg('<h4>경고</h4><div class="text-center">저는 투자의 위험성을알고있으며,<br> 이에 동의합니다<div>'
             + '<div class="btn - group" data-toggle="buttons">'
-            + '<label class="btn btn-danger"><input type="checkbox" autocomplete = "off"><i class="fa fa-check" aria-hidden="true"></i>' +
+            + '<label class="btn btn-danger check-btn"><input type="checkbox" autocomplete = "off"><i class="fa fa-check" aria-hidden="true"></i>' +
             +'</label></div>');
     });
 
