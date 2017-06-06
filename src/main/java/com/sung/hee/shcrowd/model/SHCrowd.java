@@ -66,8 +66,17 @@ public class SHCrowd {
     private String wdate;
     private String search_type = "search";
     private String search = "";
+    private int cnt;
 
-    public String getSearch() {
+    public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public String getSearch() {
         return search;
     }
 
@@ -80,14 +89,14 @@ public class SHCrowd {
     private String latlng = "";
 
     @Override
-    public String toString() {
-        return "SHCrowd [rnn=" + rnn + ", seq=" + seq + ", title=" + title + ", content=" + content + ", id=" + id
-                + ", goalMoney=" + goalMoney + ", likenum=" + likenum + ", curMoney=" + curMoney + ", tag=" + tag
-                + ", sdate=" + sdate + ", edate=" + edate + ", category=" + category + ", address=" + address
-                + ", type=" + type + ", req=" + req + ", del=" + del + ", wdate=" + wdate + ", search_type="
-                + search_type + ", search=" + search + ", endflag=" + endflag + ", reward=" + reward + ", latlng="
-                + latlng + "]";
-    }
+	public String toString() {
+		return "SHCrowd [rnn=" + rnn + ", seq=" + seq + ", pnum=" + pnum + ", title=" + title + ", titleTemp="
+				+ titleTemp + ", titleSub=" + titleSub + ", content=" + content + ", id=" + id + ", goalmoney="
+				+ goalMoney + ", likenum=" + likenum + ", curmoney=" + curMoney + ", tag=" + tag + ", sdate=" + sdate
+				+ ", edate=" + edate + ", category=" + category + ", address=" + address + ", type=" + type + ", req="
+				+ req + ", del=" + del + ", wdate=" + wdate + ", search_type=" + search_type + ", search=" + search
+				+ ", cnt=" + cnt + ", endflag=" + endflag + ", reward=" + reward + ", latlng=" + latlng + "]";
+	}
 
     public int getPnum() {
         return pnum;

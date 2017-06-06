@@ -327,6 +327,7 @@
     #detailModal > div {
         width: 90%;
     }
+    
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -356,6 +357,7 @@
         /* search 버튼 클릭 */
         $(".search-remote").click(function () {
             $("#search-btn").click();
+            setTimeout('$("#modal-search-text").focus()', 500);
         })
 
         $("#crowdlist").on("click", ".list-main", function () {
@@ -493,6 +495,43 @@
             });
 
         }
+        
+        $("#modal-search-text").keydown(function(key){
+        	if(key.keyCode == 13) {
+        		$.ajax({
+        			url: "searchCategory.do",
+        			method: "POST",
+        			data: {"search":$("#modal-search-text").val()},
+        			success: function(data) {
+        				str = "";
+        				$.each(data, function(i, val) {
+        					str+="<div class='search-cat btn-default' data-src='"+val.category+"'>"+val.category+"<span class='badge'>"+val.cnt+"</span></div>";
+        				})
+        				$("#searchlist").html(str);
+        			}
+        		})
+        	}
+        });
+        
+        $("#searchlist").on("click", ".search-cat", function() {
+        	var cat =  $(this).attr('data-src');
+        	$.ajax({
+        		url:"cSearch.do",
+        		method: "POST",
+        		data: {
+        			"search_type":"category",
+        			"category": cat,
+        			"search":$("#modal-search-text").val()
+        		},
+        		success: function(data) {
+        			str = "";
+        			$.each(data, function(i, val){
+        				str += "<div class='show-detail-btn'>"+val.titleTemp+"</div>";
+        			})
+        			$("#searchlist").html(str);
+        		}
+        	})
+        })
 
     })
 
