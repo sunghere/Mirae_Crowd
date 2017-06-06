@@ -46,11 +46,11 @@
                     "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
                     "<div class='main-info-section'><div class='card-block info-title'>" + val.titleTemp + "</div>" +
                     "<div class='card-block info-id'>" + val.id + "</div>" +
-                    "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(val.curmoney) + "원 달성 (" + toGoal(val.goalmoney, val.curmoney) + "%)</span>" +
+                    "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</span>" +
                     "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
                     "<div class='progress'>" +
-                    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalmoney, val.curmoney) + "' " +
-                    "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalmoney, val.curmoney) + "%'></div>" +
+                    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalMoney, val.curMoney) + "' " +
+                    "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalMoney, val.curMoney) + "%'></div>" +
                     "</div>" +
                     "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
                     "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='" + val.seq + "'> " + val.likenum + "</span></div>" +

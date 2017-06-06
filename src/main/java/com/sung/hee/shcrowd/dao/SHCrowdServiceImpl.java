@@ -76,7 +76,10 @@ public class SHCrowdServiceImpl implements SHCrowdService {
 
     @Transactional
     public void fundCrowd(SHFund shFund) throws Exception {
-        shCrowdDAO.inPoint(shFund.getId());
+        SHUser shUser = new SHUser();
+        shUser.setEpoint(shFund.getMoney());
+        shUser.setId(shFund.getId());
+        shCrowdDAO.dePoint(shUser);
         shCrowdDAO.fundCrowd(shFund);
         shCrowdDAO.moneyUpdate(shFund);
 
@@ -84,7 +87,10 @@ public class SHCrowdServiceImpl implements SHCrowdService {
 
     @Transactional
     public void fundCrowdCancel(SHFund shFund) throws Exception {
-        shCrowdDAO.dePoint(shFund.getId());
+        SHUser shUser = new SHUser();
+        shUser.setEpoint(shFund.getMoney());
+        shUser.setId(shFund.getId());
+        shCrowdDAO.inPoint(shUser);
         shCrowdDAO.fundCrowdCancel(shFund);
         shFund.setMoney(shFund.getMoney() * (-1));
         shCrowdDAO.moneyUpdate(shFund);
@@ -116,10 +122,15 @@ public class SHCrowdServiceImpl implements SHCrowdService {
 
     @Transactional
     public void finishReward(SHCrowd shCrowd) throws Exception {
-        if (shCrowd.getEndflag().equals("0") && shCrowd.getReward().equals("0")) {
-            shCrowdDAO.finishReward(shCrowd);
-            shCrowdDAO.inPoint(shCrowd.getId());
-        }
+        SHUser shUser = new SHUser();
+        shUser.setId(shCrowd.getId());
+
+        shUser.setEpoint(shCrowd.getCurMoney());
+
+        shCrowdDAO.finishReward(shCrowd);
+
+        shCrowdDAO.inPoint(shUser);
+
     }
 
     @Transactional
@@ -131,13 +142,14 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     public List<String> findTag() {
         return shCrowdDAO.findTag();
     }
-    @Transactional(readOnly = true)
-	public Integer crowdLikeChk(CrowdLike crowdLike) {
-    	return shCrowdDAO.crowdLikeChk(crowdLike);
-	}
 
     @Transactional(readOnly = true)
-	public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
-		return shCrowdDAO.searchCategory(shCrowd);
-	}
+    public Integer crowdLikeChk(CrowdLike crowdLike) {
+        return shCrowdDAO.crowdLikeChk(crowdLike);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
+        return shCrowdDAO.searchCategory(shCrowd);
+    }
 }

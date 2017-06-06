@@ -9,7 +9,7 @@
 
         INSERT INTO SHCROWD(SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE,LATLNG) VALUES
-        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalmoney},0,0,#{tag},
+        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalMoney},0,0,#{tag},
         #{wdate},#{edate},#{category},
         <if test="address != null and address!=''">
             #{address}
@@ -28,9 +28,14 @@
     <select id="detailCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD
-        WHERE SEQ = #{seq}
+     SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+  SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
+  SELECT ROW_NUMBER() OVER (ORDER BY SEQ DESC) rnn,nvl(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+   NVL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE
+    FROM SHCROWD left join
+    (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
+    FROM SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE SEQ =#{seq})
+
 
     </select>
 
@@ -110,7 +115,8 @@
                 AND (TAG like '%'|| #{search} || '%')
             </if>
             <if test="search_type == 'category'">
-                AND (CATEGORY like '%'|| #{category} || '%') AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
+                AND (CATEGORY like '%'|| #{category} || '%') AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'||
+                #{search} ||'%' OR CONTENT like '%'|| #{search}
                 ||'%')
             </if>
         </if>
@@ -186,7 +192,7 @@
     </update>
     <update id="addReward" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        UPDATE SHUSER SET POINT = POINT + #{curmoney} WHERE ID = #{id}
+        UPDATE SHUSER SET POINT = POINT + #{curMoney} WHERE ID = #{id}
 
     </update>
 
@@ -206,9 +212,9 @@
             resultType="java.lang.String">
         SELECT TAG FROM SHCROWD WHERE REQ=1 AND ENDFLAG ='0'
     </select>
-    
+
     <select id="searchCategory" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
-    resultType="com.sung.hee.shcrowd.model.SHCrowd">
+            resultType="com.sung.hee.shcrowd.model.SHCrowd">
     	SELECT COUNT(*) CNT, CATEGORY FROM SHCROWD
 		WHERE TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search} ||'%'
 		GROUP BY CATEGORY
