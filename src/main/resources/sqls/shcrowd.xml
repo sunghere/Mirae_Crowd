@@ -38,14 +38,14 @@
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD
         WHERE REQ = 0
     </select>
     <select id="myReqCrowdList" parameterType="com.sung.hee.user.model.SHUser"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
         SELECT SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD
         WHERE ID = #{id}
     </select>
     <update id="accCrowd"
