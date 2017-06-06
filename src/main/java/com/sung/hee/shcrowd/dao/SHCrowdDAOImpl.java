@@ -113,13 +113,13 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
         sqlSession.update(ns + "addReward", shCrowd);
     }
 
-    public void inPoint(String id) {
-        sqlSession.update(ns + "inPoint", id);
+    public void inPoint(SHUser shUser) {
+        sqlSession.update(ns + "inPoint", shUser);
 
     }
 
-    public void dePoint(String id) {
-        sqlSession.update(ns + "dePoint", id);
+    public void dePoint(SHUser shUser) {
+        sqlSession.update(ns + "dePoint", shUser);
 
     }
 

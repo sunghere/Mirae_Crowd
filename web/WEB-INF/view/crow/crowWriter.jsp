@@ -300,7 +300,7 @@
                     method: "post",
                     data: {
                         "category": category, "type": type, "title": title, "content": content, "address": address,
-                        "goalmoney": goalMoney, "wdate": wdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
+                        "goalMoney": goalMoney, "wdate": wdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
                     },
                     success: function (data) {
 

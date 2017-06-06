@@ -30,10 +30,10 @@ public class SHCrowd {
     private String content;
 
     private String id;
-    private int goalmoney;
+    private int goalMoney;
     private int likenum;
 
-    private int curmoney;
+    private int curMoney;
     private String tag;
     private String sdate;
     private String edate;
@@ -82,7 +82,7 @@ public class SHCrowd {
     @Override
     public String toString() {
         return "SHCrowd [rnn=" + rnn + ", seq=" + seq + ", title=" + title + ", content=" + content + ", id=" + id
-                + ", goalmoney=" + goalmoney + ", likenum=" + likenum + ", curmoney=" + curmoney + ", tag=" + tag
+                + ", goalMoney=" + goalMoney + ", likenum=" + likenum + ", curMoney=" + curMoney + ", tag=" + tag
                 + ", sdate=" + sdate + ", edate=" + edate + ", category=" + category + ", address=" + address
                 + ", type=" + type + ", req=" + req + ", del=" + del + ", wdate=" + wdate + ", search_type="
                 + search_type + ", search=" + search + ", endflag=" + endflag + ", reward=" + reward + ", latlng="
@@ -146,12 +146,12 @@ public class SHCrowd {
         this.id = id;
     }
 
-    public int getGoalmoney() {
-        return goalmoney;
+    public int getGoalMoney() {
+        return goalMoney;
     }
 
-    public void setGoalmoney(int goalmoney) {
-        this.goalmoney = goalmoney;
+    public void setGoalMoney(int goalMoney) {
+        this.goalMoney = goalMoney;
     }
 
     public int getLikenum() {
@@ -162,12 +162,12 @@ public class SHCrowd {
         this.likenum = likenum;
     }
 
-    public int getCurmoney() {
-        return curmoney;
+    public int getCurMoney() {
+        return curMoney;
     }
 
-    public void setCurmoney(int curmoney) {
-        this.curmoney = curmoney;
+    public void setCurMoney(int curMoney) {
+        this.curMoney = curMoney;
     }
 
     public String getTag() {

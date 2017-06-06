@@ -304,7 +304,7 @@
         margin-bottom: 10px;
     }
 
-    .detail-goalmoney {
+    .detail-goalMoney {
         font-size: 20px;
         font-weight: bold;
     }
@@ -444,12 +444,12 @@
                         "<div class='detail-like btn btn-default' data-src='" + data.seq + "'><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
                         "<div>" + data.id + "</div>" +
                         "<div class='detail-date'>" + data.sdate + " ~ " + data.edate + "</div>" +
-                        "<div class='detail-goalmoney'>목표금액 : " + money_setComma(data.goalmoney) + "원</div>" +
+                        "<div class='detail-goalMoney'>목표금액 : " + money_setComma(data.goalMoney) + "원</div>" +
                         "<div class='progress'>" +
-                        "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalmoney, data.curmoney) + "' " +
-                        "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalmoney, data.curmoney) + "%'></div>" +
+                        "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalMoney, data.curMoney) + "' " +
+                        "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalMoney, data.curMoney) + "%'></div>" +
                         "</div>" +
-                        "<div class='progress-info'><span class='card-block info-curmoney float-left'>" + money_setComma(data.curmoney) + "원 달성 (" + toGoal(data.goalmoney, data.curmoney) + "%)</span>" +
+                        "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(data.curMoney) + "원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
                         "<div style='width: 100%; height:300px'><div id='detail-map' style='height: 300px; width: 100%'></div></div>";
 

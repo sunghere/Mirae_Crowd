@@ -687,7 +687,7 @@
                         + '<td class="text-center">' + '~' + val.edate.substr(5) + '</td>'
                         + '<td class="col-md-3"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleSub + '</div></td>'
-                        + '<td class="text-center">' + money_setComma(val.curmoney) + '/' + money_setComma(val.goalmoney) + '</td>';
+                        + '<td class="text-center">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.req == 2) {
                         str += '<td class="text-center visible-md visible-lg">' + '<div class="btn btn-danger">거절</div>' + '</td>';
@@ -884,9 +884,10 @@
                 if (data.message == "SUCS") {
 
                     load_crowd_list();
-                    showMsg("재 로그인시 반영됩니다.")
+                    setTimeout('showMsg("재 로그인시 반영됩니다.")',500);
+
                 } else {
-                    showMsg("잠시후 다시 시도해주세요")
+                    setTimeout('showMsg("잠시후 다시 시도해주세요")',500);
 
                 }
             }
