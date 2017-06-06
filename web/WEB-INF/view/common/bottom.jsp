@@ -332,6 +332,8 @@
     
     .search-img-section {width:40%; float:left; height:100px;}
     
+    .search-info-section {padding:10px; font-size:15px;}
+    
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -548,8 +550,9 @@
         			$.each(data, function(i, val){
         				str += "<div class='crowd-detail-btn list-search'>"+
 	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
+	        				"<div class='search-info-section'>"+
 	        				"<div>"+val.titleTemp+"</div>"+
-	        				"</div>";
+	        				"</div></div>";
         				var src = imageCarrier(val.content);
         				src_list.push(src);
         			})
