@@ -331,6 +331,8 @@
         width: 90%;
     }
     
+    .search-img-section {width:40%; float:left; height:100px;}
+    
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -357,9 +359,24 @@
 
 <script>
     $(function () {
+    	var searchImageInput = function (src_list, data) {
+            $.each(data, function (index, val) {
+
+                var src = src_list[index];
+                $('#list-img' + val.seq).css({
+                    "background-image": 'url("' + src + '")',
+                    "-webkit-background-size": "cover",
+                    "-moz-background-size": "cover",
+                    "-o-background-size": "cover",
+                    "background-size": "cover",
+                    "background-position": "center"
+                });
+            })
+        }
+    	
         /* search 버튼 클릭 */
         $(".search-remote").click(function () {
-            $("#search-btn").click();
+            $("#search-btn").click(); 
             setTimeout('$("#modal-search-text").focus()', 500);
         })
 
@@ -528,10 +545,17 @@
         		},
         		success: function(data) {
         			str = "";
+      				var src_list = new Array();
         			$.each(data, function(i, val){
-        				str += "<div class='show-detail-btn'>"+val.titleTemp+"</div>";
+        				str += "<div class='crowd-detail-btn'>"+
+	        				"<div class='search-img-section' id='list-img"+val.seq+"'></div>"+
+	        				"<div>"+val.titleTemp+"</div>"+
+	        				"</div>";
+        				var src = imageCarrier(val.content);
+        				src_list.push(src);
         			})
         			$("#searchlist").html(str);
+        			searchImageInput(src_list, data);
         		}
         	})
         })
