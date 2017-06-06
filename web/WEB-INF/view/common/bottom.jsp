@@ -333,7 +333,8 @@
     
     .search-img-section {width:40%; float:left; height:100px;}
 
-    .search-info-section {padding:10px; font-size:15px;}
+    .search-info-section {padding:10px; font-size:15px; width:60%; float:left; background: #f8f8f8;}
+    .search-info-section div {margin-bottom: 10px;}
 
 </style>
 <%--디테일 모달--%>
@@ -573,7 +574,7 @@
 
         }
 
-
+		/* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
                 $.ajax({
@@ -591,6 +592,7 @@
             }
         });
         
+        /* 서치 모달 카테고리 클릭 시 리스트 */
         $("#searchlist").on("click", ".search-cat", function() {
         	var cat =  $(this).attr('data-src');
         	$.ajax({
@@ -609,6 +611,8 @@
 	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
 	        				"<div class='search-info-section'>"+
 	        				"<div>"+val.titleTemp+"</div>"+
+	        				"<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
+	        				"<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
 	        				"</div></div>";
         				var src = imageCarrier(val.content);
         				src_list.push(src);
