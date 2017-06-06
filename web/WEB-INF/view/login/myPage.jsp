@@ -743,10 +743,10 @@
                         + '<td class="col-md-4"><div class="btn">'
                     if (val.btype == 1) {
 
-                      str+=  '<a href="boarddetail.do?seq=' + val.bparent + '">'
+                        str += '<a href="boarddetail.do?seq=' + val.bparent + '">'
 
                     } else {
-                    	 str+='<a class="crowd-detail-btn" data-src="' + val.bparent + '">'
+                        str += '<a class="crowd-detail-btn" data-src="' + val.bparent + '">'
 
                     }
                     str += val.tempSub + '</a></div></td>'
@@ -863,4 +863,34 @@
         detail_load(seq);
 
     })
+    /*크라우드 보상받기 모달*/
+
+    $('#crowd-list').on('click', '.reword-btn', function () {
+
+        var seq = $(this).attr('data-src');
+
+        showSelectMsg("crowd_reward("+seq+")");
+
+
+    })
+    /* 크라우드 펀딩 보상받기 이벤트*/
+    var crowd_reward = function (seq) {
+        $.ajax({
+            url: "cfinish.do",
+            data: {"id": "${login.id}", "seq": seq},
+            method: "post",
+            success: function (data) {
+
+                if (data.message == "SUCS") {
+
+                    load_crowd_list();
+                    showMsg("재 로그인시 반영됩니다.")
+                } else {
+                    showMsg("잠시후 다시 시도해주세요")
+
+                }
+            }
+        })
+
+    }
 </script>

@@ -273,15 +273,20 @@ public class CrowdController {
         logger.info("CrowdControl finishReward--!");
         AjaxCheck checkResult = new AjaxCheck();
 
-        try {
-            shCrowdService.finishReward(shCrowd);
-            checkResult.setMessage("SUCS");
-
-        } catch (Exception e) {
-
+        SHUser login = (SHUser) request.getSession().getAttribute("login");
+        if (!shCrowd.getId().equals(login.getId())) {/*세션에 들어있는 로그인과 비교*/
             checkResult.setMessage("FAIL");
-        }
 
+        } else {
+            try {
+                shCrowdService.finishReward(shCrowd);
+                checkResult.setMessage("SUCS");
+
+            } catch (Exception e) {
+
+                checkResult.setMessage("FAIL");
+            }
+        }
         return checkResult;
     }
 
