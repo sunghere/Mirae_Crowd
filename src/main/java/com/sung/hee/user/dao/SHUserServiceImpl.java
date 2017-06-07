@@ -63,4 +63,8 @@ public class SHUserServiceImpl implements SHUserService {
     public void pwdUpdate(SHUser shUser) {
         shUserDAO.pwdUpdate(shUser);
     }
+    @Transactional(readOnly = true)
+	public SHUser getIsSnS(SHUser shUser) {
+		return shUserDAO.getIsSnS(shUser);
+	}
 }

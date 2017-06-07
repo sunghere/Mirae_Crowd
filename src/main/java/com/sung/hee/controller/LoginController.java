@@ -60,7 +60,7 @@ public class LoginController {
             String reciver = user.getId(); //받을사람의 이메일입니다.
             String subject = "Sunghere 가입 인증 메일입니다.";
             String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id=cisisn@naver.com&encrypt="
+                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id="+user.getId()+"&encrypt="
                     + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.";
 
             myEmail.setReciver(reciver);
@@ -120,29 +120,56 @@ public class LoginController {
     
     @RequestMapping(value = "pwdFindmail.do",
             method = {RequestMethod.POST})
-    public String pwdFindmail(SHUser user, HttpServletRequest request, Model model) {
+    @ResponseBody
+    public AjaxCheck pwdFindmail(SHUser user, HttpServletRequest request, Model model) {
         logger.info("Welcome LoginController pwdFindmail! " + new Date());
+        AjaxCheck result = new AjaxCheck();
+        if(shUserService.getIsSnS(user).getIsSNS().equals("1")) {
+        	result.setMessage("SNS");
+        	return result;
+        }
         try {
             MyEmail myEmail = new MyEmail();
 
             String reciver = user.getId(); //받을사람의 이메일입니다.
             String subject = "Sunghere 비밀번호찾기 인증 메일입니다.";
-            String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id=cisisn@naver.com&encrypt="
-                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.";
+            String content = "[Sunghere] 본인의 의사가 아니라면 해당메일로 회신문의주세요."
+                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "pwdFindCerti.do?id="+user.getId()+"&encrypt="
+                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.<br>"+
+                    "비밀번호는 0000으로 초기화됩니다.<br>마이페이지에서 비밀번호를 변경해주세요.";
 
             myEmail.setReciver(reciver);
             myEmail.setSubject(subject);
             myEmail.setContent(content);
             try {
                 emailSender.SendEmail(myEmail);
+                result.setMessage("SUCS");
             } catch (Exception e) {
-                e.printStackTrace();
+            	result.setMessage("FAIL");
             }
         } catch (Exception e) {
+
+        	result.setMessage("FAIL");
         }
-        return "redirect:/" + "main.do";
+        return result;
     }//
+    
+    @RequestMapping(value = "pwdFindCerti.do", method = RequestMethod.GET)
+    public String pwdFindCerti(String encrypt, String id) {
+
+        if (EncryptUtil.getMD5(id).equals(encrypt)) {
+            SHUser shUser = new SHUser();
+            shUser.setId(id);
+            shUser.setPwd("0000");
+            shUserService.pwdUpdate(shUser);
+            return "redirect:/main.do";
+
+        } else {
+            logger.info("인증실패");
+            //인증실패시
+            return "redirect:/main.do";
+        }
+    }
 
 
     @RequestMapping(value = "emailCerti.do", method = RequestMethod.GET)

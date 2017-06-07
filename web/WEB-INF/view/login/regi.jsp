@@ -198,7 +198,7 @@
             return;
         }
         var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-        if (text.lenght > 0) {
+        if (text.length > 0) {
 
             checkID = false;
             checkRegi();

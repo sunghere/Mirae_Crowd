@@ -57,4 +57,8 @@ public class SHUserDAOImpl implements SHUserDAO {
     public void pwdUpdate(SHUser shUser) {
         sqlSession.update(ns + "pwdUpdate", shUser);
     }
+
+	public SHUser getIsSnS(SHUser shUser) {
+		return sqlSession.selectOne(ns+"getIsSnS",shUser);
+	}
 }
