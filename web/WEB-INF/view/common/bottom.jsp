@@ -660,6 +660,7 @@
             }
         });
 
+        /* 디테일 댓글 불러오기 */
         var reply_load = function (seq, type) {
 
             $.ajax({
@@ -669,15 +670,43 @@
                 success: function (data) {
                     var str_reply = "";
                     $.each(data, function (i, val) {
-                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-content'>" + val.content + 
-                        	"" +
-	                        "</div><div class='crowd-reply-id'>" + val.id + "</div>" +
+                        str_reply += "<div class='crowd-reply'>"+
+                        	"<input type='hidden' name='seq' data-src='" + val.bparent + "'>" +
+                        	"<input type='hidden' name='type' data-src='" + val.btype + "'>" +
+                        	"<div class='crowd-reply-content' data-src='"+val.seq+"'>" + val.content + 
+                        	"<span class='float-right crowd-reply-del' hidden='hidden'><i class='fa fa-times' aria-hidden='true'></i></span>" +
+	                        "</div><div class='crowd-reply-id' data-src='"+val.id+"'>" + val.id + "</div>" +
                             "</div>";
                     });
                     $(".crowd-reply-list").html(str_reply);
                 }
             })
         };
+        
+        /* 디테일 댓글 삭제 */
+        $(".detail-detail").on("mouseover", ".crowd-reply", function() {
+        	if("${login.id}" == $(this).find(".crowd-reply-id").attr("data-src")) {
+       			$(this).find(".crowd-reply-del").show().css("cursor", "pointer");
+        	}
+        })
+        $(".detail-detail").on("mouseleave", ".crowd-reply", function() {
+       		$(this).find(".crowd-reply-del").fadeOut();
+        })
+        $(".detail-detail").on("click", ".crowd-reply-del", function() {
+       		$.ajax({
+       			url: "replydel.do",
+       			method: "POST",
+       			data: {"seq":$(".crowd-reply-content").attr("data-src")},
+       			success: function(data) {
+       				if(data.message == 'SUCS') {
+	       				var btype = $("input[name='type']").attr("data-src");
+	       	            var bparent = $("input[name='seq']").attr("data-src");
+	       				reply_load(bparent, btype);
+       				}
+       			}
+       		})
+        })
+
         var map_load = function (tagId, lat, lng) {
 
 
