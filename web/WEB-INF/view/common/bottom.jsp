@@ -565,6 +565,7 @@
             $('.detail-detail').find('img:first-child').prop("hidden", true);
         };
 
+        /* 디테일 로드 */
         detail_load = function (seq, sel) {
             $.ajax({
                 url: "detailCrowd.do",
@@ -624,6 +625,7 @@
             })
         };
 
+        /* 디테일 댓글입력 */
         var reply_add = function () {
             var btype = $("input[name='type']").attr("data-src");
             var bparent = $("input[name='seq']").attr("data-src");
@@ -640,13 +642,14 @@
                     if (data.message == "SUCS") {
                         reply_load(bparent, btype);
                         $(".crowd-reply-text").val("");
+                        setTimeout("$('.detail-detail').scrollTop($('.detail-detail').prop('scrollHeight'))", 500);
                     } else {
                         alert("실패");
                     }
                 }
             })
         };
-
+        
         $(".detail-detail").on("click", ".crowd-reply-btn", function () {
             reply_add();
         });
