@@ -795,10 +795,9 @@
 
         });
 
-        $("#searchlist").on("click", ".list-search", function () {
+        $("#searchresult").on("click", ".list-search", function () {
             var seq = $(this).attr("data-src");
             detail_load(seq, 0);
-
         });
 
 
