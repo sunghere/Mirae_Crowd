@@ -1026,6 +1026,10 @@ img::-moz-selection {
     top: 25%;
 }
 
+.reply-modal-content {
+	height: 300px;
+}
+
 /*리모콘*/
 #_sildebtn {
     width: 60px;

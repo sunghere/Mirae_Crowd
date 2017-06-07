@@ -405,7 +405,7 @@
 <%--리플--%>
 <div id="replyModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-        <div class="modal-content">
+        <div class="modal-content reply-modal-content">
             <div class="modal-header line_none">
                 <button type="button" class="close"
                         data-dismiss="modal">
@@ -421,7 +421,7 @@
                 <textarea
                         class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control reply-modal-area"
                         rows="4"></textarea>
-                <button class="btn btn-primary col-xs-3 col-sm-3 reply-modal-btn" type="button"
+                <button class="btn btn-info col-xs-3 col-sm-3 reply-modal-btn" type="button"
                         datasrc="">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
                 </button>
@@ -669,8 +669,9 @@
                 success: function (data) {
                     var str_reply = "";
                     $.each(data, function (i, val) {
-                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-content'>" + val.content + "</div>" +
-	                        "<div class='crowd-reply-id'>" + val.id + "</div>" +
+                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-content'>" + val.content + 
+                        	"" +
+	                        "</div><div class='crowd-reply-id'>" + val.id + "</div>" +
                             "</div>";
                     });
                     $(".crowd-reply-list").html(str_reply);
