@@ -1065,14 +1065,14 @@ img::-moz-selection {
 }
 
 /*term - */
-#aboutModal{
-	z-index: 2001;
+#aboutModal {
+    z-index: 2001;
 }
 
 .crowd-fund-term {
     overflow: scroll;
     height: 650px;
-
+    margin-bottom: 20px;
     padding: 20px 40px;
 }
 
@@ -1177,14 +1177,17 @@ img::-moz-selection {
     overflow: scroll;
     padding: 20px 40px;
 }
- #searchlist, #searchresult {
+
+#searchlist, #searchresult {
     max-height: 500px;
     overflow: scroll;
     padding: 20px 40px;
 }
+
 .search-md {
     margin-top: 10%;
 }
+
 #go-back {
     float: left;
     cursor: pointer;
@@ -1329,42 +1332,76 @@ img::-moz-selection {
 }
 
 /* checkbox*/
-.check-btn>i {
+.check-btn > i, .check-btn > span {
     opacity: 0;
 }
-.check-btn.active>i {
+
+.check-btn.active > i, .check-btn.active > span {
     opacity: 1;
 }
 
-/* 펀딩전 모달CSS*/
+/* 펀딩 모달CSS*/
+#fund-modal {
+    z-index: 1999;
+
+    padding: 20%;
+}
+
+.pay-type-row {
+    margin: 10px;
+}
+
+.pay-content {
+    height: 300px;
+}
+
 .mini-warning-header {
     background: pink;
     color: white;
+    height: 45px;
     padding: 10px;
-    margin: 5px 30px 0;
+    margin: 25px auto 0;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
 }
+
 .mini-warning-body {
-    border: solid pink;
-    margin: 0 30px 10px;
+    margin: 0 auto;
     border-top: none;
+    line-height: 2;
+    height: 200px;
+    padding-top: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-group > label {
+    background: gainsboro;
+}
+
+.pay-type-header {
+    border-bottom: midnightblue solid;
     padding-bottom: 10px;
-    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 /* 카카오 라벨*/
+
 #kakao-label {
-    background: rgb(255,223,44);
-    color: rgb(51,51,51);
-    font-weight:bold;
+    background: rgb(255, 223, 44);
+    color: rgb(51, 51, 51);
+    font-weight: bold;
     margin-bottom: 10px;
     opacity: 1;
 
 }
+
 /* 포인트 라벨 */
 #point-label {
     background: midnightblue;
     color: lavenderblush;
-    font-weight:bold;
+    font-weight: bold;
     margin-bottom: 10px;
     opacity: 1;
 
@@ -1373,8 +1410,110 @@ img::-moz-selection {
 #app-label {
     background: lightgreen;
     color: black;
-    font-weight:bold;
+    font-weight: bold;
     margin-bottom: 10px;
     opacity: 1;
 
 }
+
+/* 디테일 modal CSS*/
+
+.detail-body {
+    font-size: 14px;
+}
+
+.detail-body img {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.detail-title {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 35px;
+}
+
+.detail-fund-btn {
+    font-size: 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.detail-cat {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.detail-summary {
+    height: 80%;
+    overflow: hidden;
+}
+
+.detail-summary div {
+    margin-bottom: 10px;
+}
+
+.detail-goalMoney {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.detail-like {
+    position: absolute;
+    right: 5%;
+    display: inline-block;
+    font-size: 40px;
+    color: #FFB2AF;
+    padding-top: 15px;
+}
+
+.detail-detail {
+    padding: 0 5%;
+    height: 80%;
+    position: relative;
+    overflow-y: scroll;
+}
+
+#detailModal > div {
+    width: 90%;
+}
+
+/* 검색창 modal*/
+#searchModal {
+    z-index: 1049;
+}
+
+.search-cat {
+    cursor: pointer;
+}
+
+.list-search {
+    height: 100px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.search-img-section {
+    width: 40%;
+    float: left;
+    height: 100px;
+}
+
+.search-info-section {
+    padding: 10px;
+    font-size: 14px;
+    width: 60%;
+    float: left;
+    background: #f8f8f8;
+    height: 100px;
+}
+
+.search-info-section div {
+    margin-bottom: 10px;
+}
+
+.go-back-search {
+    margin-bottom: 10px;
+}
+
