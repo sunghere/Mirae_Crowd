@@ -133,7 +133,7 @@ public class LoginController {
 
             String reciver = user.getId(); //받을사람의 이메일입니다.
             String subject = "Sunghere 비밀번호찾기 인증 메일입니다.";
-            String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
+            String content = "[Sunghere] 본인의 의사가 아니라면 해당메일로 회신문의주세요."
                     + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "pwdFindCerti.do?id="+user.getId()+"&encrypt="
                     + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.<br>"+
                     "비밀번호는 0000으로 초기화됩니다.<br>마이페이지에서 비밀번호를 변경해주세요.";
