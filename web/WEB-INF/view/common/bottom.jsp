@@ -688,6 +688,7 @@
     /* 인증메일 발송 */
     $("#myMsg").on("click", ".pwd-send-btn", function() {
     	var id = $(".pwd-send-text").val();
+    	
     	alert(id);
     })
     
