@@ -223,7 +223,7 @@
                     아이디/비밀번호를 잊으셨나요?<br><br>
                 </h5>
                 <div class="btn_group_center">
-                    <span class="btn_style find" data-target='#pwdModal' data-toggle="modal" id="pwdbtn">비밀번호찾기</span>
+                    <span class="btn_style find" id="pwdbtn">비밀번호찾기</span>
                 </div>
 
             </div>
@@ -365,6 +365,8 @@
     .go-back-search {
         margin-bottom: 10px;
     }
+    
+    .pwd-send-btn, .pwd-input {margin-top:10px;}
 
 </style>
 <%--디테일 모달--%>
@@ -674,6 +676,21 @@
         })
 
     })
+    
+    /* 비밀번호 찾기 */
+    $("#pwdbtn").click(function() {
+    	showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>"+
+    			"<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>"+
+    			"<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>"+
+    			"</div>");
+    })
+    
+    /* 인증메일 발송 */
+    $("#myMsg").on("click", ".pwd-send-btn", function() {
+    	var id = $(".pwd-send-text").val();
+    	alert(id);
+    })
+    
     /* 펀딩하기 버튼*/
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
