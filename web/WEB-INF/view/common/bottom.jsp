@@ -599,8 +599,8 @@
         };
         
         var reply_add = function() {
-        	var btype = $("input[name='type']").attr("data-src")
-			var bparent = $("input[name='seq']").attr("data-src")
+        	var btype = $("input[name='type']").attr("data-src");
+			var bparent = $("input[name='seq']").attr("data-src");
         	$.ajax({
         		url: "replyadd.do",
         		method: "POST",
@@ -619,17 +619,17 @@
         			}
         		}
         	})
-        }
+        };
         
         $(".detail-detail").on("click", ".crowd-reply-btn", function() {
         	reply_add();
-        })
+        });
         
         $(".detail-detail").on("keydown", ".crowd-reply-text", function(key) {
         	if(key.keyCode == 13) {
         		reply_add();
         	}
-        })
+        });
         
         var reply_load = function (seq, type) {
 
@@ -643,7 +643,7 @@
            				str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>"+val.id+"</div>"+
            				"<div class='crowd-reply-content'>"+val.content+"</div>"+
            				"</div>";
-           			})
+           			});
            			$(".crowd-reply-list").html(str_reply);
            		}
             })
@@ -858,7 +858,7 @@
                 }
 
             } else {
-                showMsg("출금할 금액을 입력해 주세요");
+                showMsg(" 출금할 금액을 입력해 주세요");
 
 
             }
