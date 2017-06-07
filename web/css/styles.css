@@ -1402,6 +1402,14 @@ input[name="fund-money"] {
 
 }
 
+.kakao-content, .app-content, .point-content {
+    padding: 10%;
+}
+
+.kakao-content > p {
+    margin: 40px 0;
+}
+
 /* 포인트 라벨 */
 #point-label {
     background: midnightblue;
@@ -1412,6 +1420,15 @@ input[name="fund-money"] {
 
 }
 
+.well {
+    font-size: 18px;
+    line-height: 2.2;
+}
+
+.point-content > p {
+    margin: 40px 0;
+}
+
 #app-label {
     background: lightgreen;
     color: black;
@@ -1419,6 +1436,10 @@ input[name="fund-money"] {
     margin-bottom: 10px;
     opacity: 1;
 
+}
+
+.app-content > p {
+    margin: 40px 0;
 }
 
 /* 디테일 modal CSS*/

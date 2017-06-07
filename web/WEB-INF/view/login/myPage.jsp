@@ -461,8 +461,9 @@
     /* 포인트 출금 fun */
     var point_discharge_system = function () {
         var point = 0;
-        if ($('#point-input').val() != null && $('#point-input').val() != "") {
-            point = parseInt($('#point-input').val());
+        var point_val = $('#point-input').val();
+        if (point_val != null && point_val != "") {
+            point = parseInt(point_val);
 
         }
         var mypoint = parseInt($('.mypoint').val());
@@ -471,7 +472,6 @@
 
             if (mypoint < point + 1000) {
                 showMsg("출금 가능한 금액을 초과하였습니다.");
-
 
 
             } else {

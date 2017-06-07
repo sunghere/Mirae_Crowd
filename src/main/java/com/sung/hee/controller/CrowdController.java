@@ -214,17 +214,30 @@ public class CrowdController {
     @ResponseBody
     public AjaxCheck fundCrowd(SHFund shFund, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl fundCrowd--!");
+        SHUser loginUser = (SHUser) request.getSession().getAttribute("login"); /* 세션에서 아이디 가져옴*/
         AjaxCheck checkResult = new AjaxCheck();
 
-        try {
-            shCrowdService.fundCrowd(shFund);
-            checkResult.setMessage("SUCS");
+        if (loginUser.getPoint() > shFund.getMoney() && loginUser.getId().equals(shFund.getId())) {
+            /* 잔액이 더많음을 체크 (한번더) && 세션 아이디 + 펀드하는 유저가 같은사람인지 체크*/
 
-        } catch (Exception e) {
 
+            try {
+                shCrowdService.fundCrowd(shFund);
+                loginUser.setPoint(loginUser.getPoint() - shFund.getMoney());
+
+                request.getSession().setAttribute("login", loginUser);/*포인트 차감후 업데이트*/
+                checkResult.setResultNum(loginUser.getPoint()); /* 포인트 변경내역 웹에 실시간 반영을위해 추가해줌*/
+
+                checkResult.setMessage("SUCS");
+
+            } catch (Exception e) {
+
+                checkResult.setMessage("FAIL");
+            }
+        } else { /* 잔액이 더적은 경우*/
             checkResult.setMessage("FAIL");
-        }
 
+        }
         return checkResult;
     }
 
