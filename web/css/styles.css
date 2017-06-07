@@ -1065,6 +1065,10 @@ img::-moz-selection {
 }
 
 /*term - */
+#aboutModal{
+	z-index: 2001;
+}
+
 .crowd-fund-term {
     overflow: scroll;
     height: 650px;
