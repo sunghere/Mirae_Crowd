@@ -338,6 +338,26 @@
     .detail-content {
         margin-bottom: 10%;
     }
+    
+    .crowd-reply {
+   	    background: lavenderblush;
+	    padding: 10px 15px;
+	    border-radius: 15px;
+	    margin-bottom: 10px;
+    }
+    
+    .crowd-reply-id {
+    	text-align: right;
+    }
+    
+    .crowd-reply-content {
+    	padding: 5px 0;
+    	text-indent: 15px;
+    }
+    
+    .crowd-reply-btn {
+    	border: 1px solid #e5e5e5;
+    }
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -576,10 +596,10 @@
                         "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
                         "<input type='hidden' name='type' data-src='" + data.type + "'>" +
                         "<div class='detail-reply'>" +
-                        "<h2 class='cursive underline'>Reply Write</h2>" +
+                        "<h2 class='cursive underline'>Reply</h2>" +
                         "<div class='crowd-reply-list'></div>" +
-                        "<input type='text' class='black-control crowd-reply-text'>" +
-                        "<button class='btn btn-default crowd-reply-btn'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>" +
+                        "<input type='text' class='black-control crowd-reply-text col-sm-10'>" +
+                        "<button class='btn btn-default crowd-reply-btn col-sm-2'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>" +
                         "</div>";
 
                     reply_load(data.seq, data.type);
@@ -646,8 +666,8 @@
                 success: function (data) {
                     var str_reply = "";
                     $.each(data, function (i, val) {
-                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>" + val.id + "</div>" +
-                            "<div class='crowd-reply-content'>" + val.content + "</div>" +
+                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-content'>" + val.content + "</div>" +
+	                        "<div class='crowd-reply-id'>" + val.id + "</div>" +
                             "</div>";
                     });
                     $(".crowd-reply-list").html(str_reply);
