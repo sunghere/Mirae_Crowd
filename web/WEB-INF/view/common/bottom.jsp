@@ -328,18 +328,43 @@
     #detailModal > div {
         width: 90%;
     }
-    
-    
-    #searchModal {z-index: 1049;}
-    
-    .search-cat {cursor: pointer;}
-    .list-search {height:100px; margin-bottom:20px; cursor: pointer;}
-    
-    .search-img-section {width:40%; float:left; height:100px;}
 
-    .search-info-section {padding:10px; font-size:14px; width:60%; float:left; background: #f8f8f8; height: 100px;}
-    .search-info-section div {margin-bottom: 10px;}
-    .go-back-search {margin-bottom:10px;}
+    #searchModal {
+        z-index: 1049;
+    }
+
+    .search-cat {
+        cursor: pointer;
+    }
+
+    .list-search {
+        height: 100px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .search-img-section {
+        width: 40%;
+        float: left;
+        height: 100px;
+    }
+
+    .search-info-section {
+        padding: 10px;
+        font-size: 14px;
+        width: 60%;
+        float: left;
+        background: #f8f8f8;
+        height: 100px;
+    }
+
+    .search-info-section div {
+        margin-bottom: 10px;
+    }
+
+    .go-back-search {
+        margin-bottom: 10px;
+    }
 
 </style>
 <%--디테일 모달--%>
@@ -580,10 +605,10 @@
 
         }
 
-		/* 모달 검색 */
+        /* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
             if (key.keyCode == 13) {
-            	$.ajax({
+                $.ajax({
                     url: "searchCategory.do",
                     method: "POST",
                     data: {"search": $("#modal-search-text").val()},
@@ -594,58 +619,58 @@
                         })
                         $("#searchlist").html(str);
 
-            			$("#searchlist").show();
-                    	$("#searchresult").hide();
+                        $("#searchlist").show();
+                        $("#searchresult").hide();
                     }
                 })
             }
         });
-        
+
         /* 서치 모달 카테고리 클릭 시 리스트 */
-        $("#searchlist").on("click", ".search-cat", function() {
-        	var cat =  $(this).attr('data-src');
-        	$.ajax({
-        		url:"cSearch.do",
-        		method: "POST",
-        		data: {
-        			"search_type":"category",
-        			"category": cat,
-        			"search":$("#modal-search-text").val()
-        		},
-        		success: function(data) {
-        			str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
-      				var src_list = new Array();
-        			$.each(data, function(i, val){
-        				str += "<div class='crowd-detail-btn list-search' data-src='"+val.seq+"'>"+
-	        				"<div class='search-img-section' id='search-list-img"+val.seq+"'></div>"+
-	        				"<div class='search-info-section'>"+
-	        				"<div><strong>"+val.titleTemp+"</strong></div>"+
-	        				"<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
-	        				"<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
-	        				"</div></div>";
-        				var src = imageCarrier(val.content);
-        				src_list.push(src);
-        			})
-        			$("#searchresult").html(str);
-        			searchImageInput(src_list, data);
-        			
-        			$("#searchlist").hide();
-                	$("#searchresult").show();
-        		}
-        	})
+        $("#searchlist").on("click", ".search-cat", function () {
+            var cat = $(this).attr('data-src');
+            $.ajax({
+                url: "cSearch.do",
+                method: "POST",
+                data: {
+                    "search_type": "category",
+                    "category": cat,
+                    "search": $("#modal-search-text").val()
+                },
+                success: function (data) {
+                    str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
+                    var src_list = new Array();
+                    $.each(data, function (i, val) {
+                        str += "<div class='crowd-detail-btn list-search' data-src='" + val.seq + "'>" +
+                            "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
+                            "<div class='search-info-section'>" +
+                            "<div><strong>" + val.titleTemp + "</strong></div>" +
+                            "<div>목표금액 : " + money_setComma(val.goalMoney) + "원</div>" +
+                            "<div>현재 " + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</div>" +
+                            "</div></div>";
+                        var src = imageCarrier(val.content);
+                        src_list.push(src);
+                    })
+                    $("#searchresult").html(str);
+                    searchImageInput(src_list, data);
+
+                    $("#searchlist").hide();
+                    $("#searchresult").show();
+                }
+            })
         })
-        
+
         /* 검색리스트 뒤로가기 */
-        $("#searchresult").on("click", ".go-back-search", function() {
-        	$("#searchlist").show();
-        	$("#searchresult").hide();
-        	
+        $("#searchresult").on("click", ".go-back-search", function () {
+            $("#searchlist").show();
+            $("#searchresult").hide();
+
         })
-        
+
         $("#searchlist").on("click", ".list-search", function () {
-        	var seq = $(this).attr("data-src");
-        	detail_load(seq);
-        	
+            var seq = $(this).attr("data-src");
+            detail_load(seq);
+
         })
 
     })
@@ -653,16 +678,77 @@
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
 
-        showMsg('<h4 class="mini-warning-header">경고</h4><div class="text-center mini-warning-body">저는 투자의 위험성을 <br>알고 있습니다<div><br>'
-            + '<div class="btn-group" data-toggle="buttons">'
-            + '<label class="btn btn-danger check-btn"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>확인'
-            + '</label></div></div>');
+        showMsg('<div class="pay-agree"><h4 class="mini-warning-header">경고</h4>' +
+            '<div class="text-center mini-warning-body">투자의 위험성을 <br>알고 계신가요? <button class="btn" data-toggle="modal" data-target="#aboutModal" type="button">'
+            + 'more..</button><br></div>'
+            + '<div class="btn-group check-btn" data-toggle="buttons">'
+            + '<label class="btn btn-danger"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>확인'
+            + '</label></div></div>' +
+
+            '<div class="pay-type" style="display:none">' +
+            '<div class="form-group"  data-toggle="buttons">' +
+            '<div class="btn-group">' +
+            '<label for="kakao-type" class="btn btn-default">' +
+            '<input type="radio" name="pay-type" id="kakao-type"  autocomplete="off"/>' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            '<span>&nbsp;</span>' +
+            '</label>' +
+            '<label for="kakao-type" id="kakao-label" class="btn btn-default" disabled>' +
+            'KaKao' +
+            '</label>' +
+            '</div>' +
+            '<div class="btn-group">' +
+            '<label for="app-type" class="btn btn-default">' +
+            '<input type="radio" name="pay-type" id="app-type"  autocomplete="off"/>' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            '<span>&nbsp;</span>' +
+            '</label>' +
+            '<label for="app-type" id="app-label" class="btn btn-default" disabled>' +
+            'App' +
+            '</label>' +
+            '</div>' +
+            '<div class="btn-group active">' +
+            '<label for="point-type" class="btn btn-default">' +
+            '<input type="radio" name="pay-type" id="point-type"  autocomplete="off" checked/>' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            '<span>&nbsp;</span>' +
+            '</label>' +
+            '<label for="point-type" class="btn btn-default" id="point-label" disabled>' +
+            'Point' +
+            '</label>' +
+            '</div></div></div>');
     });
     /* */
+    var animating = false;
 
-    $('#myMsg').on("click",".check-btn",function () {
-       /* $('showMsg-close').click();*/
-        $('.mini-warning-body').fadeOut();
+    $('#myMsg').on("click", ".check-btn", function () {
+
+        if (animating) return false;
+        animating = true;
+
+        var cur_page = $(this).parent();
+        var next_page = $(this).parent().next();
+
+
+        //다음페이지 보여주기
+        next_page.fadeIn(800);
+        cur_page.hide();
+
+        cur_page.animate({opacity: 0}, {
+            step: function (now, mx) {
+                //다음페이지 크기를 80 ~ 100%로 만들기위해사용
+                var scale = 0.8 + (1 - now) * 0.2;
+                //2. take current_fs to the right(50%) - from 0%
+
+                var opacity = 1 - now;
+                next_page.css({'transform': 'scale(' + scale + ')', 'opacity': opacity});
+            },
+            duration: 800,
+            complete: function () {
+                animating = false;
+            },
+            easing: 'easeInOutBack'
+        });
     })
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;

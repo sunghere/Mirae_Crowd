@@ -1346,3 +1346,31 @@ img::-moz-selection {
     padding-bottom: 10px;
     padding-top: 20px;
 }
+
+/* 카카오 라벨*/
+#kakao-label {
+    background: rgb(255,223,44);
+    color: rgb(51,51,51);
+    font-weight:bold;
+    margin-bottom: 10px;
+    opacity: 1;
+
+}
+/* 포인트 라벨 */
+#point-label {
+    background: midnightblue;
+    color: lavenderblush;
+    font-weight:bold;
+    margin-bottom: 10px;
+    opacity: 1;
+
+}
+
+#app-label {
+    background: lightgreen;
+    color: black;
+    font-weight:bold;
+    margin-bottom: 10px;
+    opacity: 1;
+
+}
