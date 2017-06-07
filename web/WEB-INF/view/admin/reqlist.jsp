@@ -48,7 +48,7 @@
             showSelectMsg("crowd_no(" + seq + ")");
 
         });
-    })
+    });
 
     var crowd_acc = function (seq) {
 
@@ -70,7 +70,7 @@
                 showMsg("통신에러")
             }
         })
-    }
+    };
 
     var crowd_no = function (seq) {
         $.ajax({
@@ -90,14 +90,14 @@
                 showMsg("통신에러")
             }
         })
-    }
+    };
     /* 디테일 보여주기*/
     $('#crowd-req-list').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr("data-src");
 
-        detail_load(seq);
+        detail_load(seq,0);
 
-    })
+    });
     /* 리스트 불러오기 */
     var load_list = function () {
         $.ajax({
@@ -119,7 +119,7 @@
                         + '<button class="btn btn-info req-acc-btn" data-src="' + val.seq + '">수락</button>'
                         + '<button class="btn btn-danger req-no-btn" data-src="' + val.seq + '">거절</button></td>'
                         + '</tr>'
-                })
+                });
 
 
                 $('#crowd-req-list').html(str);

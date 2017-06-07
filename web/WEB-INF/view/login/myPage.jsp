@@ -859,7 +859,7 @@
     $('#crowd-list, #fund-list').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr('data-src');
 
-        detail_load(seq);
+        detail_load(seq,0);
 
     });
     /*크라우드 보상받기 모달*/

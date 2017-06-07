@@ -334,7 +334,10 @@
     .pwd-send-btn, .pwd-input {
         margin-top: 10px;
     }
-	.detail-content {margin-bottom: 10%;}
+
+    .detail-content {
+        margin-bottom: 10%;
+    }
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -481,7 +484,7 @@
             var seq = $(this).attr('data-src');
 
             if (seq != 9999 && seq != '9999') {
-                detail_load(seq);
+                detail_load(seq, 0);
             }
         });
         var check_like = function (pseq) {
@@ -542,7 +545,7 @@
             $('.detail-detail').find('img:first-child').prop("hidden", true);
         };
 
-        detail_load = function (seq) {
+        detail_load = function (seq, sel) {
             $.ajax({
                 url: "detailCrowd.do",
                 method: "POST",
@@ -569,16 +572,16 @@
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
                         "<div style='width: 100%; height:300px'>" + "<span class='detail-fund-btn center-block btn btn-info' data-src='" + data.seq + "'>펀딩하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
-                    var str_detail = "<div class='detail-content'>" + data.content + "</div>"+
-                    	"<input type='hidden' name='seq' data-src='"+data.seq+"'>"+
-                    	"<input type='hidden' name='type' data-src='"+data.type+"'>"+
-                    	"<div class='detail-reply'>"+
-                    	"<h2 class='cursive underline'>Reply Write</h2>"+
-	                    "<div class='crowd-reply-list'></div>"+
-	                    "<input type='text' class='black-control crowd-reply-text'>"+
-	                    "<button class='btn btn-default crowd-reply-btn'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>"+
-	                    "</div>";
-	                    
+                    var str_detail = "<div class='detail-content'>" + data.content + "</div>" +
+                        "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
+                        "<input type='hidden' name='type' data-src='" + data.type + "'>" +
+                        "<div class='detail-reply'>" +
+                        "<h2 class='cursive underline'>Reply Write</h2>" +
+                        "<div class='crowd-reply-list'></div>" +
+                        "<input type='text' class='black-control crowd-reply-text'>" +
+                        "<button class='btn btn-default crowd-reply-btn'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>" +
+                        "</div>";
+
                     reply_load(data.seq, data.type);
 
                     $(".detail-title").html(str_title);
@@ -593,59 +596,62 @@
                     $('.fund-btn').attr('data-src', data.seq);
                     /* 펀드를 위한 값 넣어주는작업*/
 
-                    $('#detail-modal-btn').click();
+
+                    if (sel == 0) {
+                        $('#detail-modal-btn').click();
+                    }
                 }
             })
         };
-        
-        var reply_add = function() {
-        	var btype = $("input[name='type']").attr("data-src")
-			var bparent = $("input[name='seq']").attr("data-src")
-        	$.ajax({
-        		url: "replyadd.do",
-        		method: "POST",
-        		data: {
-        			"id":"${login.id}",
-        			"btype":btype,
-        			"content":$(".crowd-reply-text").val(),
-        			"bparent":bparent
-        		},
-        		success: function(data) {
-        			if(data.message == "SUCS") {
-	        			reply_load(bparent,btype);
-	        			$(".crowd-reply-text").val("");
-        			} else {
-        				alert("실패");
-        			}
-        		}
-        	})
-        }
-        
-        $(".detail-detail").on("click", ".crowd-reply-btn", function() {
-        	reply_add();
-        })
-        
-        $(".detail-detail").on("keydown", ".crowd-reply-text", function(key) {
-        	if(key.keyCode == 13) {
-        		reply_add();
-        	}
-        })
-        
+
+        var reply_add = function () {
+            var btype = $("input[name='type']").attr("data-src");
+            var bparent = $("input[name='seq']").attr("data-src");
+            $.ajax({
+                url: "replyadd.do",
+                method: "POST",
+                data: {
+                    "id": "${login.id}",
+                    "btype": btype,
+                    "content": $(".crowd-reply-text").val(),
+                    "bparent": bparent
+                },
+                success: function (data) {
+                    if (data.message == "SUCS") {
+                        reply_load(bparent, btype);
+                        $(".crowd-reply-text").val("");
+                    } else {
+                        alert("실패");
+                    }
+                }
+            })
+        };
+
+        $(".detail-detail").on("click", ".crowd-reply-btn", function () {
+            reply_add();
+        });
+
+        $(".detail-detail").on("keydown", ".crowd-reply-text", function (key) {
+            if (key.keyCode == 13) {
+                reply_add();
+            }
+        });
+
         var reply_load = function (seq, type) {
 
             $.ajax({
                 url: "replylist.do",
                 data: {"seq": seq, "type": type},
                 method: "post",
-                success: function(data) {
-           			var str_reply = "";
-           			$.each(data, function(i, val) {
-           				str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>"+val.id+"</div>"+
-           				"<div class='crowd-reply-content'>"+val.content+"</div>"+
-           				"</div>";
-           			})
-           			$(".crowd-reply-list").html(str_reply);
-           		}
+                success: function (data) {
+                    var str_reply = "";
+                    $.each(data, function (i, val) {
+                        str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>" + val.id + "</div>" +
+                            "<div class='crowd-reply-content'>" + val.content + "</div>" +
+                            "</div>";
+                    });
+                    $(".crowd-reply-list").html(str_reply);
+                }
             })
         };
         var map_load = function (tagId, lat, lng) {
@@ -738,7 +744,7 @@
 
         $("#searchlist").on("click", ".list-search", function () {
             var seq = $(this).attr("data-src");
-            detail_load(seq);
+            detail_load(seq, 0);
 
         });
 
@@ -751,29 +757,29 @@
                 "</div>");
         });
 
-    /* 인증메일 발송 */
-    $("#myMsg").on("click", ".pwd-send-btn", function() {
-    	var id = $(".pwd-send-text").val();
-    	var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-    	if(id.length <= 0 || id == "") {
-    		alert("이메일을 입력해주세요");
-    	} else if (!email_pattern.test(id)) {
-    		alert("이메일 형식을 지켜주세요")
-    	} else {
-    		$.ajax({
-                type: "POST",
-                url: "getID.do",
-                data: {"id": id},
-                success: function (msg) {
-                    if (msg.message == "FAIL") {
-                        alert("등록되지 않은 회원입니다");
-                    } else {
-                    	$.ajax({
-                    		url:"pwdFindmail.do",
-                    		method:"POST",
-                    		data: {"id": id},
-                    		success: function(data) {
-                    			$('.showMsg-close').click();
+        /* 인증메일 발송 */
+        $("#myMsg").on("click", ".pwd-send-btn", function () {
+            var id = $(".pwd-send-text").val();
+            var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+            if (id.length <= 0 || id == "") {
+                alert("이메일을 입력해주세요");
+            } else if (!email_pattern.test(id)) {
+                alert("이메일 형식을 지켜주세요")
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "getID.do",
+                    data: {"id": id},
+                    success: function (msg) {
+                        if (msg.message == "FAIL") {
+                            alert("등록되지 않은 회원입니다");
+                        } else {
+                            $.ajax({
+                                url: "pwdFindmail.do",
+                                method: "POST",
+                                data: {"id": id},
+                                success: function (data) {
+                                    $('.showMsg-close').click();
 
                                     if (data.message == "SUCS") {
                                         setTimeout("showMsg('메일이 발송되었습니다. 해당메일을 확인해주세요')", 500);
@@ -850,7 +856,8 @@
                             } else {
                                 $('.mypoint').val("잔액 :" + data.resultNum);
                                 $('.detail-fund-btn').click();
-                                setTimeout("showMsg('" + point_val + "원 등록 성공하였습니다.')",500)
+                                detail_load(seq, 1);
+                                setTimeout("showMsg('" + point_val + "원 등록 성공하였습니다.')", 500)
                             }
 
                         }
@@ -858,7 +865,7 @@
                 }
 
             } else {
-                showMsg(" 출금할 금액을 입력해 주세요");
+                showMsg("출금할 금액을 입력해 주세요");
 
 
             }

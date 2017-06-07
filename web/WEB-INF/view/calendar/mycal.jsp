@@ -90,7 +90,7 @@
 
                     var seq = event.seq;
 
-                    detail_load(seq);
+                    detail_load(seq,0);
                 },
                 header: {
                     left: 'prev,next today',
@@ -103,7 +103,7 @@
 
             });
 
-        }
+        };
 
         var load_Crowd = function () {
             $.ajax({
@@ -112,7 +112,7 @@
                 method: "post",
                 success: function (data) {
 
-                    var item = new Array();
+                    var item = [];
 
                     $.each(data, function (index, val) {
 
@@ -125,11 +125,11 @@
                         })
 
 
-                    })
+                    });
                     load_Cal(item);
                 }
             })
-        }
+        };
 
 
         // 왼쪽 버튼을 클릭하였을 경우
@@ -155,7 +155,7 @@
             var mm = (this.getMonth() + 1).toString();
             var dd = this.getDate().toString();
             return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
-        }
+        };
 
         load_Crowd();
 
