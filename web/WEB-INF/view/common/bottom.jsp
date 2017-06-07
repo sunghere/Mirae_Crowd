@@ -334,7 +334,7 @@
     .pwd-send-btn, .pwd-input {
         margin-top: 10px;
     }
-
+	.detail-content {margin-bottom: 10%;}
 </style>
 <%--디테일 모달--%>
 <div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -569,7 +569,17 @@
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
                         "<div style='width: 100%; height:300px'>" + "<span class='detail-fund-btn center-block btn btn-info' data-src='" + data.seq + "'>펀딩하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
-                    var str_detail = "<div>" + data.content + "</div><div class='detail-reply'></div>";
+                    var str_detail = "<div class='detail-content'>" + data.content + "</div>"+
+                    	"<input type='hidden' name='seq' data-src='"+data.seq+"'>"+
+                    	"<input type='hidden' name='type' data-src='"+data.type+"'>"+
+                    	"<div class='detail-reply'>"+
+                    	"<h2 class='cursive underline'>Reply Write</h2>"+
+	                    "<div class='crowd-reply-list'></div>"+
+	                    "<input type='text' class='black-control crowd-reply-text'>"+
+	                    "<button class='btn btn-default crowd-reply-btn'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>"+
+	                    "</div>";
+	                    
+                    reply_load(data.seq, data.type);
 
                     $(".detail-title").html(str_title);
                     $(".detail-summary").html(str_summary);
@@ -587,20 +597,55 @@
                 }
             })
         };
-
+        
+        var reply_add = function() {
+        	var btype = $("input[name='type']").attr("data-src")
+			var bparent = $("input[name='seq']").attr("data-src")
+        	$.ajax({
+        		url: "replyadd.do",
+        		method: "POST",
+        		data: {
+        			"id":"${login.id}",
+        			"btype":btype,
+        			"content":$(".crowd-reply-text").val(),
+        			"bparent":bparent
+        		},
+        		success: function(data) {
+        			if(data.message == "SUCS") {
+	        			reply_load(bparent,btype);
+	        			$(".crowd-reply-text").val("");
+        			} else {
+        				alert("실패");
+        			}
+        		}
+        	})
+        }
+        
+        $(".detail-detail").on("click", ".crowd-reply-btn", function() {
+        	reply_add();
+        })
+        
+        $(".detail-detail").on("keydown", ".crowd-reply-text", function(key) {
+        	if(key.keyCode == 13) {
+        		reply_add();
+        	}
+        })
+        
         var reply_load = function (seq, type) {
 
             $.ajax({
                 url: "replylist.do",
                 data: {"seq": seq, "type": type},
                 method: "post",
-                success: function (data) {
-                    var str = "";
-                    $.each(data, function (index, val) {
-                        console.log(val);
-                    })
-
-                }
+                success: function(data) {
+           			var str_reply = "";
+           			$.each(data, function(i, val) {
+           				str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>"+val.id+"</div>"+
+           				"<div class='crowd-reply-content'>"+val.content+"</div>"+
+           				"</div>";
+           			})
+           			$(".crowd-reply-list").html(str_reply);
+           		}
             })
         };
         var map_load = function (tagId, lat, lng) {
