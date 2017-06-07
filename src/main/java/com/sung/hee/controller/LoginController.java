@@ -117,6 +117,32 @@ public class LoginController {
         return check;
 
     }
+    
+    @RequestMapping(value = "pwdFindmail.do",
+            method = {RequestMethod.POST})
+    public String pwdFindmail(SHUser user, HttpServletRequest request, Model model) {
+        logger.info("Welcome LoginController pwdFindmail! " + new Date());
+        try {
+            MyEmail myEmail = new MyEmail();
+
+            String reciver = user.getId(); //받을사람의 이메일입니다.
+            String subject = "Sunghere 비밀번호찾기 인증 메일입니다.";
+            String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
+                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id=cisisn@naver.com&encrypt="
+                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.";
+
+            myEmail.setReciver(reciver);
+            myEmail.setSubject(subject);
+            myEmail.setContent(content);
+            try {
+                emailSender.SendEmail(myEmail);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+        }
+        return "redirect:/" + "main.do";
+    }//
 
 
     @RequestMapping(value = "emailCerti.do", method = RequestMethod.GET)

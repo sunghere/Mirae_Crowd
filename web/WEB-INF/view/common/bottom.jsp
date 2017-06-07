@@ -269,7 +269,7 @@
                     아이디/비밀번호를 잊으셨나요?<br><br>
                 </h5>
                 <div class="btn_group_center">
-                    <span class="btn_style find" data-target='#pwdModal' data-toggle="modal" id="pwdbtn">비밀번호찾기</span>
+                    <span class="btn_style find" id="pwdbtn">비밀번호찾기</span>
                 </div>
 
             </div>
@@ -314,7 +314,7 @@
     </div>
 </div>
 <style>
-
+    .pwd-send-btn, .pwd-input {margin-top:10px;}
 
 </style>
 <%--디테일 모달--%>
@@ -591,7 +591,7 @@
                 },
                 success: function (data) {
                     str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
-                    var src_list = [];
+                    var src_list = new Array();
                     $.each(data, function (i, val) {
                         str += "<div class='crowd-detail-btn list-search' data-src='" + val.seq + "'>" +
                             "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
@@ -625,7 +625,23 @@
 
         })
 
+
+
+    /* 비밀번호 찾기 */
+    $("#pwdbtn").click(function() {
+    	showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>"+
+    			"<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>"+
+    			"<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>"+
+    			"</div>");
     });
+
+    /* 인증메일 발송 */
+    $("#myMsg").on("click", ".pwd-send-btn", function() {
+    	var id = $(".pwd-send-text").val();
+
+    	alert(id);
+    });
+
     /* 펀딩하기 버튼*/
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
@@ -663,6 +679,7 @@
             },
             easing: 'easeInOutBack'
         });
+    });
     });
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
