@@ -688,8 +688,42 @@
     /* 인증메일 발송 */
     $("#myMsg").on("click", ".pwd-send-btn", function() {
     	var id = $(".pwd-send-text").val();
-    	
-    	alert(id);
+    	var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+    	if(id.length <= 0 || id == "") {
+    		alert("이메일을 입력해주세요");
+    	} else if (!email_pattern.test(id)) {
+    		alert("이메일 형식을 지켜주세요")
+    	} else {
+    		$.ajax({
+                type: "POST",
+                url: "getID.do",
+                data: {"id": id},
+                success: function (msg) {
+                    if (msg.message == "FAIL") {
+                        alert("등록되지 않은 회원입니다");
+                    } else {
+                    	$.ajax({
+                    		url:"pwdFindmail.do",
+                    		method:"POST",
+                    		data: {"id": id},
+                    		success: function(data) {
+                    			$('.showMsg-close').click();
+                    			
+                    			if(data.message == "SUCS"){
+                    			setTimeout("showMsg('메일이 발송되었습니다. 해당메일을 확인해주세요')",500);
+                    			} else if (data.message == "SNS"){
+                    				setTimeout("showMsg('SNS 계정은 <br>해당 기능을 지원하지 않습니다.')",500);
+                        			
+                    			} else {
+                    				setTimeout("showMsg('메일서버 Error')",500);
+                        			
+                    			}
+                    		}
+                    	})
+                    }
+                    }
+                })
+    		}
     })
     
     /* 펀딩하기 버튼*/

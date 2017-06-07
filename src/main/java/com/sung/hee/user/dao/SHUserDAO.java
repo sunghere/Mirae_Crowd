@@ -24,4 +24,5 @@ public interface SHUserDAO {
     
     void pwdUpdate(SHUser shUser);
 
+    SHUser getIsSnS(SHUser shUser);
 }
