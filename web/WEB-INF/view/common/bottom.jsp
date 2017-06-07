@@ -599,8 +599,8 @@
         };
         
         var reply_add = function() {
-        	var btype = $("input[name='type']").attr("data-src");
-			var bparent = $("input[name='seq']").attr("data-src");
+        	var btype = $("input[name='type']").attr("data-src")
+			var bparent = $("input[name='seq']").attr("data-src")
         	$.ajax({
         		url: "replyadd.do",
         		method: "POST",
@@ -619,17 +619,17 @@
         			}
         		}
         	})
-        };
+        }
         
         $(".detail-detail").on("click", ".crowd-reply-btn", function() {
         	reply_add();
-        });
+        })
         
         $(".detail-detail").on("keydown", ".crowd-reply-text", function(key) {
         	if(key.keyCode == 13) {
         		reply_add();
         	}
-        });
+        })
         
         var reply_load = function (seq, type) {
 
@@ -643,7 +643,7 @@
            				str_reply += "<div class='crowd-reply'><div class='crowd-reply-id'>"+val.id+"</div>"+
            				"<div class='crowd-reply-content'>"+val.content+"</div>"+
            				"</div>";
-           			});
+           			})
            			$(".crowd-reply-list").html(str_reply);
            		}
             })
@@ -751,29 +751,29 @@
                 "</div>");
         });
 
-        /* 인증메일 발송 */
-        $("#myMsg").on("click", ".pwd-send-btn", function () {
-            var id = $(".pwd-send-text").val();
-            var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-            if (id.length <= 0 || id == "") {
-                alert("이메일을 입력해주세요");
-            } else if (!email_pattern.test(id)) {
-                alert("이메일 형식을 지켜주세요")
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "getID.do",
-                    data: {"id": id},
-                    success: function (msg) {
-                        if (msg.message == "FAIL") {
-                            alert("등록되지 않은 회원입니다");
-                        } else {
-                            $.ajax({
-                                url: "pwdFindmail.do",
-                                method: "POST",
-                                data: {"id": id},
-                                success: function (data) {
-                                    $('.showMsg-close').click();
+    /* 인증메일 발송 */
+    $("#myMsg").on("click", ".pwd-send-btn", function() {
+    	var id = $(".pwd-send-text").val();
+    	var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+    	if(id.length <= 0 || id == "") {
+    		alert("이메일을 입력해주세요");
+    	} else if (!email_pattern.test(id)) {
+    		alert("이메일 형식을 지켜주세요")
+    	} else {
+    		$.ajax({
+                type: "POST",
+                url: "getID.do",
+                data: {"id": id},
+                success: function (msg) {
+                    if (msg.message == "FAIL") {
+                        alert("등록되지 않은 회원입니다");
+                    } else {
+                    	$.ajax({
+                    		url:"pwdFindmail.do",
+                    		method:"POST",
+                    		data: {"id": id},
+                    		success: function(data) {
+                    			$('.showMsg-close').click();
 
                                     if (data.message == "SUCS") {
                                         setTimeout("showMsg('메일이 발송되었습니다. 해당메일을 확인해주세요')", 500);
