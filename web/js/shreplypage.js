@@ -64,7 +64,6 @@
     $('.replyBt').click(function () {
         var btSelector = 0;
         var commentContent = "";
-
         if ($(this).attr('data-src') == "original-reply-btn") {
             btSelector = 1;
             commentContent = $('#bot-r-area').val();
@@ -75,7 +74,7 @@
         }
         if (commentContent == "" || commentContent == null) {
 
-            alert('내용을 <br>입력해주세요');
+            showMsg('내용을 <br>입력해주세요');
             return;
 
         }

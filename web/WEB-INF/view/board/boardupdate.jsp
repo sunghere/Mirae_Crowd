@@ -64,11 +64,11 @@
 
         if (title == "" || title == null) {
 
-            alert("제목을 입력해주세요");
+            showMsg("제목을 입력해주세요");
         }
         else if (contents == "" || contents == null) {
 
-            alert("내용을 입력해주세요");
+            showMsg("내용을 입력해주세요");
         } else {
 
             $("#_frmForm").attr({"target": "_self", "action": "boardupdateAf.do"}).submit();

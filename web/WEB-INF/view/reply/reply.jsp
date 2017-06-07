@@ -36,7 +36,7 @@
                                 class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
                                 rows="4" id="bot-r-area"></textarea>
                         <button class="btn btn-primary col-xs-3 col-sm-3 replyBt" type="button"
-                                datasrc="original-reply-btn">
+                                data-src="original-reply-btn">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
                         </button>
                     </div>

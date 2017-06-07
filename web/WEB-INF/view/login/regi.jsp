@@ -198,7 +198,7 @@
             return;
         }
         var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-        if (text.length > 0) {
+        if (text.length < 1) {
 
             checkID = false;
             checkRegi();
@@ -250,7 +250,7 @@
                 }
 
 
-            })
+            });
         else {
             $('input[name=id]').focus();
             $("#emailcheckr").html("<i class='icon ion-android-create'></i>").css({"color": "red"});
@@ -301,7 +301,7 @@
                 }
 
 
-            })
+            });
         else {
             $('#_entname').focus();
             $("#entcheckr").html("<i class='icon ion-android-create'></i>").css({"color": "red"});

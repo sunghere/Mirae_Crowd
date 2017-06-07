@@ -137,7 +137,7 @@
 //        history.back();
     });
     $("#_btnDelete").click(function () {
-        $("#_frmForm").attr({"method": "post", "action": "boardDel.do"}).submit();
+        $("#_frmForm").attr({"method": "post", "action": "boarddel.do"}).submit();
 //        history.back();
     });
     function filedowns(filename, pdsid) {
@@ -145,5 +145,5 @@
         doc.filename.value = filename;
         doc.seq.value = pdsid;
         doc.submit();
-    };
+    }
 </script>
