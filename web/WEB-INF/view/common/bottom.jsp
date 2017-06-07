@@ -171,7 +171,7 @@
                         <h4 class="pay-type-header">결제방식을 선택 해 주세요</h4>
                         <div class="form-group" data-toggle="buttons">
                             <div class="btn-group">
-                                <label for="kakao-type" class="btn btn-default pay-type-select active">
+                                <label for="kakao-type" class="btn btn-default active">
                                     <input type="radio" name="pay-type" id="kakao-type" autocomplete="off"/>
                                     <span class="glyphicon glyphicon-ok"></span>
                                     <span>&nbsp;</span>
@@ -181,7 +181,7 @@
                                 </label>
                             </div>
                             <div class="btn-group">
-                                <label for="app-type" class="btn btn-default pay-type-select">
+                                <label for="app-type" class="btn btn-default">
                                     <input type="radio" name="pay-type" id="app-type" autocomplete="off"/>
                                     <span class="glyphicon glyphicon-ok"></span>
                                     <span>&nbsp;</span>
@@ -191,7 +191,7 @@
                                 </label>
                             </div>
                             <div class="btn-group active">
-                                <label for="point-type" class="btn btn-default pay-type-select">
+                                <label for="point-type" class="btn btn-default">
                                     <input type="radio" name="pay-type" id="point-type" autocomplete="off" checked/>
                                     <span class="glyphicon glyphicon-ok"></span>
                                     <span>&nbsp;</span>
@@ -204,23 +204,12 @@
                                 <div class="center-block">
                                     <input type="text" class="black-control" placeholder="금액"
                                            onchange="getNumber(this);" onkeyup="getNumber(this);" name="fund-money">
-                                    <button type="button" class="btn btn-info fund-btn" data-src="">확인</button>
+                                    <button type="button" class="btn btn-info">확인</button>
 
                                 </div>
-                                <div class="kakao-content">
-                                    <div class="text-center well">카카오톡으로 접속해서 주문코드를 입력해주세요.
-                                        <br>주문 코드는
-                                        <span class="cbox" id="kakao-order-code">&nbsp;&nbsp;&nbsp;</span>
-                                        입니다
-                                    </div>
-                                </div>
-                                <div class="app-content" hidden="hidden">
-                                    <div class="well text-center">추후 지원 예정입니다.</div>
-                                </div>
-                                <div class="point-content" hidden="hidden">
-                                    <div class="well text-center"><input type="text" class="black-control mypoint"
-                                                                         value="잔액 :${login.point}" disabled></div>
-                                </div>
+                                <div class="kakao-content"></div>
+                                <div class="app-content" hidden="hidden"></div>
+                                <div class="point-content" hidden="hidden"></div>
 
                             </div>
                         </div>
@@ -286,7 +275,7 @@
                     아이디/비밀번호를 잊으셨나요?<br><br>
                 </h5>
                 <div class="btn_group_center">
-                    <span class="btn btn-default btn_style find" id="pwdbtn">비밀번호찾기</span>
+                    <span class="btn_style find" id="pwdbtn">비밀번호찾기</span>
                 </div>
 
             </div>
@@ -590,9 +579,6 @@
                     }
                     check_like(seq);
                     reply_load(seq, data.type);
-                    $('.fund-btn').attr('data-src', data.seq);
-                    /* 펀드를 위한 값 넣어주는작업*/
-
                     $('#detail-modal-btn').click();
                 }
             })
@@ -708,7 +694,7 @@
                 },
                 success: function (data) {
                     str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
-                    var src_list = [];
+                    var src_list = new Array();
                     $.each(data, function (i, val) {
                         str += "<div class='crowd-detail-btn list-search' data-src='" + val.seq + "'>" +
                             "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
@@ -743,149 +729,62 @@
         });
 
 
-        /* 비밀번호 찾기 */
-        $("#pwdbtn").click(function () {
-            showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>" +
-                "<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>" +
-                "<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>" +
-                "</div>");
-        });
+    /* 비밀번호 찾기 */
+    $("#pwdbtn").click(function() {
+    	showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>"+
+    			"<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>"+
+    			"<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>"+
+    			"</div>");
+    });
 
-        /* 인증메일 발송 */
-        $("#myMsg").on("click", ".pwd-send-btn", function () {
-            var id = $(".pwd-send-text").val();
-            var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
-            if (id.length <= 0 || id == "") {
-                alert("이메일을 입력해주세요");
-            } else if (!email_pattern.test(id)) {
-                alert("이메일 형식을 지켜주세요")
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "getID.do",
-                    data: {"id": id},
-                    success: function (msg) {
-                        if (msg.message == "FAIL") {
-                            alert("등록되지 않은 회원입니다");
-                        } else {
-                            $.ajax({
-                                url: "pwdFindmail.do",
-                                method: "POST",
-                                data: {"id": id},
-                                success: function (data) {
-                                    $('.showMsg-close').click();
+    /* 인증메일 발송 */
+    $("#myMsg").on("click", ".pwd-send-btn", function() {
+    	var id = $(".pwd-send-text").val();
+    	var email_pattern = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+    	if(id.length <= 0 || id == "") {
+    		alert("이메일을 입력해주세요");
+    	} else if (!email_pattern.test(id)) {
+    		alert("이메일 형식을 지켜주세요")
+    	} else {
+    		$.ajax({
+                type: "POST",
+                url: "getID.do",
+                data: {"id": id},
+                success: function (msg) {
+                    if (msg.message == "FAIL") {
+                        alert("등록되지 않은 회원입니다");
+                    } else {
+                    	$.ajax({
+                    		url:"pwdFindmail.do",
+                    		method:"POST",
+                    		data: {"id": id},
+                    		success: function(data) {
+                    			$('.showMsg-close').click();
 
-                                    if (data.message == "SUCS") {
-                                        setTimeout("showMsg('메일이 발송되었습니다. 해당메일을 확인해주세요')", 500);
-                                    } else if (data.message == "SNS") {
-                                        setTimeout("showMsg('SNS 계정은 <br>해당 기능을 지원하지 않습니다.')", 500);
+                    			if(data.message == "SUCS"){
+                    			setTimeout("showMsg('메일이 발송되었습니다. 해당메일을 확인해주세요')",500);
+                    			} else if (data.message == "SNS"){
+                    				setTimeout("showMsg('SNS 계정은 <br>해당 기능을 지원하지 않습니다.')",500);
 
-                                    } else {
-                                        setTimeout("showMsg('메일서버 Error')", 500);
+                    			} else {
+                    				setTimeout("showMsg('메일서버 Error')",500);
 
-                                    }
-                                }
-                            })
-                        }
+                    			}
+                    		}
+                    	})
+                    }
                     }
                 })
-            }
-        });
+    		}
+    });
 
         /* 펀딩하기 버튼*/
         $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
-            if ("${login.id}" != "" && "${login.id}" != null) {
-                $('#fund-modal-btn').click();
 
-            } else {
-                showMsg("로그인 후 이용 가능합니다.")
-            }
-
+            $('#fund-modal-btn').click();
         });
-
-        /*펀드 제출*/
-        $('.fund-btn').click(function () {
-            var seletor = $('.pay-type-select.active').attr("for");
-            var seq = $(this).attr('data-src');
-
-            if (seletor == "kakao-type") {
-            } else if (seletor == "app-type") {
-
-
-            } else if (seletor == "point-type") {
-                point_fund(seq);
-            }
-
-        });
-
-        function point_fund(seq) {
-
-            var point = 0;
-            var money_filed = $('input[name="fund-money"]');
-            var point_val = $('input[name="fund-money"]').val();
-            point_val = replaceAll(point_val, ",", "");
-            if (point_val != null && point_val != "") {
-                point = parseInt(point_val);
-
-            }
-            var mypoint = parseInt($('.mypoint').val().split(":")[1]);
-            if (point != null && point != "") {
-
-                if (mypoint < point) {
-                    showMsg("포인트 잔액이 부족합니다.");
-
-
-                } else {
-                    $.ajax({
-                        url: "fundCrowd.do",
-                        data: {"pseq": seq, "money": point_val, "id": "${login.id}"},
-                        method: "post",
-                        success: function (data) {
-                            money_filed.val("");
-
-                            if (data.message == "FAIL") {
-
-
-                            } else {
-                                $('.mypoint').val("잔액 :" + data.resultNum);
-                                $('.detail-fund-btn').click();
-                                setTimeout("showMsg('" + point_val + "원 등록 성공하였습니다.')",500)
-                            }
-
-                        }
-                    })
-                }
-
-            } else {
-                showMsg("출금할 금액을 입력해 주세요");
-
-
-            }
-        }
-
-        /*포인트 결제타입 선택*/
-        $(".pay-type-select").click(function () {
-            var seletor = $(this).attr("for");
-            var app_area = $('.app-content');
-            var kakao_area = $('.kakao-content');
-            var point_area = $('.point-content');
-            app_area.hide();
-            kakao_area.hide();
-            point_area.hide();
-            if (seletor == "kakao-type") {
-                kakao_area.show();
-            } else if (seletor == "app-type") {
-                app_area.show();
-
-
-            } else if (seletor == "point-type") {
-                point_area.show();
-
-            }
-
-        });
-        /* 펀딩 모달 애니메이션*/
+        /* */
         var animating = false;
 
         $('#fund-modal').on("click", ".check-btn", function () {
