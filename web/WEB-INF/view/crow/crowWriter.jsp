@@ -210,42 +210,12 @@
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    /* 돈관련 정규식*/
-    //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자
-    //[0-9] => \d , [^0-9] => \D
-    var rgx1 = /\D/g;
-    var rgx2 = /(\d+)(\d{3})/;
 
-    function getNumber(obj) {
-
-        var num01;
-        var num02;
-        num01 = obj.value;
-        num02 = num01.replace(rgx1, "");
-        num01 = setComma(num02);
-        obj.value = num01;
-
-    }
-
-
-    function setComma(inNum) {
-
-        var outNum;
-        outNum = inNum;
-        while (rgx2.test(outNum)) {
-            outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
-        }
-        return outNum;
-
-    }
-    function replaceAll(str, searchStr, replaceStr) {
-        return str.split(searchStr).join(replaceStr);
-    }
 
     goMain = function () {
 
         location.href = 'main.do';
-    }
+    };
     /*돈관련 정규식 End*/
     $(function () {
         /* 글작성 부분*/
@@ -306,7 +276,7 @@
 
 
                         if (data.message == "SUCS") {
-                            showMsg("크라우드 펀드 신청 성공!<br> 페이지를 이동합니다")
+                            showMsg("크라우드 펀드 신청 성공!<br> 페이지를 이동합니다");
 
                             setTimeout("goMain()", 1000);
                         } else {
@@ -318,8 +288,8 @@
             } else {
                 showMsg("빈칸이 있어요 전부 입력해주세요");
             }
-            return;
-        })
+
+        });
         /* 타입 선택*/
         $(".typeBt").click(function () {
             if ($(this).attr("value") == "reward") {
@@ -336,7 +306,7 @@
         /*카테고리 선택부분*/
         $('.categorySel').change(function () {
             $('#w_category').attr('value', $('.categorySel option:selected').text());
-        })
+        });
         var deadline = new Date();
         deadline.setMonth(deadline.getMonth() + 1, deadline.getDay());
 
@@ -374,7 +344,7 @@
 
         $('.ui-datepicker td span, .ui-datepicker td a').css('font-size', '20px');
         $('.write_part').css({"border-bottom": "2px solid rgba(221,221,221,0.7)"})
-    })
+    });
     function NewZipCode5NumCheck() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -414,8 +384,8 @@
         }).open();
     }
     var map;
-    var maplist = new Array();
-    var mapTagList = new Array();
+    var maplist = [];
+    var mapTagList = [];
     var marker;
     var infoWindow;
     var mylat = 37.5666102;
@@ -428,7 +398,7 @@
             }
         }
         return false;
-    }
+    };
     if (!!navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     }
@@ -447,7 +417,7 @@
         mapinit("map");
 
 
-    })
+    });
 
     var mapOptions = {
         center: new naver.maps.LatLng(mylat, mylng),
@@ -522,7 +492,7 @@
         }
 
 
-    }
+    };
 
 
     function updateInfoWindow(latlng, sel) {
@@ -600,7 +570,7 @@
     }
     $('#addr-tf').click(function () {
         NewZipCode5NumCheck();
-    })
+    });
     $(".bSearch").click(function () {
         var sHTML = "";
         var sUrl = "https://apis.daum.net/local/geo/addr2coord?apikey=1b98be2bf5ecb8fa9384650b0345cf83&output=json&page_size=30&q=";

@@ -201,6 +201,12 @@
                                 </label>
                             </div>
                             <div class="pay-content">
+                                <div class="center-block">
+                                    <input type="text" class="black-control" placeholder="금액"
+                                           onchange="getNumber(this);" onkeyup="getNumber(this);" name="fund-money">
+                                    <button type="button" class="btn btn-info">확인</button>
+
+                                </div>
                                 <div class="kakao-content"></div>
                                 <div class="app-content" hidden="hidden"></div>
                                 <div class="point-content" hidden="hidden"></div>
@@ -314,7 +320,9 @@
     </div>
 </div>
 <style>
-    .pwd-send-btn, .pwd-input {margin-top:10px;}
+    .pwd-send-btn, .pwd-input {
+        margin-top: 10px;
+    }
 
 </style>
 <%--디테일 모달--%>
@@ -378,7 +386,7 @@
 
                 <textarea
                         class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control reply-modal-area"
-                        rows="4" id="bot-r-area"></textarea>
+                        rows="4"></textarea>
                 <button class="btn btn-primary col-xs-3 col-sm-3 reply-modal-btn" type="button"
                         datasrc="">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
@@ -401,6 +409,40 @@
 
 <script>
     $(function () {
+        /* 돈관련 정규식*/
+        //[] <--문자 범위 [^] <--부정 [0-9] <-- 숫자
+        //[0-9] => \d , [^0-9] => \D
+        var rgx1 = /\D/g;
+        var rgx2 = /(\d+)(\d{3})/;
+
+        getNumber = function (obj) {
+
+            var num01;
+            var num02;
+            num01 = obj.value;
+            num02 = num01.replace(rgx1, "");
+            num01 = setComma(num02);
+            obj.value = num01;
+
+        };
+
+
+        setComma = function (inNum) {
+
+            var outNum;
+            outNum = inNum;
+            while (rgx2.test(outNum)) {
+                outNum = outNum.replace(rgx2, '$1' + ',' + '$2');
+            }
+            return outNum;
+
+        };
+        replaceAll = function (str, searchStr, replaceStr) {
+            return str.split(searchStr).join(replaceStr);
+        };
+
+
+        /* 검색결과 이미지 넣기*/
         var searchImageInput = function (src_list, data) {
             $.each(data, function (index, val) {
 
@@ -516,7 +558,7 @@
                         "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
                         "<div style='width: 100%; height:300px'>" + "<span class='detail-fund-btn center-block btn btn-info' data-src='" + data.seq + "'>펀딩하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
-                    var str_detail = "<div>" + data.content + "</div>";
+                    var str_detail = "<div>" + data.content + "</div><div class='detail-reply'></div>";
 
                     $(".detail-title").html(str_title);
                     $(".detail-summary").html(str_summary);
@@ -526,11 +568,27 @@
                         map_load('detail-map', detail_latlng[0], detail_latlng[1]);
                     }
                     check_like(seq);
+                    reply_load(seq, data.type);
                     $('#detail-modal-btn').click();
                 }
             })
         };
 
+        var reply_load = function (seq, type) {
+
+            $.ajax({
+                url: "replylist.do",
+                data: {"seq": seq, "type": type},
+                method: "post",
+                success: function (data) {
+                    var str = "";
+                    $.each(data, function (index, val) {
+                        console.log(val);
+                    })
+
+                }
+            })
+        };
         var map_load = function (tagId, lat, lng) {
 
 
@@ -565,7 +623,7 @@
                     method: "POST",
                     data: {"search": $("#modal-search-text").val()},
                     success: function (data) {
-                        str = "";
+                        var str = "";
                         $.each(data, function (i, val) {
                             str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
                         });
@@ -590,8 +648,8 @@
                     "search": $("#modal-search-text").val()
                 },
                 success: function (data) {
-                    str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
-                    var src_list = new Array();
+                    var str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
+                    var src_list = [];
                     $.each(data, function (i, val) {
                         str += "<div class='crowd-detail-btn list-search' data-src='" + val.seq + "'>" +
                             "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
@@ -623,63 +681,62 @@
             var seq = $(this).attr("data-src");
             detail_load(seq);
 
-        })
-
-
-
-    /* 비밀번호 찾기 */
-    $("#pwdbtn").click(function() {
-    	showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>"+
-    			"<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>"+
-    			"<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>"+
-    			"</div>");
-    });
-
-    /* 인증메일 발송 */
-    $("#myMsg").on("click", ".pwd-send-btn", function() {
-    	var id = $(".pwd-send-text").val();
-
-    	alert(id);
-    });
-
-    /* 펀딩하기 버튼*/
-    $('.detail-summary').on("click", ".detail-fund-btn", function () {
-
-
-        $('#fund-modal-btn').click();
-    });
-    /* */
-    var animating = false;
-
-    $('#fund-modal').on("click", ".check-btn", function () {
-
-        if (animating) return false;
-        animating = true;
-
-        var cur_page = $(this).parent();
-        var next_page = $(this).parent().next();
-
-
-        //다음페이지 보여주기
-        next_page.fadeIn(800);
-        cur_page.hide();
-
-        cur_page.animate({opacity: 0}, {
-            step: function (now, mx) {
-                //다음페이지 크기를 80 ~ 100%로 만들기위해사용
-                var scale = 0.8 + (1 - now) * 0.2;
-                //2. take current_fs to the right(50%) - from 0%
-
-                var opacity = 1 - now;
-                next_page.css({'transform': 'scale(' + scale + ')', 'opacity': opacity});
-            },
-            duration: 800,
-            complete: function () {
-                animating = false;
-            },
-            easing: 'easeInOutBack'
         });
-    });
+
+
+        /* 비밀번호 찾기 */
+        $("#pwdbtn").click(function () {
+            showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>" +
+                "<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>" +
+                "<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>" +
+                "</div>");
+        });
+
+        /* 인증메일 발송 */
+        $("#myMsg").on("click", ".pwd-send-btn", function () {
+            var id = $(".pwd-send-text").val();
+
+            alert(id);
+        });
+
+        /* 펀딩하기 버튼*/
+        $('.detail-summary').on("click", ".detail-fund-btn", function () {
+
+
+            $('#fund-modal-btn').click();
+        });
+        /* */
+        var animating = false;
+
+        $('#fund-modal').on("click", ".check-btn", function () {
+
+            if (animating) return false;
+            animating = true;
+
+            var cur_page = $(this).parent();
+            var next_page = $(this).parent().next();
+
+
+            //다음페이지 보여주기
+            next_page.fadeIn(800);
+            cur_page.hide();
+
+            cur_page.animate({opacity: 0}, {
+                step: function (now, mx) {
+                    //다음페이지 크기를 80 ~ 100%로 만들기위해사용
+                    var scale = 0.8 + (1 - now) * 0.2;
+                    //2. take current_fs to the right(50%) - from 0%
+
+                    var opacity = 1 - now;
+                    next_page.css({'transform': 'scale(' + scale + ')', 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function () {
+                    animating = false;
+                },
+                easing: 'easeInOutBack'
+            });
+        });
     });
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;

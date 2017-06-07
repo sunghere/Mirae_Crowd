@@ -37,7 +37,7 @@
             if ($('#two').height() < twoheight) {
                 $('#two').css({
                     "height": twoheight
-                })
+                });
                 if ($('#two').height() < 1000) {
                     $('#two').css({
                         "height": "1000px"
@@ -65,7 +65,7 @@
         var btSelector = 0;
         var commentContent = "";
 
-        if ($(this).attr('datasrc') == "oribt") {
+        if ($(this).attr('data-src') == "original-reply-btn") {
             btSelector = 1;
             commentContent = $('#bot-r-area').val();
         } else {
@@ -115,7 +115,7 @@
 
         })
 
-    })
+    });
 
 
     var replyReload = function () {
@@ -138,7 +138,7 @@
                     }
 
                     str += '</div></div>';
-                })
+                });
                 $('#replyReload').html(str)
 
 
@@ -151,7 +151,7 @@
         })
 
 
-    }
+    };
 
     /* 리플 수정 버튼 누를시 모달띄우기*/
     $('#replyReload').on('click', ".reply-edit-btn", function () {
@@ -164,7 +164,7 @@
             data: {"seq": seq},
             success: function (data) {
 
-                $('.reply-modal-area').html(data.temp)
+                $('.reply-modal-area').html(data.temp);
                 $('.reply-modal-btn').attr("data-src", seq);
                 $('#reply-modal-btn').click();
             }
@@ -172,7 +172,7 @@
 
 
         /*  showSelectMsg("reply_edit(" + seq + ")");*/
-    })
+    });
 
     /*리플 업데이트 버튼 누를시*/
     $('.reply-modal-btn').click(function () {
@@ -195,14 +195,14 @@
             }
         })
 
-    })
+    });
     /*리플 삭제*/
     $('#replyReload').on('click', ".reply-delete-btn", function () {
 
         var seq = $(this).attr('data-src');
 
         showSelectMsg("reply_delete_page(" + seq + ")");
-    })
+    });
     /*댓글 삭제*/
     reply_delete_page = function (seq) {
 
@@ -222,7 +222,7 @@
 
             }
         })
-    }
+    };
     replyReload();
 
 })(jQuery);

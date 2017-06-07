@@ -1344,7 +1344,7 @@ img::-moz-selection {
 #fund-modal {
     z-index: 1999;
 
-    padding: 20%;
+    padding-top: 10%;
 }
 
 .pay-type-row {
@@ -1353,6 +1353,11 @@ img::-moz-selection {
 
 .pay-content {
     height: 300px;
+}
+
+input[name="fund-money"] {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .mini-warning-header {
