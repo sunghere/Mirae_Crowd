@@ -419,7 +419,7 @@
         $('.cash-charge').hide();
 
         $('.cash-discharge').hide();
-    }
+    };
 
     /*포인트 충전 관련*/
 
@@ -428,22 +428,22 @@
         $('.cash-discharge').hide();
 
         /*충전화면을 보여줌*/
-    })
+    });
     $('.cash-discharge-btn').click(function () {
         $('.cash-charge').hide();
         $('.cash-discharge').show();
 
         /*충전화면을 보여줌*/
-    })
+    });
     $('.cash-charge-ok-btn').click(function () {
         point_charge_system();
 
-    })
+    });
     $('.cash-discharge-ok-btn').click(function () {
         point_discharge_system();
 
 
-    })
+    });
     $('#code-input').keydown(function (key) {
 
         if (key.keyCode == 13) {/*엔터인경우 실행*/
@@ -470,20 +470,20 @@
         if (point != null && point != "") {
 
             if (mypoint < point + 1000) {
-                showMsg("출금 가능한 금액을 초과하였습니다.")
+                showMsg("출금 가능한 금액을 초과하였습니다.");
 
-                return;
+
 
             } else {
                 point_dischager(point + 1000);
             }
 
         } else {
-            showMsg("출금할 금액을 입력해 주세요")
+            showMsg("출금할 금액을 입력해 주세요");
 
-            return;
+
         }
-    }
+    };
     /*포인트 충전 fun*/
     var point_charge_system = function () {
         var point_code = $('#code-input').val();
@@ -524,11 +524,11 @@
 
 
         } else {
-            showMsg("코드를 입력해주세요")
+            showMsg("코드를 입력해주세요");
 
-            return;
+
         }
-    }
+    };
 
     /*포인트 충전 fun을 부르기전 인증처리*/
     var point_chager = function (num) {
@@ -566,7 +566,7 @@
         })
 
 
-    }
+    };
 
     /*포인트 출금을 하기전 인증처리*/
     var point_dischager = function (num) {
@@ -604,7 +604,7 @@
         })
 
 
-    }
+    };
 
 
     /* 내글 불러오기*/
@@ -638,7 +638,7 @@
 
             }
         })
-    }
+    };
     /* 내 펀드(투자내역) 불러오기*/
     var load_fund_list = function () {
         $.ajax({
@@ -671,7 +671,7 @@
 
             }
         })
-    }
+    };
     /* 내 크라우드펀딩 모집 신청내역 불러오기*/
     var load_crowd_list = function () {
         $.ajax({
@@ -716,7 +716,7 @@
 
             }
         })
-    }
+    };
     /* 내 댓글 불러오기*/
     var load_reply_list = function () {
 
@@ -740,7 +740,7 @@
 
                     }
                     str += '<td class="text-center">' + val.seq + '</td>'
-                        + '<td class="col-md-4"><div class="btn">'
+                        + '<td class="col-md-4"><div class="btn">';
                     if (val.btype == 1) {
 
                         str += '<a href="boarddetail.do?seq=' + val.bparent + '">'
@@ -761,7 +761,7 @@
 
             }
         })
-    }
+    };
     /*댓글 삭제*/
     var reply_delete = function (seq) {
 
@@ -781,13 +781,13 @@
 
             }
         })
-    }
+    };
     /* 비밀번호 변경 2단계창 클릭*/
     var pwd_check_one = function () {
-        var cur_pwd = $('#cur-pwd').val()
+        var cur_pwd = $('#cur-pwd').val();
         if (cur_pwd.length < 2) {
             alert("비밀번호를 입력해주세요");
-            return;
+
         } else {
             $('.showMsg-close').click();
 
@@ -809,11 +809,11 @@
                 }
             })
         }
-    }
+    };
     var pwd_check_two = function (edit_pwd) {
         if (edit_pwd.length < 5) {
             alert("비밀번호를 제대로 입력해주세요 (6자이상)");
-            return
+
         } else {
             $('.showMsg-close').click();
 
@@ -836,7 +836,7 @@
             })
         }
 
-    }
+    };
 
 
     /*비밀번호 변경 1단계창 띄우기*/
@@ -846,23 +846,22 @@
         setTimeout("showMsg(\"현재 비밀번호를 입력하세요<br><br> <input type='password' class='black-control' id='cur-pwd'><button type='button' class='btn btn-danger' id='pwd-edit-btn2' onclick='pwd_check_one()'>확인</button>\");", 100)
 
 
-    })
+    });
 
     /* 리플 삭제 버튼*/
     $('#reply-list').on("click", ".re-remove-btn", function () {
         var seq = $(this).attr('data-src');
 
         showSelectMsg("reply_delete(" + seq + ")");
-    })
+    });
 
     /* 크라우드 상세보기*/
     $('#crowd-list, #fund-list').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr('data-src');
-        console.log(seq);
 
         detail_load(seq);
 
-    })
+    });
     /*크라우드 보상받기 모달*/
 
     $('#crowd-list').on('click', '.reward-btn', function () {
@@ -872,7 +871,7 @@
         showSelectMsg("crowd_reward(" + seq + ")");
 
 
-    })
+    });
     /* 크라우드 펀딩 보상받기 이벤트*/
     var crowd_reward = function (seq) {
 

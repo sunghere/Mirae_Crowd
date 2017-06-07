@@ -1,7 +1,7 @@
 (function ($) {
     scroll_bottom = function () {
         $('#chatlist').scrollTop($('#chatlist').prop('scrollHeight'));
-    }
+    };
 
     function adminlist() {
         $.ajax({
@@ -12,7 +12,7 @@
                 var str = "";
                 $.each(data, function (index, val) {
                     str += "<div class='chat_list btn-default' datasrc='" + val.fromid + "'>" + val.fromid + "<span class='badge'>" + val.cnt + "</span></div>";
-                })
+                });
                 $("#chatlist").html(str);
                 $("#chat-text").hide();
             }
@@ -21,7 +21,7 @@
 
     $("#chatlist").on('click', '.chat_list', function () {
         go_chatlist("admin", $(this).attr('datasrc'));
-    })
+    });
 
     function go_chatlist(myid, fromid) {
         $.ajax({
@@ -32,9 +32,7 @@
                 chatlist_load(myid, fromid, data);
             },
             error: function (a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
+
             }
         })
     }
@@ -62,7 +60,7 @@
             }
             str += "</div></div>"
 
-        })
+        });
         $("#chatlist").html(str);
         $("#chat-text").show();
         setTimeout("scroll_bottom()", 100);
@@ -80,9 +78,7 @@
                 chatlist_load(myid, "admin", data);
             },
             error: function (a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
+
             }
         });
     }
@@ -122,10 +118,10 @@
 
             }
         })
-    }
+    };
     $("#_btnSend").click(function () {
         sendMessage();
-    })
+    });
 
     $(function () {
 
@@ -140,13 +136,13 @@
                     adminlist();
                 else chatlist();
             }
-        })
+        });
 
         $("#chat-text").keydown(function (key) {
             if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
                 sendMessage();
             }
-        })
+        });
 
         $("#chat-title").on("click", "#go-back", function () {
             adminlist();

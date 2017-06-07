@@ -24,10 +24,9 @@
                 method: "post",
                 data: {"rnn": last, "search_type": search_type, "search": search},
                 success: function (data) {
-                    console.log(data.length);
                     if (data.length < 1) {
                         var str = '';
-                        str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>'
+                        str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
 
                         $('#crowdlist').html($('#crowdlist').html() + str);
 
@@ -42,10 +41,10 @@
         } else {/*나머지가 0이 아닌경우 자료가 더이상 없다.*/
             var str = '';
 
-            str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>'
+            str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
             $('#crowdlist').html($('#crowdlist').html() + str);
         }
-    }
+    };
 
     /* 스크롤 이벤트 */
     $(window).scroll(function () {

@@ -149,24 +149,70 @@
         </div>
     </div>
 </div>
-<%--개인정보창--%>
-<c:if test="${!empty login}">
-    <div id="infomodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h3 class="text-center">${login.id}</h3>
-                    <hr>
-                    <p class="text-left"><i class="fa fa-user">${login.name}</i></p>
-                    <p class="text-left"><i class="fa fa-star-half-o">${login.point}</i></p>
-                    <br/>
-                    <button type="button" class="btn btn-danger center-block" data-dismiss="modal" aria-hidden="true">닫기<i
-                            class="ion-android-close"></i></button>
+<%--펀드모달--%>
+<div id="fund-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="pay-agree text-center"><h4 class="mini-warning-header">경고</h4>
+                    <div class="text-center mini-warning-body">투자의 위험성을 <br>알고 계신가요?<br>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#aboutModal" type="button">
+                            자세히..
+                        </button>
+                        <br></div>
+                    <div class="btn-group check-btn " data-toggle="buttons">
+                        <label class="btn btn-danger"><input type="checkbox"><i class="fa fa-check"
+                                                                                aria-hidden="true"></i>확인
+                        </label></div>
+                </div>
+
+                <div class="pay-type" style="display:none">
+                    <div class="pay-type-row row">
+                        <h4 class="pay-type-header">결제방식을 선택 해 주세요</h4>
+                        <div class="form-group" data-toggle="buttons">
+                            <div class="btn-group">
+                                <label for="kakao-type" class="btn btn-default active">
+                                    <input type="radio" name="pay-type" id="kakao-type" autocomplete="off"/>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span>&nbsp;</span>
+                                </label>
+                                <label for="kakao-type" id="kakao-label" class="btn btn-default" disabled>
+                                    KaKao
+                                </label>
+                            </div>
+                            <div class="btn-group">
+                                <label for="app-type" class="btn btn-default">
+                                    <input type="radio" name="pay-type" id="app-type" autocomplete="off"/>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span>&nbsp;</span>
+                                </label>
+                                <label for="app-type" id="app-label" class="btn btn-default" disabled>
+                                    App
+                                </label>
+                            </div>
+                            <div class="btn-group active">
+                                <label for="point-type" class="btn btn-default">
+                                    <input type="radio" name="pay-type" id="point-type" autocomplete="off" checked/>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span>&nbsp;</span>
+                                </label>
+                                <label for="point-type" class="btn btn-default" id="point-label" disabled>
+                                    Point
+                                </label>
+                            </div>
+                            <div class="pay-content">
+                                <div class="kakao-content"></div>
+                                <div class="app-content" hidden="hidden"></div>
+                                <div class="point-content" hidden="hidden"></div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</c:if>
+</div>
 <%--로그인창--%>
 <div class="modal fade" id="shLogin" style="display: none;" aria-hidden="true">
     <div id="login_bg"
@@ -182,7 +228,7 @@
                     SH Crowd Login
                 </h2>
                 <h3 class="subtitle_Type_mb50">
-                    Welcome ^ ^ // login plz<i class=""></i>
+                    환영합니다. 로그인해주세요<i class=""></i>
                 </h3>
             </div>
             <div class="modal-body">
@@ -268,103 +314,7 @@
     </div>
 </div>
 <style>
-    .detail-body {
-        font-size: 14px;
-    }
 
-    .detail-body img {
-        max-width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .detail-title {
-        font-size: 25px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 35px;
-    }
-
-    .detail-fund-btn {
-        font-size: 20px;
-        border-radius: 3px;
-        margin-bottom: 20px;
-    }
-
-    .detail-cat {
-        font-size: 20px;
-        margin-right: 10px;
-    }
-
-    .detail-summary {
-        height: 80%;
-        overflow: hidden;
-    }
-
-    .detail-summary div {
-        margin-bottom: 10px;
-    }
-
-    .detail-goalMoney {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .detail-like {
-        position: absolute;
-        right: 5%;
-        display: inline-block;
-        font-size: 40px;
-        color: #FFB2AF;
-        padding-top: 15px;
-    }
-
-    .detail-detail {
-        padding: 0 5%;
-        height: 80%;
-        position: relative;
-        overflow-y: scroll;
-    }
-
-    #detailModal > div {
-        width: 90%;
-    }
-
-    #searchModal {
-        z-index: 1049;
-    }
-
-    .search-cat {
-        cursor: pointer;
-    }
-
-    .list-search {
-        height: 100px;
-        margin-bottom: 20px;
-        cursor: pointer;
-    }
-
-    .search-img-section {
-        width: 40%;
-        float: left;
-        height: 100px;
-    }
-
-    .search-info-section {
-        padding: 10px;
-        font-size: 14px;
-        width: 60%;
-        float: left;
-        background: #f8f8f8;
-        height: 100px;
-    }
-
-    .search-info-section div {
-        margin-bottom: 10px;
-    }
-
-    .go-back-search {
-        margin-bottom: 10px;
-    }
 
 </style>
 <%--디테일 모달--%>
@@ -441,9 +391,11 @@
 <input type="hidden" class="search_type" data-src="">
 <input type="hidden" class="search" data-src="">
 <!-- 리플 모달 버튼 -->
-<button type="button" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></button>
+<input type="hidden" hidden="hidden" id="reply-modal-btn" data-toggle="modal" data-target="#replyModal"></input>
 <!-- 디테일 모달 버튼 -->
 <input type="hidden" data-target='#detailModal' data-toggle='modal' id="detail-modal-btn">
+<%-- 펀드 모달 버튼--%>
+<input type="hidden" data-target='#fund-modal' data-toggle='modal' id="fund-modal-btn">
 <script type="text/javascript"
         src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5KvZP2PadHIlORT_ptWd&submodules=panorama,geocoder"></script>
 
@@ -462,13 +414,13 @@
                     "background-position": "center"
                 });
             })
-        }
+        };
 
         /* search 버튼 클릭 */
         $(".search-remote").click(function () {
             $("#search-btn").click();
             setTimeout('$("#modal-search-text").focus()', 500);
-        })
+        });
 
         $("#crowdlist").on("click", ".list-main", function () {
 
@@ -478,7 +430,7 @@
             if (seq != 9999 && seq != '9999') {
                 detail_load(seq);
             }
-        })
+        });
         var check_like = function (pseq) {
 
             $.ajax({
@@ -489,22 +441,22 @@
 
                     if (data.message == "Over") {
                         $('.detail-like').html("<i class='fa fa-heart' aria-hidden='true'></i>");
-                        return;
+
                     } else {
                         $('.detail-like').html("<i class='fa fa-heart-o' aria-hidden='true'></i>");
-                        return;
+
                     }
 
                 }
             })
-        }
+        };
         $(".detail-summary").on("click", ".detail-like", function () {
             var pseq = $(this).attr('data-src');
 
             var id = "${login.id}";
 
             if (id == "" || id == null) {
-                showMsg("로그인 해주세요")
+                showMsg("로그인 해주세요");
                 return;
             }
 
@@ -530,12 +482,12 @@
                     showMsg("잠시후 다시 시도해주세요")
                 }
             })
-        })
+        });
 
         image_hide = function (content) {
 
             $('.detail-detail').find('img:first-child').prop("hidden", true);
-        }
+        };
 
         detail_load = function (seq) {
             $.ajax({
@@ -577,7 +529,7 @@
                     $('#detail-modal-btn').click();
                 }
             })
-        }
+        };
 
         var map_load = function (tagId, lat, lng) {
 
@@ -603,7 +555,7 @@
                 map: map
             });
 
-        }
+        };
 
         /* 모달 검색 */
         $("#modal-search-text").keydown(function (key) {
@@ -616,7 +568,7 @@
                         str = "";
                         $.each(data, function (i, val) {
                             str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
-                        })
+                        });
                         $("#searchlist").html(str);
 
                         $("#searchlist").show();
@@ -639,7 +591,7 @@
                 },
                 success: function (data) {
                     str = "<div class='btn btn-default go-back-search black-control cbox center-block'>뒤로 가기</div>";
-                    var src_list = new Array();
+                    var src_list = [];
                     $.each(data, function (i, val) {
                         str += "<div class='crowd-detail-btn list-search' data-src='" + val.seq + "'>" +
                             "<div class='search-img-section' id='search-list-img" + val.seq + "'></div>" +
@@ -650,7 +602,7 @@
                             "</div></div>";
                         var src = imageCarrier(val.content);
                         src_list.push(src);
-                    })
+                    });
                     $("#searchresult").html(str);
                     searchImageInput(src_list, data);
 
@@ -658,14 +610,14 @@
                     $("#searchresult").show();
                 }
             })
-        })
+        });
 
         /* 검색리스트 뒤로가기 */
         $("#searchresult").on("click", ".go-back-search", function () {
             $("#searchlist").show();
             $("#searchresult").hide();
 
-        })
+        });
 
         $("#searchlist").on("click", ".list-search", function () {
             var seq = $(this).attr("data-src");
@@ -673,55 +625,17 @@
 
         })
 
-    })
+    });
     /* 펀딩하기 버튼*/
     $('.detail-summary').on("click", ".detail-fund-btn", function () {
 
 
-        showMsg('<div class="pay-agree"><h4 class="mini-warning-header">경고</h4>' +
-            '<div class="text-center mini-warning-body">투자의 위험성을 <br>알고 계신가요? <button class="btn" data-toggle="modal" data-target="#aboutModal" type="button">'
-            + 'more..</button><br></div>'
-            + '<div class="btn-group check-btn" data-toggle="buttons">'
-            + '<label class="btn btn-danger"><input type="checkbox"><i class="fa fa-check" aria-hidden="true"></i>확인'
-            + '</label></div></div>' +
-
-            '<div class="pay-type" style="display:none">' +
-            '<div class="form-group"  data-toggle="buttons">' +
-            '<div class="btn-group">' +
-            '<label for="kakao-type" class="btn btn-default">' +
-            '<input type="radio" name="pay-type" id="kakao-type"  autocomplete="off"/>' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            '<span>&nbsp;</span>' +
-            '</label>' +
-            '<label for="kakao-type" id="kakao-label" class="btn btn-default" disabled>' +
-            'KaKao' +
-            '</label>' +
-            '</div>' +
-            '<div class="btn-group">' +
-            '<label for="app-type" class="btn btn-default">' +
-            '<input type="radio" name="pay-type" id="app-type"  autocomplete="off"/>' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            '<span>&nbsp;</span>' +
-            '</label>' +
-            '<label for="app-type" id="app-label" class="btn btn-default" disabled>' +
-            'App' +
-            '</label>' +
-            '</div>' +
-            '<div class="btn-group active">' +
-            '<label for="point-type" class="btn btn-default">' +
-            '<input type="radio" name="pay-type" id="point-type"  autocomplete="off" checked/>' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            '<span>&nbsp;</span>' +
-            '</label>' +
-            '<label for="point-type" class="btn btn-default" id="point-label" disabled>' +
-            'Point' +
-            '</label>' +
-            '</div></div></div>');
+        $('#fund-modal-btn').click();
     });
     /* */
     var animating = false;
 
-    $('#myMsg').on("click", ".check-btn", function () {
+    $('#fund-modal').on("click", ".check-btn", function () {
 
         if (animating) return false;
         animating = true;
@@ -749,7 +663,7 @@
             },
             easing: 'easeInOutBack'
         });
-    })
+    });
     /*로그인 초기화를 스크립트 밖에서 선언 나중에 재활용을 위해 밖에 선언해줌.*/
     var fb_logininit;
 </script>
