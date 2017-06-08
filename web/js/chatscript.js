@@ -75,13 +75,15 @@
             method: "POST",
             data: {"toid": myid, "fromid": myid},
             success: function (data) {
-                chatlist_load(myid, "admin", data);
+            	chatlist_load(myid, "admin", data);
             },
             error: function (a, b, c) {
 
             }
         });
     }
+    
+    var chat_interval;
 
     var sendMessage = function () {
         var fromid = $("input[name='myid']").attr("value");
@@ -134,10 +136,17 @@
                 $("#chatbtn").click();
                 if ($('input[name="myauth"]').attr('value') == 1)
                     adminlist();
-                else chatlist();
+                else {
+                	if($("input[name='myid']").attr("value") != null && $("input[name='myid']").attr("value") !="") {
+                		chat_interval=setInterval(function (){chatlist();},1000);
+                	}
+            	}
             }
         });
 
+        $('#chatModal').on('hidden.bs.modal', function () {
+           clearInterval(chat_interval);
+        })
         $("#chat-text").keydown(function (key) {
             if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
                 sendMessage();
