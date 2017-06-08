@@ -18,9 +18,7 @@ public class SHMessage implements Serializable {
 
     public String getTemp() {
         temp = content;
-        if (temp.length() > 12) {
-            temp = temp.substring(0, 12) + "..";
-        }
+     
         temp = temp.replace("&", "&amp;");
         temp = temp.replace("<", "&lt;");
         temp = temp.replace(">", "&gt;");
