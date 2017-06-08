@@ -21,6 +21,10 @@
 
     $("#chatlist").on('click', '.chat_list', function () {
         go_chatlist("admin", $(this).attr('datasrc'));
+        setTimeout("scroll_bottom()", 100);
+        setTimeout("scroll_bottom()", 200);
+        setTimeout("scroll_bottom()", 300);
+        chat_interval=setInterval(function (){chatlist();},1000);
     });
 
     function go_chatlist(myid, fromid) {
@@ -63,9 +67,9 @@
         });
         $("#chatlist").html(str);
         $("#chat-text").show();
-        setTimeout("scroll_bottom()", 100);
-        setTimeout("scroll_bottom()", 200);
-        setTimeout("scroll_bottom()", 300);
+//        setTimeout("scroll_bottom()", 100);
+//        setTimeout("scroll_bottom()", 200);
+//        setTimeout("scroll_bottom()", 300);
     }
 
     function chatlist() {
@@ -136,9 +140,11 @@
                 $("#chatbtn").click();
                 if ($('input[name="myauth"]').attr('value') == 1)
                     adminlist();
+                
                 else {
                 	if($("input[name='myid']").attr("value") != null && $("input[name='myid']").attr("value") !="") {
                 		chat_interval=setInterval(function (){chatlist();},1000);
+                		setTimeout("scroll_bottom()", 1200);
                 	}
             	}
             }
@@ -150,11 +156,13 @@
         $("#chat-text").keydown(function (key) {
             if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
                 sendMessage();
+                setTimeout("scroll_bottom()", 100);
             }
         });
 
         $("#chat-title").on("click", "#go-back", function () {
             adminlist();
+            clearInterval(chat_interval);
             $('#chat-title').html("1:1 문의");
         })
 
