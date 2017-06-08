@@ -20,11 +20,12 @@
     }
 
     $("#chatlist").on('click', '.chat_list', function () {
-        go_chatlist("admin", $(this).attr('datasrc'));
+    	var id=$(this).attr('datasrc');
+        go_chatlist("admin", id);
         setTimeout("scroll_bottom()", 100);
         setTimeout("scroll_bottom()", 200);
         setTimeout("scroll_bottom()", 300);
-        chat_interval=setInterval(function (){chatlist();},1000);
+        chat_interval=setInterval(function (){go_chatlist("admin",id);},1000);
     });
 
     function go_chatlist(myid, fromid) {
@@ -42,11 +43,13 @@
     }
 
     var sendtouser;
-
+    var message_length=0;
     function chatlist_load(myid, fromid, data) {
         var str = "";
         var temp_chk = 0;
-        $.each(data, function (index, val) {
+
+        
+    	$.each(data, function (index, val) {
             if (myid == val.fromid) {
                 str += "<div class='text-right'><div class='chat_text'>" + val.temp;
             } else {
@@ -67,9 +70,12 @@
         });
         $("#chatlist").html(str);
         $("#chat-text").show();
-//        setTimeout("scroll_bottom()", 100);
-//        setTimeout("scroll_bottom()", 200);
-//        setTimeout("scroll_bottom()", 300);
+        if(message_length <data.length){
+        	 setTimeout("scroll_bottom()", 100);
+        	 setTimeout("scroll_bottom()", 200);
+        	 setTimeout("scroll_bottom()", 300);
+        }
+        	 message_length=data.length;
     }
 
     function chatlist() {
