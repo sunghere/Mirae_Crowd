@@ -23,9 +23,9 @@ public interface SHBoardDAO {
     void boarddelete(SHBoard board);
 
 
-    public List<SHBoard> getBoardPageList(BoardParam param) throws Exception;
+    List<SHBoard> getBoardPageList(BoardParam param) throws Exception;
 
-    public int getBoardTotalCount(BoardParam param) throws Exception;
+    int getBoardTotalCount(BoardParam param) throws Exception;
 
     void updateReadCount(SHBoard board);
 

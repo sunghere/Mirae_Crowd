@@ -12,19 +12,19 @@ import java.util.List;
  */
 public interface SHReplyDAO {
 
-    public void addReply(SHReply shReply) throws Exception;
+    void addReply(SHReply shReply) throws Exception;
 
-    public void addReReply(SHReply shReply) throws Exception;
+    void addReReply(SHReply shReply) throws Exception;
 
-    public void removeReply(SHReply shReply);
+    void removeReply(SHReply shReply);
 
-    public SHReply getReply(SHReply shReply);
+    SHReply getReply(SHReply shReply);
 
-    public void updateReply(SHReply shReply);
+    void updateReply(SHReply shReply);
 
-    public List<SHReply> getReplyList(BoardCheck boardCheck);
+    List<SHReply> getReplyList(BoardCheck boardCheck);
 
-    public List<SHReply> getReplyListbyId(SHUser shUser);
+    List<SHReply> getReplyListbyId(SHUser shUser);
 
 
 }
