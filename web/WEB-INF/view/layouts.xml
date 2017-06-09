@@ -17,16 +17,16 @@
         <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
         <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
         <put-attribute name="left_main" value="/WEB-INF/view/common/left_crow.jsp"/>
-        <put-attribute name="main" value="/WEB-INF/view/crow/main.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/view/crowd/main.jsp"/>
         <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
     </definition>
     <definition name="admin.tiles" extends="main.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/crow/crowWriter.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/view/crowd/crowdWriter.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
 
     </definition>
     <definition name="crowdAdd.tiles" extends="main.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/crow/crowWriter.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/view/crowd/crowdWriter.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
     </definition>
     <definition name="reqlist.tiles" extends="main.tiles">

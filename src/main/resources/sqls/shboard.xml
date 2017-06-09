@@ -116,11 +116,10 @@
         FROM SHBOARD,(SELECT @ROWNUM := 0)R
         WHERE
         <if test="ent !=0">
-            ENT = #{ent}
+        ENT = #{ent}
         </if>
         <if test="ent ==0">
-        (ENT =0 OR ENT IS NULL)
-
+        ENT = 0
         </if>
         <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
             <if test="s_category == 'title'">AND (TITLE like concat('%',#{s_keyword},'%'))</if>
@@ -137,12 +136,12 @@
             parameterType="com.sung.hee.help.BoardParam"
             resultType="java.lang.Integer">
         SELECT IFNULL(count(*),0) AS cnt
-        FROM SHBOARD
+        FROM SHBOARD WHERE
         <if test="ent !=0">
             ENT = #{ent}
         </if>
         <if test="ent ==0">
-            (ENT =0 OR ENT IS NULL)
+            ENT = 0
 
         </if>
         <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">

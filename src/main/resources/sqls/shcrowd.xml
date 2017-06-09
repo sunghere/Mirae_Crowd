@@ -153,18 +153,18 @@
 
     </select>
 
-    <insert id="fundCrowd" parameterType="com.sung.hee.shcrowd.model.SHFUND">
+    <insert id="fundCrowd" parameterType="com.sung.hee.shcrowd.model.SHFund">
         INSERT INTO SHFUND(PSEQ, MONEY, wdate, ID) VALUES
         (#{pseq},#{money},DATE_FORMAT(NOW(), '%Y-%m-%d'),#{id})
 
     </insert>
 
-    <delete id="fundCrowdCancel" parameterType="com.sung.hee.shcrowd.model.SHFUND">
+    <delete id="fundCrowdCancel" parameterType="com.sung.hee.shcrowd.model.SHFund">
         DELETE FROM SHFUND WHERE SEQ = #{seq}
 
     </delete>
 
-    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFUND">
+    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFund">
         UPDATE SHCROWD SET CURMONEY = CURMONEY + #{money} WHERE SEQ=#{pseq}
 
     </update>

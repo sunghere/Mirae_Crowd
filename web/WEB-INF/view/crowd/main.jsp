@@ -32,7 +32,8 @@
                 data: {},
                 success: function (data) {
                     make_list(data, 0);
-                }, error: function (a, b, c) {
+                }, error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
                 }
             })

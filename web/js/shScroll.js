@@ -33,7 +33,8 @@
                     } else {
                         make_list(data, 1);
                     }
-                }, error: function (a, b, c) {
+                }, error: function (request, status, error) {
+                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
                 }
             })
