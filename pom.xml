@@ -7,9 +7,23 @@
     <groupId>com.sung.mirae</groupId>
     <artifactId>mirae</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <packaging>war</packaging>
+    <build>
+        <!-- mirae.war 가 생성된다. -->
+        <finalName>mirae</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>RELEASE</version>
 
+                <configuration>
+                    <warSourceDirectory>webxml</warSourceDirectory>
+                    <webXml>web/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <repositories>
         <repository>
             <id>oracle</id>
