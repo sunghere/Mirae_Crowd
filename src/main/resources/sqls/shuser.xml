@@ -23,7 +23,7 @@
 	</select>
 	<select id="getID" parameterType="com.sung.hee.user.model.SHUser"
 		resultType="java.lang.Integer">
-		SELECT nvl(COUNT(*),0) FROM SHUSER WHERE ID=#{id}
+		SELECT IFNULL(COUNT(*),0) FROM SHUSER WHERE ID=#{id}
 	</select>
 	<select id="getPWD" parameterType="com.sung.hee.user.model.SHUser"
 		resultType="java.lang.String">

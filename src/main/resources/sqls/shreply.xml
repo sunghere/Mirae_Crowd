@@ -8,7 +8,7 @@
 
     INSERT INTO SHREPLY(SEQ, ID, REF, STEP, DEPTH,
                     BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
-  (seq_shreply.nextval,#{id},(SELECT NVL(MAX(REF),0)+1 FROM SHREPLY),
+  (seq_shreply.nextval,#{id},(SELECT IFNULL(MAX(REF),0)+1 FROM SHREPLY),
 0,0,#{btype},sysdate,#{content},0,#{bparent},0)
     </insert>
 
@@ -104,7 +104,7 @@
     <select id="getReplyTotalCount"
             parameterType="com.sung.hee.help.ReplyParam"
             resultType="java.lang.Integer">
-        SELECT NVL(count(*),0) AS cnt
+        SELECT IFNULL(count(*),0) AS cnt
         FROM SHREPLY
     </select>
 
