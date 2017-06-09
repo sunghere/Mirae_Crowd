@@ -9,21 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
-    <build>
-        <!--톰캣 자동배포-->
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <configuration>
-                        <webXml>web\WEB-INF\web.xml</webXml>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
     <repositories>
         <repository>
             <id>oracle</id>
