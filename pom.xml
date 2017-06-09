@@ -15,16 +15,10 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tomcat-maven-plugin</artifactId>
-                    <version>1.1</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
                     <configuration>
-                        <url>http://52.79.221.236/</url>
-                        <path>/Mirae</path>
-                        <username>sunghere</username>
-                        <password>sungheres</password>
-                        <charset>UTF-8</charset>
-                        <uriEncoding>UTF-8</uriEncoding>
+                        <webXml>web\WEB-INF\web.xml</webXml>
                     </configuration>
                 </plugin>
             </plugins>
