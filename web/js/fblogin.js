@@ -29,7 +29,7 @@
 
 
         });
-    })
+    });
 
     fb_logininit = function () {
         FB.api('/me', function (user) {
@@ -48,7 +48,7 @@
                  $('#fb_id').html(user.id)*/
             }
         });
-    }
+    };
 
     $('#myMsg').on("click", '#fbRegiBt', function () {
         $('.modalclose').click();
@@ -65,9 +65,9 @@
                         }
 
 
-                        $('#fb_image').html(user.name)
+                        $('#fb_image').html(user.name);
                         $('#fb_image').attr("src", 'http://graph.facebook.com/' + user.id + '/picture');
-                        $('#fb_name').html(user.name)
+                        $('#fb_name').html(user.name);
                         $('#fb_id').html(user.id)
                     }
                 });
@@ -99,7 +99,7 @@
             },
             error: function (a, b, c) {
 
-                showMsg("통신 Error")
+                showMsg("통신 Error");
                 idcheck = false;
             }
 
@@ -140,7 +140,7 @@
                 "id": data.id,
                 "pwd": "facebook",
                 "name": data.name,
-                "isent": 0,
+                "ent": 0,
                 "isSNS": "1",
                 "certi": 1
             },

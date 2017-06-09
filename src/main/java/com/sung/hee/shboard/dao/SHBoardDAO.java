@@ -22,18 +22,11 @@ public interface SHBoardDAO {
 
     void boarddelete(SHBoard board);
 
-
     List<SHBoard> getBoardPageList(BoardParam param) throws Exception;
 
     int getBoardTotalCount(BoardParam param) throws Exception;
 
     void updateReadCount(SHBoard board);
-
-    List<SHBoard> getEntBoardList(SHBoard board);
-
-    List<SHBoard> getEntBoardPageList(BoardParam param) throws Exception;
-
-    int getEntBoardTotalCount(BoardParam param) throws Exception;
 
     List<SHBoard> getMyBoardlist(SHUser shUser);
 

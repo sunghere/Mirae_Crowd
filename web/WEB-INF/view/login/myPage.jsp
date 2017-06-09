@@ -154,7 +154,7 @@
         <li data-toggle="pill" class="side-point-btn"><a href="#" class="side-bar-text">포인트 충전</a></li>
         <li data-toggle="pill" class="side-board-btn"><a href="#" class="side-bar-text">내 글 모아보기</a></li>
         <li data-toggle="pill" class="side-reply-btn"><a href="#" class="side-bar-text">나의 댓글</a></li>
-        <c:if test="${login.isent eq 1}">
+        <c:if test="${login.ent ne 0}">
             <li data-toggle="pill" class="side-ent-btn"><a href="#" class="side-bar-text">기업</a></li>
 
         </c:if>
@@ -190,7 +190,7 @@
         <span class="text-center sub-text">이 름</span><input type="text" class="black-control" value="${login.name}"
                                                             disabled>
     </div>
-    <c:if test="${login.isent eq 1}">
+    <c:if test="${login.ent ne 0}">
         <div class="col-md-12 main-title text-left">기업 회원</div>
 
         <div class="col-md-12 main-text text-left">

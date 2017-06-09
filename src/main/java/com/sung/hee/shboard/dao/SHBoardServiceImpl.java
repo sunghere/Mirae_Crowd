@@ -29,17 +29,13 @@ public class SHBoardServiceImpl implements SHBoardService {
     }
 
 
-    @Transactional(readOnly = true)
-    public List<SHBoard> getEntBoardList(SHBoard board) {
-        return shBoardDAO.getEntBoardList(board);
-    }
-
     @Transactional
     public SHBoard getBoard(SHBoard shboard) {
         // shBoardDAO.updateReadCount(shboard);
         return shBoardDAO.getBoard(shboard);
     }
 
+    @Transactional
     public void updateReadCount(SHBoard shboard) {
         shBoardDAO.updateReadCount(shboard);
     }
@@ -73,16 +69,6 @@ public class SHBoardServiceImpl implements SHBoardService {
         return shBoardDAO.getBoardTotalCount(param);
     }
 
-    @Transactional(readOnly = true)
-    public List<SHBoard> getEntBoardPageList(BoardParam param) throws Exception {
-        return shBoardDAO.getEntBoardPageList(param);
-    }
-
-    @Transactional(readOnly = true)
-    public int getEntBoardTotalCount(BoardParam param) throws Exception {
-        return shBoardDAO.getEntBoardTotalCount(param);
-
-    }
 
     @Transactional(readOnly = true)
     public List<SHBoard> getMyBoardlist(SHUser shUser) {

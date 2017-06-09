@@ -30,7 +30,6 @@ public class SHUser implements Serializable {
                 ", point=" + point +
                 ", certi=" + certi +
                 ", isSNS='" + isSNS + '\'' +
-                ", isent=" + isent +
                 '}';
     }
 
@@ -70,16 +69,6 @@ public class SHUser implements Serializable {
         this.point = point;
     }
 
-    private int isent = 0;
-
-
-    public int getIsent() {
-        return isent;
-    }
-
-    public void setIsent(int isent) {
-        this.isent = isent;
-    }
 
 
     public int getEnt() {

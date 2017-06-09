@@ -6,7 +6,7 @@
     <select id="getPoll"
             parameterType="com.sung.hee.poll.model.SHPoll"
             resultType="com.sung.hee.poll.model.SHPoll">
-SELECT POLLID, ID,   QUESTION,
+SELECT POLLID, ID,QUESTION,
 SDATE ,EDATE, ITEMCOUNT,
 POLLTOTAL, REGDATE 
 FROM SHPOLL 
@@ -22,18 +22,18 @@ WHERE POLLID=#{pollid}
     <insert id="makePoll"
             parameterType="com.sung.hee.poll.model.SHPoll">
 	INSERT INTO SHPOLL  
-	(POLLID,ID, QUESTION, 
+	(ID, QUESTION,
 	SDATE ,EDATE, ITEMCOUNT,
 	POLLTOTAL, REGDATE) 
-	VALUES (SEQ_SHPOLL.NEXTVAL,
+	VALUES (
 	#{id},#{question}, #{wdate},#{edate}, #{itemcount},
-	0, SYSDATE) 
+	0, DATE_FORMAT(NOW(), '%Y-%m-%d')) 
 	</insert>
     <insert id="makePollSub"
             parameterType="com.sung.hee.poll.model.SHPollSub">
 	INSERT INTO SHPOLLSUB
-	(POLLSUBID, POLLID, ANSWER, ACOUNT ) 
-	VALUES (SEQ_SHPOLL_SUB.NEXTVAL, 
+	(POLLID, ANSWER, ACOUNT )
+	VALUES (
 	(SELECT IFNULL(MAX(POLLID),0) FROM SHPOLL)
 	, #{answer}, 0)
 	</insert>
@@ -47,7 +47,7 @@ POLLTOTAL,REGDATE
 FROM SHPOLL
 ORDER BY SDATE DESC 
 </select>
-    <!-- WHERE TO_DATE(EDATE,'YYYY-MM-DD') >= TO_DATE(SYSDATE,'YYYY-MM-DD') -->
+    <!-- WHERE TO_DATE(EDATE,'YYYY-MM-DD') >= TO_DATE(DATE_FORMAT(NOW(), '%Y-%m-%d'),'YYYY-MM-DD') -->
     <select id="isVote"
             parameterType="com.sung.hee.poll.model.SHVoter"
             resultType="java.lang.Integer">
@@ -57,9 +57,9 @@ WHERE POLLID=#{pollid} AND ID=#{id}
 </select>
     <insert id="pollingVote"
             parameterType="com.sung.hee.poll.model.SHVoter">
-INSERT INTO SHVOTER(VOTERID,POLLID, POLLSUBID, ID,REGDATE)
-VALUES(SEQ_SH_VOTER.NEXTVAL,
-#{pollid}, #{pollsubid},#{id}, SYSDATE) 
+INSERT INTO SHVOTER(POLLID, POLLSUBID, ID,REGDATE)
+VALUES(
+#{pollid}, #{pollsubid},#{id}, DATE_FORMAT(NOW(), '%Y-%m-%d')) 
 </insert>
     <update id="pollingSub"
             parameterType="com.sung.hee.poll.model.SHVoter">

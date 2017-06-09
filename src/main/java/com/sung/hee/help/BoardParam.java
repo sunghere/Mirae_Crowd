@@ -30,7 +30,7 @@ public class BoardParam implements Serializable {
     private int rownum;
     private int ref;
     private int step;
-    private int ent;
+    private int ent=0;
     private String filename;
 
 

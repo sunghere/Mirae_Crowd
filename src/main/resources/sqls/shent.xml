@@ -6,7 +6,7 @@
 
     <insert id="addEnt"
             parameterType="com.sung.hee.ent.model.SHEnt">
-    INSERT INTO SHENT(ENT, ENTNAME,DEL) INTO (SEQ_SHENT.NEXTVAL,#{entname},0)
+    INSERT INTO SHENT(ENTNAME,DEL) INTO (#{entname},0)
 	</insert>
 
 

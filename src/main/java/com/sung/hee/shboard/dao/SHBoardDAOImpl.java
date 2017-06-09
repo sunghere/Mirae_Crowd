@@ -66,18 +66,6 @@ public class SHBoardDAOImpl implements SHBoardDAO {
         sqlSession.update(ns + "updateReadCount", board);
     }
 
-    public List<SHBoard> getEntBoardList(SHBoard board) {
-        return sqlSession.selectList(ns + "getEntBoardList");
-    }
-
-    public List<SHBoard> getEntBoardPageList(BoardParam param) throws Exception {
-        return sqlSession.selectList(ns + "getEntBoardPageList", param);
-    }
-
-    public int getEntBoardTotalCount(BoardParam param) throws Exception {
-        return (Integer) sqlSession.selectOne(ns + "getEntBoardTotalCount", param);
-
-    }
 
     public List<SHBoard> getMyBoardlist(SHUser shUser) {
         return sqlSession.selectList(ns+"getMyBoardlist",shUser);

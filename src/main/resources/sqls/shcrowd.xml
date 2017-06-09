@@ -7,16 +7,21 @@
 
     <insert id="addCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        INSERT INTO SHCROWD(SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        INSERT INTO SHCROWD(TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE,LATLNG) VALUES
-        (SEQ_SHCROWD.nextval, #{title},#{content},#{id},#{goalMoney},0,0,#{tag},
-        #{wdate},#{edate},#{category},
+        (#{title},#{content},#{id},#{goalMoney},0,0,#{tag},
+        #{sdate},#{edate},#{category},
         <if test="address != null and address!=''">
             #{address}
         </if>
         <if test="address == null or address==''">''</if>
-        ,#{type},0,0,'0','0',sysdate,#{latlng})
+        ,#{type},0,0,'0','0',DATE_FORMAT(NOW(), '%Y-%m-%d'),
+        <if test="latlng != null and latlng!=''">
+            #{latlng}
 
+        </if>
+        <if test="latlng == null or latlng==''">''</if>
+        )
     </insert>
 
     <update id="delCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
@@ -34,32 +39,30 @@
     IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE, REQ, LATLNG, WDATE
     FROM SHCROWD LEFT JOIN
     (SELECT COUNT(*) PNUM, PSEQ, SUM(MONEY) CURMONEY
-    FROM SHFUND GROUP BY PSEQ) COUNTS ON COUNTS.PSEQ=SHCROWD.SEQ WHERE SEQ =#{seq})
+    FROM SHFUND GROUP BY PSEQ) COUNTS ON COUNTS.PSEQ=SHCROWD.SEQ WHERE SEQ =#{seq}) A
 
     </select>
 
     <select id="reqCrowdList"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-    SELECT pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+    SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
     SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-    SELECT ROW_NUMBER() OVER (ORDER BY SEQ DESC) rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+    SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
     IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE
     FROM SHCROWD left join
     (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
-    FROM SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 0) A
+    FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 0 ORDER BY SEQ DESC) A
 
     </select>
     <select id="myReqCrowdList" parameterType="com.sung.hee.user.model.SHUser"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-
-    SELECT pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-    SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
-    SELECT ROW_NUMBER() OVER (ORDER BY SEQ DESC) rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
-    IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD
+    SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+    SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
+    SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+    IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE
     FROM SHCROWD left join
     (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
-    FROM SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE ID = #{id}) A
-
+    FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE ID = #{id} ORDER BY SEQ DESC) A
     </select>
     <update id="accCrowd"
             parameterType="com.sung.hee.shcrowd.model.SHCrowd">
@@ -80,9 +83,8 @@
 
         SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
-        SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD WHERE REQ = 1 AND ENDFLAG='0')
+        SELECT @ROWNUM := @ROWNUM + 1 as rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC) A
 
     </select>
     <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
@@ -90,12 +92,12 @@
 
         SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
-        SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, IFNULL(COUNTS.CURMONEY,0)
+        SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        IFNULL(COUNTS.CURMONEY,0)
         AS CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join (SELECT COUNT(*)
         PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
-        SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 1 AND ENDFLAG='0')
+        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC) A
         <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
@@ -107,28 +109,27 @@
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
         SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-        SELECT ROW_NUMBER() OVER (
-        ORDER BY SEQ DESC) rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, IFNULL(COUNTS.CURMONEY,0)
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
+        SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        IFNULL(COUNTS.CURMONEY,0)
         AS CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM SHCROWD left join (SELECT COUNT(*)
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join (SELECT COUNT(*)
         PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
-        SHFUND GROUP BY PSEQ) COUNTS ON COUNTS.PSEQ=SHCROWD.SEQ WHERE REQ = 1 AND ENDFLAG='0'
+        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
-                AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search}
-                ||'%')
+                AND (TAG like CONCAT('%',#{search},'%') OR TITLE like CONCAT('%',#{search},'%') OR CONTENT like CONCAT('%',#{search},'%'))
             </if>
             <if test="search_type == 'tag'">
-                AND (TAG like '%'|| #{search} || '%')
+                AND (TAG like CONCAT('%',#{search},'%'))
             </if>
             <if test="search_type == 'category'">
-                AND (CATEGORY like '%'|| #{category} || '%') AND (TAG like '%'|| #{search} ||'%' OR TITLE like '%'||
-                #{search} ||'%' OR CONTENT like '%'|| #{search}
-                ||'%')
+
+                AND (CATEGORY like  CONCAT('%',#{category},'%')) AND (TAG like  CONCAT('%',#{category},'%') OR TITLE like
+                CONCAT('%',#{category},'%') OR CONTENT like CONCAT('%',#{category},'%'))
             </if>
         </if>
-        )
+        ) A
         <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
@@ -143,34 +144,34 @@
         SELECT c.SEQ,f.SEQ as myseq, c.TITLE, c.GOALMONEY, c.CURMONEY, c.tag,
         c.SDATE, c.EDATE, c.CATEGORY, c.TYPE,c.REQ, f.MONEY,f.wdate FROM ( SELECT pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
     SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-    SELECT ROW_NUMBER() OVER (ORDER BY SEQ DESC) rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+    SELECT  @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
     IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE
     FROM SHCROWD left join
     (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
-    FROM SHFund GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq)) c join SHFUND f on c.seq = f.pseq
+    FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R ORDER BY SEQ DESC)A )c join SHFUND f on c.seq = f.pseq
         WHERE f.id = #{id}
 
     </select>
 
-    <insert id="fundCrowd" parameterType="com.sung.hee.shcrowd.model.SHFund">
-        INSERT INTO SHFUND(SEQ, PSEQ, MONEY, wdate, ID) VALUES
-        (SEQ_SHFUND.nextval,#{pseq},#{money},sysdate,#{id})
+    <insert id="fundCrowd" parameterType="com.sung.hee.shcrowd.model.SHFUND">
+        INSERT INTO SHFUND(PSEQ, MONEY, wdate, ID) VALUES
+        (#{pseq},#{money},DATE_FORMAT(NOW(), '%Y-%m-%d'),#{id})
 
     </insert>
 
-    <delete id="fundCrowdCancel" parameterType="com.sung.hee.shcrowd.model.SHFund">
+    <delete id="fundCrowdCancel" parameterType="com.sung.hee.shcrowd.model.SHFUND">
         DELETE FROM SHFUND WHERE SEQ = #{seq}
 
     </delete>
 
-    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFund">
+    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFUND">
         UPDATE SHCROWD SET CURMONEY = CURMONEY + #{money} WHERE SEQ=#{pseq}
 
     </update>
 
     <insert id="crowdLike" parameterType="com.sung.hee.help.CrowdLike">
 
-        INSERT INTO SHCROWDLIKE(SEQ, PSEQ, ID) VALUES (SEQ_SHCROWDLIKE.nextval,#{pseq},#{id})
+        INSERT INTO SHCROWDLIKE(PSEQ, ID) VALUES (#{pseq},#{id})
 
     </insert>
     <delete id="crowdUnLike" parameterType="com.sung.hee.help.CrowdLike">
@@ -194,6 +195,7 @@
         <if test="like==0">+1</if>
         <if test="like==-1">-1</if>
         WHERE seq = #{pseq}
+
     </update>
 
     <update id="endFlag" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
@@ -230,7 +232,7 @@
     <select id="searchCategory" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
     	SELECT COUNT(*) CNT, CATEGORY FROM SHCROWD
-		WHERE TAG like '%'|| #{search} ||'%' OR TITLE like '%'|| #{search} ||'%' OR CONTENT like '%'|| #{search} ||'%'
+		WHERE TAG like CONCAT('%',#{search},'%') OR TITLE like CONCAT('%',#{search},'%') OR CONTENT like CONCAT('%',#{search},'%')
 		GROUP BY CATEGORY
     </select>
 

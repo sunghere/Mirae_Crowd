@@ -11,7 +11,7 @@
                      alt="Card image cap">
                 <div class="card-block">
                     <div class="card-block">
-                        <c:if test="${login.isent eq 1}">
+                        <c:if test="${login.ent ne 0}">
                             <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
                             <p class="card-text">기업전용 게시판을 이용해보세요.</p>
                             <p class="card-text">
@@ -19,7 +19,7 @@
                             <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise
                                 Board</a></p>
                         </c:if>
-                        <c:if test="${login.isent eq 0}">
+                        <c:if test="${login.ent eq 0}">
                             <blockquote>
 
                                 <h4 class="card-title cursive">Try Crowd Fund Start Now</h4>

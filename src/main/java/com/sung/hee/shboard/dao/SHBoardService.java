@@ -11,7 +11,6 @@ public interface SHBoardService {
 
     List<SHBoard> getBoardList();
 
-    List<SHBoard> getEntBoardList(SHBoard board);
 
     SHBoard getBoard(SHBoard shboard);
 
@@ -27,9 +26,6 @@ public interface SHBoardService {
 
     int getBoardTotalCount(BoardParam param) throws Exception;
 
-    List<SHBoard> getEntBoardPageList(BoardParam param) throws Exception;
-
-    int getEntBoardTotalCount(BoardParam param) throws Exception;
 
     List<SHBoard> getMyBoardlist(SHUser shUser);
 }

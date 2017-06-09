@@ -10,12 +10,12 @@
         <div class="card">
             <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..." alt="Card image cap">
             <div class="card-block">
-                <c:if test="${login.isent eq 1}">
+                <c:if test="${login.ent ne 0}">
                     <h4 class="card-title">${login.entname}</h4>
                     <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise Board</a>
                     </p>
                 </c:if>
-                <c:if test="${login.isent eq 0}">
+                <c:if test="${login.ent ne 0}">
                     <h3 class="card-title">${login.entname} 기업 회원님 환영합니다.</h3>
                     <p class="card-text">이곳은 ${login.entname} 기업회원내의 게시물만 보입니다. </p>
                     <p class="card-text">

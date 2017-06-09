@@ -306,9 +306,9 @@ public class BoardController {
 
 
         } else {
-            if (user.getIsent() == 0 || user.getEnt() != myBoard.getEnt()) {
+            if (user.getEnt() == 0 || user.getEnt() != myBoard.getEnt()) {
 
-                return "redirect:/eboardlist.do";
+                return "redirect:/boardlist.do";
             }
 
         }
@@ -488,10 +488,10 @@ public class BoardController {
         param.setEnd(end);
         logger.info("Welcome eBoardController param! " + param);
         int totalRecordCount =
-                shBoardService.getEntBoardTotalCount(param);
+                shBoardService.getBoardTotalCount(param);
         logger.info("Welcome eBoardController totalRecordCount! " + totalRecordCount);
         List<SHBoard> boardlist =
-                shBoardService.getEntBoardPageList(param);
+                shBoardService.getBoardPageList(param);
         logger.info("Welcome eBoardController boardlist! " + boardlist.size());
         model.addAttribute("doc_title", "Board 글목록");
         model.addAttribute("boardlist", boardlist);

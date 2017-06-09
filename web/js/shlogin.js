@@ -79,7 +79,7 @@
 
 
                     if (res.kaccount_email_verified == "false") {
-                        showMsg("이메일 인증이 안된 계정입니다.")
+                        showMsg("이메일 인증이 안된 계정입니다.");
                         Kakao.Auth.logout();
                         return;
                     }
@@ -112,7 +112,7 @@
 
 
                         if (res.kaccount_email_verified == "false") {
-                            showMsg("이메일 인증이 안된 계정입니다.")
+                            showMsg("이메일 인증이 안된 계정입니다.");
                             Kakao.Auth.logout();
                             return;
                         }
@@ -154,7 +154,7 @@
             },
             error: function (a, b, c) {
 
-                showMsg("통신 Error")
+                showMsg("통신 Error");
                 idcheck = false;
             }
 
@@ -195,7 +195,7 @@
                 "id": data.kaccount_email,
                 "pwd": data.id,
                 "name": data.properties.nickname,
-                "isent": 0,
+                "ent": 0,
                 "isSNS": "1",
                 "certi": 1
             },
@@ -211,7 +211,7 @@
             },
             error: function (a, b, c) {
 
-                showMsg("통신 Error <br> 관리자에게 문의해주세요")
+                showMsg("통신 Error <br> 관리자에게 문의해주세요");
                 Kakao.Auth.logout();
 
             }
@@ -224,7 +224,7 @@
         $('#myMsg').html(str);
 
         $('#showMsgBt').click();
-    }
+    };
 
 
     showSelectMsg = function (func) {

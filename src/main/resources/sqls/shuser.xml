@@ -4,56 +4,76 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SHUser">
 
-	<insert id="regi" parameterType="com.sung.hee.user.model.SHUser">
-		INSERT INTO SHUSER(ID, NAME, PWD, AUTH,
-		DEL,ISENT,ENT,ENTNAME,POINT,CERTI,isSNS)
-		VALUES (#{id},#{name},#{pwd},3, 0,#{isent},
-		<if test="isent == 1">(SELECT ent FROM SHENT WHERE
-			ENTNAME=#{entname}),#{entname}</if>
-		<if test="isent == 0">null,null</if>
-		,0,#{certi},#{isSNS})
-	</insert>
-	<update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
+    <insert id="regi" parameterType="com.sung.hee.user.model.SHUser">
+
+		INSERT INTO SHUSER (ID, NAME, PWD, AUTH,
+		DEL, ENT, POINT, CERTI, isSNS)
+		VALUES (#{id}, #{name}, #{pwd}, 1, 0, IFNULL((SELECT ENT FROM SHENT WHERE ENTNAME='dd'),NULL), 0, #{certi}, #{isSNS})
+    </insert>
+    <update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
 		UPDATE SHUSER SET CERTI=1 WHERE id=#{id}
 	</update>
-	<select id="login" parameterType="com.sung.hee.user.model.SHUser"
-		resultType="com.sung.hee.user.model.SHUser">
-		SELECT ID, NAME, AUTH,ISENT,ENT,ENTNAME,POINT,CERTI,isSNS FROM SHUSER WHERE
-		ID = #{id} AND PWD = #{pwd} AND DEL = 0
+    <select id="login" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="com.sung.hee.user.model.SHUser">
+SELECT
+  ID,
+  NAME,
+  AUTH,
+  ENTS.ENT,
+  ENTS.ENTNAME,
+  POINT,
+  CERTI,
+  isSNS
+FROM SHUSER
+  LEFT JOIN (SELECT ENT,ENTNAME
+        FROM SHENT WHERE DEL=0)ENTS ON SHUSER.ENT = ENTS.ENT
+WHERE
+  ID = #{id} AND PWD = #{pwd} AND DEL = 0
 	</select>
-	<select id="getID" parameterType="com.sung.hee.user.model.SHUser"
-		resultType="java.lang.Integer">
+    <select id="getID" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*),0) FROM SHUSER WHERE ID=#{id}
 	</select>
-	<select id="getPWD" parameterType="com.sung.hee.user.model.SHUser"
-		resultType="java.lang.String">
+    <select id="getPWD" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="java.lang.String">
 		SELECT PWD FROM SHUSER WHERE ID=#{id}
 	</select>
-	<select id="getEntUserlist" parameterType="com.sung.hee.ent.model.SHEnt"
-		resultType="java.lang.Integer">
-		SELECT ID, NAME,ENT,ENTNAME,POINT,CERTI FROM SHUSER WHERE ENT=#{ent} AND DEL
-		=0
+    <select id="getEntUserlist" parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="java.lang.Integer">
+		SELECT
+  ID,
+  NAME,
+  AUTH,
+  ENTS.ENT,
+  ENTS.ENTNAME,
+  POINT,
+  CERTI,
+  isSNS
+FROM SHUSER
+  LEFT JOIN (SELECT ENT,ENTNAME
+        FROM SHENT WHERE DEL=0)ENTS ON SHUSER.ENT = ENTS.ENT
+WHERE DEL = 0 AND ENTNAME=#{entname}
 	</select>
 
-	<update id="inPoint" parameterType="com.sung.hee.user.model.SHUser">
+    <update id="inPoint" parameterType="com.sung.hee.user.model.SHUser">
 
 		UPDATE SHUSER SET POINT = POINT + #{epoint} WHERE ID= #{id}
 
 	</update>
 
-	<update id="dePoint" parameterType="com.sung.hee.user.model.SHUser">
+    <update id="dePoint" parameterType="com.sung.hee.user.model.SHUser">
 
 		UPDATE SHUSER SET POINT = POINT - #{epoint} WHERE ID= #{id}
 
 	</update>
-	<update id="pwdUpdate" parameterType="com.sung.hee.user.model.SHUser">
+    <update id="pwdUpdate" parameterType="com.sung.hee.user.model.SHUser">
 
 		UPDATE SHUSER SET PWD = #{pwd} WHERE ID= #{id}
 
 	</update>
 
-	<select id="getIsSnS" parameterType="com.sung.hee.user.model.SHUser"
-		resultType="com.sung.hee.user.model.SHUser">
+    <select id="getIsSnS" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="com.sung.hee.user.model.SHUser">
 		SELECT isSNS FROM SHUSER WHERE ID= #{id}
 	</select>
 
