@@ -1027,7 +1027,7 @@ img::-moz-selection {
 }
 
 .reply-modal-content {
-	height: 300px;
+    height: 300px;
 }
 
 /*리모콘*/
@@ -1145,9 +1145,14 @@ img::-moz-selection {
     width: 70%;
 }
 
-.main-top-navbar {
-    padding-left: 15%;
-    padding-right: 15%;
+#topNav navbar-brand {
+    width: 15%;
+}
+
+@media (min-width: 768px) {
+    .navbar-header {
+        padding-left: 15%;
+    }
 }
 
 /* 마이페이지*/

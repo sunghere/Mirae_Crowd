@@ -35,10 +35,7 @@
             $('.writeListAffix').show();
         }
     });
-    $('.navbar-collapse ul li a').click(function () {
-        /* always close responsive nav after click */
-        $('.navbar-toggle:visible').click();
-    });
+
 
     $('#galleryModal').on('show.bs.modal', function (e) {
         $('#galleryImage').attr("src", $(e.relatedTarget).data("src"));
@@ -54,8 +51,6 @@
         if (options) {
             $.extend(settings, options);
         }
-        ;
-
         return this.each(function () {
 
             var self = this;
@@ -95,12 +90,9 @@
                 } else {
                     $(self).css("margin-left", "-168px");
                 }
-                ;
             } else {
                 $(self).css("margin-left", settings.imagewidth - settings.width + "px");
             }
-            ;
-
             $(self).bind("change", function () {
                 filename.val($(self).val());
             });
@@ -199,25 +191,25 @@
         }
         return outNum;
 
-    }
+    };
     /*이미지를 파싱해주는부분*/
     imageCarrier = function (content) {
-        var contentArray = new Array();
+        var contentArray = [];
         contentArray = content.split('alt="" src="');
         if (contentArray[1] != null && contentArray[1] != "") {
-            var src = contentArray[1].split('"')
+            var src = contentArray[1].split('"');
 
             return src[0];
         } else {
 
         }
         return "";
-    }
+    };
     /* 현재금액과 목표금액을 매개변수로 퍼센트를 계산*/
     toGoal = function (goalmoney, curmoney) {
         var per = (curmoney / goalmoney) * 100;
         return Math.floor(per);
-    }
+    };
     /* 일자를 계산해 몇일남은지를 계산해준다.*/
     dateCountdown = function (edate) {
         var today = new Date();

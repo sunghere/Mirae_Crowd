@@ -90,46 +90,51 @@
     <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY,
+        TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
-        SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        SELECT IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
         IFNULL(COUNTS.CURMONEY,0)
         AS CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join (SELECT COUNT(*)
         PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
-        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC) A
+        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 1 AND ENDFLAG='0'
+        ORDER BY SEQ DESC) A,(SELECT @ROWNUM := 0)R
+
+        ) RESULT
         <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
         <if test="rnn != null and rnn !=''">
             WHERE rnn between #{rnn}+1 AND #{rnn}+12
         </if>
-
     </select>
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-        SELECT rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
-        SELECT @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        SELECT IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
         IFNULL(COUNTS.CURMONEY,0)
         AS CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join (SELECT COUNT(*)
         PNUM,PSEQ,SUM(MONEY) CURMONEY FROM
-        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC
+        SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq WHERE REQ = 1 AND ENDFLAG='0'
         <if test="search_type != '' and search_type != null">
             <if test="search_type == 'search'">
-                AND (TAG like CONCAT('%',#{search},'%') OR TITLE like CONCAT('%',#{search},'%') OR CONTENT like CONCAT('%',#{search},'%'))
+                AND (TAG like CONCAT('%',#{search},'%') OR TITLE like CONCAT('%',#{search},'%') OR CONTENT like
+                CONCAT('%',#{search},'%'))
             </if>
             <if test="search_type == 'tag'">
                 AND (TAG like CONCAT('%',#{search},'%'))
             </if>
             <if test="search_type == 'category'">
 
-                AND (CATEGORY like  CONCAT('%',#{category},'%')) AND (TAG like  CONCAT('%',#{category},'%') OR TITLE like
+                AND (CATEGORY like CONCAT('%',#{category},'%')) AND (TAG like CONCAT('%',#{category},'%') OR TITLE like
                 CONCAT('%',#{category},'%') OR CONTENT like CONCAT('%',#{category},'%'))
             </if>
         </if>
-        ) A
+        ORDER BY SEQ DESC
+        ) A,(SELECT @ROWNUM := 0)R ) RESULT
         <if test="rnn == null or rnn ==''">
             WHERE 12 >= rnn
         </if>
@@ -142,13 +147,13 @@
 
 
         SELECT c.SEQ,f.SEQ as myseq, c.TITLE, c.GOALMONEY, c.CURMONEY, c.tag,
-        c.SDATE, c.EDATE, c.CATEGORY, c.TYPE,c.REQ, f.MONEY,f.wdate FROM ( SELECT pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        c.SDATE, c.EDATE, c.CATEGORY, c.TYPE,c.REQ, f.MONEY,f.wdate FROM ( SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
     SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE FROM (
-    SELECT  @ROWNUM := @ROWNUM + 1 as rnn,IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+    SELECT IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
     IFNULL(COUNTS.CURMONEY,0) AS CURMONEY, TAG, SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE
     FROM SHCROWD left join
     (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
-    FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R ORDER BY SEQ DESC)A )c join SHFUND f on c.seq = f.pseq
+    FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq ORDER BY SEQ DESC)A,(SELECT @ROWNUM := 0)R )c join SHFUND f on c.seq = f.pseq
         WHERE f.id = #{id}
 
     </select>

@@ -6,6 +6,7 @@
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid main-top-navbar">
         <div class="navbar-header">
+            <a class="navbar-brand" href="#" target="_blank"></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
                 <span class="sr-only"></span>
                 <span class="icon-bar"></span>
@@ -21,11 +22,11 @@
 
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-envira"
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envira"
                                                                                   aria-hidden="true"></i>Crowd
                         <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <c:if test="${ !empty login}">
+                    <ul class="dropdown-menu" id="crowd-menu">
+                        <c:if test="${!empty login}">
 
                             <li>
                                 <a title="펀딩 신청" href="/crowdAdd.do">펀딩모집 신청</a>
@@ -42,7 +43,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i></i>Board</a>
+                    <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i>Board</a>
                 </li>
                 <c:if test="${!empty login && login.auth eq 1}">
 

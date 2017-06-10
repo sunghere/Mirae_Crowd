@@ -338,25 +338,25 @@
     .detail-content {
         margin-bottom: 10%;
     }
-    
+
     .crowd-reply {
-   	    background: lavenderblush;
-	    padding: 10px 15px;
-	    border-radius: 15px;
-	    margin-bottom: 10px;
+        background: lavenderblush;
+        padding: 10px 15px;
+        border-radius: 15px;
+        margin-bottom: 10px;
     }
-    
+
     .crowd-reply-id {
-    	text-align: right;
+        text-align: right;
     }
-    
+
     .crowd-reply-content {
-    	padding: 5px 0;
-    	text-indent: 15px;
+        padding: 5px 0;
+        text-indent: 15px;
     }
-    
+
     .crowd-reply-btn {
-    	border: 1px solid #e5e5e5;
+        border: 1px solid #e5e5e5;
     }
 </style>
 <%--디테일 모달--%>
@@ -649,7 +649,7 @@
                 }
             })
         };
-        
+
         $(".detail-detail").on("click", ".crowd-reply-btn", function () {
             reply_add();
         });
@@ -670,43 +670,45 @@
                 success: function (data) {
                     var str_reply = "";
                     $.each(data, function (i, val) {
-                        str_reply += "<div class='crowd-reply'>"+
-                        	"<input type='hidden' name='seq' data-src='" + val.bparent + "'>" +
-                        	"<input type='hidden' name='type' data-src='" + val.btype + "'>" +
-                        	"<div class='crowd-reply-content' data-src='"+val.seq+"'>" + val.content + 
-                        	"<span class='float-right crowd-reply-del' hidden='hidden'><i class='fa fa-times' aria-hidden='true'></i></span>" +
-	                        "</div><div class='crowd-reply-id' data-src='"+val.id+"'>" + val.id + "</div>" +
+                        str_reply += "<div class='crowd-reply'>" +
+                            "<input type='hidden' name='seq' data-src='" + val.bparent + "'>" +
+                            "<input type='hidden' name='type' data-src='" + val.btype + "'>" +
+                            "<div class='crowd-reply-content' data-src='" + val.seq + "'>" + val.content +
+                            "<span class='float-right crowd-reply-del' hidden='hidden'><i class='fa fa-times' aria-hidden='true'></i></span>" +
+                            "</div><div class='crowd-reply-id' data-src='" + val.id + "'>" + val.id + "</div>" +
                             "</div>";
                     });
                     $(".crowd-reply-list").html(str_reply);
                 }
             })
         };
-        
-        /* 디테일 댓글 삭제 */
-        $(".detail-detail").on("mouseover", ".crowd-reply", function() {
-        	if("${login.id}" == $(this).find(".crowd-reply-id").attr("data-src")) {
-       			$(this).find(".crowd-reply-del").show().css("cursor", "pointer");
-        	}
-        })
-        $(".detail-detail").on("mouseleave", ".crowd-reply", function() {
-       		$(this).find(".crowd-reply-del").fadeOut();
-        })
-        $(".detail-detail").on("click", ".crowd-reply-del", function() {
-       		$.ajax({
-       			url: "replydel.do",
-       			method: "POST",
-       			data: {"seq":$(".crowd-reply-content").attr("data-src")},
-       			success: function(data) {
-       				if(data.message == 'SUCS') {
-	       				var btype = $("input[name='type']").attr("data-src");
-	       	            var bparent = $("input[name='seq']").attr("data-src");
-	       				reply_load(bparent, btype);
-       				}
-       			}
-       		})
-        })
 
+        /* 디테일 댓글 삭제 */
+        $(".detail-detail").on("mouseover", ".crowd-reply", function () {
+            if ("${login.id}" == $(this).find(".crowd-reply-id").attr("data-src")) {
+                $(this).find(".crowd-reply-del").show().css("cursor", "pointer");
+            }
+        });
+        $(".detail-detail").on("mouseleave", ".crowd-reply", function () {
+            $(this).find(".crowd-reply-del").fadeOut();
+        });
+        $(".detail-detail").on("click", ".crowd-reply-del", function () {
+            $.ajax({
+                url: "replydel.do",
+                method: "POST",
+                data: {"seq": $(".crowd-reply-content").attr("data-src")},
+                success: function (data) {
+                    if (data.message == 'SUCS') {
+                        var btype = $("input[name='type']").attr("data-src");
+                        var bparent = $("input[name='seq']").attr("data-src");
+                        reply_load(bparent, btype);
+                    }
+                }
+            })
+        });
+
+
+        /*지도를 불러오는 함수*/
         var map_load = function (tagId, lat, lng) {
 
 
@@ -788,13 +790,14 @@
             })
         });
 
-        /* 검색리스트 뒤로가기 */
+        /* 모달 - 검색리스트 뒤로가기 */
         $("#searchresult").on("click", ".go-back-search", function () {
             $("#searchlist").show();
             $("#searchresult").hide();
 
         });
 
+        /*모달 - 검색결과 클릭시*/
         $("#searchresult").on("click", ".list-search", function () {
             var seq = $(this).attr("data-src");
             detail_load(seq, 0);
@@ -909,7 +912,17 @@
                                 $('.mypoint').val("잔액 :" + data.resultNum);
                                 $('.detail-fund-btn').click();
                                 detail_load(seq, 1);
-                                setTimeout("showMsg('" + point_val + "원 등록 성공하였습니다.')", 500)
+                                setTimeout("showMsg('" + point_val + "원 등록 성공하였습니다.')", 500);
+
+                                var item = $('.list-main[data-src="' + seq + '"]');
+                                /*해당게시물*/
+                                var curMoney_tag = item.find(".info-curMoney");
+                                var curmoney = parseInt(curMoney_tag.html().split("원")[0]) + point; /* 원래돈 + 투자핟논*/
+                                var per = Math.floor(curmoney / parseInt(curMoney_tag.attr('goal')) * 100); /* 변한돈 / 목표금액 * 100*/
+                                var probar = item.find('.progress-bar'); /* 내부 진행바*/
+                                curMoney_tag.html(curmoney + "원 달성" + "(" + per + "%)"); /*현재금액 업데이트*/
+                                probar.attr('aria-valuenow', per); /*퍼센트 업데이트*/
+                                probar.css('width', per + "%"); /*css적용 */
                             }
 
                         }

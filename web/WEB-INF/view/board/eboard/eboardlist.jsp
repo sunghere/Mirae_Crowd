@@ -6,7 +6,7 @@
 <input type="hidden" name="ent" value="${login.ent}"/>
 
 <div class="row mb-3">
-    <div class="col-lg-3 col-md-4">
+    <div class="col-lg-3 col-md-4">s
         <div class="card">
             <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..." alt="Card image cap">
             <div class="card-block">

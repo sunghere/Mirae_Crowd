@@ -2,8 +2,7 @@
 
     var loadList_byScroll = function () {
 
-        var last = $('.list-main').last().attr('last-num');
-
+        var last = parseInt($('.list-main').last().attr('last-num'));
         if (last.toString() == '9999') {
             return;
         }
@@ -26,7 +25,7 @@
                 success: function (data) {
                     if (data.length < 1) {
                         var str = '';
-                        str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
+                        str = '<div class="center-block scroll-end-btn btn list-main btn-default" last-num="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
 
                         $('#crowdlist').html($('#crowdlist').html() + str);
 
@@ -34,15 +33,14 @@
                         make_list(data, 1);
                     }
                 }, error: function (request, status, error) {
-                    alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
+                    
                 }
             })
 
         } else {/*나머지가 0이 아닌경우 자료가 더이상 없다.*/
             var str = '';
 
-            str = '<div class="center-block scroll-end-btn btn list-main btn-default" data-src="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
+            str = '<div class="center-block scroll-end-btn btn list-main btn-default" last-num="9999"><a href="#two" class="cursive">Top<i class="fa fa-caret-up"></i></a></div>';
             $('#crowdlist').html($('#crowdlist').html() + str);
         }
     };
