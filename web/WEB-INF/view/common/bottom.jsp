@@ -46,7 +46,7 @@
                     </div>
                 </form>
                 <span class="pull-right text-muted"><a
-                        href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee & Jiyoon Lee(Thank you)</span>
+                        href="http://sunghere.github.io">Github Blog by Sunghere</a> ©2017 Yoon Sung Hee & Jiyoon Lee</span>
 
             </div>
             <div class="col-xs-12 col-sm-3 column">
@@ -286,7 +286,7 @@
                     아이디/비밀번호를 잊으셨나요?<br><br>
                 </h5>
                 <div class="btn_group_center">
-                    <span class="btn btn-default btn_style find" id="pwdbtn">비밀번호찾기</span>
+                    <span class="btn btn-default btn_style find" id="pwd-find-btn">비밀번호 찾기</span>
                 </div>
 
             </div>
@@ -532,7 +532,7 @@
             var id = "${login.id}";
 
             if (id == "" || id == null) {
-                showMsg("로그인 해주세요");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
                 return;
             }
 
@@ -683,6 +683,10 @@
             })
         };
 
+        login_open = function () {
+
+            $('a[data-target="#shLogin"]').click();
+        };
         /* 디테일 댓글 삭제 */
         $(".detail-detail").on("mouseover", ".crowd-reply", function () {
             if ("${login.id}" == $(this).find(".crowd-reply-id").attr("data-src")) {
@@ -805,7 +809,8 @@
 
 
         /* 비밀번호 찾기 */
-        $("#pwdbtn").click(function () {
+        $("#pwd-find-btn").click(function () {
+            $('.loginexit').click();
             showMsg("<div><div>가입 시 입력하신 이메일로<br>인증메일이 발송됩니다.</div>" +
                 "<div class='pwd-input'><input type='text' class='black-control pwd-send-text' placeholder='이메일을 입력해주세요'></div>" +
                 "<div class='btn btn-default cbox pwd-send-btn'>인증메일 발송</div>" +
@@ -917,12 +922,18 @@
                                 var item = $('.list-main[data-src="' + seq + '"]');
                                 /*해당게시물*/
                                 var curMoney_tag = item.find(".info-curMoney");
-                                var curmoney = parseInt(curMoney_tag.html().split("원")[0]) + point; /* 원래돈 + 투자핟논*/
-                                var per = Math.floor(curmoney / parseInt(curMoney_tag.attr('goal')) * 100); /* 변한돈 / 목표금액 * 100*/
-                                var probar = item.find('.progress-bar'); /* 내부 진행바*/
-                                curMoney_tag.html(curmoney + "원 달성" + "(" + per + "%)"); /*현재금액 업데이트*/
-                                probar.attr('aria-valuenow', per); /*퍼센트 업데이트*/
-                                probar.css('width', per + "%"); /*css적용 */
+                                var curmoney = parseInt(curMoney_tag.html().split("원")[0]) + point;
+                                /* 원래돈 + 투자핟논*/
+                                var per = Math.floor(curmoney / parseInt(curMoney_tag.attr('goal')) * 100);
+                                /* 변한돈 / 목표금액 * 100*/
+                                var probar = item.find('.progress-bar');
+                                /* 내부 진행바*/
+                                curMoney_tag.html(curmoney + "원 달성" + "(" + per + "%)");
+                                /*현재금액 업데이트*/
+                                probar.attr('aria-valuenow', per);
+                                /*퍼센트 업데이트*/
+                                probar.css('width', per + "%");
+                                /*css적용 */
                             }
 
                         }

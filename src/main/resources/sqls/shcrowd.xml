@@ -90,7 +90,8 @@
     <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY,
+        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        CURMONEY,
         TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
         SELECT IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
@@ -111,7 +112,8 @@
     </select>
     <select id="listbySearch" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
-        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT RESULT.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rnn,pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
+        CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
         SELECT IFNULL(pnum,0) as pnum,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM,
         IFNULL(COUNTS.CURMONEY,0)
@@ -181,7 +183,8 @@
     </insert>
     <delete id="crowdUnLike" parameterType="com.sung.hee.help.CrowdLike">
 
-        DELETE SHCROWDLIKE WHERE id=#{id} and pseq=#{pseq}
+
+      DELETE FROM SHCROWDLIKE WHERE id=#{id} and pseq=#{pseq}
 
     </delete>
     <select id="crowdLikeChk" parameterType="com.sung.hee.help.CrowdLike"

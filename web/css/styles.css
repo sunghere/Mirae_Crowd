@@ -724,7 +724,6 @@ img::-moz-selection {
     padding: 14px 36px;
     font-size: 15px;
     display: inline-block;
-    margin-left: 13px;
     border-radius: 5px;
     font-weight: bold;
     border: none;
@@ -1552,3 +1551,7 @@ input[name="fund-money"] {
     margin-bottom: 10px;
 }
 
+/* 로그인 모달*/
+#shLogin {
+    z-index: 2001;
+}
