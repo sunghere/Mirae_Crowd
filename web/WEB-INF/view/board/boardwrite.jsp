@@ -13,6 +13,7 @@
 <script>
     $(function () {
 
+       
         $("#fancy-checkbox-default").change(function () {
             if ($(this).prop("checked") == 1) {
                 $(this).prop("checked", 1);
@@ -39,6 +40,9 @@
                        name="hidden"
                        value="0"
                        id="hidden">
+                <input type="hidden"
+                       name="ent"
+                       value="0">
                 <thead>
                 <tr class="id">
                     <th>

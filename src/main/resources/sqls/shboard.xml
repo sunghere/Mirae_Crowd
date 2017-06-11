@@ -30,19 +30,19 @@
     <select id="getBoardList"
             resultType="com.sung.hee.shboard.model.SHBoard">
 
-		SELECT  @ROWNUM := @ROWNUM + 1 AS rnn,SEQ ,ID ,TITLE,CONTENT,
+        SELECT @ROWNUM := @ROWNUM + 1 AS rnn,SEQ ,ID ,TITLE,CONTENT,
         WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
         FROM SHBOARD,(SELECT @ROWNUM := 0)R WHERE
         <if test="ent == 0">
 
-        ENT =#{ent}
+            ENT =#{ent}
         </if>
         <if test="ent != 0">
 
-        ENT IS NULL
+            ENT IS NULL
         </if>
         ORDER BY REF ASC, STEP ASC
-	</select>
+    </select>
     <select id="getMyBoardlist" parameterType="com.sung.hee.user.model.SHUser"
             resultType="com.sung.hee.shboard.model.SHBoard">
         SELECT @ROWNUM := @ROWNUM + 1 AS rnn,SEQ,ID,TITLE,CONTENT,
@@ -116,10 +116,10 @@
         FROM SHBOARD,(SELECT @ROWNUM := 0)R
         WHERE
         <if test="ent !=0">
-        ENT = #{ent}
+            ENT = #{ent}
         </if>
         <if test="ent ==0">
-        ENT = 0
+            ENT = 0
         </if>
         <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
             <if test="s_category == 'title'">AND (TITLE like concat('%',#{s_keyword},'%'))</if>

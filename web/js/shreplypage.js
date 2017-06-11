@@ -4,8 +4,11 @@
         $('#content_affix').attr('data-spy', 'affix');
         $('#reply_cotent').attr('data-spy', 'affix');
 
+    } else {
+
+        $('#reply_cotent').css({"position": "initial", "right": "0"});
+        $('#content_affix').css({"position": "initial", "left": "0", "width": "100%", "background-color": "#fff"})
     }
-    var twoheight = 0;
     $(document).scroll(function () {
         var y = $(this).scrollTop();
 
@@ -15,15 +18,8 @@
             $('.fixed-alram').show();
 
         }
-        if (twoheight == 0) {
-            twoheight = $('#content_wrap').height() - 550;
-        }
-        if (document.body.clientWidth < 800) {
-            // 모바일 기기 관련 작업
-            twoheight = $('#content_affix').height() + $('#reply_cotent').height() - 200;
 
-        }
-        if (y > twoheight + 200) {
+        if (y > $('#two').height() - 200) {
             $('div.margin15.row').hide();
             $('.sh-replybox-bottom').show();
 
@@ -32,24 +28,6 @@
             $('div.margin15.row').show();
             $('.sh-replybox-bottom').hide();
 
-        }
-        if (document.body.clientWidth > 800) {
-            if ($('#two').height() < twoheight) {
-                $('#two').css({
-                    "height": twoheight
-                });
-                if ($('#two').height() < 1000) {
-                    $('#two').css({
-                        "height": "1000px"
-                    })
-                }
-
-            }
-        } else {
-
-            $('#two').css({
-                "padding-bottom": twoheight + $('#reply_cotent').height() + 400 + $('#footer').height()
-            })
         }
 
     });

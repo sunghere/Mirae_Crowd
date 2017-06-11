@@ -153,6 +153,9 @@
             doc.seq.value = pdsid;
             doc.submit();
         }
-
+        $(function () {
+            if ($(window).width() < 800) {
+            }
+        })
 
     </script>
