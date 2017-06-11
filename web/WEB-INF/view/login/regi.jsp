@@ -21,6 +21,7 @@
                style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;"></i>
             <h3>회원가입</h3>
             <p class="text-muted">정보를 입력해주세요</p>
+            <p class="text-muted">SNS 계정이 있으시다면 로그인에서 간편 가입이 가능합니다.</p>
         </div>
     </div>
     <form action="regiAf.do" method="post" id="_frmForm" name="frmForm">

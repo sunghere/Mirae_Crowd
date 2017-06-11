@@ -33,8 +33,8 @@
                     </th>
                     <td style="text-align: left">
                         <div class="form-control" style="text-align: center">
-                            <input type="file" name="fileload">
-                            <input type="hidden" name='namefile'
+                            <input type="file" name="fileload" placeholder="새 파일 등록시 이전파일은 삭제됩니다.">
+                            <input type="hidden" name='oldfilename'
                                    value="${board.filename}" size="50"
                                    readonly="readonly"/></div>
 

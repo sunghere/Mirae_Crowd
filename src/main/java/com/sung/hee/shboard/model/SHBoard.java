@@ -10,6 +10,15 @@ public class SHBoard implements Serializable {
     private String id;
     private String title;
     private int type = 1;
+    private String oldfilename;
+
+    public String getOldfilename() {
+        return oldfilename;
+    }
+
+    public void setOldfilename(String oldfilename) {
+        this.oldfilename = oldfilename;
+    }
 
     public int getType() {
         return type;
@@ -117,7 +126,7 @@ public class SHBoard implements Serializable {
         this.filename = filename;
     }
 
-    private String filename;
+    private String filename = "";
 
 
     public int getEnt() {
