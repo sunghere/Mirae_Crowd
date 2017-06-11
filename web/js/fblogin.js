@@ -2,10 +2,10 @@
     var idcheck = false;
 
     /*function showMsg(str) {
-        $('#myMsg').html(str);
+     $('#myMsg').html(str);
 
-        $('#showMsgBt').click();
-    }*/
+     $('#showMsgBt').click();
+     }*/
 
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -146,7 +146,9 @@
             },
             success: function (msg) {
                 if (msg.message == "SUCS") {
-                    showMsg("회원가입에 성공하였습니다. 로그인해주세요");
+                    $(".loginexit").click();
+
+                    setTimeout('showMsg("회원가입에 성공하였습니다. 로그인해주세요")', 500);
 
                 } else {
                     showMsg("회원가입에 실패하였습니다.");

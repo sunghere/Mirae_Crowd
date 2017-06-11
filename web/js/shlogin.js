@@ -201,7 +201,8 @@
             },
             success: function (msg) {
                 if (msg.message == "SUCS") {
-                    showMsg("회원가입에 성공하였습니다. 로그인해주세요");
+                    setTimeout('showMsg("회원가입에 성공하였습니다. 로그인해주세요")', 500);
+
 
                 } else {
                     showMsg("회원가입에 실패하였습니다.");

@@ -140,7 +140,8 @@
         $(".chat").click(function () {
             var id = $('input[name="myid"]').attr('value');
             if (id == "" || id == null) {
-                showMsg("로그인이 필요합니다.");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
+
 
             } else {
                 $("#chatbtn").click();
@@ -158,7 +159,7 @@
 
         $('#chatModal').on('hidden.bs.modal', function () {
            clearInterval(chat_interval);
-        })
+        });
         $("#chat-text").keydown(function (key) {
             if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
                 sendMessage();
