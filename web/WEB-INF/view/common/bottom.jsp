@@ -309,7 +309,7 @@
             </div>
             <div class="modal-body">
                 <div id="chatlist"></div>
-                <input type="text" class="form-control input-lg" id="chat-text">
+                <input type="text" class="form-control input-lg" placeholder="문의내용을 입력해주세요. 빠른시일내 확인하여 연락드리겠습니다." id="chat-text">
             </div>
         </div>
     </div>

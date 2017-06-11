@@ -1181,7 +1181,9 @@ img::-moz-selection {
 }
 
 #chatlist {
-    height: 650px;
+    background-color: mistyrose;
+    margin-bottom: 15px;
+    height: 600px;
     overflow: scroll;
     padding: 20px 40px;
 }

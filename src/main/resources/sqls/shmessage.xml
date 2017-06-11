@@ -9,7 +9,7 @@
     </insert>
 
     <select id="messageListAll" resultType="com.sung.hee.message.model.SHMessage">
-        SELECT COUNT(IF(READCK,'0','1')) CNT, FROMID FROM SHMESSAGE
+        SELECT COUNT(IF(READCK=0,readck,null)) cnt, FROMID FROM SHMESSAGE
         WHERE NOT FROMID='admin'
         GROUP BY FROMID
     </select>
