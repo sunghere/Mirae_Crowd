@@ -11,23 +11,31 @@
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
         <plugins>
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.1</version>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source><!-- 내가 쓰는 자바 버전 넣기 -->
                     <target>1.8</target><!-- 내가 쓰는 자바 버전 넣기 -->
                 </configuration>
-        </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
 
                 <configuration>
-                    <warSourceDirectory>web</warSourceDirectory>
                     <webXml>web/WEB-INF/web.xml</webXml>
+                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+                    <warSourceDirectory>${basedir}/web</warSourceDirectory>
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}/src/</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
+
             </plugin>
         </plugins>
     </build>
