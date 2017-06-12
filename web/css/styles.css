@@ -1573,6 +1573,6 @@ input[name="fund-money"] {
 
 /* 로그인 모달*/
 #shLogin {
-    z-index: 2001;
+    z-index: 1500;
 }
 

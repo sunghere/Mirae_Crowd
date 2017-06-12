@@ -692,8 +692,8 @@
         };
 
         login_open = function () {
-
-            $('a[data-target="#shLogin"]').click();
+            $('.showMsg-close').click();
+            setTimeout("$('a[data-target=\"#shLogin\"]').click()", 500);
         };
         /* 디테일 댓글 삭제 */
         $(".detail-detail").on("mouseover", ".crowd-reply", function () {

@@ -135,7 +135,7 @@
                 <div>
                     <h4>Tag</h4>
                     <input type="text" class="form-control input-lg" id="w_tag" placeholder="#꿈나무 #도움">
-                    <p class="text-danger">* (선택)펀딩 게시글의 태그를 입력하세요.</p>
+                    <p class="text-danger">* (선택)펀딩 게시글의 태그를 입력하세요. 반드시 양식을 맞춰주세요</p>
                 </div>
             </div>
             <div class="write_part" id="mapInput">
@@ -527,7 +527,7 @@
             $('.loginexit').click();
             mylat = lat;
             mylng = lng;
-            $('#w_latlng').attr('value',""+mylat+"*"+mylng);
+            $('#w_latlng').attr('value', "" + mylat + "*" + mylng);
             mapinit("show_map");
             $('#map-area').show();
         } else {

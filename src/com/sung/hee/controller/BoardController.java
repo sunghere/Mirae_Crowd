@@ -97,7 +97,7 @@ public class BoardController {
         logger.info("Welcome BoardController boardupdate! " + new Date());
 
         SHUser user = (SHUser) request.getSession().getAttribute("login");
-        if (user.getAuth() == 3) {
+        if (user == null) {
             return "redirect:/boardlist.do";
 
         } else {
@@ -154,7 +154,7 @@ public class BoardController {
     @RequestMapping(value = "fileDownload.do", method = {RequestMethod.POST})
     public String fileDownload(int seq, HttpServletRequest request,
                                String filename, Model model) throws Exception {
-        String fupload = "c:\\upload";
+        String fupload = "/usr/local/upload";
         //String fupload = request.getServletContext().getRealPath("/upload");
         File downloadFile = new File(fupload + "/" + filename);
         logger.info("Welcome fileDownload! ");
@@ -184,7 +184,8 @@ public class BoardController {
 
             board.setFilename(fileload.getOriginalFilename());
 
-            String fupload = "c:\\upload";
+            String fupload = "/usr/local/upload";
+
             logger.info(": " + fupload);
             String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
@@ -215,7 +216,8 @@ public class BoardController {
 
         if ((namefile != null && !namefile.equals(""))) {
 
-            String fupload = "c:\\upload";
+            String fupload = "/usr/local/upload";
+
             String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
             board.setFilename(newFile);
@@ -408,7 +410,8 @@ public class BoardController {
 
             board.setFilename(fileload.getOriginalFilename());
 
-            String fupload = "c:\\upload";
+            String fupload = "/usr/local/upload";
+
             logger.info(": " + fupload);
             String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
@@ -439,7 +442,7 @@ public class BoardController {
 
         if ((namefile != null && !namefile.equals(""))) {
 
-            String fupload = "c:\\upload";
+            String fupload = "/usr/local/upload";
             String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
             board.setFilename(newFile);
