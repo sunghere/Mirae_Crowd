@@ -89,32 +89,7 @@
             </div>
         </div>
     </form>
-    <c:if test="${!empty login}">
-        <div class="container-fluid">
-            <div class="margin15 row">
-                <div class="col-xs-12 col-lg-2 col-md-2 col-sm-12"></div>
-                <div class="my_reply_cotent col-xs-12 col-lg-8 col-md-8 col-sm-12">
-                    <div class="row">
-                        <div class="form-group replygroup">
-                            <h2 class="cursive underline">Reply Write</h2>
-                            <div class="black-control col-xs-4 col-md-3 col-lg-3 col-sm-4 col-xs-offset-1 col-sm-offset-1">${login.name}</div>
-                            <br>
-
-                            <textarea class="col-xs-12 col-md-12 col-lg-12 col-sm-12 black-control replyarea"
-                                      rows="4" id="r-area"></textarea>
-                            <button class="btn btn-primary col-xs-2 col-sm-2 col-md-2 replyBt" type="button">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>쓰기
-                            </button>
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </c:if>
+   
 </div>
 <form name="delfileup" action="fileDownload.do" method="post">
     <input type="hidden" name="filename" value="${board.filename}"/>
