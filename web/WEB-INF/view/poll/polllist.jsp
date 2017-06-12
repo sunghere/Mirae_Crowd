@@ -1,5 +1,5 @@
-<%@page import="com.sung.hee.help.DateUtil" %>
-<%@page import="com.sung.hee.poll.model.SHPoll" %>
+<%@page import="main.java.com.sung.hee.help.DateUtil" %>
+<%@page import="main.java.com.sung.hee.poll.model.SHPoll" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=utf-8" %>

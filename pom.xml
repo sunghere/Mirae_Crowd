@@ -10,7 +10,7 @@
     <build>
         <resources>
             <resource>
-                <directory>src</directory>
+                <directory>resource</directory>
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.propertis</include>
@@ -45,7 +45,6 @@
                     <warSourceDirectory>${basedir}/web</warSourceDirectory>
 
                 </configuration>
-
 
 
             </plugin>

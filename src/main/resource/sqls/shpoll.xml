@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SHPoll">
+    <select id="getPoll"
+            parameterType="main.java.com.sung.hee.poll.model.SHPoll"
+            resultType="main.java.com.sung.hee.poll.model.SHPoll">
+SELECT POLLID, ID,QUESTION,
+SDATE ,EDATE, ITEMCOUNT,
+POLLTOTAL, REGDATE 
+FROM SHPOLL 
+WHERE POLLID=#{pollid}
+</select>
+    <select id="getPollSubList"
+            parameterType="main.java.com.sung.hee.poll.model.SHPoll"
+            resultType="main.java.com.sung.hee.poll.model.SHPollSub">
+SELECT POLLSUBID, POLLID, ANSWER, ACOUNT
+FROM SHPOLLSUB
+WHERE POLLID=#{pollid}
+</select>
+    <insert id="makePoll"
+            parameterType="main.java.com.sung.hee.poll.model.SHPoll">
+	INSERT INTO SHPOLL  
+	(ID, QUESTION,
+	SDATE ,EDATE, ITEMCOUNT,
+	POLLTOTAL, REGDATE) 
+	VALUES (
+	#{id},#{question}, #{wdate},#{edate}, #{itemcount},
+	0, DATE_FORMAT(NOW(), '%Y-%m-%d')) 
+	</insert>
+    <insert id="makePollSub"
+            parameterType="main.java.com.sung.hee.poll.model.SHPollSub">
+	INSERT INTO SHPOLLSUB
+	(POLLID, ANSWER, ACOUNT )
+	VALUES (
+	(SELECT IFNULL(MAX(POLLID),0) FROM SHPOLL)
+	, #{answer}, 0)
+	</insert>
+    <!-- 	SELECT SEQ_SHPOLL.CURRVAL  FROM SHPOLL -->
+
+    <select id="getPollAllList"
+            resultType="main.java.com.sung.hee.poll.model.SHPoll">
+SELECT POLLID, ID, QUESTION,
+SDATE ,EDATE,ITEMCOUNT,
+POLLTOTAL,REGDATE 
+FROM SHPOLL
+ORDER BY SDATE DESC 
+</select>
+    <!-- WHERE TO_DATE(EDATE,'YYYY-MM-DD') >= TO_DATE(DATE_FORMAT(NOW(), '%Y-%m-%d'),'YYYY-MM-DD') -->
+    <select id="isVote"
+            parameterType="main.java.com.sung.hee.poll.model.SHVoter"
+            resultType="java.lang.Integer">
+SELECT COUNT(*)
+FROM SHVOTER
+WHERE POLLID=#{pollid} AND ID=#{id}
+</select>
+    <insert id="pollingVote"
+            parameterType="main.java.com.sung.hee.poll.model.SHVoter">
+INSERT INTO SHVOTER(POLLID, POLLSUBID, ID,REGDATE)
+VALUES(
+#{pollid}, #{pollsubid},#{id}, DATE_FORMAT(NOW(), '%Y-%m-%d')) 
+</insert>
+    <update id="pollingSub"
+            parameterType="main.java.com.sung.hee.poll.model.SHVoter">
+UPDATE SHPOLLSUB SET ACOUNT = ACOUNT+1
+WHERE POLLID=#{pollid} AND POLLSUBID=#{pollsubid}
+</update>
+    <update id="pollingPoll"
+            parameterType="main.java.com.sung.hee.poll.model.SHVoter">
+UPDATE SHPOLL SET POLLTOTAL = POLLTOTAL + 1
+WHERE POLLID=#{pollid} 
+</update>
+</mapper>

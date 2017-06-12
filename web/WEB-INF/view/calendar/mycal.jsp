@@ -1,6 +1,6 @@
 <%@page import="java.util.Calendar" %>
 <%@ page import="java.util.Locale" %>
-<%@ page import="com.sung.hee.help.CalendarUtil" %>
+<%@ page import="main.java.com.sung.hee.help.CalendarUtil" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>

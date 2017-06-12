@@ -38,7 +38,7 @@
         </beans:property>
     </beans:bean>
     <!--
-        <beans:bean id="naverLoginBO" class="com.sung.hee.naver.oauth.bo.NaverLoginBO" />
+        <beans:bean id="naverLoginBO" clamain.hee.hee.naver.oauth.bo.NaverLoginBO" />
          NaverLoginBO Class에 대한 Bean설정 추가 -->
     <!-- mail bean -->
     <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -61,8 +61,8 @@
 
 
     <beans:bean id="downloadView" class="com.sung.hee.help.DownloadView"/>
-    <!--<beans:bean id="excelView" class="com.sung.hee.pds.view.ExcelBuilder"/>-->
-    <!--<beans:bean id="pdfView" class="com.sung.hee.pds.view.PDFBuilder"/>-->
+    <!--<beans:bean id="excelView" clamain.hee.hee.pds.view.ExcelBuilder"/>-->
+    <!--<beans:bean id="pdfView" clamain.hee.hee.pds.view.PDFBuilder"/>-->
 
     <beans:bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <beans:property name="order">
