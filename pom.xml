@@ -8,6 +8,19 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.propertis</include>
+                    <include>**/*.tld</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/resources</directory>
+            </resource>
+        </resources>
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
@@ -33,8 +46,11 @@
 
                 </configuration>
 
+
+
             </plugin>
         </plugins>
+
     </build>
 
 
