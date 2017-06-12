@@ -68,6 +68,6 @@ public class SHBoardDAOImpl implements SHBoardDAO {
 
 
     public List<SHBoard> getMyBoardlist(SHUser shUser) {
-        return sqlSession.selectList(ns+"getMyBoardlist",shUser);
+        return sqlSession.selectList(ns + "getMyBoardlist", shUser);
     }
 }
