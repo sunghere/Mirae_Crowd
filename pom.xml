@@ -10,6 +10,8 @@
     <build>
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
+        <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <outputDirectory>${basedir}/build/classes</outputDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -28,12 +30,7 @@
                     <webXml>web/WEB-INF/web.xml</webXml>
                     <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
                     <warSourceDirectory>${basedir}/web</warSourceDirectory>
-                    <webResources>
-                        <resource>
-                            <directory>${basedir}/src/</directory>
-                            <targetPath>WEB-INF/classes</targetPath>
-                        </resource>
-                    </webResources>
+
                 </configuration>
 
             </plugin>

@@ -109,3 +109,7 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/intellij
+/build/
+web/WEB-INF/classes/
+web/WEB-INF/lib/
+web/upload/
