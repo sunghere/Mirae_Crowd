@@ -112,3 +112,4 @@ fabric.properties
 web/WEB-INF/classes/
 web/WEB-INF/lib/
 web/upload/
+/WEB-INF/
