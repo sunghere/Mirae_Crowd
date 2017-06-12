@@ -10,7 +10,7 @@
     <build>
         <resources>
             <resource>
-                <directory>resource</directory>
+                <directory>src/main/resource</directory>
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.propertis</include>
@@ -18,12 +18,12 @@
                 </includes>
             </resource>
             <resource>
-                <directory>src/resources</directory>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
-        <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <outputDirectory>${basedir}/build/classes</outputDirectory>
         <plugins>
             <plugin>
