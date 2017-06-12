@@ -8,48 +8,20 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resource</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.propertis</include>
-                    <include>**/*.tld</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <outputDirectory>${basedir}/build/classes</outputDirectory>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source><!-- 내가 쓰는 자바 버전 넣기 -->
-                    <target>1.8</target><!-- 내가 쓰는 자바 버전 넣기 -->
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
 
                 <configuration>
+                    <warSourceDirectory>web</warSourceDirectory>
                     <webXml>web/WEB-INF/web.xml</webXml>
-                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-                    <warSourceDirectory>${basedir}/web</warSourceDirectory>
-
                 </configuration>
-
-
             </plugin>
         </plugins>
-
     </build>
 
 
