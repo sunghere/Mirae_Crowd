@@ -23,7 +23,7 @@
             #{ent}
         </if>
         <if test="ent==0">
-            null
+            0
         </if>
         )
     </insert>
