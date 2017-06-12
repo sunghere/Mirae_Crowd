@@ -126,7 +126,7 @@ footer {
 .no-padding {
     padding: 0;
 }
-
+/*nav bar 관련  */
 .navbar-default {
     border-color: rgba(35, 35, 35, .05);
     font-family: 'Questrial', 'Nanum Gothic', 'Helvetica Neue', Arial, sans-serif;
@@ -243,6 +243,24 @@ footer {
     .navbar-default.affix .nav > li > a:focus:hover {
         color: #8fdf82;
     }
+}
+@media(min-width :1024px){
+	.navbar-right {
+		margin-right : 12%;
+	
+		margin-left : 0%;
+	}
+		
+	.navbar-nav {
+		margin-left : 12%;
+	}
+}
+
+@media(max-width :800px){
+	.navbar-nav   {
+		margin-left:0%
+	}
+	
 }
 
 header {
@@ -1557,3 +1575,4 @@ input[name="fund-money"] {
 #shLogin {
     z-index: 2001;
 }
+

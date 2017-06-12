@@ -8,7 +8,7 @@
 <fmt:requestEncoding value="utf-8"/>
 
 <%
-    List<SHPoll> plists = new ArrayList<>();
+List<SHPoll> plists = new ArrayList();
     Object Oflist = request.getAttribute("plists");
     if (Oflist != null) {
         plists = (List<SHPoll>) Oflist;

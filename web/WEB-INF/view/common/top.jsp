@@ -6,8 +6,8 @@
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid main-top-navbar">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" target="_blank"></a>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+            <!-- <a class="navbar-brand" href="#" target="_blank"></a>-->
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
                 <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
