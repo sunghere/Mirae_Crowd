@@ -1,9 +1,9 @@
 package com.sung.hee.controller;
 
-import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.message.dao.MessageService;
-import com.sung.hee.message.model.SHMessage;
 import com.sung.hee.user.model.SHUser;
+import com.sung.hee.help.AjaxCheck;
+import com.sung.hee.message.model.SHMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

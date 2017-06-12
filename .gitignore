@@ -40,7 +40,7 @@ Crowd-Mirae.iml
 .gitignore
 out/
 src/test/
-src/main/java/com/sung/hee/shcrow/
+src/com/sung/hee/shcrow/
 /.classpath
 /.project
 

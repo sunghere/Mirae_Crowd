@@ -1,17 +1,16 @@
 package com.sung.hee.shreply.dao;
 
-import com.sung.hee.help.BoardCheck;
+
 import com.sung.hee.shreply.model.SHReply;
+import com.sung.hee.help.BoardCheck;
 import com.sung.hee.user.model.SHUser;
 
 import java.util.List;
 
 /**
- * Created by SungHere on 2017-05-11.
+ * Created by SungHere on 2017-05-08.
  */
-
-public interface SHReplyService {
-
+public interface SHReplyDAO {
 
     void addReply(SHReply shReply) throws Exception;
 
@@ -26,4 +25,6 @@ public interface SHReplyService {
     List<SHReply> getReplyList(BoardCheck boardCheck);
 
     List<SHReply> getReplyListbyId(SHUser shUser);
+
+
 }

@@ -1,7 +1,7 @@
 package com.sung.hee.shreply.dao;
 
-import com.sung.hee.help.BoardCheck;
 import com.sung.hee.shreply.model.SHReply;
+import com.sung.hee.help.BoardCheck;
 import com.sung.hee.user.model.SHUser;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

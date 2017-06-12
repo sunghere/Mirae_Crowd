@@ -128,7 +128,8 @@ public class BoardController {
         } else {
 
             shboard.setFilename(fileload.getOriginalFilename());
-            String fupload = "/usr/local/tomcat9/webapps/upload/";
+
+            String fupload = "c:\\upload";
             logger.info(": " + fupload);
             String f = shboard.getFilename();
             String newFile = FUpUtil.getNewFile(f);
@@ -153,8 +154,7 @@ public class BoardController {
     @RequestMapping(value = "fileDownload.do", method = {RequestMethod.POST})
     public String fileDownload(int seq, HttpServletRequest request,
                                String filename, Model model) throws Exception {
-        String fupload = "/usr/local/tomcat9/webapps/upload/";
-
+        String fupload = "c:\\upload";
         //String fupload = request.getServletContext().getRealPath("/upload");
         File downloadFile = new File(fupload + "/" + filename);
         logger.info("Welcome fileDownload! ");
@@ -176,6 +176,7 @@ public class BoardController {
     public String boardwriteAf(SHBoard board, HttpServletRequest request,
                                @RequestParam(value = "fileload", required = false) MultipartFile fileload,
                                Model model) throws Exception {
+        logger.info("Welcome BoardController boardwriteAf! qeqe" + fileload.getOriginalFilename());
         if (fileload.getOriginalFilename() == null || fileload.getOriginalFilename().equals("")) {
 
             shBoardService.writeBoard(board);
@@ -183,7 +184,7 @@ public class BoardController {
 
             board.setFilename(fileload.getOriginalFilename());
 
-            String fupload = "/usr/local/tomcat9/webapps/upload/";
+            String fupload = "c:\\upload";
             logger.info(": " + fupload);
             String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
@@ -209,22 +210,21 @@ public class BoardController {
                                 HttpServletRequest request,
                                 @RequestParam(value = "fileload", required = false) MultipartFile fileload,
                                 Model model) throws Exception {
+        board.setFilename(fileload.getOriginalFilename());
         logger.info("Welcome BoardController boardupdateAf! " + new Date());
 
         if ((namefile != null && !namefile.equals(""))) {
 
-            String fupload = "/usr/local/tomcat9/webapps/upload/";
-
-            String f = board.getOldfilename();
+            String fupload = "c:\\upload";
+            String f = board.getFilename();
             String newFile = FUpUtil.getNewFile(f);
             board.setFilename(newFile);
             try {
                 File file = new File(fupload + "/" + newFile);
                 //logger.info(fupload+"\\"+newFile);
-                File delFile = new File(fupload + "/" + f);
-                delFile.delete();
                 FileUtils.writeByteArrayToFile(file, fileload.getBytes());
             } catch (IOException e) {
+                logger.info("Welcome boardupdateAf if fail! =========================");
             }
         } else {
             if ((namefile != null && !namefile.equals(""))) {
@@ -233,6 +233,7 @@ public class BoardController {
             } else {
                 board.setFilename("");
 
+                logger.info("Welcome boardupdateAf no update ! =======================");
             }
         }
         shBoardService.updateBoard(board);
