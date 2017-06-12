@@ -160,7 +160,7 @@
             </div>
             <div class="write_part" id="dateInput">
                 <h4>Date</h4>
-                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="wdate">
+                <input type="text" id="sdatepicker" class="black-control" placeholder="시작일" name="sdate">
                 <input type="text" id="edatepicker" class="black-control" placeholder="마감일" name="edate">
                 <p class="text-danger">*종료일이 지나면 목표금에 상관없이 크라우드펀딩이 종료됩니다.</p>
 
@@ -228,7 +228,7 @@
             var content = CKEDITOR.instances.w_content.getData();
             var address = $('#w_addr').val();
             var goalMoney = replaceAll($('#w_goal').val(), ",", "");
-            var wdate = $('#sdatepicker').val();
+            var sdate = $('#sdatepicker').val();
             var edate = $('#edatepicker').val();
             var tag = $('#w_tag').val();
             var id = '${login.id}';
@@ -257,7 +257,7 @@
                 check = false;
 
             }
-            if (wdate == null || wdate == '' || edate == null || edate == '') {
+            if (sdate == null || sdate == '' || edate == null || edate == '') {
                 $('#dateInput').css({'background-color': '##f2dede', 'border-color': '#ebccd1'});
                 check = false;
 
@@ -270,7 +270,7 @@
                     method: "post",
                     data: {
                         "category": category, "type": type, "title": title, "content": content, "address": address,
-                        "goalMoney": goalMoney, "wdate": wdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
+                        "goalMoney": goalMoney, "sdate": sdate, "edate": edate, "tag": tag, "id": id, "latlng": latlng
                     },
                     success: function (data) {
 
