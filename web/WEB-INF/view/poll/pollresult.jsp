@@ -58,7 +58,7 @@
     <tr>
         <th>투표 결과 (전체 투표자: ${poll.polltotal}명)</th>
         <td>
-            <jsp:useBean id="vbean" class="main.java.com.sung.hee.help.VoteBean"/>
+            <jsp:useBean id="vbean" class="com.sung.hee.help.VoteBean"/>
             <c:forEach items="${pollsublist}" var="psub" varStatus="vs">
                 <jsp:setProperty property="acount" name="vbean" value="${psub.acount}"/>
                 <jsp:setProperty property="total" name="vbean" value="${poll.polltotal}"/>

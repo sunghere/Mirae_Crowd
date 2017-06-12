@@ -5,13 +5,13 @@
 <mapper namespace="SHENT">
 
     <insert id="addEnt"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt">
+            parameterType="com.sung.hee.ent.model.SHEnt">
     INSERT INTO SHENT(ENTNAME,DEL) INTO (#{entname},0)
 	</insert>
 
 
     <select id="getEntName"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt"
+            parameterType="com.sung.hee.ent.model.SHEnt"
             resultType="java.lang.String">
 		SELECT ENTNAME
 		FROM SHENT
@@ -19,7 +19,7 @@
 	</select>
 
     <select id="entNameCheck"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt"
+            parameterType="com.sung.hee.ent.model.SHEnt"
             resultType="java.lang.Integer">
 		SELECT count(*)
 		FROM SHENT
@@ -27,21 +27,21 @@
 	</select>
 
     <select id="getEntList"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt"
-            resultType="main.java.com.sung.hee.ent.model.SHEnt">
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="com.sung.hee.ent.model.SHEnt">
 		SELECT ENT,ENTNAME
 		FROM SHENT WHERE DEL=0
 	</select>
     <select id="getENT"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt"
-            resultType="main.java.com.sung.hee.ent.model.SHEnt">
+            parameterType="com.sung.hee.ent.model.SHEnt"
+            resultType="com.sung.hee.ent.model.SHEnt">
 		SELECT ENT,ENTNAME
 		FROM SHENT
 		WHERE SEQ=#{seq}
 	</select>
 
     <update id="entDel"
-            parameterType="main.java.com.sung.hee.ent.model.SHEnt">
+            parameterType="com.sung.hee.ent.model.SHEnt">
 		UPDATE SHENT SET DEL=1
 		WHERE ENT=#{seq}
 	</update>

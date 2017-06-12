@@ -5,7 +5,7 @@
 <mapper namespace="SHBoard">
 
     <insert id="writeBoard"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard">
         INSERT INTO SHBOARD (ID, TITLE, CONTENT,
         WDATE, REF, STEP, DEPTH, PARENT, DEL, HIDDEN, READCOUNT, FILENAME, ENT)
         VALUES (#{id}, #{title}, #{content},
@@ -28,7 +28,7 @@
         )
     </insert>
     <select id="getBoardList"
-            resultType="main.java.com.sung.hee.shboard.model.SHBoard">
+            resultType="com.sung.hee.shboard.model.SHBoard">
 
         SELECT @ROWNUM := @ROWNUM + 1 AS rnn,SEQ ,ID ,TITLE,CONTENT,
         WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
@@ -43,29 +43,29 @@
         </if>
         ORDER BY REF ASC, STEP ASC
     </select>
-    <select id="getMyBoardlist" parameterType="main.java.com.sung.hee.user.model.SHUser"
-            resultType="main.java.com.sung.hee.shboard.model.SHBoard">
+    <select id="getMyBoardlist" parameterType="com.sung.hee.user.model.SHUser"
+            resultType="com.sung.hee.shboard.model.SHBoard">
         SELECT @ROWNUM := @ROWNUM + 1 AS rnn,SEQ,ID,TITLE,CONTENT,
         WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
         FROM SHBOARD,(SELECT @ROWNUM := 0)R WHERE ID=#{id} ORDER BY REF ASC, STEP ASC
     </select>
     <select id="getBoard"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard"
-            resultType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard"
+            resultType="com.sung.hee.shboard.model.SHBoard">
 		SELECT SEQ ,ID ,TITLE,CONTENT,
 		WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
 		FROM SHBOARD
 		WHERE SEQ=#{seq}
 	</select>
     <update id="replyBoardUpdate"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard">
 	UPDATE SHBOARD SET
 	STEP=STEP+1
 	WHERE REF=(select * from (SELECT REF FROM SHBOARD a WHERE SEQ=#{seq})a)
 	AND STEP>(select * from (SELECT STEP FROM SHBOARD b WHERE SEQ=#{seq})ab)
 	</update>
     <insert id="replyBoardInsert"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard">
         INSERT INTO SHBOARD
         (ID, TITLE, CONTENT,
         WDATE, REF, STEP, DEPTH, PARENT, DEL, HIDDEN, READCOUNT, FILENAME, ENT)
@@ -92,21 +92,21 @@
         )A
     </insert>
     <update id="updateBoard"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard">
 		UPDATE SHBOARD SET
 		TITLE=#{title}, CONTENT=#{content},WDATE=DATE_FORMAT(NOW(), '%Y-%m-%d'),FILENAME=#{filename}
 		WHERE SEQ=#{seq}
 	</update>
 
     <update id="boarddelete"
-            parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.shboard.model.SHBoard">
 		UPDATE SHBOARD SET DEL=1
 		WHERE SEQ=#{seq}
 	</update>
 
     <select id="getBoardPageList"
-            parameterType="main.java.com.sung.hee.help.BoardParam"
-            resultType="main.java.com.sung.hee.shboard.model.SHBoard">
+            parameterType="com.sung.hee.help.BoardParam"
+            resultType="com.sung.hee.shboard.model.SHBoard">
         SELECT rnn,SEQ ,ID ,TITLE,CONTENT,
         WDATE,REF,STEP,DEPTH,PARENT,DEL,HIDDEN,READCOUNT,FILENAME,ENT,TYPE
         FROM
@@ -133,7 +133,7 @@
         WHERE rnn between #{start} AND #{end}
     </select>
     <select id="getBoardTotalCount"
-            parameterType="main.java.com.sung.hee.help.BoardParam"
+            parameterType="com.sung.hee.help.BoardParam"
             resultType="java.lang.Integer">
         SELECT IFNULL(count(*),0) AS cnt
         FROM SHBOARD WHERE
@@ -153,7 +153,7 @@
 
         </if>
     </select>
-    <update id="updateReadCount" parameterType="main.java.com.sung.hee.shboard.model.SHBoard">
+    <update id="updateReadCount" parameterType="com.sung.hee.shboard.model.SHBoard">
 		UPDATE SHBOARD SET READCOUNT=READCOUNT+1 WHERE SEQ=#{seq}
 
     </update>

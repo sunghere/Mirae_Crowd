@@ -3,30 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SHMessage">
-    <insert id="sendMessage" parameterType="main.java.com.sung.hee.message.model.SHMessage">
+    <insert id="sendMessage" parameterType="com.sung.hee.message.model.SHMessage">
         INSERT INTO SHMESSAGE (TOID, FROMID, CONTENT, WDATE, READCK, DEL)
         VALUES (#{toid}, #{fromid}, #{content}, DATE_FORMAT(NOW(), '%Y-%m-%d'), 0, 0)
     </insert>
 
-    <select id="messageListAll" resultType="main.java.com.sung.hee.message.model.SHMessage">
+    <select id="messageListAll" resultType="com.sung.hee.message.model.SHMessage">
         SELECT COUNT(IF(READCK=0,readck,null)) cnt, FROMID FROM SHMESSAGE
         WHERE NOT FROMID='admin'
         GROUP BY FROMID
     </select>
 
-    <select id="messageList" parameterType="main.java.com.sung.hee.message.model.SHMessage"
-            resultType="main.java.com.sung.hee.message.model.SHMessage">
+    <select id="messageList" parameterType="com.sung.hee.message.model.SHMessage"
+            resultType="com.sung.hee.message.model.SHMessage">
         SELECT SEQ, TOID, FROMID, CONTENT, WDATE, READCK, DEL FROM SHMESSAGE
         WHERE TOID=#{toid} OR FROMID=#{fromid}
         ORDER BY SEQ
     </select>
 
-    <update id="readMessage" parameterType="main.java.com.sung.hee.message.model.SHMessage">
+    <update id="readMessage" parameterType="com.sung.hee.message.model.SHMessage">
         UPDATE SHMESSAGE SET READCK=1
         WHERE FROMID=#{fromid} AND TOID=#{toid}
     </update>
 
-    <update id="deleteMessage" parameterType="main.java.com.sung.hee.message.model.SHMessage">
+    <update id="deleteMessage" parameterType="com.sung.hee.message.model.SHMessage">
         UPDATE SHMESSAGE SET DEL=1
         WHERE SEQ=#{seq}
     </update>

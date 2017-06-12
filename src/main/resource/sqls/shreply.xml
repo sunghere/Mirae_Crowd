@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SHReply">
 
-    <insert id="addReply" parameterType="main.java.com.sung.hee.shreply.model.SHReply">
+    <insert id="addReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
     INSERT INTO SHREPLY(ID, REF, STEP, DEPTH,
                     BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
@@ -12,11 +12,11 @@
 0,0,#{btype},DATE_FORMAT(NOW(), '%Y-%m-%d'),#{content},0,#{bparent},0)
     </insert>
 
-    <update id="removeReply" parameterType="main.java.com.sung.hee.shreply.model.SHReply">
+    <update id="removeReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
         UPDATE SHREPLY SET DEL = 1 WHERE seq=#{seq}
     </update>
-    <insert id="addReReply" parameterType="main.java.com.sung.hee.shreply.model.SHReply">
+    <insert id="addReReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
         INSERT INTO SHREPLY(ID, REF, STEP, DEPTH,
         BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
@@ -27,19 +27,19 @@
         (SELECT BPARENT FROM SHREPLY r WHERE SEQ=#{seq}),0)
     </insert>
 
-    <select id="getReply" parameterType="main.java.com.sung.hee.shreply.model.SHReply"
-            resultType="main.java.com.sung.hee.shreply.model.SHReply">
+    <select id="getReply" parameterType="com.sung.hee.shreply.model.SHReply"
+            resultType="com.sung.hee.shreply.model.SHReply">
 
         SELECT SEQ, ID, REF, STEP, DEPTH,
         BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL FROM SHREPLY WHERE SEQ=#{seq}
     </select>
-    <update id="updateReply" parameterType="main.java.com.sung.hee.shreply.model.SHReply">
+    <update id="updateReply" parameterType="com.sung.hee.shreply.model.SHReply">
     UPDATE SHREPLY SET CONTENT=#{content} WHERE SEQ=#{seq}
 
     </update>
 
-    <select id="getReplyList" parameterType="main.java.com.sung.hee.help.BoardCheck"
-            resultType="main.java.com.sung.hee.shreply.model.SHReply">
+    <select id="getReplyList" parameterType="com.sung.hee.help.BoardCheck"
+            resultType="com.sung.hee.shreply.model.SHReply">
       SELECT
     @ROWNUM := @ROWNUM + 1 as rnn,
     SEQ,
@@ -59,8 +59,8 @@
         WHERE BTYPE=#{type} AND BPARENT=#{seq} AND r.DEL=0 ORDER BY REF DESC, STEP ASC
     </select>
 
-    <select id="getReplyListbyId" parameterType="main.java.com.sung.hee.shreply.model.SHReply"
-            resultType="main.java.com.sung.hee.shreply.model.SHReply">
+    <select id="getReplyListbyId" parameterType="com.sung.hee.shreply.model.SHReply"
+            resultType="com.sung.hee.shreply.model.SHReply">
      SELECT
     @ROWNUM := @ROWNUM + 1 as rnn,
     SEQ,
@@ -80,8 +80,8 @@
         WHERE r.ID = #{id} AND r.DEL = 0 ORDER BY REF DESC, STEP ASC
     </select>
     <select id="getReplyPageList"
-            parameterType="main.java.com.sung.hee.help.ReplyParam"
-            resultType="main.java.com.sung.hee.shreply.model.SHReply">
+            parameterType="com.sung.hee.help.ReplyParam"
+            resultType="com.sung.hee.shreply.model.SHReply">
                SELECT rnn,SEQ, ID, REF, STEP, DEPTH,
           BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL
         FROM
@@ -94,7 +94,7 @@
     </select>
 
     <select id="getReplyTotalCount"
-            parameterType="main.java.com.sung.hee.help.ReplyParam"
+            parameterType="com.sung.hee.help.ReplyParam"
             resultType="java.lang.Integer">
         SELECT IFNULL(count(*),0) AS cnt
         FROM SHREPLY

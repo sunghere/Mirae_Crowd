@@ -41,7 +41,7 @@
         </div>
 
     </div>
-    <jsp:useBean id="uboard" class="main.java.com.sung.hee.help.BoardBean"/>
+    <jsp:useBean id="uboard" class="com.sung.hee.help.BoardBean"/>
 
     <div class="col-lg-9 col-md-8 col-xs-12">
         <div class="box_border" style="margin-top:5px; margin-bottom: 10px;">
