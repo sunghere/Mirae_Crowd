@@ -13,8 +13,12 @@ CKEDITOR.editorConfig = function (config) {
     /* plugin*/
     config.extraPlugins = 'youtube';
 
+    config.extraPlugins = 'autogrow';
+    config.autoGrow_minHeight = 400;
+    config.autoGrow_maxHeight = 1200;
+    config.autoGrow_bottomSpace = 50;
     config.font_defaultLabel = 'Gulim';
-    config.font_names = 'Gulim/Gulim;Dotum/Dotum;Batang/Batang;Gungsuh/Gungsuh/Arial/Arial;Tahoma/Tahoma;Verdana/Verdana';
+    config.font_names = '맑은 고딕; 돋움; 바탕; 돋음; 궁서; Nanum Gothic Coding; Quattrocento Sans;' + CKEDITOR.config.font_names;
     config.fontSize_defaultLabel = '12px';
     config.fontSize_sizes = '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;';
     /* config.enterMode =CKEDITOR.ENTER_BR;  //엔터키 입력시 br 태그 변경
