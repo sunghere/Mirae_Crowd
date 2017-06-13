@@ -131,7 +131,7 @@
             </if>
             <if test="search_type == 'category'">
 
-                AND (CATEGORY like CONCAT('%',#{category},'%')) AND (TAG like CONCAT('%',#{category},'%') OR TITLE like
+                AND (CATEGORY like CONCAT('%',#{search},'%')) AND (TAG like CONCAT('%',#{category},'%') OR TITLE like
                 CONCAT('%',#{category},'%') OR CONTENT like CONCAT('%',#{category},'%'))
             </if>
         </if>
