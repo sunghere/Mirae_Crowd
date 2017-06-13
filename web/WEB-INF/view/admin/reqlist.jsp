@@ -98,13 +98,7 @@
         detail_load(seq,0);
 
     });
-    $('#reply-list').on("click", ".crowd-detail-btn", function () {
-        alert('dd');
-        var seq = $(this).attr("data-src");
 
-        detail_load(seq,0);
-
-    });
     /* 리스트 불러오기 */
     var load_list = function () {
         $.ajax({

@@ -137,6 +137,20 @@
         display: inline-block;
     }
 
+    .crowd-title > button {
+        opacity: 0;
+    }
+
+    .crowd-title {
+        cursor: text;
+        box-shadow: none;
+        text-shadow: none;
+    }
+
+    .crowd-title:hover > button {
+        opacity: 1;
+    }
+
 </style>
 <div class="col-md-3 white-box margin-top-25 side-bar">
     <div class="side-bar-title"><i class="fa fa-user-circle fa-4x" aria-hidden="true"></i></div>
@@ -685,8 +699,8 @@
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg small">' + val.sdate + '</td>'
                         + '<td class="text-center">' + '~' + val.edate.substr(5) + '</td>'
-                        + '<td class="col-md-3"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
-                        + val.titleSub + '</div></td>'
+                        + '<td class="col-md-3"><div class="btn crowd-title crowd-detail-btn" data-src="' + val.seq + '">'
+                        + val.titleSub + '<button class="crowd-edit-btn btn btn-default"  data-src="' + val.seq + '">수정</button></div></td>'
                         + '<td class="text-center">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.req == 2) {
@@ -856,10 +870,16 @@
     });
 
     /* 크라우드 상세보기*/
-    $('#crowd-list, #fund-list').on("click", ".crowd-detail-btn", function () {
+    $('#fund-list,#reply-lis').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr('data-src');
 
-        detail_load(seq,0);
+        detail_load(seq, 0);
+
+    });
+    $('#crowd-list').on("click", ".crowd-edit-btn", function () {
+        var seq = $(this).attr("data-src");
+
+        alert(seq + "수정하기로")
 
     });
     /*크라우드 보상받기 모달*/
