@@ -271,7 +271,7 @@
             </div>
             <div class="modal-footer">
                 <h5 class="subtitle_Type_mb_10">
-                    다른방법으로 로그인하기<br><br>
+                    다른방법으로 로그인 & 회원가입하기<br><br>
                 </h5>
                 <div class="text-center">
                     <a id="kakao-login-btn"></a>
@@ -281,7 +281,14 @@
                          data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false"
                          data-use-continue-as="false" onlogin="fb_logininit()"></div>
                 </div>
-
+                <br>
+                <h5 class="subtitle_Type_mb_10">
+                    개인 이메일로 회원가입하시겠어요?<br><br>
+                </h5>
+                <div class="btn_group_center">
+                    <span class="btn btn-default btn_style find"><a href="/regi.do"><i class="fa fa-user-plus"
+                                                                                       aria-hidden="true"></i>회원가입 하러가기</a></span>
+                </div>
                 <h5 class="subtitle_Type_mb_10">
                     아이디/비밀번호를 잊으셨나요?<br><br>
                 </h5>
@@ -393,6 +400,7 @@
                     <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
+                <h4 class="search-modal-title"><i class="fa fa-search" aria-hidden="true"></i>빠른 검색<span>모든 주제로 검색이 됩니다.</span></h4>
                 <input type="text" class="form-control input-lg" id="modal-search-text" placeholder="Search For...">
             </div>
             <div class="modal-body">

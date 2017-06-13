@@ -7,7 +7,7 @@
     <div class="container-fluid main-top-navbar">
         <div class="navbar-header">
             <!-- <a class="navbar-brand" href="#" target="_blank"></a>-->
-             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
                 <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -29,11 +29,9 @@
                         <c:if test="${!empty login}">
 
                             <li>
-                                <a title="펀딩 신청" href="/crowdAdd.do">펀딩모집 신청</a>
+                                <a title="펀딩 신청" href="/crowdAdd.do"><i class="fa fa-ravelry" aria-hidden="true"></i>   모집 신청</a>
                             </li>
-                            <li>
-                                <a title="투표" href="/polllist.do">투표</a>
-                            </li>
+
                         </c:if>
 
                         <li>
