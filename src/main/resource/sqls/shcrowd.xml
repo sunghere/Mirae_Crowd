@@ -246,8 +246,7 @@
     
     <update id="updateCrowd">
     	UPDATE SHCROWD SET
-        TITLE = #{title}, CONTENT = #{content}, ID = #{id}, GOALMONEY = #{goalMoney},TAG = #{tag},
-        SDATE = #{sdate}, EDATE = #{edate}, CATEGORY = #{category},
+        TITLE = #{title}, CONTENT = #{content}, TAG = #{tag},
         <if test="address != null and address!=''">
             ADDRESS = #{address}
         </if>

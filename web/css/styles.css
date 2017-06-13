@@ -1535,6 +1535,14 @@ input[name="fund-money"] {
     width: 90%;
 }
 
+.detail-addr {
+	background-color: #acd08b;
+}
+
+.detail-addr, .detail-tag {
+	cursor: text;
+}
+
 /* 검색창 modal*/
 #searchModal {
     z-index: 1049;

@@ -606,14 +606,14 @@
                     var str_detail = "<div class='detail-content'>" + data.content + "</div>" +
                         "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
                         "<input type='hidden' name='type' data-src='" + data.type + "'>" +
-                        "<div class='detail-reply'>" +
+                        "<div class='detail-tag float-right tagbox'>"+data.tag + "</div>"+
+                        "<div class='detail-addr tagbox'>"+data.address+ "</div>"+
+                        "<div class='detail-reply div-clear'>" +
                         "<h2 class='cursive underline'>Reply</h2>" +
                         "<div class='crowd-reply-list'></div>" +
                         "<input type='text' class='black-control crowd-reply-text col-sm-10'>" +
                         "<button class='btn btn-default crowd-reply-btn col-sm-2'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>쓰기</button>" +
                         "</div>";
-
-                    reply_load(data.seq, data.type);
 
                     $(".detail-title").html(str_title);
                     $(".detail-summary").html(str_summary);
@@ -681,7 +681,7 @@
         });
 
         /* 디테일 댓글 불러오기 */
-        var reply_load = function (seq, type) {
+        reply_load = function (seq, type) {
 
             $.ajax({
                 url: "replylist.do",

@@ -9,6 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <style>
+.crowd-update-title {
+width: 60%;}
     #point-group {
         width: 10px;
     }
@@ -152,6 +154,10 @@
     }
 
 </style>
+<!-- CK EDITOR  -->
+<script type="text/javascript"
+        src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
+
 <div class="col-md-3 white-box margin-top-25 side-bar">
     <div class="side-bar-title"><i class="fa fa-user-circle fa-4x" aria-hidden="true"></i></div>
     <div class="side-bar-title">마이페이지</div>
@@ -872,18 +878,81 @@
     });
 
     /* 크라우드 상세보기*/
-    $('#fund-list,#reply-lis').on("click", ".crowd-detail-btn", function () {
+    $('#fund-list,#reply-list').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr('data-src');
 
-        detail_load(seq, 0);
+        detail_load(seq,0);
 
     });
+    /* 크라우드 수정하기 */
     $('#crowd-list').on("click", ".crowd-edit-btn", function () {
         var seq = $(this).attr("data-src");
 
-        alert(seq + "수정하기로")
+        update_load(seq)
 
     });
+    
+    update_load = function (seq) {
+        $.ajax({
+            url: "detailCrowd.do",
+            method: "POST",
+            data: {"seq": seq},
+            success: function (data) {
+                var src = imageCarrier(data.content);
+                var str_title = "<span class='cbox detail-cat'>" + data.category + "</span><input class='black-control crowd-update-title' type='text' value='" + data.titleTemp + "'>";
+
+                var str_summary = "<div class='detail-img'><img class='center-block' src='" + src + "'></div>" +
+                    "<div class='detail-like btn btn-default' data-src='" + data.seq + "' disabled><i class='fa fa-heart-o' aria-hidden='true'></i></div>" +
+                    "<div>" + data.id + "</div>" +
+                    "<div class='detail-date'>" + data.sdate + " ~ " + data.edate + "</div>" +
+                    "<div class='detail-goalMoney'>목표금액 : " + money_setComma(data.goalMoney) + "원</div>" +
+                    "<div class='progress'>" +
+                    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalMoney, data.curMoney) + "' " +
+                    "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalMoney, data.curMoney) + "%'></div>" +
+                    "</div>" +
+                    "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(data.curMoney) + "원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
+                    "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
+                    "<div style='width: 100%; height:300px'><div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
+
+                var str_detail = "<div class='detail-content'><textarea id='update_content'></textarea></div>" +
+                    "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
+                    "<input type='hidden' name='type' data-src='" + data.type + "'>" +
+                    "<input type='text' class='form-control input-lg' id='update_tag' placeholder='#꿈나무 #도움' value='"+data.tag+"'>" +
+                    "<div class='detail-reply'>" +
+                    "<h2 class='cursive underline'>Reply</h2>" +
+                    "<div class='crowd-reply-list'></div>" +
+                    "</div>";
+
+                reply_load(data.seq, data.type);
+                    
+                $(".detail-title").html(str_title);
+                $(".detail-summary").html(str_summary);
+                $(".detail-detail").html(str_detail);
+                
+                var detail_latlng = data.latlng.split('*');
+                if (detail_latlng.length > 1) {
+                    map_load('detail-map', detail_latlng[0], detail_latlng[1]);
+                }
+                /* 펀드를 위한 값 넣어주는작업*/
+				 var init = function () {
+				
+		            CKEDITOR.replace('update_content', {
+		                customConfig: '<%=request.getContextPath()%>/ckeditor/config.js',
+		                width: '100%',
+		                height: '400px',
+		                filebrowserUploadUrl: 'imageUpload.do',
+		            })
+		
+				 };
+
+       			init();
+
+       			CKEDITOR.instances.update_content.setData(data.content);
+                    $('#detail-modal-btn').click();
+            }
+        })
+    };
+    
     /*크라우드 보상받기 모달*/
 
     $('#crowd-list').on('click', '.reward-btn', function () {
