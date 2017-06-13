@@ -369,4 +369,23 @@ public class CrowdController {
 
         return ref;
     }
+    
+    /* 크라우드 글 수정 */
+    @RequestMapping(value = "updateCrowd.do", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxCheck updateCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
+        logger.info("CrowdControl delCrowd--!");
+        AjaxCheck checkResult = new AjaxCheck();
+
+        try {
+            shCrowdService.updateCrowd(shCrowd);
+            checkResult.setMessage("SUCS");
+
+        } catch (Exception e) {
+
+            checkResult.setMessage("FAIL");
+        }
+
+        return checkResult;
+    }
 }

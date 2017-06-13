@@ -50,4 +50,6 @@ public interface SHCrowdService {
     List<String> findTag();
     
     List<SHCrowd> searchCategory(SHCrowd shCrowd); /*검색결과 카테고리로 묶기*/
+    
+    void updateCrowd(SHCrowd shCrowd); /*크라우드 수정*/
 }

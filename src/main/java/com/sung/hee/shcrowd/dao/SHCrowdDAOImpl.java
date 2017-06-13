@@ -134,4 +134,8 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
 	public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
 		return sqlSession.selectList(ns + "searchCategory", shCrowd);
 	}
+
+	public void updateCrowd(SHCrowd shCrowd) {
+		sqlSession.update(ns + "updateCrowd", shCrowd);
+	}
 }

@@ -152,4 +152,9 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     public List<SHCrowd> searchCategory(SHCrowd shCrowd) {
         return shCrowdDAO.searchCategory(shCrowd);
     }
+
+    @Transactional
+	public void updateCrowd(SHCrowd shCrowd) {
+    	shCrowdDAO.updateCrowd(shCrowd);
+	}
 }

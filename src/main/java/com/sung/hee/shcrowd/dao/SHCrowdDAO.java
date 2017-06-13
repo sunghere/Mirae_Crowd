@@ -68,4 +68,6 @@ public interface SHCrowdDAO {
     List<String> findTag();
     
     List<SHCrowd> searchCategory(SHCrowd shCrowd);
+    
+    void updateCrowd(SHCrowd shCrowd); /*크라우드 수정*/
 }
