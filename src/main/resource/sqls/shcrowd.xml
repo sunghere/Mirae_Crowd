@@ -137,11 +137,13 @@
         </if>
         ORDER BY SEQ DESC
         ) A,(SELECT @ROWNUM := 0)R ) RESULT
-        <if test="rnn == null or rnn ==''">
-            WHERE 12 >= rnn
-        </if>
-        <if test="rnn != null and rnn !=''">
-            WHERE rnn between #{rnn}+1 AND #{rnn}+12
+        <if test="rnn !=9999">
+            <if test="rnn == null or rnn ==''">
+                WHERE 12 >= rnn
+            </if>
+            <if test="rnn != null and rnn !=''">
+                WHERE rnn between #{rnn}+1 AND #{rnn}+12
+            </if>
         </if>
     </select>
     <select id="myCrowdList" parameterType="com.sung.hee.help.MyCrowd"
@@ -243,9 +245,9 @@
 		WHERE TAG like CONCAT('%',#{search},'%') OR TITLE like CONCAT('%',#{search},'%') OR CONTENT like CONCAT('%',#{search},'%')
 		GROUP BY CATEGORY
     </select>
-    
+
     <update id="updateCrowd">
-    	UPDATE SHCROWD SET
+        UPDATE SHCROWD SET
         TITLE = #{title}, CONTENT = #{content}, TAG = #{tag},
         <if test="address != null and address!=''">
             ADDRESS = #{address}
@@ -253,7 +255,7 @@
         <if test="address == null or address==''">ADDRESS =''</if>
         TYPE = #{type}, REQ = 0, WDATE = DATE_FORMAT(NOW(), '%Y-%m-%d'),
         <if test="latlng != null and latlng!=''">
-        LATLAG = #{latlng}
+            LATLAG = #{latlng}
         </if>
         <if test="latlng == null or latlng==''">LATLAG = ''</if>
     </update>
