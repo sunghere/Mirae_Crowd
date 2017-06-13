@@ -106,7 +106,7 @@ public class LoginController {
         if (login != null && !login.getId().equals("")) {
             request.getSession().setAttribute(
                     "login", login);
-            request.getSession().setMaxInactiveInterval(20 * 60);
+            request.getSession().setMaxInactiveInterval(30 * 60);
             check.setMessage("SUCS");
 
         } else {
