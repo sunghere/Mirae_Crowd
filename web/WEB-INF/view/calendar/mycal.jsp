@@ -162,11 +162,11 @@
         var random_color = function (category) {
             var color = "";
             if (category == "IT/인터넷") {
+            	color = "#b8cbc8";
             } else if (category == "의료") {
-                color = "#65c149";
-
+                color = "#cdebef";
             } else if (category == "외식/식음료") {
-                color = "#c1499f";
+                color = "#ef9264";
             } else if (category == "요리") {
                 color = "#591847";
 
@@ -177,19 +177,18 @@
                 color = "#a5a16b";
 
             } else if (category == "생활/건강") {
-                color = "#6ba58d";
+                color = "#acd08b";
 
             } else if (category == "여행/레저") {
                 color = "#4c5cad";
 
             } else if (category == "쇼핑") {
-                color = "#870434";
+                color = "#f9c4d1";
 
             } else if (category == "뷰티") {
                 color = "#512427";
-                s
             } else {
-                color = "midnightblue";
+                color = "#869fc4";
 
             }
 
