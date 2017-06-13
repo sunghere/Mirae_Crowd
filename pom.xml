@@ -8,10 +8,14 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resource</directory>
+            </resource>
+        </resources>
         <!-- ROOT.war 가 생성된다. -->
         <finalName>mirae</finalName>
-        <sourceDirectory>${basedir}/src/</sourceDirectory>
-        <outputDirectory>${basedir}/build/classes</outputDirectory>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -29,7 +33,7 @@
                 <configuration>
                     <webXml>web/WEB-INF/web.xml</webXml>
                     <packagingExcludes>web/WEB-INF/web.xml</packagingExcludes>
-                    <warSourceDirectory>web</warSourceDirectory>
+                    <warSourceDirectory>${basedir}/web</warSourceDirectory>
 
                 </configuration>
 
