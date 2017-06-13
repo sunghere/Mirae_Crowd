@@ -400,7 +400,8 @@
                     <span class='close' aria-hidden="true">x</span> <span
                         class="sr-only">Close</span>
                 </button>
-                <h4 class="search-modal-title"><i class="fa fa-search" aria-hidden="true"></i>빠른 검색<span>모든 주제로 검색이 됩니다.</span></h4>
+                <h4 class="search-modal-title"><i class="fa fa-search" aria-hidden="true"></i>빠른
+                    검색<span>모든 주제로 검색이 됩니다.</span></h4>
                 <input type="text" class="form-control input-lg" id="modal-search-text" placeholder="Search For...">
             </div>
             <div class="modal-body">
@@ -621,6 +622,9 @@
                     if (detail_latlng.length > 1) {
                         map_load('detail-map', detail_latlng[0], detail_latlng[1]);
                     }
+
+                    $('.detail-content img').css({"width": "100%", "height": "auto"});
+                    $('.detail-content iframe').css({"width": "100%"});
                     check_like(seq);
                     reply_load(seq, data.type);
                     $('.fund-btn').attr('data-src', data.seq);
