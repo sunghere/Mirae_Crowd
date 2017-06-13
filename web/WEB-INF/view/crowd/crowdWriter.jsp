@@ -17,7 +17,7 @@
     $(function () {
         var init = function () {
 
-            CKEDITOR.replace('w_content', {
+            CKEDITOR.replace('write_content', {
                 customConfig: '<%=request.getContextPath()%>/ckeditor/config.js',
                 width: '100%',
                 height: '400px',
@@ -125,7 +125,7 @@
             </div>
             <div class="write_part" id="contentInput" class="text">
                 <h4>Content</h4>
-                <textarea id='w_content'>&nbsp;</textarea>
+                <textarea id='write_content'>&nbsp;</textarea>
 
                 <p class="text-danger">* 등록하고자 하는 글의 내용을 자세히 적어주세요.</p>
 
@@ -225,7 +225,7 @@
             var category = $('#w_category').attr("value");
             var type = $('#w_type').attr('value');
             var title = $('#w_title').val();
-            var content = CKEDITOR.instances.w_content.getData();
+            var content = CKEDITOR.instances.write_content.getData();
             var address = $('#w_addr').val();
             var goalMoney = replaceAll($('#w_goal').val(), ",", "");
             var sdate = $('#sdatepicker').val();
@@ -345,7 +345,10 @@
         $('.ui-datepicker td span, .ui-datepicker td a').css('font-size', '20px');
         $('.write_part').css({"border-bottom": "2px solid rgba(221,221,221,0.7)"})
     });
-    function NewZipCode5NumCheck() {
+    
+    
+    /*  맵관련 시작 */
+    function NewZipCode5NumCheck() { /* 주소 검색 함수 */
         new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -383,6 +386,8 @@
             }
         }).open();
     }
+    
+    /*  맵 변수 선언 */
     var map;
     var maplist = [];
     var mapTagList = [];
@@ -391,6 +396,8 @@
     var mylat = 37.5666102;
     var mylng = 126.9783881;
     var htmlAddresses = [];
+    
+    /*  array porototype contains함수 추가 */
     Array.prototype.contains = function (element) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == element) {
@@ -486,6 +493,7 @@
                     }
                 });
                 updateInfoWindow(mylatlng, 1);
+                searchCoordinateToAddress(mylatlng);
             }
 
 
@@ -556,9 +564,9 @@
                 htmlAddresses.push(item.address);
                 htmlAddresses.push('&nbsp&nbsp&nbsp -> ' + item.point.x + ',' + item.point.y);
             }
-
+            $('#addr-tf').val(htmlAddresses[2]);
         });
-        $('#addr-tf').val(htmlAddresses[2]);
+        
     }
     function selectAddress(lat, lng) {
         var latlng = new naver.maps.LatLng(lat, lng);

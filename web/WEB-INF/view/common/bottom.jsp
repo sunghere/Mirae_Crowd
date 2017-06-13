@@ -769,7 +769,7 @@
                     success: function (data) {
                         var str = "";
                         $.each(data, function (i, val) {
-                            str += "<div class='search-cat btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
+                            str += "<div class='search-category btn-default' data-src='" + val.category + "'>" + val.category + "<span class='badge'>" + val.cnt + "</span></div>";
                         });
                         $("#searchlist").html(str);
 
@@ -781,12 +781,13 @@
         });
 
         /* 서치 모달 카테고리 클릭 시 리스트 */
-        $("#searchlist").on("click", ".search-cat", function () {
+        $("#searchlist").on("click", ".search-category", function () {
             var cat = $(this).attr('data-src');
             $.ajax({
                 url: "cSearch.do",
                 method: "POST",
                 data: {
+					"rnn":"9999",      	
                     "search_type": "category",
                     "category": cat,
                     "search": $("#modal-search-text").val()

@@ -248,16 +248,17 @@
 
     <update id="updateCrowd">
         UPDATE SHCROWD SET
-        TITLE = #{title}, CONTENT = #{content}, TAG = #{tag},
-        <if test="address != null and address!=''">
-            ADDRESS = #{address}
-        </if>
-        <if test="address == null or address==''">ADDRESS =''</if>
-        TYPE = #{type}, REQ = 0, WDATE = DATE_FORMAT(NOW(), '%Y-%m-%d'),
-        <if test="latlng != null and latlng!=''">
-            LATLAG = #{latlng}
-        </if>
-        <if test="latlng == null or latlng==''">LATLAG = ''</if>
+        TITLE = #{title}, CONTENT = #{content}, TAG = #{tag}, REQ=0
+        WHERE SEQ = #{seq} AND ID = #{id}
+<!--         <if test="address != null and address!=''"> -->
+<!--             ADDRESS = #{address} -->
+<!--         </if> -->
+<!--         <if test="address == null or address==''">ADDRESS =''</if> -->
+<!--         TYPE = #{type}, REQ = 0, WDATE = DATE_FORMAT(NOW(), '%Y-%m-%d'), -->
+<!--         <if test="latlng != null and latlng!=''"> -->
+<!--             LATLAG = #{latlng} -->
+<!--         </if> -->
+<!--         <if test="latlng == null or latlng==''">LATLAG = ''</if> -->
     </update>
 
 </mapper>

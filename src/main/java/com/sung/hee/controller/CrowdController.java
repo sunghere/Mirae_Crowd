@@ -376,7 +376,9 @@ public class CrowdController {
     public AjaxCheck updateCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl delCrowd--!");
         AjaxCheck checkResult = new AjaxCheck();
-
+        SHUser login =(SHUser)request.getSession().getAttribute("login");
+        
+        shCrowd.setId(login.getId());
         try {
             shCrowdService.updateCrowd(shCrowd);
             checkResult.setMessage("SUCS");

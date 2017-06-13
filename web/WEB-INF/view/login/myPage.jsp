@@ -380,6 +380,8 @@ width: 60%;}
 
 <script>
     /*촉*/
+    $(function(){
+    	
     $('.side-info-btn').click(function () {
         all_hide();
 
@@ -912,12 +914,12 @@ width: 60%;}
                     "</div>" +
                     "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(data.curMoney) + "원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
                     "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
-                    "<div style='width: 100%; height:300px'><div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
+                    "<div style='width: 100%; height:300px'>" + "<span class='crowd-update-btn center-block btn btn-info' data-src='" + data.seq + "'>수정하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
                 var str_detail = "<div class='detail-content'><textarea id='update_content'></textarea></div>" +
                     "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
                     "<input type='hidden' name='type' data-src='" + data.type + "'>" +
-                    "<input type='text' class='form-control input-lg' id='update_tag' placeholder='#꿈나무 #도움' value='"+data.tag+"'>" +
+                    "<input type='text' class='form-control input-lg crowd-update-tag' placeholder='#꿈나무 #도움' value='"+data.tag+"'>" +
                     "<div class='detail-reply'>" +
                     "<h2 class='cursive underline'>Reply</h2>" +
                     "<div class='crowd-reply-list'></div>" +
@@ -953,6 +955,52 @@ width: 60%;}
         })
     };
     
+    /* 수정버튼 */
+    $(".detail-summary").on("click", ".crowd-update-btn", function() {
+    	var seq = $(this).attr("data-src");
+    	
+    	showMsg("수정시 관리자의 승인을 받아야합니다<br><br><button class='btn btn-danger btn-update-ok' data-src='"+seq+"'>확인</buton>")
+    });
+    $("#myMsg").on("click",".btn-update-ok",function(){
+    	var seq = $(this).attr("data-src");
+    	
+    	update_crowd(seq);
+    	 $('.showMsg-close').click();
+    	 
+    })
+    var update_crowd = function(seq){
+    	
+    	var title = $.trim($(".crowd-update-title").val());
+    	var content = CKEDITOR.instances.update_content.getData();
+    	var tag = $.trim($(".crowd-update-tag").val());
+    	if(title == "" || title == null) {
+    		showMsg("제목을 입력해주세요.");
+    		return false;
+    	}
+    	if(content == "" || content == null) {
+    		showMsg("내용을 입력해주세요.");
+    		return false;
+    	}
+    	if(tag == "" || tag == null) {
+    		showMsg("태그를 입력해주세요.");
+    		return false;
+    	}
+    	$.ajax({
+    		url:"updateCrowd.do",
+    		method: "POST",
+    		data: {"title": title, "content": content, "tag":tag,"seq":seq},
+    		success: function(data) {
+    			
+    			if(data.message == "FAIL") {
+    				showMsg("실패했습니다")
+    			} else {
+    				  $('#detail-modal-btn').click();
+    				setTimeout('showMsg("수정되었습니다.")',500)
+    				load_crowd_list();
+    			}
+    		}
+    	})
+    }
     /*크라우드 보상받기 모달*/
 
     $('#crowd-list').on('click', '.reward-btn', function () {
@@ -985,4 +1033,6 @@ width: 60%;}
         })
 
     }
+
+    })
 </script>

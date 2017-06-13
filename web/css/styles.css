@@ -1191,17 +1191,18 @@ img::-moz-selection {
     background: lavenderblush;
     margin-bottom: 10px;
     padding: 15px;
+    border-radius : 10px;
 }
 
-.chat_list, .search-cat {
+.chat_list, .search-category {
     font-size: 15px;
     background: lavenderblush;
     margin-bottom: 10px;
     padding: 15px;
+   
 }
 
 #chatlist {
-    background-color: mistyrose;
     margin-bottom: 15px;
     height: 600px;
     overflow: scroll;
@@ -1548,7 +1549,7 @@ input[name="fund-money"] {
     z-index: 1049;
 }
 
-.search-cat {
+.search-category {
     cursor: pointer;
 }
 
