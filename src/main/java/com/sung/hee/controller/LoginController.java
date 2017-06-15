@@ -106,7 +106,16 @@ public class LoginController {
             request.getSession().setAttribute(
                     "login", login);
             request.getSession().setMaxInactiveInterval(30 * 60);
+
             check.setMessage("SUCS");
+
+            if(login.getCerti() != 1){
+                check.setMessage("NOSERTI");
+                logger.info("Welcome LoginController loginAf!---- " + login);
+
+                request.getSession().invalidate();
+
+            }
 
         } else {
             request.getSession().invalidate();
@@ -184,7 +193,7 @@ public class LoginController {
         } else {
             logger.info("인증실패");
             //인증실패시
-            return "redirect:/main.do";
+            return "certierror.tiles";
         }
     }
 
