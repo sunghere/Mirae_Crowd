@@ -21,13 +21,6 @@
         color: #FF0000;
     }
 
-    .nube {
-        color: #1d1d1d;
-        background-color: lavenderblush;
-        left: 0;
-        top: 0;
-    }
-
     div#calendar {
         z-index: -999;
     }
@@ -40,7 +33,6 @@
 <link href="<%=request.getContextPath()%>/fullcal/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="<%=request.getContextPath()%>/fullcal/lib/moment.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/fullcal/fullcalendar.js"></script>
-
 <script type="text/javascript" src="<%=request.getContextPath()%>/fullcal/locale/ko.js"></script>
 
 <script type="text/javascript">
@@ -86,11 +78,11 @@
                     /*
                      $("#myModal").prop("hidden", true).fadeOut();*/
 
-                },eventClick: function (event) {
+                }, eventClick: function (event) {
 
                     var seq = event.seq;
 
-                    detail_load(seq,0);
+                    detail_load(seq, 0);
                 },
                 header: {
                     left: 'prev,next today',
@@ -146,7 +138,6 @@
         // 받은 날짜값을 date 형태로 형변환 해주어야 한다.
         function convertDate(date) {
             var date = new Date(date);
-//        alert(date.yyyymmdd());
         }
 
         // 받은 날짜값을 YYYY-MM-DD 형태로 출력하기위한 함수.
@@ -162,7 +153,7 @@
         var random_color = function (category) {
             var color = "";
             if (category == "IT/인터넷") {
-            	color = "#b8cbc8";
+                color = "#b8cbc8";
             } else if (category == "의료") {
                 color = "#cdebef";
             } else if (category == "외식/식음료") {
@@ -219,16 +210,4 @@
 
 
 </div>
-<div id="myModal" hidden="hidden" class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-body">
-            <h3 class="text-center">ㅇㅇ</h3>
-            <p class="text-center">ㅇㅇㅇ</p>
-            <p class="text-center">ㅇㅇㅇㅇ</p>
-            <br/>
-            <button type="button" class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">OK
-                <i
-                        class="ion-android-close"></i></button>
-        </div>
-    </div>
-</div>
+

@@ -128,8 +128,8 @@ public class BoardController {
         } else {
 
             shboard.setFilename(fileload.getOriginalFilename());
+            String fupload = "/usr/local/upload";
 
-            String fupload = "c:\\upload";
             logger.info(": " + fupload);
             String f = shboard.getFilename();
             String newFile = FUpUtil.getNewFile(f);
@@ -223,19 +223,15 @@ public class BoardController {
             board.setFilename(newFile);
             try {
                 File file = new File(fupload + "/" + newFile);
-                //logger.info(fupload+"\\"+newFile);
                 FileUtils.writeByteArrayToFile(file, fileload.getBytes());
             } catch (IOException e) {
-                logger.info("Welcome boardupdateAf if fail! =========================");
             }
         } else {
             if ((namefile != null && !namefile.equals(""))) {
                 board.setFilename(namefile);
-                //logger.info("Welcome pdsupdateAf else success! =======================");
             } else {
                 board.setFilename("");
 
-                logger.info("Welcome boardupdateAf no update ! =======================");
             }
         }
         shBoardService.updateBoard(board);
@@ -262,14 +258,10 @@ public class BoardController {
 
         param.setStart(start);
         param.setEnd(end);
-        logger.info("Welcome BoardController param! " + param);
         int totalRecordCount =
                 shBoardService.getBoardTotalCount(param);
-        logger.info("Welcome BoardController totalRecordCount! " + totalRecordCount);
         List<SHBoard> boardlist =
                 shBoardService.getBoardPageList(param);
-        logger.info("Welcome BoardController boardlist! " + boardlist.size());
-        model.addAttribute("doc_title", "Board 글목록");
         model.addAttribute("boardlist", boardlist);
 
         model.addAttribute("pageNumber", sn);
@@ -285,233 +277,8 @@ public class BoardController {
         return "boardlist.tiles";
     }//
 
-    /*
-    *
-    *
-    * EBoard
-    *
-    *
-    * */
-    @RequestMapping(value = "eboarddetail.do", method = RequestMethod.GET)
-    public String eboarddetail(HttpServletRequest request, SHBoard shBoard, Model model) throws Exception {
-        logger.info("Welcome eboarddetail boarddetail!");
-        SHBoard myBoard = shBoardService.getBoard(shBoard);
-        SHUser user = (SHUser) request.getSession().getAttribute("login");
-
-        if (myBoard.getHidden() == 1)
-            if (!(user.getAuth() == 1) && !(myBoard.getId().equals(user.getId()))) {
-
-                return "redirect:/eboardlist.do";
-            }
-
-        if (myBoard.getEnt() == 0) {
-
-
-        } else {
-            if (user.getEnt() == 0 || user.getEnt() != myBoard.getEnt()) {
-
-                return "redirect:/boardlist.do";
-            }
-
-        }
-        model.addAttribute("head", myBoard.getTitle());
-        model.addAttribute("board", myBoard);
-        return "eboarddetail.tiles";
-    }
-
-    @RequestMapping(value = "eboardreply.do",
-            method = {RequestMethod.POST})
-    public String eboardreply(SHBoard shboard, HttpServletRequest http, Model model) {
-        logger.info("Welcome EBoardController boardreply! " + new Date());
-
-
-        model.addAttribute("doc_title", "Board 답글달기");
-        model.addAttribute("board",
-                shBoardService.getBoard(shboard));
-
-        return "eboardreply.tiles";
-    }//
-
-
-    @RequestMapping(value = "eboardupdate.do",
-            method = {RequestMethod.POST})
-    public String eboardupdate(SHBoard shboard, Model model) {
-        logger.info("Welcome BoardController eboardupdate! " + new Date());
-        logger.info("Welcome BoardController SHBoard! " + shboard);
-        model.addAttribute("doc_title", "Board 수정하기");
-        model.addAttribute("board",
-                shBoardService.getBoard(shboard));
-
-        return "eboardupdate.tiles";
-    }//
-
-
-    @RequestMapping(value = "eboardreplyAf.do",
-            method = {RequestMethod.POST})
-    public String eboardreplyAf(SHBoard shboard, HttpServletRequest request,
-                                @RequestParam(value = "fileload", required = false) MultipartFile fileload,
-                                Model model) {
-        logger.info("Welcome eBoardController eboardreplyAf! " + shboard);
-        boolean isS = false;
-
-        if (fileload.getOriginalFilename() == null || fileload.getOriginalFilename().equals("")) {
-
-            try {
-                shBoardService.reply(shboard);
-                isS = true;
-            } catch (Exception e) {
-
-            }
-        } else {
-
-            shboard.setFilename(fileload.getOriginalFilename());
-
-            String fupload = "c:\\upload";
-            logger.info(": " + fupload);
-            String f = shboard.getFilename();
-            String newFile = FUpUtil.getNewFile(f);
-            shboard.setFilename(newFile);//
-            try {
-                File file = new File(fupload + "/" + newFile);
-                //logger.info(fupload+"\\"+newFile);
-                FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-                shBoardService.reply(shboard);
-
-
-                logger.info("Welcome eboardwriteAf success! ");
-            } catch (IOException e) {
-                logger.info("Welcome eboardwriteAf fail! ");
-            } catch (Exception e) {
-
-            }
-        }//
-        return "redirect:/eboardlist.do";
-    }
-
-
-    @RequestMapping(value = "eboardwrite.do",
-            method = RequestMethod.GET)
-    public String eboardwrite(Model model) {
-        logger.info("Welcome eBoardController boardwrite! " + new Date());
-        model.addAttribute("doc_title", "Board 글쓰기");
-        return "eboardwrite.tiles";
-    }//
-
-    @RequestMapping(value = "eboardwriteAf.do",
-            method = RequestMethod.POST)
-    public String eboardwriteAf(SHBoard board, HttpServletRequest request,
-                                @RequestParam(value = "fileload", required = false) MultipartFile fileload,
-                                Model model) throws Exception {
-        logger.info("Welcome EBoardController eboardwriteAf! qeqe" + fileload.getOriginalFilename());
-        if (fileload.getOriginalFilename() == null || fileload.getOriginalFilename().equals("")) {
-
-            shBoardService.writeBoard(board);
-        } else {
-
-            board.setFilename(fileload.getOriginalFilename());
-
-            String fupload = "/usr/local/upload";
-
-            logger.info(": " + fupload);
-            String f = board.getFilename();
-            String newFile = FUpUtil.getNewFile(f);
-            board.setFilename(newFile);//
-            try {
-                File file = new File(fupload + "/" + newFile);
-                //logger.info(fupload+"\\"+newFile);
-                FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-                shBoardService.writeBoard(board);
-
-                logger.info("Welcome eboardwriteAf success! ");
-            } catch (IOException e) {
-                logger.info("Welcome eboardwriteAf fail! ");
-            }
-        }
-
-        return "redirect:/eboardlist.do";
-    }//
-
-    @RequestMapping(value = "eboardupdateAf.do",
-            method = RequestMethod.POST)
-    public String eboardupdateAf(SHBoard board, String namefile,
-                                 HttpServletRequest request,
-                                 @RequestParam(value = "fileload", required = false) MultipartFile fileload,
-                                 Model model) throws Exception {
-        board.setFilename(fileload.getOriginalFilename());
-        logger.info("Welcome BoardController eboardupdateAf! " + new Date());
-
-        if ((namefile != null && !namefile.equals(""))) {
-
-            String fupload = "/usr/local/upload";
-            String f = board.getFilename();
-            String newFile = FUpUtil.getNewFile(f);
-            board.setFilename(newFile);
-            try {
-                File file = new File(fupload + "/" + newFile);
-                //logger.info(fupload+"\\"+newFile);
-                FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-            } catch (IOException e) {
-                logger.info("Welcome eboardupdateAf if fail! =========================");
-            }
-        } else {
-            if ((namefile != null && !namefile.equals(""))) {
-                board.setFilename(namefile);
-                //logger.info("Welcome pdsupdateAf else success! =======================");
-            } else {
-                board.setFilename("");
-
-                logger.info("Welcome eboardupdateAf no update ! =======================");
-            }
-        }
-        shBoardService.updateBoard(board);
-
-        return "redirect:/eboardlist.do";
-    }//
-
-    @RequestMapping(value = "eboarddel.do",
-            method = RequestMethod.POST)
-    public String eboarddelete(SHBoard board, Model model) throws Exception {
-        logger.info("Welcome BoardController boarddelete! " + new Date());
-        shBoardService.boarddelete(board);
-        return "redirect:/eboardlist.do";
-    }//
-
-
-    @RequestMapping(value = "eboardlist.do",
-            method = {RequestMethod.GET, RequestMethod.POST})
-    public String entboard(BoardParam param, HttpServletRequest request, Model model) throws Exception {
-        logger.info("Welcome BoardController entboard! ");
-        SHUser user = (SHUser) request.getSession().getAttribute("login");
-        param.setEnt(user.getEnt());
-        int sn = param.getPageNumber();
-        int start = (sn) * param.getRecordCountPerPage() + 1;
-        int end = (sn + 1) * param.getRecordCountPerPage();
-
-        param.setStart(start);
-        param.setEnd(end);
-        logger.info("Welcome eBoardController param! " + param);
-        int totalRecordCount =
-                shBoardService.getBoardTotalCount(param);
-        logger.info("Welcome eBoardController totalRecordCount! " + totalRecordCount);
-        List<SHBoard> boardlist =
-                shBoardService.getBoardPageList(param);
-        logger.info("Welcome eBoardController boardlist! " + boardlist.size());
-        model.addAttribute("doc_title", "Board 글목록");
-        model.addAttribute("boardlist", boardlist);
-
-        model.addAttribute("pageNumber", sn);
-        model.addAttribute("pageCountPerScreen", 10);
-        model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-        model.addAttribute("totalRecordCount", totalRecordCount);
-
-        model.addAttribute("s_category", param.getS_category());
-        model.addAttribute("s_keyword", param.getS_keyword());
-        model.addAttribute("entcheck", 1);
-        return "eboardlist.tiles";
-    }//
 
     /*내 글 리스트 */
-     /* 크라우드 요청 거절*/
     @RequestMapping(value = "myBoardList.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHBoard> myBoardList(SHUser shUser, HttpServletRequest request, Model model) throws Exception {

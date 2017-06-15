@@ -78,14 +78,18 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="height:50px; text-align:center;">
-                        <c:if test="${board.id eq login.id}">
+                        <c:if test="${board.id eq login.id}"> <%--본인인경우--%>
                             <button class="btn black-control" id="_btnUpdate" title="수정" alt="수정하기" type="button">
                                 수정
                             </button>
+                        </c:if>
+                        <c:if test="${board.id eq login.id || login.auth eq 1}"> <%-- 관리자 이거나 본인일경우--%>
+
                             <button class="btn black-control" id="_btnDelete" title="삭제" alt="삭제" type="button">삭제
                             </button>
                         </c:if>
-                        <c:if test="${login.auth eq 1}">
+
+                        <c:if test="${login.auth eq 1}"> <%--관리자인경우--%>
                             <button class="btn black-control" id="_btnReply" title="답글" alt="답글달기" type="button">
                                 답글
                             </button>
@@ -99,41 +103,35 @@
             </table>
         </div>
     </form>
-    </div>
+</div>
 
 
-    <form name="delfileup" action="fileDownload.do" method="post">
-        <input type="hidden" name="filename" value="${board.filename}"/>
-        <input type="hidden" name="seq"/>
-    </form>
-    <script type="text/javascript">
-        $("#_btnUpdate").click(function () {
-//	alert('글수정하기');
-            //submitContents($("#_frmForm"),'boardupdate.do');
-            $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardupdate.do"}).submit();
-        });
-        $("#_btnReply").click(function () {
-//	alert('답글달기');
-            //submitContents($("#_frmForm"),'boardreply.do');
-            $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardreply.do"}).submit();
-        });
-        $("#_back").click(function () {
-            $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardlist.do"}).submit();
+<form name="delfileup" action="fileDownload.do" method="post">
+    <input type="hidden" name="filename" value="${board.filename}"/>
+    <input type="hidden" name="seq"/>
+</form>
+<script type="text/javascript">
+    $("#_btnUpdate").click(function () { /* 글수정 */
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardupdate.do"}).submit();
+    });
+    $("#_btnReply").click(function () { /* 답글 */
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardreply.do"}).submit();
+    });
+    $("#_back").click(function () { /* 글 목록*/
+        $("#_frmForm").attr({"method": "post", "target": "_self", "action": "boardlist.do"}).submit();
 //        history.back();
-        });
-        $("#_btnDelete").click(function () {
-            $("#_frmForm").attr({"method": "post", "action": "boarddel.do"}).submit();
+    });
+    $("#_btnDelete").click(function () { /* 글 삭제*/
+        $("#_frmForm").attr({"method": "post", "action": "boarddel.do"}).submit();
 //        history.back();
-        });
-        function filedowns(filename, pdsid) {
-            var doc = document.delfileup;
-            doc.filename.value = filename;
-            doc.seq.value = pdsid;
-            doc.submit();
-        }
-        $(function () {
-            if ($(window).width() < 800) {
-            }
-        })
+    });
 
-    </script>
+    /* 파일 다운로드 함수*/
+    function filedowns(filename, pdsid) {
+        var doc = document.delfileup;
+        doc.filename.value = filename;
+        doc.seq.value = pdsid;
+        doc.submit();
+    }
+
+</script>

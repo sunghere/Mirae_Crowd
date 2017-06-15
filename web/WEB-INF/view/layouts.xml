@@ -21,7 +21,7 @@
         <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
     </definition>
     <definition name="admin.tiles" extends="main.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/crowd/crowdWriter.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/view/admin/admin.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
 
     </definition>
@@ -72,30 +72,6 @@
     </definition>
 
 
-    <!-- eboard-->
-    <definition name="eboardlist.tiles" template="/WEB-INF/view/onepage_tiles.jsp">
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
-        <put-attribute name="header" value="/WEB-INF/view/common/header.jsp"/>
-        <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
-        <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
-        <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboardlist.jsp"/>
-        <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
-    </definition>
-    <definition name="eboardupdate.tiles" extends="eboardlist.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboardupdate.jsp"/>
-    </definition>
-    <definition name="eboardreply.tiles" extends="boardlist.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboardreply.jsp"/>
-    </definition>
-
-    <definition name="eboardwrite.tiles" extends="boardlist.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboardwrite.jsp"/>
-    </definition>
-    <definition name="eboarddetail.tiles" extends="boarddetail.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/board/eboard/eboarddetail.jsp"/>
-
-    </definition>
-
     <!--cal-->
     <definition name="mycal.tiles" extends="boardlist.tiles">
         <put-attribute name="left_main" value="/WEB-INF/view/common/left_callist.jsp"/>
@@ -103,7 +79,7 @@
     </definition>
 
 
-    <!--pollㄴ-->
+    <!--poll-->
 
     <definition name="pollmake.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/poll/pollmake.jsp"/>
@@ -126,5 +102,5 @@
 
     </definition>
 
-    <!--<definition name="error.tiles" template="/WEB-INF/view/generic_error.jsp"/>-->
+    <definition name="error.tiles" template="/WEB-INF/view/common/error.jsp"/>
 </tiles-definitions>

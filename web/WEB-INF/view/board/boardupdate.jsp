@@ -34,7 +34,7 @@
                     <td style="text-align: left">
                         <div class="form-control" style="text-align: center">
                             <input type="file" name="fileload" placeholder="새 파일 등록시 이전파일은 삭제됩니다.">
-                            <input type="hidden" name='oldfilename'
+                            <input type="hidden" name='oldfilename' <%--이전파일 이름을 남겨둠.--%>
                                    value="${board.filename}" size="50"
                                    readonly="readonly"/></div>
 
@@ -74,7 +74,7 @@
             $("#_frmForm").attr({"target": "_self", "action": "boardupdateAf.do"}).submit();
         }
     });
-    $("#_back").click(function () {
+    $("#_back").click(function () { /* 다시 디테일로 보내준다.*/
         $("#_frmForm").attr({"method": "get", "action": "boarddetail.do"}).submit();
 
     })

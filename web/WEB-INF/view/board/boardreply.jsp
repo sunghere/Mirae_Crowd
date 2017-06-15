@@ -62,22 +62,22 @@
 </form>
 
 <script type="text/javascript">
-    $("#_back").click(function () {
+    $("#_back").click(function () { /* 뒤로가기 버튼*/
         $("#_frmForm").attr({"method": "get", "action": "boarddetail.do"}).submit();
 
-        history.back();
-    })
-    $("#_btnReply").click(function () {
+        location.href = "boardlist.do";
+    });
+    $("#_btnReply").click(function () { /* 답글버튼 눌렀을시*/
         var title = $("input[name='title']").val();
         var contents = $("textarea[name='content']").val();
 
         if (title == "" || title == null) {
 
-            alert("제목을 입력해주세요");
+            showMsg("제목을 입력해주세요");
         }
         else if (contents == "" || contents == null) {
 
-            alert("내용을 입력해주세요");
+            showMsg("내용을 입력해주세요");
         } else {
             $("#_frmForm").attr({"target": "_self", "action": "boardreplyAf.do"}).submit();
 

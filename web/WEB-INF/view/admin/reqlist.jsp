@@ -34,7 +34,8 @@
 <script>
 
     $(function () {
-        load_list();
+        /* 신청목록 초기화 */
+        load_req_list();
 
         $('#crowd-req-list').on("click", ".req-acc-btn", function (my) {
 
@@ -50,6 +51,8 @@
         });
     });
 
+
+    /* 크라우드 승인 함수*/
     var crowd_acc = function (seq) {
 
 
@@ -71,6 +74,9 @@
             }
         })
     };
+
+
+    /* 크라우드 거절 함수*/
 
     var crowd_no = function (seq) {
         $.ajax({
@@ -95,12 +101,12 @@
     $('#crowd-req-list').on("click", ".crowd-detail-btn", function () {
         var seq = $(this).attr("data-src");
 
-        detail_load(seq,0);
+        detail_load(seq, 0);
 
     });
 
     /* 리스트 불러오기 */
-    var load_list = function () {
+    var load_req_list = function () {
         $.ajax({
             url: "reqList.do",
             data: {},

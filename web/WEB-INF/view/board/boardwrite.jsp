@@ -13,7 +13,7 @@
 <script>
     $(function () {
 
-       
+
         $("#fancy-checkbox-default").change(function () {
             if ($(this).prop("checked") == 1) {
                 $(this).prop("checked", 1);
@@ -113,11 +113,11 @@
 
         if (title == "" || title == null) {
 
-            alert("제목을 입력해주세요");
+            showMsg("제목을 입력해주세요");
         }
         else if (contents == "" || contents == null) {
 
-            alert("내용을 입력해주세요");
+            showMsg("내용을 입력해주세요");
         } else {
 
             $("#_frmForm").attr({"target": "_self", "action": "/boardwriteAf.do"}).submit();
@@ -126,6 +126,7 @@
     });
     $("#_back").click(function () {
         history.back();
+        /* 이전페이지로 보내줌.*/
 //            $("#_frmForm").attr({"method": "post", "action": "boardlist.do"}).submit();
     });
 

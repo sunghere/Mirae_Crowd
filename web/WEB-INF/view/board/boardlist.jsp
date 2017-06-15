@@ -5,34 +5,35 @@
 
 <div class="container-fluid">
     <div class="row mb-3">
-        <div class="col-lg-3 col-md-4">
+        <div class="col-lg-3 col-md-3">
             <div class="card">
-                <img class="card-img-top img-responsive" src="//placehold.it/740x180/bbb/fff?text=..."
+                <img class="card-img-top img-responsive"
+                     src="https://cdn.pixabay.com/photo/2017/06/02/18/24/fruit-2367029__340.jpg"
                      alt="Card image cap">
                 <div class="card-block">
                     <div class="card-block">
-                        <c:if test="${login.ent eq 0}">
+                        <c:if test="${login.ent ne 0}">
                             <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
-                            <p class="card-text">기업전용 게시판을 이용해보세요.</p>
+                            <p class="card-text">기업의 관리페이지를 이용해보세요.</p>
                             <p class="card-text">
                                 Try the corporate bulletin board now.</p>
-                            <p class="card-text"><a href="/eboardlist.do?entcheck=1" class="btn btn-info">Enterprise
+                            <p class="card-text"><a href="entpage.do" class="btn btn-info">Enterprise
                                 Board</a></p>
                         </c:if>
-                        <c:if test="${login.ent ne 0}">
+                        <c:if test="${login.ent eq 0}">
                             <blockquote>
 
                                 <h4 class="card-title cursive">Try Crowd Fund Start Now</h4>
                                 <p class="card-text">지금 크라우드 펀딩을 신청하세요.</p>
                                 <p class="card-text">
                                     당신의 아이디어를 <br>널리 알려보세요</p>
-                                <p class="card-text"><a href="/crowdAdd.do" class="btn btn-info">바로가기</a></p>
+                                <p class="card-text"><a href="crowdAdd.do" class="btn btn-info">바로가기</a></p>
                             </blockquote>
                         </c:if>
                     </div>
                 </div>
             </div>
-            <div class="card card-inverse bg-inverse mt-3">
+            <div class="card">
                 <div class="card-block">
                     <blockquote>
                         <h3 class="card-title">지금 투자해보세요.</h3><br>
@@ -121,7 +122,7 @@
                         <jsp:setProperty property="depth" name="uboard"
                                          value="${board.depth}"/>
                         <tr class="_hover_tr">
-                            <td>${totalRecordCount-board.rnn+1}</td>
+                            <td><%--${totalRecordCount-board.rnn+1}--%>${board.seq}</td>
                             <td>
                                 <jsp:getProperty property="reply"
                                                  name="uboard"/>

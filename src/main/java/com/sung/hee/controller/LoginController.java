@@ -34,13 +34,6 @@ public class LoginController {
     @Autowired
     private EmailSender emailSender;
 
-    @RequestMapping(value = "login.do",
-            method = RequestMethod.GET)
-    public String login(Model model) {
-        logger.info("Welcome LoginController login! " + new Date());
-        return "login.tiles";
-    }//
-
     @RequestMapping(value = "regi.do",
             method = {RequestMethod.GET, RequestMethod.POST})
     public String regi(Model model) {
@@ -53,6 +46,8 @@ public class LoginController {
     public String regiAf(SHUser user, HttpServletRequest request, Model model) {
         logger.info("Welcome LoginController regiAf! " + new Date());
         try {
+            String shaPwd = EncryptUtil.getEncryptSHA256(user.getPwd()); /* 암호에 SH 문자열을 */
+            user.setPwd(shaPwd);
             shUserService.regi(user);
             MyEmail myEmail = new MyEmail();
 
@@ -60,7 +55,7 @@ public class LoginController {
             String reciver = user.getId(); //받을사람의 이메일입니다.
             String subject = "Sunghere 가입 인증 메일입니다.";
             String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id="+user.getId()+"&encrypt="
+                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id=" + user.getId() + "&encrypt="
                     + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.";
 
             myEmail.setReciver(reciver);
@@ -76,11 +71,13 @@ public class LoginController {
         return "redirect:/" + "main.do";
     }//
 
-    @RequestMapping(value = "kakaoRegi.do",
+    @RequestMapping(value = "SNSRegi.do",
             method = {RequestMethod.POST})
     @ResponseBody
-    public AjaxCheck kakaoRegi(SHUser user, Model model) {
+    public AjaxCheck snsRegi(SHUser user, Model model) {
         AjaxCheck check = new AjaxCheck();
+        String shaPwd = EncryptUtil.getEncryptSHA256(user.getPwd()); /* 암호에 SH 문자열을 */
+        user.setPwd(shaPwd);
 
         try {
 
@@ -99,8 +96,10 @@ public class LoginController {
     @ResponseBody
     public AjaxCheck loginAf(HttpServletRequest request
             , SHUser user, Model model) {
-        SHUser login = shUserService.login(user);
         AjaxCheck check = new AjaxCheck();
+        String shaPwd = EncryptUtil.getEncryptSHA256(user.getPwd()); /* 암호에 SH 문자열을 */
+        user.setPwd(shaPwd);
+        SHUser login = shUserService.login(user);
 
         logger.info("Welcome LoginController loginAf!---- " + login);
         if (login != null && !login.getId().equals("")) {
@@ -117,16 +116,16 @@ public class LoginController {
         return check;
 
     }
-    
+
     @RequestMapping(value = "pwdFindmail.do",
             method = {RequestMethod.POST})
     @ResponseBody
     public AjaxCheck pwdFindmail(SHUser user, HttpServletRequest request, Model model) {
         logger.info("Welcome LoginController pwdFindmail! " + new Date());
         AjaxCheck result = new AjaxCheck();
-        if(shUserService.getIsSnS(user).getIsSNS().equals("1")) {
-        	result.setMessage("SNS");
-        	return result;
+        if (shUserService.getIsSnS(user).getIsSNS().equals("1")) {
+            result.setMessage("SNS");
+            return result;
         }
         try {
             MyEmail myEmail = new MyEmail();
@@ -134,8 +133,8 @@ public class LoginController {
             String reciver = user.getId(); //받을사람의 이메일입니다.
             String subject = "Sunghere 비밀번호찾기 인증 메일입니다.";
             String content = "[Sunghere] 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "pwdFindCerti.do?id="+user.getId()+"&encrypt="
-                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.<br>"+
+                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "pwdFindCerti.do?id=" + user.getId() + "&encrypt="
+                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.<br>" +
                     "비밀번호는 0000으로 초기화됩니다.<br>마이페이지에서 비밀번호를 변경해주세요.";
 
             myEmail.setReciver(reciver);
@@ -145,15 +144,15 @@ public class LoginController {
                 emailSender.SendEmail(myEmail);
                 result.setMessage("SUCS");
             } catch (Exception e) {
-            	result.setMessage("FAIL");
+                result.setMessage("FAIL");
             }
         } catch (Exception e) {
 
-        	result.setMessage("FAIL");
+            result.setMessage("FAIL");
         }
         return result;
     }//
-    
+
     @RequestMapping(value = "pwdFindCerti.do", method = RequestMethod.GET)
     public String pwdFindCerti(String encrypt, String id) {
 
@@ -165,8 +164,7 @@ public class LoginController {
             return "redirect:/main.do";
 
         } else {
-            logger.info("인증실패");
-            //인증실패시
+            /*인증 실패 페이지*/
             return "redirect:/main.do";
         }
     }
@@ -311,11 +309,12 @@ public class LoginController {
             SHUser shUser, HttpServletRequest request, Model model) throws Exception {
 //        logger.info("Welcome LoginController getEntName! " + new Date());
         AjaxCheck checkResult = new AjaxCheck();
+        String shaPwd = EncryptUtil.getEncryptSHA256(shUser.getPwd()); /* 암호에 SH 문자열을 */
+        shUser.setPwd(shaPwd);
         SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
 
         if (sessionUser.getId().equals(shUser.getId())) {
-
-            if (shUserService.getPWD(shUser).equals(shUser.getPwd())) {
+            if (shUserService.getPWD(shUser).equalsIgnoreCase(shaPwd)) {
                 checkResult.setMessage("SUCS");
 
             } else {
@@ -339,7 +338,8 @@ public class LoginController {
 //        logger.info("Welcome LoginController getEntName! " + new Date());
         AjaxCheck checkResult = new AjaxCheck();
         SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
-
+        String shaPwd = EncryptUtil.getEncryptSHA256(shUser.getPwd()); /* 암호에 SH 문자열을 */
+        shUser.setPwd(shaPwd);
         if (sessionUser.getId().equals(shUser.getId())) {
 
             shUserService.pwdUpdate(shUser);

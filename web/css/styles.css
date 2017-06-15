@@ -1273,6 +1273,7 @@ img::-moz-selection {
     height: 20px;
 }
 
+
 .float-left {
     float: left;
 }
@@ -1281,16 +1282,20 @@ img::-moz-selection {
     float: right;
 }
 
+
+/* div clear용*/
 .div-clear {
     clear: both;
 }
 
+/* 카테고리 박스 */
 .cbox {
     background-color: midnightblue;
     color: white;
     padding: 5px 10px;
 }
 
+/* 태그들에 패딩을 줌.*/
 .tags {
     padding: 5px 0;
 }
@@ -1504,7 +1509,7 @@ input[name="fund-money"] {
 
 .detail-summary {
     height: 80%;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .detail-summary div {

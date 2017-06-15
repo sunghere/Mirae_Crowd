@@ -26,8 +26,6 @@ public class KakaoController {
         keyboard.addButtons("펀딩하기");
         keyboard.addButtons("포인트 충전(Test)");
         keyboard.addButtons("포인트 출금(Test)");
-        keyboard.addButtons("포인트 출금(Test)");
-        keyboard.addButtons("포인트 출금(Test)");
 
         return keyboard;
     }

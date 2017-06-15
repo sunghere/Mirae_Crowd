@@ -190,7 +190,7 @@
 
         $.ajax({
             type: "POST",
-            url: "kakaoRegi.do",
+            url: "SNSRegi.do",
             data: {
                 "id": data.kaccount_email,
                 "pwd": data.id,

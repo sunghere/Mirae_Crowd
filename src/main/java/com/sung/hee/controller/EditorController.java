@@ -38,7 +38,7 @@ public class EditorController {
             byte[] bytes = upload.getBytes();
 
 
-            String uploadPath = request.getSession().getServletContext().getRealPath("/upload/" + fileName);//저장경로
+            String uploadPath = request.getSession().getServletContext().getRealPath("/usr/local/upload/" + fileName);//저장경로
 
 
             out = new FileOutputStream(new File(uploadPath));
@@ -46,7 +46,7 @@ public class EditorController {
             String callback = request.getParameter("CKEditorFuncNum");
 
             printWriter = response.getWriter();
-            String fileUrl = "upload/" + fileName; // url경로
+            String fileUrl = "/usr/local/upload/" + fileName; // url경로
 
 
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("

@@ -135,7 +135,7 @@
 
         $.ajax({
             type: "POST",
-            url: "kakaoRegi.do",
+            url: "SNSRegi.do",
             data: {
                 "id": data.id,
                 "pwd": "facebook",

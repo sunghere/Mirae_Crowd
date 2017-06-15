@@ -9,7 +9,7 @@
         session.invalidate();
     %>
     <script type="text/javascript">
-        alert("로그인해 주십시요.");
+        showMsg("로그인 해주세요.");
 
        location.href= 'main.do';
     </script>
