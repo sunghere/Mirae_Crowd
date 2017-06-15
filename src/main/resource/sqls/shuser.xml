@@ -8,7 +8,7 @@
 
 		INSERT INTO SHUSER (ID, NAME, PWD, AUTH,
 		DEL, ENT, POINT, CERTI, isSNS)
-		VALUES (#{id}, #{name}, #{pwd}, 3, 0, IFNULL((SELECT ENT FROM SHENT WHERE ENTNAME='dd'),NULL), 0, #{certi}, #{isSNS})
+		VALUES (#{id}, #{name}, #{pwd}, 3, 0, IFNULL((SELECT ENT FROM SHENT WHERE ENTNAME=#{entname}),0), 0, #{certi}, #{isSNS})
     </insert>
     <update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
 		UPDATE SHUSER SET CERTI=1 WHERE id=#{id}

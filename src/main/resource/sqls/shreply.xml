@@ -6,97 +6,149 @@
 
     <insert id="addReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
-    INSERT INTO SHREPLY(ID, REF, STEP, DEPTH,
-                    BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
-  (#{id},(SELECT IFNULL(MAX(REF),0)+1 FROM SHREPLY r),
-0,0,#{btype},DATE_FORMAT(NOW(), '%Y-%m-%d'),#{content},0,#{bparent},0)
+        INSERT INTO SHREPLY (ID, REF, STEP, DEPTH,
+                             BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL) VALUES
+            (#{id}, (SELECT IFNULL(MAX(REF), 0) + 1
+                     FROM SHREPLY r),
+             0, 0, #{btype}, DATE_FORMAT(NOW(), '%Y-%m-%d'), #{content}, 0, #{bparent}, 0)
     </insert>
 
     <update id="removeReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
-        UPDATE SHREPLY SET DEL = 1 WHERE seq=#{seq}
+        UPDATE SHREPLY
+        SET DEL = 1
+        WHERE seq = #{seq}
     </update>
     <insert id="addReReply" parameterType="com.sung.hee.shreply.model.SHReply">
 
-        INSERT INTO SHREPLY(ID, REF, STEP, DEPTH,
-        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL)  VALUES
-        (#{id},(SELECT REF FROM SHREPLY r WHERE SEQ=#{seq}),
-         (SELECT STEP FROM SHREPLY r WHERE SEQ=#{seq})+1,
-        (SELECT DEPTH FROM SHREPLY r  WHERE SEQ=#{seq})+1,
-        (SELECT BTYPE FROM SHREPLY r WHERE SEQ=#{seq}),DATE_FORMAT(NOW(), '%Y-%m-%d'),#{content},#{seq},
-        (SELECT BPARENT FROM SHREPLY r WHERE SEQ=#{seq}),0)
+        INSERT INTO SHREPLY (ID, REF, STEP, DEPTH,
+                             BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL) VALUES
+            (#{id}, (SELECT REF
+                     FROM SHREPLY r
+                     WHERE SEQ = #{seq}),
+             (SELECT STEP
+              FROM SHREPLY r
+              WHERE SEQ = #{seq}) + 1,
+             (SELECT DEPTH
+              FROM SHREPLY r
+              WHERE SEQ = #{seq}) + 1,
+             (SELECT BTYPE
+              FROM SHREPLY r
+              WHERE SEQ = #{seq}), DATE_FORMAT(NOW(), '%Y-%m-%d'), #{content}, #{seq},
+             (SELECT BPARENT
+              FROM SHREPLY r
+              WHERE SEQ = #{seq}), 0)
     </insert>
 
     <select id="getReply" parameterType="com.sung.hee.shreply.model.SHReply"
             resultType="com.sung.hee.shreply.model.SHReply">
 
-        SELECT SEQ, ID, REF, STEP, DEPTH,
-        BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL FROM SHREPLY WHERE SEQ=#{seq}
+        SELECT
+            SEQ,
+            ID,
+            REF,
+            STEP,
+            DEPTH,
+            BTYPE,
+            WDATE,
+            CONTENT,
+            PARENT,
+            BPARENT,
+            DEL
+        FROM SHREPLY
+        WHERE SEQ = #{seq}
     </select>
     <update id="updateReply" parameterType="com.sung.hee.shreply.model.SHReply">
-    UPDATE SHREPLY SET CONTENT=#{content} WHERE SEQ=#{seq}
+        UPDATE SHREPLY
+        SET CONTENT = #{content}
+        WHERE SEQ = #{seq}
 
     </update>
 
     <select id="getReplyList" parameterType="com.sung.hee.help.BoardCheck"
             resultType="com.sung.hee.shreply.model.SHReply">
-      SELECT
-    @ROWNUM := @ROWNUM + 1 as rnn,
-    SEQ,
-    r.ID as ID,
-    REF,
-    STEP,
-    DEPTH,
-    BTYPE,
-    WDATE,
-    CONTENT,
-    PARENT,
-    BPARENT,
-    r.DEL as DEL,
-    u.NAME as NAME
-  FROM SHREPLY r
-    JOIN SHUSER u USING(ID),(SELECT @ROWNUM := 0)n
-        WHERE BTYPE=#{type} AND BPARENT=#{seq} AND r.DEL=0 ORDER BY REF DESC, STEP ASC
+        SELECT
+            @ROWNUM := @ROWNUM + 1 AS rnn,
+            SEQ,
+            r.ID                   AS ID,
+            REF,
+            STEP,
+            DEPTH,
+            BTYPE,
+            WDATE,
+            CONTENT,
+            PARENT,
+            BPARENT,
+            r.DEL                  AS DEL,
+            u.NAME                 AS NAME
+        FROM SHREPLY r
+            JOIN SHUSER u USING (ID)
+            , (SELECT @ROWNUM := 0) n
+        WHERE BTYPE = #{type} AND BPARENT = #{seq} AND r.DEL = 0
+        ORDER BY REF DESC, STEP ASC
     </select>
 
     <select id="getReplyListbyId" parameterType="com.sung.hee.shreply.model.SHReply"
             resultType="com.sung.hee.shreply.model.SHReply">
-     SELECT
-    @ROWNUM := @ROWNUM + 1 as rnn,
-    SEQ,
-    r.ID as ID,
-    REF,
-    STEP,
-    DEPTH,
-    BTYPE,
-    WDATE,
-    CONTENT,
-    PARENT,
-    BPARENT,
-    r.DEL as DEL,
-    u.NAME as NAME
-  FROM SHREPLY r
-    JOIN SHUSER u USING(ID),(SELECT @ROWNUM := 0)n
-        WHERE r.ID = #{id} AND r.DEL = 0 ORDER BY REF DESC, STEP ASC
+        SELECT
+            @ROWNUM := @ROWNUM + 1 AS rnn,
+            SEQ,
+            r.ID                   AS ID,
+            REF,
+            STEP,
+            DEPTH,
+            BTYPE,
+            WDATE,
+            CONTENT,
+            PARENT,
+            BPARENT,
+            r.DEL                  AS DEL,
+            u.NAME                 AS NAME
+        FROM SHREPLY r
+            JOIN SHUSER u USING (ID)
+            , (SELECT @ROWNUM := 0) n
+        WHERE r.ID = #{id} AND r.DEL = 0
+        ORDER BY REF DESC, STEP ASC
     </select>
     <select id="getReplyPageList"
             parameterType="com.sung.hee.help.ReplyParam"
             resultType="com.sung.hee.shreply.model.SHReply">
-               SELECT rnn,SEQ, ID, REF, STEP, DEPTH,
-          BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL
+        SELECT
+            rnn,
+            SEQ,
+            ID,
+            REF,
+            STEP,
+            DEPTH,
+            BTYPE,
+            WDATE,
+            CONTENT,
+            PARENT,
+            BPARENT,
+            DEL
         FROM
-          (SELECT @ROWNUM := @ROWNUM + 1 as rnn,
-          SEQ, ID, REF, STEP, DEPTH,
-          BTYPE, WDATE, CONTENT, PARENT, BPARENT, DEL
-          FROM SHREPLY,(SELECT @ROWNUM := 0)R
-          ORDER BY REF DESC, STEP ASC) A
-        WHERE rnn between #{start} AND #{end};
+            (SELECT
+                 @ROWNUM := @ROWNUM + 1 AS rnn,
+                 SEQ,
+                 ID,
+                 REF,
+                 STEP,
+                 DEPTH,
+                 BTYPE,
+                 WDATE,
+                 CONTENT,
+                 PARENT,
+                 BPARENT,
+                 DEL
+             FROM SHREPLY, (SELECT @ROWNUM := 0) R
+             ORDER BY REF DESC, STEP ASC) A
+        WHERE rnn BETWEEN #{start} AND #{end};
     </select>
 
     <select id="getReplyTotalCount"
             parameterType="com.sung.hee.help.ReplyParam"
             resultType="java.lang.Integer">
-        SELECT IFNULL(count(*),0) AS cnt
+        SELECT IFNULL(count(*), 0) AS cnt
         FROM SHREPLY
     </select>
 
