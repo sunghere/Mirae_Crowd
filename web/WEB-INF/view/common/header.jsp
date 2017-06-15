@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <title>SH Mirae</title>
+<%--파비콘--%>
+<LINK REL="SHORTCUT ICON" href="<%=request.getContextPath()%>/image/favicon.ico" />
 <%--부트스트랩 초기화 --%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
