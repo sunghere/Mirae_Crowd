@@ -1539,6 +1539,7 @@ input[name="fund-money"] {
 
 #detailModal > div {
     width: 90%;
+    max-width:1150px;
 }
 
 .detail-addr {

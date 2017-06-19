@@ -140,7 +140,7 @@
         $(".chat").click(function () {
             var id = $('input[name="myid"]').attr('value');
             if (id == "" || id == null) {
-                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn cbox btn-default' onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
 
 
             } else {

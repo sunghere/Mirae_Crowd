@@ -542,7 +542,7 @@
             var id = "${login.id}";
 
             if (id == "" || id == null) {
-                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn cbox btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
                 return;
             }
 
@@ -606,8 +606,8 @@
                     var str_detail = "<div class='detail-content'>" + data.content + "</div>" +
                         "<input type='hidden' name='seq' data-src='" + data.seq + "'>" +
                         "<input type='hidden' name='type' data-src='" + data.type + "'>" +
-                        "<div class='detail-tag float-right tagbox'>"+data.tag + "</div>"+
-                        "<div class='detail-addr tagbox'>"+data.address+ "</div>"+
+                        "<div class='detail-tag float-right tagbox'>" + data.tag + "</div>" +
+                        "<div class='detail-addr tagbox'>" + data.address + "</div>" +
                         "<div class='detail-reply div-clear'>" +
                         "<h2 class='cursive underline'>Reply</h2>" +
                         "<div class='crowd-reply-list'></div>" +
@@ -642,13 +642,19 @@
         var reply_add = function () {
             var btype = $("input[name='type']").attr("data-src");
             var bparent = $("input[name='seq']").attr("data-src");
+            var text = $(".crowd-reply-text").val();
+
+            if (text == "" || text == null) {
+                showMsg("내용을 입력해주세요");
+                return;
+            }
             $.ajax({
                 url: "replyadd.do",
                 method: "POST",
                 data: {
                     "id": "${login.id}",
                     "btype": btype,
-                    "content": $(".crowd-reply-text").val(),
+                    "content": text,
                     "bparent": bparent
                 },
                 success: function (data) {
@@ -668,7 +674,7 @@
                 reply_add();
 
             } else {
-                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn cbox btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
 
             }
 
@@ -787,7 +793,7 @@
                 url: "cSearch.do",
                 method: "POST",
                 data: {
-					"rnn":"9999",      	
+                    "rnn": "9999",
                     "search_type": "category",
                     "category": cat,
                     "search": $("#modal-search-text").val()
@@ -886,7 +892,7 @@
                 $('#fund-modal-btn').click();
 
             } else {
-                showMsg("로그인 해주세요<br> <button type='button' class='btn btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
+                showMsg("로그인 해주세요<br> <button type='button' class='btn cbox btn-default'onclick='login_open()'>여기</button> 를 눌러 바로 로그인하기");
 
             }
 

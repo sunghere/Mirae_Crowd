@@ -787,7 +787,7 @@
             })
         };
         /*댓글 삭제*/
-        var reply_delete = function (seq) {
+        reply_delete = function (seq) {
 
             $.ajax({
                 url: "replydel.do",
