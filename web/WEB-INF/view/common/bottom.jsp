@@ -642,7 +642,7 @@
         var reply_add = function () {
             var btype = $("input[name='type']").attr("data-src");
             var bparent = $("input[name='seq']").attr("data-src");
-            var text = $(".crowd-reply-text").val();
+            var text = $.trim($(".crowd-reply-text").val());
 
             if (text == "" || text == null) {
                 showMsg("내용을 입력해주세요");
