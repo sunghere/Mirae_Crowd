@@ -38,7 +38,7 @@ public class EditorController {
             byte[] bytes = upload.getBytes();
 
 
-            String uploadPath = request.getSession().getServletContext().getRealPath("/usr/local/upload/" + fileName);//저장경로
+            String uploadPath = "/usr/local/upload/" + fileName;//저장경로
 
 
             out = new FileOutputStream(new File(uploadPath));
