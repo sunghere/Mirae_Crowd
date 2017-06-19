@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 /**
  * Created by SungHere on 2017-05-16.
@@ -34,7 +35,7 @@ public class EditorController {
 
         try {
 
-            String fileName = upload.getOriginalFilename();
+            String fileName = (new Date()).getTime()+upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
 
 
@@ -46,7 +47,7 @@ public class EditorController {
             String callback = request.getParameter("CKEditorFuncNum");
 
             printWriter = response.getWriter();
-            String fileUrl = "/usr/local/upload/" + fileName; // url경로
+            String fileUrl = "/upload/" + fileName; // url경로
 
 
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("

@@ -652,7 +652,7 @@
                 url: "replyadd.do",
                 method: "POST",
                 data: {
-                    "id": "${login.id}",
+                    "id": " ${login.id}",
                     "btype": btype,
                     "content": text,
                     "bparent": bparent

@@ -12,7 +12,6 @@ CKEDITOR.editorConfig = function (config) {
 
     /* plugin*/
     config.extraPlugins = 'youtube';
-
     config.extraPlugins = 'autogrow';
     config.autoGrow_minHeight = 400;
     config.autoGrow_maxHeight = 1200;
