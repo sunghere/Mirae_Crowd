@@ -367,7 +367,7 @@
     }
 </style>
 <%--디테일 모달--%>
-<div id="detailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="detailModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-content-main">
         <div class="modal-content">
             <div class="modal-header">
@@ -389,8 +389,7 @@
 
 
 <%--검색 모달--%>
-<div id="searchModal" class="modal fade" tabindex="-1" role="dialog"
-     aria-hidden="true">
+<div id="searchModal" class="modal fade"  role="dialog">
     <div class="modal-dialog modal-md search-md">
         <div class="modal-content">
             <div class="modal-header line_none">

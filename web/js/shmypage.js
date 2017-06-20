@@ -569,7 +569,7 @@
                     var init = function () {
 
                         CKEDITOR.replace('update_content', {
-                            customConfig: '<%=request.getContextPath()%>/ckeditor/config.js',
+                            customConfig: 'config.js',
                             width: '100%',
                             height: '400px',
                             filebrowserUploadUrl: 'imageUpload.do',
