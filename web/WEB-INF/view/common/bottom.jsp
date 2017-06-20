@@ -40,7 +40,6 @@
                     <div class="form-group">
                         <div id="showMsgBt" data-toggle="modal" data-target="#alertModal"
                              type="button" hidden="hidden">
-                            Subscribe for updates
                         </div>
 
                     </div>
