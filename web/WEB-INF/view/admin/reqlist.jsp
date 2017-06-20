@@ -64,7 +64,7 @@
 
                 if (data.message == "SUCS") {
 
-                    load_list();
+                    load_req_list();
                 } else {
                     showMsg("정상적인 처리가 되지 않았습니다.");
                 }
@@ -87,7 +87,7 @@
 
                 if (data.message == "SUCS") {
 
-                    load_list();
+                    load_req_list();
                 } else {
                     showMsg("정상적인 처리가 되지 않았습니다.");
                 }

@@ -154,7 +154,7 @@
             <div class="write_part" id="moneyInput">
                 <h4>Target Amount</h4>
                 <input type="text" id="w_goal" class="black-control" placeholder="목표금액"
-                       onchange="getNumber(this);" onkeyup="getNumber(this);" name="goal_money">
+                       onchange="getNumber_comma(this);" onkeyup="getNumber_comma(this);" name="goal_money">
                 <p class="text-danger">* 목표금액을 달성하더라도 바로 펀딩이 종료되지 않습니다.</p>
 
             </div>

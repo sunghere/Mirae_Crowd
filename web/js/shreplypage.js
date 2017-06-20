@@ -177,8 +177,7 @@
     $('#replyReload').on('click', ".reply-delete-btn", function () {
 
         var seq = $(this).attr('data-src');
-
-        showSelectMsg("reply_delete_page(" + seq + ")");
+        reply_delete_page(seq)
     });
     /*댓글 삭제*/
     reply_delete_page = function (seq) {

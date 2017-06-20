@@ -267,21 +267,29 @@ public class LoginController {
     @ResponseBody
     public AjaxCheck pointOut(
             SHUser user, HttpServletRequest request, Model model) throws Exception {
-//        logger.info("Welcome LoginController getID! " + new Date());
+        logger.info("Welcome LoginController 1! " + user);
         AjaxCheck checkResult = new AjaxCheck();
         SHUser loginUser = (SHUser) request.getSession().getAttribute("login"); /* 세션에서 아이디 가져옴*/
 
         if (loginUser.getPoint() >= user.getEpoint() + 1000) {
+            logger.info("Welcome LoginController 2! " + user);
+
             try {
                 loginUser.setPwd(shUserService.getPWD(loginUser));  /*가져온 아이디를 통해 비밀번호를 찾아옴*/
                 user.setId(loginUser.getId()); /*가져온 아이디를 epoint가 담긴 임시 객체로 옮겨넣음*/
+                logger.info("Welcome LoginController 3! " + user);
+
                 shUserService.dePoint(user);/* 임시 객체로 포인트*/
                 checkResult.setMessage("SUCS"); /*성공처리*/
                 SHUser resetUser = shUserService.login(loginUser); /* 세션을 통한 아이디 갱신(포인트갱신을위해)*/
+                logger.info("Welcome LoginController 4! " + user);
+
                 checkResult.setResultNum(resetUser.getPoint()); /* 포인트 변경내역 웹에 실시간 반영을위해 추가해줌*/
 
                 user.setId("admin"); /*  관리자에게 1000원 입금*/
                 user.setEpoint(1000);
+                logger.info("Welcome LoginController 5! " + user);
+
                 shUserService.inPoint(user);
                 request.getSession().setAttribute("login", resetUser);
 

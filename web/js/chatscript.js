@@ -1,5 +1,5 @@
 (function ($) {
-    scroll_bottom = function () {
+    var scroll_bottom = function () {
         $('#chatlist').scrollTop($('#chatlist').prop('scrollHeight'));
     };
 
@@ -160,7 +160,7 @@
         $('#chatModal').on('hidden.bs.modal', function () {
            clearInterval(chat_interval);
         });
-        $("#chat-text").keydown(function (key) {
+        $("#chat-text").keypress(function (key) {
             if (key.keyCode == 13) {//키가 13이면 실행 (엔터는 13)
                 sendMessage();
                 setTimeout("scroll_bottom()", 100);

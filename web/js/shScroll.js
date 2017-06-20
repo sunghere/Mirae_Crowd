@@ -1,5 +1,5 @@
 (function ($) {
-
+    "use strict";
     var loadList_byScroll = function () {
 
         var last = parseInt($('.list-main').last().attr('last-num'));

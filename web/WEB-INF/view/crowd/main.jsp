@@ -136,7 +136,7 @@
             })
         };
 
-        $(".search-box").keydown(function (key) {
+        $(".search-box").keypress(function (key) {
             if (key.keyCode == 13) {
                 searchByText();
             }
