@@ -26,7 +26,7 @@
 
     </definition>
     <definition name="crowdAdd.tiles" extends="main.tiles">
-        <put-attribute name="main" value="/WEB-INF/view/crowd/crowdWriter.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/view/crowd/crowdwrite.jsp"/>
         <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
     </definition>
     <definition name="reqlist.tiles" extends="main.tiles">

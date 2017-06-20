@@ -22,7 +22,18 @@
                 width: '100%',
                 height: '400px',
                 filebrowserUploadUrl: 'imageUpload.do',
-            })
+            });
+            CKEDITOR.on('dialogDefinition', function (ev) {
+                var dialogName = ev.data.name;
+                var dialog = ev.data.definition.dialog;
+                var dialogDefinition = ev.data.definition;
+                if (dialogName == 'image') {
+                    dialog.on('show', function (obj) {
+                    });
+                    dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+                    dialogDefinition.removeContents('Link'); // 링크탭 제거
+                }
+            });
 
         };
 
