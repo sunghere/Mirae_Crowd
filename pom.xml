@@ -13,7 +13,7 @@
                 <directory>${basedir}/src/main/resource</directory>
             </resource>
         </resources>
-        <!-- ROOT.war 가 생성된다. -->
+        <!-- mirae.war 가 생성된다. -->
         <finalName>mirae</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <plugins>
