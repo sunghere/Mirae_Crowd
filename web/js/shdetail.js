@@ -253,7 +253,7 @@
     };
 
     /* 로그인창 띄우기*/
-    var login_open = function () {
+    login_open = function () {
         $('.showMsg-close').click();
         setTimeout("$('a[data-target=\"#shLogin\"]').click()", 500);
     };
