@@ -30,11 +30,13 @@ public class MessageController {
         List<SHMessage> lists = messageService.messageList(message);
         SHUser shuser = (SHUser) request.getSession().getAttribute("login");
         if (shuser.getAuth() == 1) {
+            String tempID= shuser.getId();
             shuser.setId("admin");
             if (message.getFromid() != shuser.getId()) {
                 message.setToid(shuser.getId());
                 messageService.readMessage(message);
             }
+            shuser.setId(tempID);
 
         } else {
             message.setFromid("admin");
