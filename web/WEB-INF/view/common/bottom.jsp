@@ -739,7 +739,7 @@
 
 
         /*지도를 불러오는 함수*/
-        var map_load = function (tagId, lat, lng) {
+        map_load = function (tagId, lat, lng) {
 
 
             var mylatlng = new naver.maps.LatLng(lat, lng);
