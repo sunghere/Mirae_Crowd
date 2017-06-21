@@ -44,9 +44,26 @@ public class CrowdController {
         return "admin.tiles";
     }
 
+    /* 모든 리스트*/
+    @RequestMapping(value = "crowdlist.do", method = RequestMethod.GET)
+    public List<SHCrowd> crowdList(HttpServletRequest request, Model model) throws Exception {
+        SHUser admin = (SHUser) request.getSession().getAttribute("login");
+        List<SHCrowd> list = null;
+        if (admin.getAuth() == 1) { /* 관리자 구분*/
+
+
+            list= shCrowdService.crowdListAll();
+        } else { /* 관리자가 아닌인원이 요청을 들어옴 */
+
+
+        }
+
+
+        return list;
+    }
+
     @RequestMapping(value = "crowdAdd.do", method = RequestMethod.GET)
     public String crowdAdd(HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl crowdAdd--!");
         return "crowdAdd.tiles";
     }
 
@@ -376,8 +393,8 @@ public class CrowdController {
     public AjaxCheck updateCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         logger.info("CrowdControl delCrowd--!");
         AjaxCheck checkResult = new AjaxCheck();
-        SHUser login =(SHUser)request.getSession().getAttribute("login");
-        
+        SHUser login = (SHUser) request.getSession().getAttribute("login");
+
         shCrowd.setId(login.getId());
         try {
             shCrowdService.updateCrowd(shCrowd);

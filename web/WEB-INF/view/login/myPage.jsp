@@ -125,6 +125,7 @@
         overflow: scroll;
     }
 
+
     .main-text {
         font-size: 15px;
         font-family: "Nanum Gothic", "cursive";

@@ -270,7 +270,7 @@
             </div>
             <div class="modal-footer">
                 <h5 class="subtitle_Type_mb_10">
-                    다른방법으로 로그인 & 회원가입하기<br><br>
+                    SNS 간편 로그인 & 회원가입하기<br><br>
                 </h5>
                 <div class="text-center">
                     <a id="kakao-login-btn"></a>

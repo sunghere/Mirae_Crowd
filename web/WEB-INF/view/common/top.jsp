@@ -29,7 +29,7 @@
                         <c:if test="${!empty login}">
 
                             <li>
-                                <a title="펀딩 신청" href="/crowdAdd.do"><i class="fa fa-ravelry" aria-hidden="true"></i>   모집 신청</a>
+                                <a title="펀딩 신청" href="crowdAdd.do"><i class="fa fa-ravelry" aria-hidden="true"></i>   모집 신청</a>
                             </li>
 
                         </c:if>
@@ -51,13 +51,13 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a title="펀딩모집 신청목록" href="/crowdReqlist.do">펀딩모집 신청목록</a>
+                                <a title="펀딩모집 신청목록" href="crowdReqlist.do">펀딩모집 신청목록</a>
                             </li>
                             <li>
-                                <a title="투표생성" href="/pollmake.do">투표생성</a>
+                                <a title="투표생성" href="ollmake.do">투표생성</a>
                             </li>
                             <li>
-                                <a title="관리자메뉴" href="/admin.do">관리</a>
+                                <a title="관리자메뉴" href="admin.do">관리</a>
                             </li>
                         </ul>
                     </li>
