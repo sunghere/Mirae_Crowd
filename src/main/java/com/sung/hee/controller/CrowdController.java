@@ -45,7 +45,8 @@ public class CrowdController {
     }
 
     /* 모든 리스트*/
-    @RequestMapping(value = "crowdlist.do", method = RequestMethod.GET)
+    @RequestMapping(value = "crowdlistAll.do", method = RequestMethod.POST)
+    @ResponseBody
     public List<SHCrowd> crowdList(HttpServletRequest request, Model model) throws Exception {
         SHUser admin = (SHUser) request.getSession().getAttribute("login");
         List<SHCrowd> list = null;
@@ -188,10 +189,10 @@ public class CrowdController {
     }
 
     /* 크라우드 리스트 전부 (달력용) */
-    @RequestMapping(value = "cListAll.do", method = RequestMethod.POST)
+    @RequestMapping(value = "crowdlistforCal.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<SHCrowd> cListAll(HttpServletRequest request, Model model) throws Exception {
-        List<SHCrowd> list = shCrowdService.crowdListAll();
+    public List<SHCrowd> crowdlistforCal(HttpServletRequest request, Model model) throws Exception {
+        List<SHCrowd> list = shCrowdService.crowdListAllforCal();
         return list;
     }
 
@@ -200,7 +201,6 @@ public class CrowdController {
     @RequestMapping(value = "crowdList.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> cList(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl cList--!");
         List<SHCrowd> list = shCrowdService.crowdList(shCrowd);
 
         return list;

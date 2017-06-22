@@ -141,7 +141,7 @@
                     "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(data.goalMoney, data.curMoney) + "' " +
                     "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(data.goalMoney, data.curMoney) + "%'></div>" +
                     "</div>" +
-                    "<div class='progress-info'><span class='card-block info-curMoney float-left'>" + money_setComma(data.curMoney) + "원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
+                    "<div class='progress-info'><span class='card-block info-curMoney float-left'><span class='c-money'>" + money_setComma(data.curMoney) + "</span>원 달성 (" + toGoal(data.goalMoney, data.curMoney) + "%)</span>" +
                     "<span class='card-block info-date float-right'>" + dateCountdown(data.edate) + "일 남음</span></div>" +
                     "<div style='width: 100%; height:300px'>" + "<span class='detail-fund-btn center-block btn btn-info' data-src='" + data.seq + "'>펀딩하기</span>" + "<div class='center-block'><div id='detail-map' style='height: 300px; width: 300px; margin: 0 auto;'></div></div></div>";
 
@@ -176,6 +176,13 @@
                     $('#detail-modal-btn').click();
 
                 }
+                var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
+                $('.detail-summary .c-money').animateNumber(
+                    {
+                        number: data.curMoney,
+                        numberStep: comma_separator_number_step
+                    },2500
+                );
             }
         })
     };
@@ -372,7 +379,6 @@
                             /*해당게시물*/
                             var curMoney_tag = item.find(".info-curMoney");
                             var eindex =curMoney_tag.html().indexOf("원");
-                            alert(parseInt(curMoney_tag.html().substring(0,eindex).replace(",","")));
                             var curmoney = parseInt(curMoney_tag.html().substring(0,eindex).replace(",","")) + point;
                             /* 원래돈 + 투자핟논*/
                             var per = Math.floor(curmoney / parseInt(curMoney_tag.attr('goal')) * 100);

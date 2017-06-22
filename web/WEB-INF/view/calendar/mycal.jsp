@@ -99,7 +99,7 @@
 
         var load_Crowd = function () {
             $.ajax({
-                url: "cListAll.do",
+                url: "crowdlistforCal.do",
                 data: {},
                 method: "post",
                 success: function (data) {

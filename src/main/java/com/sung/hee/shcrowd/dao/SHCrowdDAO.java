@@ -70,4 +70,6 @@ public interface SHCrowdDAO {
     List<SHCrowd> searchCategory(SHCrowd shCrowd);
     
     void updateCrowd(SHCrowd shCrowd); /*크라우드 수정*/
+
+    List<SHCrowd> crowdListAllforCal();
 }

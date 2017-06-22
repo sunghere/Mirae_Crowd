@@ -44,7 +44,7 @@ public class PollController {
 
         shPollService.makePoll(pbean);
 
-        return "redirect:/polllist.do";
+        return "redirect:polllist.do";
     }//
 
     @RequestMapping(value = "polling.do",
@@ -54,7 +54,7 @@ public class PollController {
         logger.info("Welcome PollController voter! -----------------------------" + voter);
         shPollService.polling(voter);
 
-        return "redirect:/polllist.do";
+        return "redirect:polllist.do";
     }//
 
     @RequestMapping(value = "polllist.do",

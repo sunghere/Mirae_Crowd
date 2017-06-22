@@ -84,7 +84,7 @@ List<SHPoll> plists = new ArrayList();
             <%
             } else {//투표할 수 있다.
             %>
-            <td><a href='./polldetail.do?pollid=<%=poll.getPollid()%>'><%=poll.getQuestion() %>
+            <td><a href='polldetail.do?pollid=<%=poll.getPollid()%>'><%=poll.getQuestion() %>
             </a></td>
             <%
                 }
@@ -93,7 +93,7 @@ List<SHPoll> plists = new ArrayList();
                 <%
                     if (isS || DateUtil.isEnd(poll.getEdate())) {
                 %>
-                <a href='./pollresult.do?pollid=<%=poll.getPollid()%>'>결과</a>
+                <a href='pollresult.do?pollid=<%=poll.getPollid()%>'>결과</a>
                 <%
                 } else {//투표안했다.
                     //못본다.

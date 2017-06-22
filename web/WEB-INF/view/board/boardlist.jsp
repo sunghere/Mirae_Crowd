@@ -12,45 +12,46 @@
                      alt="Card image cap">
                 <div class="card-block">
                     <div class="card-block">
-                        <c:if test="${login.ent ne 0}">
+                        <c:if test="${(!empty login) && (login.ent ne 0)}">
                             <h4 class="card-title">${login.entname} 기업 회원님 환영합니다.</h4>
                             <p class="card-text">기업의 관리페이지를 이용해보세요.</p>
                             <p class="card-text">
                                 Try the corporate bulletin board now.</p>
-                            <p class="card-text"><a href="entpage.do" class="btn btn-info">Enterprise
+                            <p class="card-text"><a href="entpage.do" class="btn btn-info disabled">Enterprise
                                 Board</a></p>
                         </c:if>
-                        <c:if test="${login.ent eq 0}">
-                            <blockquote>
+                        <c:if test="${(empty login) || (login.ent eq 0)}">
+                            <div class="card-body">
 
                                 <h4 class="card-title cursive">Try Crowd Fund Start Now</h4>
-                                <p class="card-text">지금 크라우드 펀딩을 신청하세요.</p>
+                                <p class="card-text">크라우드 펀딩을 신청하세요.</p>
                                 <p class="card-text">
                                     당신의 아이디어를 <br>널리 알려보세요</p>
                                 <p class="card-text"><a href="crowdAdd.do" class="btn btn-info">바로가기</a></p>
-                            </blockquote>
+                            </div>
                         </c:if>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-block">
-                    <blockquote>
+                    <div class="card-body">
+
                         <h3 class="card-title">지금 투자해보세요.</h3><br>
 
                         <p class="card-text">
                             당신의 도움으로 <br>프로젝트가 완성됩니다.</p>
                         <p class="card-text">
 
-                            This project needs your help.<cite title="Source Title"> - SH Crowd</cite></p>
+                            This project needs your help.</p>
                         <a href="main.do" class="btn btn-warning">후원하러가기</a>
-                    </blockquote>
+                    </div>
                 </div>
             </div>
         </div>
         <jsp:useBean id="uboard" class="com.sung.hee.help.BoardBean"/>
         <%--여기부터 테이블구간 바로밑은 검색바--%>
-        <div class="col-lg-9 col-md-9 col-xs-12 col-sm-9">
+        <div class="col-lg-9 col-md-9 col-xs-12 col-sm-12">
             <div class="box_border" style="margin-top:5px; margin-bottom: 10px;">
                 <form name="frmForm1" id="_frmFormSearch" method="post" action="" role="search">
                     <nav class="navbar navbar-collapse">

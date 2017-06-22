@@ -138,4 +138,9 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
 	public void updateCrowd(SHCrowd shCrowd) {
 		sqlSession.update(ns + "updateCrowd", shCrowd);
 	}
+
+    @Override
+    public List<SHCrowd> crowdListAllforCal() {
+        return sqlSession.selectList(ns + "crowdListAllforCal");
+    }
 }

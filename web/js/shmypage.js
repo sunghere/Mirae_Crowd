@@ -289,7 +289,7 @@
             $.ajax({
                 url: "mFundList.do",
                 method: "post",
-                data: {"id" : myid},
+                data: {"id": myid},
                 success: function (data) {
                     var str = "";
 
@@ -298,7 +298,7 @@
                             + '<td class="text-center">' + val.edate.substr(5) + '</td>'
                             + '<td class="col-md-4"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
                             + val.titleSub + '</div></td>'
-                            + '<td class="text-center col-md-3">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
+                            + '<td class="text-center col-md-3 small visible-md visible-lg">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                         if (val.type == 2) {
                             str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
@@ -332,7 +332,7 @@
                             + '<td class="text-center">' + '~' + val.edate.substr(5) + '</td>'
                             + '<td class="col-md-3"><div class="btn crowd-title crowd-detail-btn" data-src="' + val.seq + '">'
                             + val.titleSub + '<button class="crowd-edit-btn btn btn-default"  data-src="' + val.seq + '">수정</button></div></td>'
-                            + '<td class="text-center">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
+                            + '<td class="text-center small visible-md visible-lg">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                         if (val.req == 2) {
                             str += '<td class="text-center visible-md visible-lg">' + '<div class="btn btn-danger">거절</div>' + '</td>';
@@ -362,7 +362,14 @@
                 }
             })
         };
-
+        if ($(window).height() < 900) {
+            $('.white-box').height(100+600);
+        }
+        $(window).resize(function () {
+            if ($(window).height() < 900) {
+                $('.white-box').height(100+600);
+            }
+        });
         /* 내 댓글 불러오기*/
         var load_reply_list = function () {
 

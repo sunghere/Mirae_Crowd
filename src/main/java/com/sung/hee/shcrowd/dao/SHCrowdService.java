@@ -29,6 +29,8 @@ public interface SHCrowdService {
 
     List<SHCrowd> crowdListAll(); /* 글 리스트 */
 
+    List<SHCrowd> crowdListAllforCal(); /* 크라우드 리스트 달력용*/
+
     List<SHCrowd> listbySearch(SHCrowd crowd); /* 검색 리스트*/
 
     List<MyCrowd> myCrowdList(MyCrowd myCrowd); /* 내가 펀딩한 리스트*/

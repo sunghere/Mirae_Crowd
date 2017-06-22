@@ -84,7 +84,7 @@
                     <li>
                         <input type="hidden" name="myid" value="${login.id}">
                         <input type="hidden" name="myauth" value="${login.auth}">
-                        <a href="/logout.do" title="로그아웃"><i class="fa fa-sign-out"></i>logout</a>
+                        <a href="logout.do" title="로그아웃"><i class="fa fa-sign-out"></i>logout</a>
                     </li>
 
                 </c:if>

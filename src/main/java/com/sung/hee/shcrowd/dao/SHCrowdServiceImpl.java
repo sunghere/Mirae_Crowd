@@ -65,6 +65,11 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     }
 
     @Transactional(readOnly = true)
+    public List<SHCrowd> crowdListAllforCal() {
+        return shCrowdDAO.crowdListAllforCal();
+    }
+
+    @Transactional(readOnly = true)
     public List<SHCrowd> listbySearch(SHCrowd crowd) {
         return shCrowdDAO.listbySearch(crowd);
     }

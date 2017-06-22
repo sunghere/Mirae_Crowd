@@ -4,7 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
     <definition name="boardlist.tiles" template="/WEB-INF/view/onepage_tiles.jsp">
-        <put-attribute name="common" value="/WEB-INF/view/common/nologincommon.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/nologinauth.jsp"/>
         <put-attribute name="header" value="/WEB-INF/view/common/header.jsp"/>
         <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
         <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
@@ -12,7 +12,7 @@
         <put-attribute name="bottom_inc" value="/WEB-INF/view/common/bottom.jsp"/>
     </definition>
     <definition name="main.tiles" template="/WEB-INF/view/layouts_tiles.jsp">
-        <put-attribute name="common" value="/WEB-INF/view/common/nologincommon.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/nologinauth.jsp"/>
         <put-attribute name="header" value="/WEB-INF/view/common/header.jsp"/>
         <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
         <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
@@ -22,20 +22,20 @@
     </definition>
     <definition name="admin.tiles" extends="main.tiles">
         <put-attribute name="main" value="/WEB-INF/view/admin/admin.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/adminloginauth.jsp"/>
 
     </definition>
     <definition name="crowdAdd.tiles" extends="main.tiles">
         <put-attribute name="main" value="/WEB-INF/view/crowd/crowdwrite.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
     </definition>
     <definition name="reqlist.tiles" extends="main.tiles">
         <put-attribute name="main" value="/WEB-INF/view/admin/reqlist.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/adminloginauth.jsp"/>
     </definition>
     <definition name="myPage.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/login/myPage.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
         <put-attribute name="top_menu" value="/WEB-INF/view/login/myPage_top.jsp"/>
 
     </definition>
@@ -47,20 +47,20 @@
 
 
     <definition name="boardupdate.tiles" extends="boardlist.tiles">
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/board/boardupdate.jsp"/>
     </definition>
     <definition name="boardreply.tiles" extends="boardlist.tiles">
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/board/boardreply.jsp"/>
     </definition>
 
     <definition name="boardwrite.tiles" extends="boardlist.tiles">
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
         <put-attribute name="main" value="/WEB-INF/view/board/boardwrite.jsp"/>
     </definition>
     <definition name="boarddetail.tiles" template="/WEB-INF/view/reply_onepage_tiles.jsp">
-        <put-attribute name="common" value="/WEB-INF/view/common/nologincommon.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/nologinauth.jsp"/>
         <put-attribute name="header" value="/WEB-INF/view/common/header.jsp"/>
         <put-attribute name="top_inc" value="/WEB-INF/view/common/top.jsp"/>
         <put-attribute name="top_menu" value="/WEB-INF/view/common/top_menu.jsp"/>
@@ -82,7 +82,7 @@
 
     <definition name="pollmake.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/poll/pollmake.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
 
     </definition>
 
@@ -91,13 +91,13 @@
     </definition>
     <definition name="polldetail.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/poll/polldetail.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
 
     </definition>
 
     <definition name="pollresult.tiles" extends="boardlist.tiles">
         <put-attribute name="main" value="/WEB-INF/view/poll/pollresult.jsp"/>
-        <put-attribute name="common" value="/WEB-INF/view/common/common.jsp"/>
+        <put-attribute name="common" value="/WEB-INF/view/common/loginauth.jsp"/>
 
     </definition>
     <definition name="error.tiles" extends="main.tiles">

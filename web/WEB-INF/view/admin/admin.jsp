@@ -10,6 +10,7 @@
 
     #two {
         min-height: 600px;
+        padding: 0;
     }
     .scroll-table tr {
         width: 100%;
@@ -37,9 +38,6 @@
         color: white;
     }
 
-    #two {
-        padding: 0 100px 0;
-    }
 </style>
 <div class="menu-tab">
     <ul id="menu_tab" class="nav nav-tabs" role="tablist">
@@ -53,6 +51,76 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade active in" role="tabpanel" id="site_tab" aria-labelledby="Site_tab">
+            <div id="sum_box" class="row mbl">
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel profit db mbm">
+                        <div class="panel-body">
+                            <p class="icon">
+                                <i class="icon fa fa-shopping-cart"></i>
+                            </p>
+                            <h4 class="value">
+                                <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">189</span><span>$</span></h4>
+                            <p class="description">
+                                Profit description</p>
+                            <div class="progress progress-sm mbn">
+                                <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar progress-bar-success">
+                                    <span class="sr-only">80% Complete (success)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel income db mbm">
+                        <div class="panel-body">
+                            <p class="icon">
+                                <i class="icon fa fa-money"></i>
+                            </p>
+                            <h4 class="value">
+                                <span>812</span><span>$</span></h4>
+                            <p class="description">
+                                Income detail</p>
+                            <div class="progress progress-sm mbn">
+                                <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-info">
+                                    <span class="sr-only">60% Complete (success)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel task db mbm">
+                        <div class="panel-body">
+                            <p class="icon">
+                                <i class="icon fa fa-signal"></i>
+                            </p>
+                            <h4 class="value">
+                                <span>155</span></h4>
+                            <p class="description">
+                                Task completed</p>
+                            <div class="progress progress-sm mbn">
+                                <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" class="progress-bar progress-bar-danger">
+                                    <span class="sr-only">50% Complete (success)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel visit db mbm">
+                        <div class="panel-body">
+                            <p class="icon">
+                                <i class="icon fa fa-group"></i>
+                            </p>
+                            <h4 class="value">
+                                <span>376</span></h4>
+                            <p class="description">
+                                Visitor description</p>
+                            <div class="progress progress-sm mbn">
+                                <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar progress-bar-warning">
+                                    <span class="sr-only">70% Complete (success)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" role="tabpanel" id="user_tab" aria-labelledby="User_tab">
             <div class="user-table">
@@ -84,7 +152,7 @@
                     <th class="text-center visible-md visible-lg">시작일</th>
                     <th class="text-center">마감일</th>
                     <th class="text-center col-md-3">제목</th>
-                    <th class="text-center">현재/목표(원)</th>
+                    <th class="text-center visible-md visible-lg">현재/목표(원)</th>
                     <th class="text-center ">승인여부</th>
                     <th class="text-center">마감/보상</th>
                 </tr>
@@ -165,10 +233,10 @@
                         + '<td class="text-center col-md-3">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.type == 2) {
-                        str += '<td class="text-center visible-md visible-lg">' + '일반' + '</td>';
+                        str += '<td class="text-center">' + '일반' + '</td>';
 
                     } else {
-                        str += '<td class="text-center visible-md visible-lg">' + '보상' + '</td>';
+                        str += '<td class="text-center ">' + '보상' + '</td>';
 
                     }
                     str += '<td class="text-center  visible-md visible-lg">' + val.wdate + '</td>';
@@ -184,9 +252,9 @@
     /* 내 크라우드펀딩 모집 신청내역 불러오기*/
     var load_crowd_list = function () {
         $.ajax({
-            url: "crowdlist.do",
+            url: "crowdlistAll.do",
             method: "post",
-            data: {"id": myid},
+            data: {},
             success: function (data) {
                 var str = "";
 
@@ -209,7 +277,7 @@
 
                     }
                     if (val.endflag == "1" && val.reward == "0")
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info reward-btn" data-src="' + val.seq + '">지급받기</button>' + '</td>';
+                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info">지급대기중</button>' + '</td>';
                     else if (val.endflag == "1" && val.reward == "1")
                         str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn black-control" disabled>지급완료</button>' + '</td>';
                     else if (val.endflag == "0" && val.req == 0)

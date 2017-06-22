@@ -28,7 +28,7 @@
     }
 
     .scroll-table table {
-        height: 600px;
+        height: 100%;
         display: -moz-groupbox;
     }
 
@@ -45,9 +45,7 @@
         border-bottom-right-radius: 0;
     }
 
-    #pad-5-30 {
-        padding: 5% 30%;
-    }
+
 
     body {
         background-color: #f0f0f0;
@@ -237,7 +235,7 @@
             <tr>
                 <th class="text-center">마감일</th>
                 <th class="text-center col-md-4">제목</th>
-                <th class="text-center col-md-3 small">투자/현재/목표(원)</th>
+                <th class="text-center col-md-3 small visible-md visible-lg">투자/현재/목표</th>
                 <th class="text-center visible-md visible-lg">카테고리</th>
                 <th class="text-center visible-md visible-lg">투자일</th>
             </tr>
@@ -265,7 +263,7 @@
                 <th class="text-center visible-md visible-lg">Start</th>
                 <th class="text-center">End</th>
                 <th class="text-center col-md-3">제목</th>
-                <th class="text-center">현재/목표(원)</th>
+                <th class="text-center small visible-md visible-lg">현재/목표</th>
                 <th class="text-center ">승인여부</th>
                 <th class="text-center">마감/보상</th>
             </tr>
