@@ -7,11 +7,41 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
+    thead {
+        background-color: white;
+    }
+
+    .description {
+        font-weight: 800;
+    }
+    .sub-description {
+        font-weight: bold;
+        color: cadetblue;
+        margin: 0;
+    }
+
+    .text-center {
+        padding: 0;
+    }
+
+    .icon {
+        font-size: 55px;
+        margin-top: 7px;
+        margin-bottom: 0px;
+        float: right;
+    }
+
+    #select-box .panel:hover {
+        background-color: #004b6c;
+        color: white;
+    }
 
     #two {
         min-height: 600px;
         padding: 0;
+        background-color: #e1e1e1;
     }
+
     .scroll-table tr {
         width: 100%;
         display: inline-table;
@@ -29,12 +59,28 @@
         position: absolute;
     }
 
+    .fa-pencil {
+        color: #d58512;
+    }
+
+    .fa-leaf {
+        color: mediumseagreen;
+    }
+
+    .fa-money {
+        color: cadetblue;
+    }
+
+    .fa-users {
+        color: #ce8483;
+    }
+
     .menu-tab ul li a {
         font-size: 15px;
     }
 
     .menu-tab ul li a, .menu-tab a:hover {
-        background-color: black;
+        background-color: #004b6c;
         color: white;
     }
 
@@ -50,77 +96,87 @@
                                    aria-controls="crowd_tab" aria-expanded="false">Crowd</a></li>
     </ul>
     <div class="tab-content">
+
+        <%-- 사이트 컨텐트 시작--%>
         <div class="tab-pane fade active in" role="tabpanel" id="site_tab" aria-labelledby="Site_tab">
-            <div id="sum_box" class="row mbl">
+            <div id="select-box" class="row mbl">
                 <div class="col-sm-6 col-md-3">
-                    <div class="panel profit db mbm">
+                    <div class="panel user-pane">
                         <div class="panel-body">
                             <p class="icon">
-                                <i class="icon fa fa-shopping-cart"></i>
+                                <i class="icon fa fa-users" aria-hidden="true"></i>
                             </p>
                             <h4 class="value">
-                                <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">189</span><span>$</span></h4>
-                            <p class="description">
-                                Profit description</p>
-                            <div class="progress progress-sm mbn">
-                                <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar progress-bar-success">
+                                <span>0</span><span>명</span></h4>
+                            <p class="description">회원수</p>
+                            <div class="progress progress-sm">
+                                <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 80%;" class="progress-bar progress-bar-danger">
                                     <span class="sr-only">80% Complete (success)</span></div>
                             </div>
+                            <p class="sub-description">How many SnS?</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    <div class="panel income db mbm">
+                    <div class="panel money-panel">
                         <div class="panel-body">
                             <p class="icon">
                                 <i class="icon fa fa-money"></i>
                             </p>
                             <h4 class="value">
-                                <span>812</span><span>$</span></h4>
-                            <p class="description">
-                                Income detail</p>
+                                <span>0</span><span>원</span></h4>
+                            <p class="description">전체 투자 금액</p>
                             <div class="progress progress-sm mbn">
-                                <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-info">
+                                <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 60%;" class="progress-bar progress-bar-info">
                                     <span class="sr-only">60% Complete (success)</span></div>
                             </div>
+                            <p class="sub-description">Achievement rate</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    <div class="panel task db mbm">
+                    <div class="panel fund-panel">
                         <div class="panel-body">
                             <p class="icon">
-                                <i class="icon fa fa-signal"></i>
+                                <i class="icon fa fa-leaf" aria-hidden="true"></i>
                             </p>
                             <h4 class="value">
-                                <span>155</span></h4>
+                                <span>0</span><span>개</span></h4>
                             <p class="description">
-                                Task completed</p>
+                                현재까지의 펀딩 모집</p>
                             <div class="progress progress-sm mbn">
-                                <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;" class="progress-bar progress-bar-danger">
+                                <div role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 50%;" class="progress-bar progress-bar-success">
                                     <span class="sr-only">50% Complete (success)</span></div>
                             </div>
+                            <p class="sub-description">Completed rate</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    <div class="panel visit db mbm">
+                    <div class="panel board-panel">
                         <div class="panel-body">
                             <p class="icon">
-                                <i class="icon fa fa-group"></i>
+                                <i class="icon fa fa-pencil" aria-hidden="true"></i>
                             </p>
                             <h4 class="value">
-                                <span>376</span></h4>
-                            <p class="description">
-                                Visitor description</p>
+                                <span>0</span><span>개</span></h4>
+                            <p class="description">게시물</p>
                             <div class="progress progress-sm mbn">
-                                <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;" class="progress-bar progress-bar-warning">
+                                <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 70%;" class="progress-bar progress-bar-warning">
                                     <span class="sr-only">70% Complete (success)</span></div>
                             </div>
+                            <p class="sub-description">How many SnS?</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <%-- 사이트 컨텐트 종료--%>
+
         </div>
         <div class="tab-pane fade" role="tabpanel" id="user_tab" aria-labelledby="User_tab">
             <div class="user-table">
@@ -197,7 +253,7 @@
                     var temp_date = new Date(val.wdate).format("yyyy-MM-dd");
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center visible-md visible-lg">' + val.seq + '</td>'
-                        + '<td class="col-md-4"><div class="btn detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
+                        + '<td class="col-md-4"><div class="detail-btn"><a href="boarddetail.do?seq=' + val.seq + '">'
                         + val.tempSub + '</a></div></td>'
                         + '<td class="text-center">' + val.readcount + '</td>'
                         + '<td class="text-center  visible-md visible-lg">' + temp_date + '</td>';
@@ -228,9 +284,9 @@
                 $.each(data, function (index, val) {
                     str += ' <tr class="_hover_tr">'
                         + '<td class="text-center">' + val.edate.substr(5) + '</td>'
-                        + '<td class="col-md-4"><div class="btn crowd-detail-btn" data-src="' + val.seq + '">'
+                        + '<td class="col-md-4"><div class="crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleSub + '</div></td>'
-                        + '<td class="text-center col-md-3">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
+                        + '<td class="text-center col-md-3 visible-md visible-lg">' + money_setComma(val.money) + '/' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.type == 2) {
                         str += '<td class="text-center">' + '일반' + '</td>';
@@ -264,7 +320,7 @@
                         + '<td class="text-center">' + '~' + val.edate.substr(5) + '</td>'
                         + '<td class="col-md-3"><div class="btn crowd-title crowd-detail-btn" data-src="' + val.seq + '">'
                         + val.titleSub + '</div></td>'
-                        + '<td class="text-center">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
+                        + '<td class="text-center visible-md visible-lg">' + money_setComma(val.curMoney) + '/' + money_setComma(val.goalMoney) + '</td>';
 
                     if (val.req == 2) {
                         str += '<td class="text-center visible-md visible-lg">' + '<div class="btn btn-danger">거절</div>' + '</td>';
@@ -277,13 +333,13 @@
 
                     }
                     if (val.endflag == "1" && val.reward == "0")
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info">지급대기중</button>' + '</td>';
+                        str += '<td class="text-center ">' + '<button type="button" class="btn btn-info">지급대기중</button>' + '</td>';
                     else if (val.endflag == "1" && val.reward == "1")
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn black-control" disabled>지급완료</button>' + '</td>';
+                        str += '<td class="text-center ">' + '<button type="button" class="btn black-control" disabled>지급완료</button>' + '</td>';
                     else if (val.endflag == "0" && val.req == 0)
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-warning" disabled>미진행</button>' + '</td>';
+                        str += '<td class="text-center ">' + '<button type="button" class="btn btn-warning" disabled>미진행</button>' + '</td>';
                     else {
-                        str += '<td class="text-center  visible-md visible-lg">' + '<button type="button" class="btn btn-info" disabled>진행중</button>' + '</td>';
+                        str += '<td class="text-center">' + '<button type="button" class="btn btn-info" disabled>진행중</button>' + '</td>';
                     }
                     str += '</tr>';
                 });

@@ -9,7 +9,7 @@
 
     $('#topNav').affix({
         offset: {
-            top: 200
+            top: 100
         }
     });
     /* 모바일 초기화 */
