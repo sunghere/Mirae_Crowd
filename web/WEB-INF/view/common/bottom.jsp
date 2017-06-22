@@ -202,7 +202,8 @@
                             <div class="pay-content">
                                 <div class="center-block">
                                     <input type="text" class="black-control" placeholder="금액"
-                                           onchange="getNumber_comma(this);" onkeyup="getNumber_comma(this);" name="fund-money">
+                                           onchange="getNumber_comma(this);" onkeyup="getNumber_comma(this);"
+                                           name="fund-money">
                                     <button type="button" class="btn btn-info fund-btn" data-src="">확인</button>
 
                                 </div>
@@ -389,7 +390,7 @@
 
 
 <%--검색 모달--%>
-<div id="searchModal" class="modal fade"  role="dialog">
+<div id="searchModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md search-md">
         <div class="modal-content">
             <div class="modal-header line_none">
@@ -510,6 +511,7 @@
 </script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.easing.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.animateNumber.js"></script>
 <script src="<%=request.getContextPath()%>/js/scripts.js"></script>
 <script src="<%=request.getContextPath()%>/js/shlogin.js"></script>
 <script src="<%=request.getContextPath()%>/js/fblogin.js"></script>

@@ -371,13 +371,16 @@
                             var item = $('.list-main[data-src="' + seq + '"]');
                             /*해당게시물*/
                             var curMoney_tag = item.find(".info-curMoney");
-                            var curmoney = parseInt(curMoney_tag.html().split("원")[0]) + point;
+                            var eindex =curMoney_tag.html().indexOf("원");
+                            alert(parseInt(curMoney_tag.html().substring(0,eindex).replace(",","")));
+                            var curmoney = parseInt(curMoney_tag.html().substring(0,eindex).replace(",","")) + point;
                             /* 원래돈 + 투자핟논*/
                             var per = Math.floor(curmoney / parseInt(curMoney_tag.attr('goal')) * 100);
                             /* 변한돈 / 목표금액 * 100*/
                             var probar = item.find('.progress-bar');
                             /* 내부 진행바*/
-                            curMoney_tag.html(curmoney + "원 달성" + "(" + per + "%)");
+                            curMoney_tag.html(money_setComma(curmoney) + "원 달성" + "(" + per + "%)");
+
                             /*현재금액 업데이트*/
                             probar.attr('aria-valuenow', per);
                             /*퍼센트 업데이트*/
