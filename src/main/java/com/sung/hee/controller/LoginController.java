@@ -5,6 +5,7 @@ import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
+import com.sung.hee.mail.model.MailGunApi;
 import com.sung.hee.mail.model.MyEmail;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -91,6 +93,24 @@ public class LoginController {
         return check;
     }//
 
+    @RequestMapping(value = "messages",
+            method = {RequestMethod.POST})
+    @ResponseBody
+    public AjaxCheck sendMail(Model model) {
+        AjaxCheck check = new AjaxCheck();
+        try {
+
+            MailGunApi.SendSimple();
+
+            check.setMessage("SUCS");
+
+        } catch (Exception e) {
+            check.setMessage("FAIL");
+
+        }
+        return check;
+    }//
+
     @RequestMapping(value = "loginAf.do",
             method = RequestMethod.POST)
     @ResponseBody
@@ -109,7 +129,7 @@ public class LoginController {
 
             check.setMessage("SUCS");
 
-            if(login.getCerti() != 1){
+            if (login.getCerti() != 1) {
                 check.setMessage("NOSERTI");
                 logger.info("Welcome LoginController loginAf!---- " + login);
 
@@ -372,6 +392,25 @@ public class LoginController {
         return checkResult;
     }
 
+    @RequestMapping(value = "userlist.do",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public List<SHUser> userlist(
+            SHUser shUser, HttpServletRequest request, Model model) throws Exception {
+        SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
+        List<SHUser> list = null;
+        if (sessionUser == null || sessionUser.getAuth() != 1) {
+            return list;
+        } else {
+
+            list = shUserService.userlist();
+
+        }
+
+
+        return list;
+    }
+
     @RequestMapping(value = "myPage.do",
             method = {RequestMethod.POST, RequestMethod.GET})
     public String myPage(
@@ -379,6 +418,7 @@ public class LoginController {
 
         return "myPage.tiles";
     }
+
 /*    *//* NaverLoginBO *//* 네이버 아이디 로그인
     private NaverLoginBO naverLoginBO;
 

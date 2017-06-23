@@ -387,8 +387,14 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
-
-
+        <!--메일건-->
+        <!-- if you are using Jersey client specific features without the server side -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.26-b06</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 
