@@ -5,7 +5,7 @@ import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
-import com.sung.hee.mail.model.MailGun;
+import com.sung.hee.mail.model.MGSample;
 import com.sung.hee.mail.model.MyEmail;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
@@ -94,13 +94,13 @@ public class LoginController {
     }//
 
     @RequestMapping(value = "messages",
-            method = {RequestMethod.POST})
+            method = {RequestMethod.GET})
     @ResponseBody
     public AjaxCheck sendMail(Model model) {
         AjaxCheck check = new AjaxCheck();
         try {
 
-            MailGun.SendSimple();
+            MGSample.SendSimple();
 
             check.setMessage("SUCS");
 
