@@ -17,8 +17,7 @@
                 <ul class="list-unstyled">
                     <li><a href="#">Contact Us</a></li>
                     <li><a href="#">Delivery Information</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#term-modal">Privacy Policy</a></li>
                 </ul>
             </div>
 
@@ -123,6 +122,138 @@
                         투자에 따른 모든 책임은 각 투자자에게 귀속됩니다. 따라서 투자자가 직접 습득한 정보와 자체적인 투자의 의사결정에 따라 투자에 임하실 것을 당부 드립니다.</p>
                 </div>
                 <button type="button" class="btn btn-danger btn-lg center-block" data-dismiss="modal"
+                        aria-hidden="true">모든 내용을 확인하였습니다.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<%--이용약관 창--%>
+<div id="term-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header line_none">
+                <button type="button" class="close" id="term-modal-close" data-dismiss="modal">
+                    <span class='loginexit' aria-hidden="true">x</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h3 class="title_Type">
+                    개인정보 취급방침
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="regi-term">
+                    <p>
+                    <p class="ls2 lh6 bs5 ts4">
+                        <em class="emphasis">
+                            &lt;doblue&gt;('www.doblue.ga'이하 'doblue')</em>은(는) 개인정보보호법에 따라 이용자의 개인정보 보호 및 권익을 보호하고
+                        개인정보와 관련한 이용자의 고충을 원활하게
+                        처리할 수 있도록 다음과 같은 처리방침을 두고 있습니다.
+                    </p>
+                    <p class="ls2 lh6 bs5 ts4">
+                        <em class="emphasis">&lt;doblue&gt;('doblue')</em> 은(는) 회사는 개인정보처리방침을 개정하는 경우 웹사이트 공지사항(또는
+                        개별공지)을 통하여 공지할 것입니다.
+                    </p>
+                    <p class="ls2">○ 본 방침은부터 <em class="emphasis">2017</em>년 <em class="emphasis">6</em>월 <em
+                            class="emphasis">1</em>일부터
+                        시행됩니다.</p></br><p class='lh6 bs4'><strong>1. 개인정보의 처리 목적 <em class="emphasis">
+                    &lt;doblue&gt;('www.doblue.ga'이하 'doblue')
+                </em>은(는) 개인정보를 다음의 목적을 위해 처리합니다. 처리한 개인정보는 다음의 목적이외의 용도로는 사용되지 않으며 이용 목적이 변경될 시에는 사전동의를 구할
+                    예정입니다.</strong></p>
+                    <p class="ls2">가. 홈페이지 회원가입 및 관리</p>
+                    <p class="ls2">회원 가입의사 확인, 회원제 서비스 제공에 따른 본인 식별·인증, 회원자격 유지·관리, 제한적 본인확인제 시행에 따른 본인확인, 서비스 부정이용 방지,
+                        만14세 미만 아동 개인정보 수집 시 법정대리인 동의 여부 확인, 각종 고지·통지, 고충처리, 분쟁 조정을 위한 기록 보존 등을 목적으로 개인정보를
+                        처리합니다.</p></br><p class="ls2">나. 재화 또는 서비스 제공</p>
+                    <p class="ls2">서비스 제공, 청구서 발송, 콘텐츠 제공, 맞춤 서비스 제공, 본인인증 등을 목적으로 개인정보를 처리합니다.</p></br><p class="ls2">
+                    다. 마케팅 및 광고에의 활용</p>
+                    <p class="ls2">이벤트 및 광고성 정보 제공 및 참여기회 제공 , 서비스의 유효성 확인, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계 등을 목적으로 개인정보를
+                        처리합니다.</p></br></br></br><p class='lh6 bs4'><strong>2. 개인정보 파일 현황</br>('www.doblue.ga'이하
+                    'doblue')가 개인정보 보호법 제32조에 따라 등록․공개하는 개인정보파일의 처리목적은 다음과 같습니다.</strong></p></br>※ 기타('www.doblue.ga'이하
+                    'doblue')의 개인정보파일 등록사항 공개는 행정안전부 개인정보보호 종합지원 포털(www.privacy.go.kr) → 개인정보민원 → 개인정보열람등 요구 → 개인정보파일
+                    목록검색 메뉴를 활용해주시기 바랍니다.</br></br><p class='lh6 bs4'><strong>3. 개인정보의 처리 및 보유 기간</strong></br></br>①
+                    <em class="emphasis">
+                        &lt;doblue&gt;('doblue')
+                    </em>은(는) 법령에 따른 개인정보 보유·이용기간 또는 정보주체로부터 개인정보를 수집시에 동의 받은 개인정보 보유,이용기간 내에서 개인정보를 처리,보유합니다.</br></br>
+                    ② 각각의 개인정보 처리 및 보유 기간은 다음과 같습니다.</p>1.
+                    &lt;홈페이지 회원가입 및 관리&gt;</br>
+                    &lt;홈페이지 회원가입 및 관리&gt;와 관련한 개인정보는 수집.이용에 관한 동의일로부터
+                    &lt;준영구&gt;까지 위 이용목적을 위하여 보유.이용됩니다.</br>-보유근거 : 비밀번호의 암호화</br>-관련법령 : </br>-예외사유
+                    : </br></br></br></br><p class='lh6 bs4'><strong>4. 개인정보처리 위탁</strong></br></br> ①
+                    <em class="emphasis">
+                        &lt;doblue&gt;('doblue')
+                    </em>은(는) 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보 처리업무를 위탁하고 있습니다.</p>
+                    <p class='ls2'>1.
+                        &lt;Mailgun&gt;</br>- 위탁받는 자 (수탁자) : 메일발송(인증메일/ Certification)</br>- 위탁하는 업무의 내용 :
+                        이메일</br>- 위탁기간 : 서비스 이용기간
+                    </p>
+                    </br></br>② <em class="emphasis">
+                    &lt;doblue&gt;('www.doblue.ga'이하 'doblue')
+                </em>은(는) 위탁계약 체결시 개인정보 보호법 제25조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적․관리적 보호조치, 재위탁 제한, 수탁자에
+                    대한 관리․감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.</br></br>③
+                    위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본 개인정보 처리방침을 통하여 공개하도록 하겠습니다.</br><br/><br/>
+                    <p class='lh6 bs4'><strong>5. 정보주체의 권리,의무 및 그 행사방법 이용자는 개인정보주체로서 다음과 같은 권리를 행사할 수
+                        있습니다.</strong></p>
+                    <p class='ls2'>① 정보주체는 doblue(‘www.doblue.ga’이하 ‘doblue) 에 대해 언제든지 다음 각 호의 개인정보 보호 관련
+                        권리를 행사할 수 있습니다.</br>1. 개인정보 열람요구</br>2. 오류 등이 있을 경우 정정 요구</br>3. 삭제요구</br>4. 처리정지
+                        요구</br>② 제1항에 따른 권리 행사는doblue(‘www.doblue.ga’이하 ‘doblue) 에 대해 개인정보 보호법 시행규칙 별지 제8호
+                        서식에 따라 서면, 전자우편, 모사전송(FAX) 등을 통하여 하실 수 있으며
+                        &lt;기관
+                        /회사명&gt;(‘사이트URL’이하 ‘사이트명) 은(는) 이에 대해 지체 없이 조치하겠습니다.</br>③ 정보주체가 개인정보의 오류 등에 대한 정정
+                        또는 삭제를 요구한 경우에는
+                        &lt;기관
+                        /회사명&gt;(‘사이트URL’이하 ‘사이트명) 은(는) 정정 또는 삭제를 완료할 때까지 당해 개인정보를 이용하거나 제공하지 않습니다.</br>④
+                        제1항에 따른 권리 행사는 정보주체의 법정대리인이나 위임을 받은 자 등 대리인을 통하여 하실 수 있습니다. 이 경우 개인정보 보호법 시행규칙 별지
+                        제11호 서식에 따른 위임장을 제출하셔야 합니다.</p></br></br><p class='lh6 bs4'><strong>6. 처리하는 개인정보의 항목
+                    작성 </strong></br></br> ①
+                    <em class="emphasis">
+                        &lt;doblue&gt;('www.doblue.ga'이하 'doblue')
+                    </em>은(는) 다음의 개인정보 항목을 처리하고 있습니다.</p>
+                    <p class='ls2'>1
+                        &lt;홈페이지 회원가입 및 관리&gt;</br>- 필수항목 : 이메일, 비밀번호, 로그인ID, 서비스 이용 기록, 접속 로그, 쿠키, 접속 IP
+                        정보</br>-
+                        선택항목 : -
+                    </p>
+                    </br></br></br><p class='lh6 bs4'><strong>7. 개인정보의 파기<em
+                        class="emphasis">&lt;doblue&gt;('doblue')</em>은(는)
+                    원칙적으로 개인정보 처리목적이 달성된 경우에는 지체없이 해당 개인정보를 파기합니다. 파기의 절차, 기한 및 방법은 다음과 같습니다.</strong>
+                </p>
+                    <p class='ls2'>-파기절차이용자가 입력한 정보는 목적 달성 후 별도의 DB에 옮겨져(종이의 경우 별도의 서류) 내부 방침 및 기타 관련 법령에 따라
+                        일정기간 저장된 후 혹은 즉시 파기됩니다. 이 때, DB로 옮겨진 개인정보는 법률에 의한 경우가 아니고서는 다른 목적으로 이용되지
+                        않습니다.-파기기한이용자의 개인정보는 개인정보의 보유기간이 경과된 경우에는 보유기간의 종료일로부터 5일 이내에, 개인정보의 처리 목적 달성, 해당
+                        서비스의 폐지, 사업의 종료 등 그 개인정보가 불필요하게 되었을 때에는 개인정보의 처리가 불필요한 것으로 인정되는 날로부터 5일 이내에 그 개인정보를
+                        파기합니다.</p>
+                    <p class='ls2'>-파기방법</br>전자적 파일 형태의 정보는 기록을 재생할 수 없는 기술적 방법을 사용합니다.</p></br></br><p
+                        class='lh6 bs4'><strong>8. 개인정보의 안전성 확보 조치
+                    <em class="emphasis">
+                        &lt;doblue&gt;('doblue')
+                    </em>은(는) 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.</strong>
+                </p>
+                    <p class='ls2'>1. 개인정보 취급 직원의 최소화 및 교육</br> 개인정보를 취급하는 직원을 지정하고 담당자에 한정시켜 최소화 하여 개인정보를
+                        관리하는 대책을 시행하고 있습니다.</br></br>2. 내부관리계획의 수립 및 시행</br> 개인정보의 안전한 처리를 위하여 내부관리계획을 수립하고
+                        시행하고 있습니다.</br></br>3. 해킹 등에 대비한 기술적 대책</br> <<em class="emphasis">doblue</em>>('<em
+                                class="emphasis">doblue</em>')은 해킹이나 컴퓨터 바이러스 등에 의한 개인정보 유출 및 훼손을 막기 위하여
+                        보안프로그램을 설치하고 주기적인 갱신·점검을 하며 외부로부터 접근이 통제된 구역에 시스템을 설치하고 기술적/물리적으로 감시 및 차단하고
+                        있습니다.</br></br>4. 개인정보의 암호화</br> 이용자의 개인정보는 비밀번호는 암호화 되어 저장 및 관리되고 있어, 본인만이 알 수 있으며
+                        중요한 데이터는 파일 및 전송 데이터를 암호화 하거나 파일 잠금 기능을 사용하는 등의 별도 보안기능을 사용하고 있습니다.</br></br>5.
+                        개인정보에 대한 접근 제한</br> 개인정보를 처리하는 데이터베이스시스템에 대한 접근권한의 부여,변경,말소를 통하여 개인정보에 대한 접근통제를 위하여
+                        필요한 조치를 하고 있으며 침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있습니다.</br></br>6. 문서보안을 위한 잠금장치
+                        사용</br> 개인정보가 포함된 서류, 보조저장매체 등을 잠금장치가 있는 안전한 장소에 보관하고 있습니다.</br></br>7. 비인가자에 대한 출입
+                        통제</br> 개인정보를 보관하고 있는 물리적 보관 장소를 별도로 두고 이에 대해 출입통제 절차를 수립, 운영하고 있습니다.</br></br>
+                    </p></br></br><p class='lh6 bs4'><strong>9. 개인정보 보호책임자 작성 </strong></p><br/> ①
+                    doblue(‘www.doblue.ga’이하 ‘doblue) 은(는) 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의
+                    불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.<p class='ls2'><br/>▶ 개인정보 보호책임자
+                    <br/>성명 :윤성희<br/>직책 :책임자<br/>직급 :admin<br/>연락처 :010|4694|516O, cisisn@naver.com,
+                    <br/>※ 개인정보 보호 담당부서로 연결됩니다.<br/>
+                    <br/>▶ 개인정보 보호 담당부서<br/>부서명 : doblue<br/>담당자 : 윤성희<br/>연락처 :010|4694|516O
+                    <br/>② 정보주체께서는 doblue(‘www.doblue.ga’이하 ‘doblue) 의 서비스(또는 사업)을 이용하시면서 발생한 모든 개인정보 보호
+                    관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. doblue(‘www.doblue.ga’이하
+                    ‘doblue) 은(는) 정보주체의 문의에 대해 지체 없이 답변 및 처리해드릴 것입니다.</p></br></br><p class='lh6 bs4'>
+                    <strong>10. 개인정보 처리방침 변경 </strong></p>
+                    <p>①이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터
+                        공지사항을 통하여 고지할 것입니다.</p></p>
+
+                </div>
+                <button type="button" class="btn btn-danger btn-lg center-block term-btn" data-dismiss="modal"
                         aria-hidden="true">모든 내용을 확인하였습니다.
                 </button>
             </div>
@@ -265,6 +396,9 @@
                     </button>
                     <button class="btn btn-primary btn-default" type="button" id="login_btnRegi" title="회원가입">회원가입
                     </button>
+                    <button class="btn btn-primary btn-default" type="button" data-toggle="modal"
+                            data-target="#term-modal" title="Privacy Policy">Privacy Policy
+                    </button>
 
 
                 </form>
@@ -286,8 +420,8 @@
                     개인 이메일로 회원가입하시겠어요?<br><br>
                 </h5>
                 <div class="btn_group_center">
-                    <span class="btn btn-default btn_style find"><a href="/regi.do"><i class="fa fa-user-plus"
-                                                                                       aria-hidden="true"></i>회원가입 하러가기</a></span>
+                    <span class="btn btn-default btn_style find"><a href="regi.do"><i class="fa fa-user-plus"
+                                                                                      aria-hidden="true"></i>회원가입 하러가기</a></span>
                 </div>
                 <h5 class="subtitle_Type_mb_10">
                     아이디/비밀번호를 잊으셨나요?<br><br>

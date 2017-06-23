@@ -114,6 +114,7 @@ aside {
     padding: 50px 0;
 }
 
+/*footer 관련*/
 footer {
     padding: 25px;
 
@@ -121,6 +122,10 @@ footer {
     bottom: 0;
     z-index: -999;
     width: 100%;
+}
+
+footer li {
+    padding: 5px 0;
 }
 
 .no-padding {
@@ -283,13 +288,14 @@ header {
 }
 
 #first {
-    min-height:200px;
+    min-height: 200px;
 }
+
 header .header-content {
     position: relative;
     width: 100%;
     padding: 50px 0 15px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.3);
     top: 50%;
     text-align: center;
     z-index: 2;
@@ -362,7 +368,7 @@ footer {
     }
 
     section {
-        min-height: 600px;
+        min-height: 700px;
         padding: 100px 0;
     }
 
@@ -815,11 +821,13 @@ img::-moz-selection {
 .card-img-top {
     margin: 0 auto;
 }
-.card-title{
+
+.card-title {
     border-top: midnightblue solid;
     border-bottom: midnightblue solid;
     padding: 10px 0;
 }
+
 /*board detail*/
 
 /*리플을 위한 CSS들*/
@@ -1107,11 +1115,21 @@ img::-moz-selection {
     z-index: 2001;
 }
 
-.crowd-fund-term {
+#term-modal {
+    z-index: 2005;
+}
+
+.crowd-fund-term, .regi-term {
     overflow: scroll;
     height: 650px;
     margin-bottom: 20px;
     padding: 20px 40px;
+}
+
+.regi-term {
+    font-size: 12px;
+    padding: 10px 20px;
+
 }
 
 .crowd-fund-term .aboutModal-title, .crowd-fund-term .aboutModal-text {

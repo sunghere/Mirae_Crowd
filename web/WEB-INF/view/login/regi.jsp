@@ -109,7 +109,8 @@
 
                         </button>
                         <td style="text-align: left;">
-                            <button class="btn btn-primary btn-default" type="button" id="_btnBack" title="이전">이전
+                            <button class="btn btn-primary btn-default" type="button" title="약관동의" data-toggle="modal"
+                                    data-target="#term-modal">약관동의
                             </button>
                         </td>
 
@@ -125,16 +126,39 @@
     var checkEnt = true;
     var checkID = false;
     $('#authStart').hide();
-    function checkRegi() {
 
-        if (checkEnt == true && checkID == true) {
-            $("#_btnRegi").attr("disabled", false);
+
+    function checkRegi() {
+        var regi_btn = $("#_btnRegi");
+        var term_btn = $('button[title="약관동의"]');
+
+        if (checkEnt == true && checkID == true && term_btn.hasClass("active")) {
+            regi_btn.attr("disabled", false);
+            regi_btn.addClass("btn-info");
+            regi_btn.removeClass("btn-default");
+            regi_btn.removeClass("btn-primary")
+
 
         } else {
-            $("#_btnRegi").attr("disabled", "disabled");
+            regi_btn.attr("disabled", "disabled");
+            regi_btn.addClass("btn-default");
+            regi_btn.addClass("btn-primary");
+            regi_btn.removeClass("btn-info")
+
         }
 
     }
+    $(function () {
+        $(".term-btn").click(function () {
+            var btn = $('button[title="약관동의"]');
+            btn.addClass("active");
+            btn.addClass("btn-info");
+            btn.removeClass("btn-primary");
+            btn.css({"cursor": "default"});
+            checkRegi();
+
+        })
+    });
 
 
     $("#_btnBack").click(function () {
@@ -182,7 +206,7 @@
     });
 
 
-    function check(textid) {
+    var check = function (textid) {
 
 
         var text = $(textid).val();
@@ -259,10 +283,10 @@
             checkRegi();
 
         }
-    }
+    };
 
 
-    function entcheck(textid) {
+    var entcheck = function (textid) {
 
 
         var text = $(textid).val();
@@ -310,4 +334,6 @@
             checkRegi();
         }
     }
+
+
 </script>
