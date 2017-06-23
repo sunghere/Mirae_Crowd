@@ -5,7 +5,7 @@ import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
-import com.sung.hee.mail.model.MailGunApi;
+import com.sung.hee.mail.model.MailGun;
 import com.sung.hee.mail.model.MyEmail;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
@@ -100,7 +100,7 @@ public class LoginController {
         AjaxCheck check = new AjaxCheck();
         try {
 
-            MailGunApi.SendSimple();
+            MailGun.SendSimple();
 
             check.setMessage("SUCS");
 

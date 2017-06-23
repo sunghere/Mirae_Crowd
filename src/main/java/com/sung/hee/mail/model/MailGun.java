@@ -14,7 +14,9 @@ import java.util.Date;
 import java.util.Properties;
 
 public class MailGun {
-    public static void main(String args[]) throws Exception {
+
+
+    public static void SendSimple() throws Exception {
         Properties props = System.getProperties();
         props.put("mail.smtps.host", "smtp.mailgun.org");
         props.put("mail.smtps.auth", "true");
@@ -28,7 +30,7 @@ public class MailGun {
         msg.setSentDate(new Date());
         SMTPTransport t =
                 (SMTPTransport) session.getTransport("smtps");
-            t.connect("smtp.mailgun.com", "postmaster@doblue.ga", "910013b2e9dba24dae3a893c487e4be3");
+        t.connect("smtp.mailgun.com", "postmaster@doblue.ga", "910013b2e9dba24dae3a893c487e4be3");
         t.sendMessage(msg, msg.getAllRecipients());
         System.out.println("Response: " + t.getLastServerResponse());
         t.close();
