@@ -27,6 +27,11 @@ public class SHUserDAOImpl implements SHUserDAO {
 
     }
 
+    @Override
+    public List<SHUser> userlist() {
+        return sqlSession.selectList(ns + "userlist");
+    }
+
     public int getID(SHUser user) {
         return (Integer) sqlSession.selectOne(ns + "getID", user);
     }
@@ -58,7 +63,7 @@ public class SHUserDAOImpl implements SHUserDAO {
         sqlSession.update(ns + "pwdUpdate", shUser);
     }
 
-	public SHUser getIsSnS(SHUser shUser) {
-		return sqlSession.selectOne(ns+"getIsSnS",shUser);
-	}
+    public SHUser getIsSnS(SHUser shUser) {
+        return sqlSession.selectOne(ns + "getIsSnS", shUser);
+    }
 }

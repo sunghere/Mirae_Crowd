@@ -19,6 +19,9 @@ public interface SHUserService {
 
     void emailCerti(SHUser user);
 
+    List<SHUser> userlist();
+
+
     List<SHUser> getEntUserlist(SHEnt ent);
 
     void inPoint(SHUser user) throws Exception;

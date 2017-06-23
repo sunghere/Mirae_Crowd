@@ -10,6 +10,8 @@ public interface SHUserDAO {
 
     SHUser login(SHUser user);
 
+    List<SHUser> userlist();
+
     int getID(SHUser user);
 
     String getPWD(SHUser user);
@@ -21,7 +23,7 @@ public interface SHUserDAO {
     void inPoint(SHUser user) throws Exception;
 
     void dePoint(SHUser user) throws Exception;
-    
+
     void pwdUpdate(SHUser shUser);
 
     SHUser getIsSnS(SHUser shUser);

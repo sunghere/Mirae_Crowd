@@ -43,6 +43,11 @@ public class SHUserServiceImpl implements SHUserService {
         shUserDAO.emailCerti(user);
     }
 
+    @Override
+    public List<SHUser> userlist() {
+        return shUserDAO.userlist();
+    }
+
     @Transactional(readOnly = true)
     public List<SHUser> getEntUserlist(SHEnt ent) {
         return shUserDAO.getEntUserlist(ent);
@@ -63,8 +68,9 @@ public class SHUserServiceImpl implements SHUserService {
     public void pwdUpdate(SHUser shUser) {
         shUserDAO.pwdUpdate(shUser);
     }
+
     @Transactional(readOnly = true)
-	public SHUser getIsSnS(SHUser shUser) {
-		return shUserDAO.getIsSnS(shUser);
-	}
+    public SHUser getIsSnS(SHUser shUser) {
+        return shUserDAO.getIsSnS(shUser);
+    }
 }

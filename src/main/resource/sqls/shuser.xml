@@ -99,6 +99,22 @@
         WHERE ID = #{id}
     </select>
     <select id="userlist" resultType="com.sung.hee.user.model.SHUser">
-        SELECT ID, NAME, PWD, AUTH, DEL, ENT, POINT, CERTI, ISSNS FROM SHUSER WHERE DEL=0;
+        SELECT
+            ID,
+            NAME,
+            AUTH,
+            ENT,
+            POINT,
+            ENTS.ENT,
+            ENTS.ENTNAME,
+            CERTI,
+            ISSNS
+        FROM SHUSER
+            LEFT JOIN (SELECT
+                           ENT,
+                           ENTNAME
+                       FROM SHENT
+                       WHERE DEL = 0) ENTS ON SHUSER.ENT = ENTS.ENT
+        WHERE DEL = 0;
     </select>
 </mapper>

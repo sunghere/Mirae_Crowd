@@ -14,6 +14,7 @@
     .description {
         font-weight: 800;
     }
+
     .sub-description {
         font-weight: bold;
         color: cadetblue;
@@ -169,7 +170,7 @@
                                      style="width: 70%;" class="progress-bar progress-bar-warning">
                                     <span class="sr-only">70% Complete (success)</span></div>
                             </div>
-                            <p class="sub-description">How many SnS?</p>
+                            <p class="sub-description">Reply Completed Rate</p>
                         </div>
                     </div>
                 </div>
@@ -240,7 +241,7 @@
         }
     });
 
-    /* 내글 불러오기*/
+    /* 전체글 불러오기*/
     var load_board_list = function () {
 
         $.ajax({
