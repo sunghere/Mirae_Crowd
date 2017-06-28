@@ -107,7 +107,6 @@ public class LoginController {
 
 
         SHUser login = shUserService.login(user);
-        logger.info("로그인됫나 " + user);
 
         if (login != null && !(login.getId().equals(""))) {
             request.getSession().setAttribute(
@@ -118,7 +117,6 @@ public class LoginController {
 
             if (login.getCerti() != 1) {
                 check.setMessage("NOCERTI");
-                logger.info("미인증!---- " + login);
 
                 request.getSession().invalidate();
 

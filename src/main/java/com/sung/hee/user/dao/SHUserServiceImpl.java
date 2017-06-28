@@ -26,10 +26,10 @@ public class SHUserServiceImpl implements SHUserService {
     @Transactional(readOnly = true)
     public SHUser login(SHUser user) {
 
-        String shaPwd = EncryptUtil.getSHA256(user.getPwd() + "SH"); /* 암호에 SH 문자열을 */
+        String shaPwd = EncryptUtil.getSHA256(user.getPwd());
 
         user.setPwd(shaPwd);
-        
+
         return shUserDAO.login(user);
     }
 
