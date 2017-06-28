@@ -81,21 +81,7 @@ public class SHUserServiceImpl implements SHUserService {
         return result;
     }
 
-    public boolean emailCerti(SHUser user) {
 
-
-        int check = getID(user);
-        boolean result = false;
-        if (check != 0) {
-            result = true;
-        } else {
-
-
-        }
-
-
-        return result;
-    }
 
     @Override
     public List<SHUser> userlist() {
