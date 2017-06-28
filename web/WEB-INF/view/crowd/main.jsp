@@ -9,85 +9,46 @@
 <style>
 
     #first {
-        min-height:300px;
+        min-height: 300px;
     }
-    @media(max-width: 800px) {
-        #first{
-            min-height:200px;
+
+    @media (max-width: 800px) {
+        #first {
+            min-height: 200px;
 
         }
     }
 
 </style>
 <script>
-    $(function () {
+    var imageInput = function (src_list, data) {
+        $.each(data, function (index, val) {
 
+            var src = src_list[index];
+            $('#list-img' + val.seq).css({
+                "background-image": 'url("' + src + '")',
+                "-webkit-background-size": "cover",
+                "-moz-background-size": "cover",
+                "-o-background-size": "cover",
+                "background-size": "cover",
+                "background-position": "center"
+            });
+        })
+    };
 
-        var imageInput = function (src_list, data) {
-            $.each(data, function (index, val) {
+    var initList = function () {
+        $.ajax({
+            url: "list.do",
+            method: "post",
+            data: {},
+            success: function (data) {
+                make_list(data, 0);
+            }, error: function (request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
-                var src = src_list[index];
-                $('#list-img' + val.seq).css({
-                    "background-image": 'url("' + src + '")',
-                    "-webkit-background-size": "cover",
-                    "-moz-background-size": "cover",
-                    "-o-background-size": "cover",
-                    "background-size": "cover",
-                    "background-position": "center"
-                });
-            })
-        };
-
-        var initList = function () {
-            $.ajax({
-                url: "list.do",
-                method: "post",
-                data: {},
-                success: function (data) {
-                    make_list(data, 0);
-                }, error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
-                }
-            })
-        };
-        $('.taglist').on("click", "div.tagbox", function () {
-            var tag = $(this).prop("innerText");
-            if (tag == "ALL") {
-                initList();
-                $(".search").attr('data-src', "");
-                $(".search_type").attr('data-src', "");
-                return;
-            } else {
-                $(".search").attr('data-src', tag);
-                $(".search_type").attr('data-src', "tag");
             }
-            $.ajax({
-                url: "search.do",
-                method: "POST",
-                data: {"search": tag, "search_type": "tag"},
-                success: function (data) {
-                    make_list(data, 0);
-                }, error: function (a, b, c) {
-
-                }
-            })
-        });
-
-
-        $(".search-box").keypress(function (key) {
-            if (key.keyCode == 13) {
-                searchByText();
-            }
-        });
-        $(".search-box>i").click(function () {
-            searchByText();
-        });
-
-        initList();
-        initTagList();
-    });
-
+        })
+    };
     var make_list = function (data, sel) {
         var str = "";
         var src_list = [];
@@ -163,6 +124,46 @@
             }
         })
     };
+    $(function () {
+
+
+        $('.taglist').on("click", "div.tagbox", function () {
+            var tag = $(this).prop("innerText");
+            if (tag == "ALL") {
+                initList();
+                $(".search").attr('data-src', "");
+                $(".search_type").attr('data-src', "");
+                return;
+            } else {
+                $(".search").attr('data-src', tag);
+                $(".search_type").attr('data-src', "tag");
+            }
+            $.ajax({
+                url: "search.do",
+                method: "POST",
+                data: {"search": tag, "search_type": "tag"},
+                success: function (data) {
+                    make_list(data, 0);
+                }, error: function (a, b, c) {
+
+                }
+            })
+        });
+
+
+        $(".search-box").keypress(function (key) {
+            if (key.keyCode == 13) {
+                searchByText();
+            }
+        });
+        $(".search-box>i").click(function () {
+            searchByText();
+        });
+
+        initList();
+        initTagList();
+    });
+
 </script>
 <!-- 태그리스트 -->
 <div class="taglist"></div>
