@@ -11,12 +11,10 @@ import java.util.logging.Logger;
 
 
 public class EncryptUtil {
-    //Logger java.util.logging.Logger.getLogger(String name)
-    private static final Logger logger = Logger.getLogger(EncryptUtil.class.getName());
     private static final String key = "SH";
     public static KeyPair rsaKey = null;
     public static KeyPairGenerator clsKeyPairGenerator;
-    public static KeyPair clsKeyPair = clsKeyPairGenerator.genKeyPair();
+    public static KeyPair clsKeyPair;
     public static KeyFactory fact;
     public static RSAPublicKeySpec clsPublicKeySpec;
     public static RSAPrivateKeySpec clsPrivateKeySpec;
@@ -31,6 +29,7 @@ public class EncryptUtil {
             if (clsKeyPairGenerator == null) {
                 clsKeyPairGenerator = KeyPairGenerator.getInstance("RSA");
                 clsKeyPairGenerator.initialize(2048);
+                clsKeyPair = clsKeyPairGenerator.genKeyPair();
 
             }
             if (fact == null) {
@@ -58,7 +57,7 @@ public class EncryptUtil {
     }
 
     public static String desRSA(String rsaMsg) {
-        String result="";
+        String result = "";
 
         try {
             if (clsKeyPairGenerator == null) {
@@ -85,7 +84,7 @@ public class EncryptUtil {
 
         }
 
-        result = result.substring(0,result.lastIndexOf("SH"));
+        result = result.substring(0, result.lastIndexOf("SH"));
         return result;
     }
 
@@ -103,7 +102,6 @@ public class EncryptUtil {
             //해쉬값(다이제스트) 얻기
             byte byteData[] = md.digest();
 
-            logger.info("byteData[]:" + Arrays.toString(byteData));
 
             StringBuffer sb = new StringBuffer();
 
@@ -167,7 +165,6 @@ public class EncryptUtil {
 //            md.update(a_origin.getBytes());
             md.update(a_origin.getBytes(), 0, a_origin.getBytes().length);
             byte byteData[] = md.digest();
-            logger.info("byteData[]:" + (Arrays.toString(byteData)));
             encryptedMD5 = new BigInteger(1, byteData).toString(16);
 
         } catch (NoSuchAlgorithmException e) {
@@ -185,9 +182,11 @@ public class EncryptUtil {
         try {
             md = MessageDigest.getInstance("SHA-256");
             md.update(a_origin.getBytes(), 0, a_origin.length());
+
             encryptedSHA256 = new BigInteger(1, md.digest()).toString(16);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+
         }
 
         return encryptedSHA256;

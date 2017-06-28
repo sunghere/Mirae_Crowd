@@ -112,15 +112,19 @@
             type: "POST",
             url: "loginAf.do",
             data: {"id": data.id, "pwd": "facebook"},
-            success: function (msg) {
-                if (msg.message == "SUCS") {
+            success: function (result) {
+                if (result.message == "SUCS") {
                     $(".loginexit").click();
                     location.href = "this.do";
+                } else if (result.message == "NOCERTI") {
+                    showMsg("인증이 안된 계정입니다.")
+
                 } else {
                     $('#loginErrmsg').html("<i class='icon ion-ios-close'></i>아이디 혹은 비밀번호를 확인해 주세요").css({
                         "color": "red"
                     });
                 }
+
             },
             error: function (a, b, c) {
 

@@ -28,7 +28,6 @@ public class LoginController {
 
     private static final Logger logger =
             LoggerFactory.getLogger(LoginController.class);
-    //D사용 I주입
     @Autowired
     private SHUserService shUserService;
 
@@ -102,15 +101,15 @@ public class LoginController {
     @RequestMapping(value = "loginAf.do",
             method = RequestMethod.POST)
     @ResponseBody
-    public AjaxCheck loginAf(HttpServletRequest request
-            , SHUser user, Model model) {
+    public AjaxCheck loginAf(
+            SHUser user, HttpServletRequest request, Model model) {
         AjaxCheck check = new AjaxCheck();
-        String shaPwd = EncryptUtil.getEncryptSHA256(user.getPwd()); /* 암호에 SH 문자열을 */
-        user.setPwd(shaPwd);
-        SHUser login = shUserService.login(user);
 
-        logger.info("Welcome LoginController loginAf!---- " + login);
-        if (login != null && !login.getId().equals("")) {
+
+        SHUser login = shUserService.login(user);
+        logger.info("로그인됫나 " + user);
+
+        if (login != null && !(login.getId().equals(""))) {
             request.getSession().setAttribute(
                     "login", login);
             request.getSession().setMaxInactiveInterval(30 * 60);
@@ -118,8 +117,8 @@ public class LoginController {
             check.setMessage("SUCS");
 
             if (login.getCerti() != 1) {
-                check.setMessage("NOSERTI");
-                logger.info("Welcome LoginController loginAf!---- " + login);
+                check.setMessage("NOCERTI");
+                logger.info("미인증!---- " + login);
 
                 request.getSession().invalidate();
 
@@ -127,6 +126,7 @@ public class LoginController {
 
         } else {
             request.getSession().invalidate();
+            logger.info("왜일로오");
             model.addAttribute("result", "아이디나 비밀번호를 확인해주세요");
             check.setMessage("FAIL");
         }

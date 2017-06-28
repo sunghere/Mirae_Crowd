@@ -1,6 +1,7 @@
 package com.sung.hee.user.dao;
 
 import com.sung.hee.ent.model.SHEnt;
+import com.sung.hee.help.EncryptUtil;
 import com.sung.hee.user.model.SHUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class SHUserServiceImpl implements SHUserService {
 
     @Transactional(readOnly = true)
     public SHUser login(SHUser user) {
+
+        String shaPwd = EncryptUtil.getSHA256(user.getPwd() + "SH"); /* 암호에 SH 문자열을 */
+
+        user.setPwd(shaPwd);
+        
         return shUserDAO.login(user);
     }
 

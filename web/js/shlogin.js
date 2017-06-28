@@ -10,20 +10,18 @@
                 alert($("#login_pwd").attr("data-msg") + " 입력해 주십시요.");
                 $("#login_pwd").focus();
             } else {
-                //$("#_frmForm").attr("target","ifrmSpace").submit();
-//                $("#loginform").attr({"target": "_self", "action": "loginAf.do", "method": "post"}).submit();
                 $.ajax({
                     type: "POST",
                     url: "loginAf.do",
                     async: false,
                     data: {"id": $("input[id='login_userid']").val(), "pwd": $("input[id='login_pwd']").val()},
-                    success: function (msg) {
+                    success: function (result) {
 
 
-                        if (msg.message == "SUCS") {
+                        if (result.message == "SUCS") {
                             $(".loginexit").click();
                             location.href = "this.do";
-                        } else if (msg.message == "NOSERTI") {
+                        } else if (result.message == "NOCERTI") {
                             showMsg("인증이 안된 계정입니다.")
 
                         } else {
@@ -89,6 +87,7 @@
                     kakaoIdCheck(res.kaccount_email);
                     if (idcheck == false) {
 
+                        console.log(res);
                         kakaoLogin(res);
                     } else {
                         showMsg("계정이 없습니다.<br> <small>지금 새로 만들기 <a class='btn cursive' id='kakaoRegiBt' href='#'>Go<i class='fa fa-user-plus' aria-hidden='true'></i></a></small>", res)
@@ -115,7 +114,7 @@
 
 
                         if (res.kaccount_email_verified == "false") {
-                            showMsg("이메일 인증이 안된 계정입니다.");
+                            showMsg("카카오톡 이메일 인증이 안된 계정입니다.");
                             Kakao.Auth.logout();
                             return;
                         }

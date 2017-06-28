@@ -29,7 +29,6 @@ public class AccessLoggerFilter implements Filter {
 
         String queryString = StringUtils.defaultIfEmpty(request.getQueryString(), "");
         String referer = StringUtils.defaultString(request.getHeader("Referer"), "-");
-        logger.info("urisdasdjasdasjddhasdjk"+referer);
 
         String agent = StringUtils.defaultString(request.getHeader("User-Agent"), "-");
 
