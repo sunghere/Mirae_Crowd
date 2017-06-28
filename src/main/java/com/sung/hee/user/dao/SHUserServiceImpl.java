@@ -81,8 +81,6 @@ public class SHUserServiceImpl implements SHUserService {
         return result;
     }
 
-
-
     @Override
     public List<SHUser> userlist() {
         return shUserDAO.userlist();

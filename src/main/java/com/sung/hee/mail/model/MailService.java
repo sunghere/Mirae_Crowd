@@ -8,7 +8,7 @@ import net.sargue.mailgun.MailBuilder;
 import java.io.UnsupportedEncodingException;
 
 
-public class MailSender {
+public class MailService {
 
     public static final Configuration configuration = new Configuration()
             .domain("doblue.ga")

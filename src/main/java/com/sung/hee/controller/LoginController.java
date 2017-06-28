@@ -4,7 +4,7 @@ import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
-import com.sung.hee.mail.model.MailSender;
+import com.sung.hee.mail.model.MailService;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class LoginController {
             shUserService.regi(user);
 
 
-            MailSender.sendCertiMail(user);
+            MailService.sendCertiMail(user);
 
 
         } catch (Exception e) {
