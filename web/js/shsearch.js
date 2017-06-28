@@ -28,7 +28,7 @@
         $("#searchlist").on("click", ".search-category", function () {
             var cat = $(this).attr('data-src');
             $.ajax({
-                url: "cSearch.do",
+                url: "search.do",
                 method: "POST",
                 data: {
                     "rnn": "9999",

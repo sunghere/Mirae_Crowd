@@ -39,8 +39,21 @@ public class SHUserServiceImpl implements SHUserService {
     }
 
     @Transactional
-    public void emailCerti(SHUser user) {
-        shUserDAO.emailCerti(user);
+    public boolean emailCerti(SHUser user) {
+
+
+        int check = getID(user);
+        boolean result = false;
+        if (check != 0) {
+            shUserDAO.emailCerti(user);
+            result = true;
+        } else {
+
+
+        }
+
+
+        return result;
     }
 
     @Override

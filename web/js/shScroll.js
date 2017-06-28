@@ -12,10 +12,10 @@
 
             var search_type = $('.search_type').attr('data-src');
             var search = $('.search').attr('data-src');
-            var url = "crowdList.do";
+            var url = "list.do";
 
             if (search_type == "tag" || search_type == "search") {
-                var url = "cSearch.do";
+                var url = "search.do";
             }
 
             $.ajax({

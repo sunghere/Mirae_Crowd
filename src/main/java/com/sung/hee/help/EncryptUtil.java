@@ -1,18 +1,93 @@
 package com.sung.hee.help;
 
+import javax.crypto.Cipher;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
+import java.security.spec.RSAPrivateKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-public class EncryptUtil {
 
+public class EncryptUtil {
     //Logger java.util.logging.Logger.getLogger(String name)
     private static final Logger logger = Logger.getLogger(EncryptUtil.class.getName());
     private static final String key = "SH";
-    //Type1
+    public static KeyPair rsaKey = null;
+    public static KeyPairGenerator clsKeyPairGenerator;
+    public static KeyPair clsKeyPair = clsKeyPairGenerator.genKeyPair();
+    public static KeyFactory fact;
+    public static RSAPublicKeySpec clsPublicKeySpec;
+    public static RSAPrivateKeySpec clsPrivateKeySpec;
+    public static Key clsPublicKey;
+    public static Key clsPrivateKey;
+
+    public static String getRSA(String msg) {
+        String rsaMsg = "";
+        msg += key;
+        try {
+
+            if (clsKeyPairGenerator == null) {
+                clsKeyPairGenerator = KeyPairGenerator.getInstance("RSA");
+                clsKeyPairGenerator.initialize(2048);
+
+            }
+            if (fact == null) {
+                fact = KeyFactory.getInstance("RSA");
+                clsPublicKey = clsKeyPair.getPublic();
+                clsPrivateKey = clsKeyPair.getPrivate();
+                clsPublicKeySpec = fact.getKeySpec(clsPublicKey, RSAPublicKeySpec.class);
+                clsPrivateKeySpec = fact.getKeySpec(clsPrivateKey, RSAPrivateKeySpec.class);
+            }
+            // RSA 공개키/개인키를 생성한다.
+
+            // 암호화 한다.
+
+            Cipher clsCipher = Cipher.getInstance("RSA");
+            clsCipher.init(Cipher.ENCRYPT_MODE, clsPublicKey);
+            byte[] arrCipherData = clsCipher.doFinal(msg.getBytes());
+            rsaMsg = new String(arrCipherData);
+
+
+        } catch (Exception e) {
+
+        }
+        return rsaMsg;
+
+    }
+
+    public static String desRSA(String rsaMsg) {
+        String result="";
+
+        try {
+            if (clsKeyPairGenerator == null) {
+                clsKeyPairGenerator = KeyPairGenerator.getInstance("RSA");
+                clsKeyPairGenerator.initialize(2048);
+
+            }
+            if (fact == null) {
+                fact = KeyFactory.getInstance("RSA");
+                clsPublicKey = clsKeyPair.getPublic();
+                clsPrivateKey = clsKeyPair.getPrivate();
+                clsPublicKeySpec = fact.getKeySpec(clsPublicKey, RSAPublicKeySpec.class);
+                clsPrivateKeySpec = fact.getKeySpec(clsPrivateKey, RSAPrivateKeySpec.class);
+            }
+            byte[] arrCipherData = rsaMsg.getBytes();
+
+            // 복호화 한다.
+            Cipher clsCipher = Cipher.getInstance("RSA");
+
+            clsCipher.init(Cipher.DECRYPT_MODE, clsPrivateKey);
+            byte[] arrData = clsCipher.doFinal(arrCipherData);
+            result = new String(arrData);
+        } catch (Exception e) {
+
+        }
+
+        result = result.substring(0,result.lastIndexOf("SH"));
+        return result;
+    }
 
     //MD5
     public static String getMD5(String str) {
@@ -86,7 +161,7 @@ public class EncryptUtil {
     public static String getEncryptMD5(String a_origin) throws UnsupportedEncodingException {
         String encryptedMD5 = "";
         MessageDigest md = null;
-        a_origin+=key;
+        a_origin += key;
         try {
             md = MessageDigest.getInstance("MD5");
 //            md.update(a_origin.getBytes());
@@ -105,7 +180,7 @@ public class EncryptUtil {
     public static String getEncryptSHA256(String a_origin) {
         String encryptedSHA256 = "";
         MessageDigest md = null;
-        a_origin+=key;
+        a_origin += key;
 
         try {
             md = MessageDigest.getInstance("SHA-256");

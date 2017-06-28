@@ -17,7 +17,7 @@ public interface SHUserService {
 
     int getID(SHUser user);
 
-    void emailCerti(SHUser user);
+    boolean emailCerti(SHUser user);
 
     List<SHUser> userlist();
 

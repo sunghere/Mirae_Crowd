@@ -53,7 +53,7 @@ public class CrowdController {
         if (admin.getAuth() == 1) { /* 관리자 구분*/
 
 
-            list= shCrowdService.crowdListAll();
+            list = shCrowdService.crowdListAll();
         } else { /* 관리자가 아닌인원이 요청을 들어옴 */
 
 
@@ -198,9 +198,9 @@ public class CrowdController {
 
 
     /* 크라우드 리스트 */
-    @RequestMapping(value = "crowdList.do", method = RequestMethod.POST)
+    @RequestMapping(value = "list.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<SHCrowd> cList(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
+    public List<SHCrowd> crowdList(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
         List<SHCrowd> list = shCrowdService.crowdList(shCrowd);
 
         return list;
@@ -208,10 +208,9 @@ public class CrowdController {
 
 
     /* 크라우드 리스트 by 검색결과 + 태그 */
-    @RequestMapping(value = "cSearch.do", method = RequestMethod.POST)
+    @RequestMapping(value = "search.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> cSearch(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl cSearch--!");
         List<SHCrowd> list = shCrowdService.listbySearch(shCrowd);
 
         return list;

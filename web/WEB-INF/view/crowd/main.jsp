@@ -40,7 +40,7 @@
 
         var initList = function () {
             $.ajax({
-                url: "crowdList.do",
+                url: "list.do",
                 method: "post",
                 data: {},
                 success: function (data) {
@@ -48,66 +48,6 @@
                 }, error: function (request, status, error) {
                     console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
-                }
-            })
-        };
-        make_list = function (data, sel) {
-            var str = "";
-            var src_list = [];
-            $.each(data, function (index, val) {
-
-                str += "<div class='list-main col-md-4 col-sm-12' data-src='" + val.seq + "' last-num='" + val.rnn + "'>" +
-                    "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
-                    "<div class='main-info-section'><div class='card-block info-title'>" + val.titleTemp + "</div>" +
-                    "<div class='card-block info-id'>" + val.id + "</div>" +
-                    "<div class='progress-info'><span class='card-block info-curMoney float-left' goal='" + val.goalMoney + "'>" + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</span>" +
-                    "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
-                    "<div class='progress'>" +
-                    "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalMoney, val.curMoney) + "' " +
-                    "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalMoney, val.curMoney) + "%'></div>" +
-                    "</div>" +
-                    "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
-                    "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='" + val.seq + "'> " + val.likenum + "</span></div>" +
-                    "</div></div>";
-                var src = imageCarrier(val.content);
-                src_list.push(src);
-            });
-            if (sel == 1) {
-                $('#crowdlist').html($('#crowdlist').html() + str);
-            } else {
-                $('#crowdlist').html(str);
-
-            }
-            imageInput(src_list, data);
-            $(".progress-bar").each(function (index, val) {
-
-                if ($(val).attr('aria-valuenow') <= 20) {
-                    $(val).addClass("progress-bar-danger");
-                } else if ($(val).attr('aria-valuenow') > 20 && $(val).attr('aria-valuenow') <= 40) {
-                    $(val).addClass("progress-bar-warning");
-                } else if ($(val).attr('aria-valuenow') > 40 && $(val).attr('aria-valuenow') <= 60) {
-
-                } else if ($(val).attr('aria-valuenow') > 60 && $(val).attr('aria-valuenow') <= 80) {
-                    $(val).addClass("progress-bar-info");
-                } else {
-                    $(val).addClass("progress-bar-success");
-                }
-            });
-        };
-        var initTagList = function () {
-            $.ajax({
-                url: "taglist.do",
-                method: "POST",
-                data: {},
-                success: function (data) {
-                    str = "<div class='tag-title'><i class='fa fa-tag' aria-hidden='true'></i> HOT 키워드 </div>" +
-                        "<div class='tagbox btn btn-default'><i class='fa fa-hashtag' aria-hidden='true'></i>ALL</div>";
-
-                    $.each(data, function (index, val) {
-
-                        str += "<div class='tagbox btn btn-default'><i class='fa fa-hashtag' aria-hidden='true'></i>" + val + "</div>";
-                    });
-                    $(".taglist").html(str);
                 }
             })
         };
@@ -123,7 +63,7 @@
                 $(".search_type").attr('data-src', "tag");
             }
             $.ajax({
-                url: "cSearch.do",
+                url: "search.do",
                 method: "POST",
                 data: {"search": tag, "search_type": "tag"},
                 success: function (data) {
@@ -134,20 +74,6 @@
             })
         });
 
-        var searchByText = function () {
-            var txt = $("#search-text").val();
-            $.ajax({
-                url: "cSearch.do",
-                method: "POST",
-                data: {"search": txt, "search_type": "search"},
-                success: function (data) {
-                    make_list(data, 0);
-                    $("#search-text").val("");
-                    $(".search").attr('data-src', txt);
-                    $(".search_type").attr('data-src', "search");
-                }
-            })
-        };
 
         $(".search-box").keypress(function (key) {
             if (key.keyCode == 13) {
@@ -160,7 +86,83 @@
 
         initList();
         initTagList();
-    })
+    });
+
+    var make_list = function (data, sel) {
+        var str = "";
+        var src_list = [];
+        $.each(data, function (index, val) {
+
+            str += "<div class='list-main col-md-4 col-sm-12' data-src='" + val.seq + "' last-num='" + val.rnn + "'>" +
+                "<div class='main-img-section' id='list-img" + val.seq + "'></div>" +
+                "<div class='main-info-section'><div class='card-block info-title'>" + val.titleTemp + "</div>" +
+                "<div class='card-block info-id'>" + val.id + "</div>" +
+                "<div class='progress-info'><span class='card-block info-curMoney float-left' goal='" + val.goalMoney + "'>" + money_setComma(val.curMoney) + "원 달성 (" + toGoal(val.goalMoney, val.curMoney) + "%)</span>" +
+                "<span class='card-block info-date float-right'>" + dateCountdown(val.edate) + "일 남음</span></div>" +
+                "<div class='progress'>" +
+                "<div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='" + toGoal(val.goalMoney, val.curMoney) + "' " +
+                "aria-valuemin='0' aria-valuemax='100' style='width:" + toGoal(val.goalMoney, val.curMoney) + "%'></div>" +
+                "</div>" +
+                "<div class='info-cat'><span class='tags float-left'>" + val.tag + "</span><span class='category cbox float-right'>" + val.category + "</span></div>" +
+                "<div class='info-last div-clear'><span class='info-join float-left'>" + val.pnum + "명 참여중</span><span class='info-like float-right'><i class='fa fa-heart' aria-hidden='true'></i><span class='like-num' data-src='" + val.seq + "'> " + val.likenum + "</span></div>" +
+                "</div></div>";
+            var src = imageCarrier(val.content);
+            src_list.push(src);
+        });
+        if (sel == 1) {
+            $('#crowdlist').html($('#crowdlist').html() + str);
+        } else {
+            $('#crowdlist').html(str);
+
+        }
+        imageInput(src_list, data);
+        $(".progress-bar").each(function (index, val) {
+
+            if ($(val).attr('aria-valuenow') <= 20) {
+                $(val).addClass("progress-bar-danger");
+            } else if ($(val).attr('aria-valuenow') > 20 && $(val).attr('aria-valuenow') <= 40) {
+                $(val).addClass("progress-bar-warning");
+            } else if ($(val).attr('aria-valuenow') > 40 && $(val).attr('aria-valuenow') <= 60) {
+
+            } else if ($(val).attr('aria-valuenow') > 60 && $(val).attr('aria-valuenow') <= 80) {
+                $(val).addClass("progress-bar-info");
+            } else {
+                $(val).addClass("progress-bar-success");
+            }
+        });
+    };
+    var initTagList = function () {
+        $.ajax({
+            url: "taglist.do",
+            method: "POST",
+            data: {},
+            success: function (data) {
+                str = "<div class='tag-title'><i class='fa fa-tag' aria-hidden='true'></i> HOT 키워드 </div>" +
+                    "<div class='tagbox btn btn-default'><i class='fa fa-hashtag' aria-hidden='true'></i>ALL</div>";
+
+                $.each(data, function (index, val) {
+
+                    str += "<div class='tagbox btn btn-default'><i class='fa fa-hashtag' aria-hidden='true'></i>" + val + "</div>";
+                });
+                $(".taglist").html(str);
+            }
+        })
+    };
+
+    var searchByText = function () {
+        var txt = $("#search-text").val();
+        $.ajax({
+            url: "search.do",
+            method: "POST",
+            data: {"search": txt, "search_type": "search"},
+            success: function (data) {
+                make_list(data, 0);
+                $("#search-text").val("");
+                $(".search").attr('data-src', txt);
+                $(".search_type").attr('data-src', "search");
+            }
+        })
+    };
 </script>
 <!-- 태그리스트 -->
 <div class="taglist"></div>

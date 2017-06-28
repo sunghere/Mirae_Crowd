@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,28 +47,15 @@ public class LoginController {
     @RequestMapping(value = "regiAf.do",
             method = {RequestMethod.POST})
     public String regiAf(SHUser user, HttpServletRequest request, Model model) {
-        logger.info("Welcome LoginController regiAf! " + new Date());
         try {
             String shaPwd = EncryptUtil.getEncryptSHA256(user.getPwd()); /* 암호에 SH 문자열을 */
             user.setPwd(shaPwd);
             shUserService.regi(user);
-            MyEmail myEmail = new MyEmail();
 
 
-            String reciver = user.getId(); //받을사람의 이메일입니다.
-            String subject = "Sunghere 가입 인증 메일입니다.";
-            String content = "[Sunghere]가입을 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "emailCerti.do?id=" + user.getId() + "&encrypt="
-                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.";
+            MGSample.sendCertiMail(user);
 
-            myEmail.setReciver(reciver);
-            myEmail.setSubject(subject);
-            myEmail.setContent(content);
-            try {
-                emailSender.SendEmail(myEmail);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
         } catch (Exception e) {
         }
         return "redirect:/" + "main.do";
@@ -94,7 +82,7 @@ public class LoginController {
     }//
 
     @RequestMapping(value = "messages",
-            method = {RequestMethod.GET})
+            method = {RequestMethod.POST})
     @ResponseBody
     public AjaxCheck sendMail(Model model) {
         AjaxCheck check = new AjaxCheck();
@@ -199,19 +187,24 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "emailCerti.do", method = RequestMethod.GET)
-    public String emailCerti(String encrypt, String id) {
+    /***
+     *
+     * @param certiKey 유저의 id를 RSA로 암호화한 email(ID)
+     * @return
+     */
+    @RequestMapping(value = "emailCerti/{certiKey}", method = RequestMethod.GET)
+    public String emailCerti(@PathVariable String certiKey) {
 
-        //emailSerti.do?id=cisisn@naver.com&encrypt=1bb66b51fd34f9cb8e2a57efd96d08d
-        if (EncryptUtil.getMD5(id).equals(encrypt)) {
-            logger.info("인증성공");
-            SHUser shUser = new SHUser();
-            shUser.setId(id);
-            shUserService.emailCerti(shUser);
+        SHUser shUser = new SHUser();
+        shUser.setId(EncryptUtil.desRSA(certiKey));
+        boolean isResult = shUserService.emailCerti(shUser);
+
+        if (isResult) {  //인증성공
+
             return "redirect:/main.do";
 
         } else {
-            logger.info("인증실패");
+
             //인증실패시
             return "certierror.tiles";
         }
