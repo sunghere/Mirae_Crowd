@@ -15,7 +15,7 @@
         font-family: "Nanum Gothic", "cursive";
     }
 </style>
-<div id='content_affix' data-offset-top="455">
+<div id='content_affix' data-offset-top="255">
     <form name="frmForm" id="_frmForm">
         <h1 class="cursive">Detail</h1>
         <div class="row">

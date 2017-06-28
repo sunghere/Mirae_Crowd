@@ -19,7 +19,7 @@
 
         }
 
-        if (y > $('#two').height() - 200) {
+        if (y > $('#two').height() - 400) {
             $('div.margin15.row').hide();
             $('.sh-replybox-bottom').show();
 
