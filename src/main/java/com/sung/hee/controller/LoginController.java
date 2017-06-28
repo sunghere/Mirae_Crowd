@@ -1,12 +1,10 @@
 package com.sung.hee.controller;
 
-import com.sung.hee.mail.dao.EmailSender;
 import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
-import com.sung.hee.mail.model.MGSample;
-import com.sung.hee.mail.model.MyEmail;
+import com.sung.hee.mail.model.MailSender;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
 import org.slf4j.Logger;
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,8 +30,7 @@ public class LoginController {
 
     @Autowired
     private SHEntService shEntService;
-    @Autowired
-    private EmailSender emailSender;
+
 
     @RequestMapping(value = "regi.do",
             method = {RequestMethod.GET, RequestMethod.POST})
@@ -52,12 +48,12 @@ public class LoginController {
             shUserService.regi(user);
 
 
-            MGSample.sendCertiMail(user);
+            MailSender.sendCertiMail(user);
 
 
         } catch (Exception e) {
         }
-        return "redirect:/" + "main.do";
+        return "redirect:main.do";
     }//
 
     @RequestMapping(value = "SNSRegi.do",
@@ -80,23 +76,6 @@ public class LoginController {
         return check;
     }//
 
-    @RequestMapping(value = "messages",
-            method = {RequestMethod.POST})
-    @ResponseBody
-    public AjaxCheck sendMail(Model model) {
-        AjaxCheck check = new AjaxCheck();
-        try {
-
-            MGSample.SendSimple();
-
-            check.setMessage("SUCS");
-
-        } catch (Exception e) {
-            check.setMessage("FAIL");
-
-        }
-        return check;
-    }//
 
     @RequestMapping(value = "loginAf.do",
             method = RequestMethod.POST)
@@ -136,66 +115,40 @@ public class LoginController {
             method = {RequestMethod.POST})
     @ResponseBody
     public AjaxCheck pwdFindmail(SHUser user, HttpServletRequest request, Model model) {
-        logger.info("Welcome LoginController pwdFindmail! " + new Date());
         AjaxCheck result = new AjaxCheck();
         if (shUserService.getIsSnS(user).getIsSNS().equals("1")) {
             result.setMessage("SNS");
             return result;
         }
-        try {
-            MyEmail myEmail = new MyEmail();
 
-            String reciver = user.getId(); //받을사람의 이메일입니다.
-            String subject = "Sunghere 비밀번호찾기 인증 메일입니다.";
-            String content = "[Sunghere] 본인의 의사가 아니라면 해당메일로 회신문의주세요."
-                    + "인증 완료 주소는\n " + getSiteUrl(request.getHeader("Referer")) + "pwdFindCerti.do?id=" + user.getId() + "&encrypt="
-                    + EncryptUtil.getEncryptMD5(user.getId()) + " 입니다.<br>" +
-                    "비밀번호는 0000으로 초기화됩니다.<br>마이페이지에서 비밀번호를 변경해주세요.";
-
-            myEmail.setReciver(reciver);
-            myEmail.setSubject(subject);
-            myEmail.setContent(content);
-            try {
-                emailSender.SendEmail(myEmail);
-                result.setMessage("SUCS");
-            } catch (Exception e) {
-                result.setMessage("FAIL");
-            }
-        } catch (Exception e) {
-
-            result.setMessage("FAIL");
-        }
         return result;
     }//
 
     @RequestMapping(value = "pwdFindCerti.do", method = RequestMethod.GET)
-    public String pwdFindCerti(String encrypt, String id) {
+    public String pwdFindCerti(String en, String id) {
 
-        if (EncryptUtil.getMD5(id).equals(encrypt)) {
-            SHUser shUser = new SHUser();
-            shUser.setId(id);
-            shUser.setPwd("0000");
-            shUserService.pwdUpdate(shUser);
+
+        if (shUserService.pwdFindCerti(id, en)) {
+
             return "redirect:/main.do";
 
         } else {
             /*인증 실패 페이지*/
-            return "redirect:/main.do";
+            return "certierror.tiles";
+
         }
     }
 
 
-    /***
-     *
-     * @param certiKey 유저의 id를 RSA로 암호화한 email(ID)
+    /**
+     * @param en 유저의 id를 MD5로 암호화
+     * @param id 유저의 본래 ID
      * @return
      */
-    @RequestMapping(value = "emailCerti/{certiKey}", method = RequestMethod.GET)
-    public String emailCerti(@PathVariable String certiKey) {
+    @RequestMapping(value = "emailCerti.do", method = RequestMethod.GET)
+    public String emailCerti(String en, String id) {
 
-        SHUser shUser = new SHUser();
-        shUser.setId(EncryptUtil.desRSA(certiKey));
-        boolean isResult = shUserService.emailCerti(shUser);
+        boolean isResult = shUserService.emailCerti(id, en);
 
         if (isResult) {  //인증성공
 

@@ -23,6 +23,25 @@ public class SHUserServiceImpl implements SHUserService {
         shUserDAO.regi(user);
     }
 
+    @Override
+    public boolean pwdFindCerti(String id, String en) {
+        boolean result = false;
+
+        if (EncryptUtil.getMD5(id).equals(en)) {
+            SHUser shUser = new SHUser();
+            shUser.setId(id);
+            shUser.setPwd("0000");
+            pwdUpdate(shUser);
+            result = true;
+        } else {
+
+        }
+
+
+        return result;
+
+    }
+
     @Transactional(readOnly = true)
     public SHUser login(SHUser user) {
 
@@ -45,13 +64,29 @@ public class SHUserServiceImpl implements SHUserService {
     }
 
     @Transactional
+    public boolean emailCerti(String id, String en) {
+
+        boolean result = false;
+        if (EncryptUtil.getMD5(id).equals(en)) {
+            SHUser user = new SHUser();
+            user.setId(id);
+            shUserDAO.emailCerti(user);
+
+            result = true;
+        } else {
+
+        }
+
+
+        return result;
+    }
+
     public boolean emailCerti(SHUser user) {
 
 
         int check = getID(user);
         boolean result = false;
         if (check != 0) {
-            shUserDAO.emailCerti(user);
             result = true;
         } else {
 

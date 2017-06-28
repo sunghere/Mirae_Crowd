@@ -11,13 +11,15 @@ import java.util.List;
 public interface SHUserService {
     void regi(SHUser user) throws Exception;
 
+    boolean pwdFindCerti(String id, String en);
+
     SHUser login(SHUser user);
 
     String getPWD(SHUser user);
 
     int getID(SHUser user);
 
-    boolean emailCerti(SHUser user);
+    boolean emailCerti(String id, String en);
 
     List<SHUser> userlist();
 

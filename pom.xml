@@ -388,28 +388,14 @@
             <version>5.1.38</version>
         </dependency>
         <!--메일건-->
-        <!-- if you are using Jersey client specific features without the server side -->
+        <!-- https://mvnrepository.com/artifact/net.sargue/mailgun -->
         <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.26-b06</version>
-            <scope>provided</scope>
+            <groupId>net.sargue</groupId>
+            <artifactId>mailgun</artifactId>
+            <version>1.4.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-core</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey.contribs</groupId>
-            <artifactId>jersey-multipart</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+
+
     </dependencies>
 
 

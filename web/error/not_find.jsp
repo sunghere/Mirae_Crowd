@@ -30,7 +30,7 @@
 <div>
 
     <h1> 페이지를 찾을수없어요.</h1>
-    <p>잠시후 다시 시도해주세요</p> <a href="http://www.doblue.ga">메인으로 가기</a>
+    <p>잠시후 다시 시도해주세요</p> <a href="http://www.doblue.ga/mirae/main.do">메인으로 가기</a>
 </div>
 </body>
 </html>
