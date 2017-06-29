@@ -12,7 +12,7 @@ public class MailService {
 
     public static final Configuration configuration = new Configuration()
             .domain("doblue.ga")
-            .apiKey("key-774874982400a67d8a7d511c1f3266da")
+            .apiKey("API Key")
             .from("Doblue", "sunghere@doblue.ga");
 
     public static void main(String[] args) {
