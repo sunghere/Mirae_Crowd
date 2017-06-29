@@ -340,11 +340,11 @@ public class LoginController {
             method = RequestMethod.POST)
     @ResponseBody
     public List<SHUser> userlist(
-            SHUser shUser, HttpServletRequest request, Model model) throws Exception {
+            HttpServletRequest request) throws Exception {
         SHUser sessionUser = (SHUser) request.getSession().getAttribute("login");
         List<SHUser> list = null;
         if (sessionUser == null || sessionUser.getAuth() != 1) {
-            return list;
+            list = null;
         } else {
 
             list = shUserService.userlist();

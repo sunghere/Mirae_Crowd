@@ -7,10 +7,11 @@
     <insert id="regi" parameterType="com.sung.hee.user.model.SHUser">
 
         INSERT INTO SHUSER (ID, NAME, PWD, AUTH,
-                            DEL, ENT, POINT, CERTI, isSNS)
+                            DEL, ENT, POINT, CERTI, isSNS, RDATE)
         VALUES (#{id}, #{name}, #{pwd}, 3, 0, IFNULL((SELECT ENT
                                                       FROM SHENT
-                                                      WHERE ENTNAME = #{entname}), 0), 0, #{certi}, #{isSNS})
+                                                      WHERE ENTNAME = #{entname}), 0), 0, #{certi}, #{isSNS},
+                DATE_FORMAT(NOW(), '%Y-%m-%d'))
     </insert>
     <update id="emailCerti" parameterType="com.sung.hee.user.model.SHUser">
         UPDATE SHUSER
@@ -27,7 +28,8 @@
             ENTS.ENTNAME,
             POINT,
             CERTI,
-            isSNS
+            ISSNS,
+            RDATE
         FROM SHUSER
             LEFT JOIN (SELECT
                            ENT,
@@ -59,7 +61,8 @@
             ENTS.ENTNAME,
             POINT,
             CERTI,
-            isSNS
+            isSNS,
+            RDATE
         FROM SHUSER
             LEFT JOIN (SELECT
                            ENT,
@@ -103,12 +106,12 @@
             ID,
             NAME,
             AUTH,
-            ENT,
             POINT,
             ENTS.ENT,
             ENTS.ENTNAME,
             CERTI,
-            ISSNS
+            ISSNS,
+            RDATE
         FROM SHUSER
             LEFT JOIN (SELECT
                            ENT,

@@ -184,12 +184,12 @@
                 <table class="scroll-table table table-striped table-responsive">
                     <thead class="thead-inverse">
                     <tr>
-                        <th class="text-center">번호</th>
+                        <th class="text-center visible-md visible-lg">구분</th>
                         <th class="text-center col-md-4">계정명</th>
                         <th class="text-center">
                             <div class="dropdown">이름</div>
                         </th>
-                        <th class="text-center visible-md visible-lg">포인트</th>
+                        <th class="text-center">포인트</th>
                         <th class="text-center">기업</th>
                     </tr>
                     </thead>
@@ -227,20 +227,52 @@
 
 <script>
 
-    $('#menu_tab a').click(function (e) {
-        e.preventDefault();
-        var item = $(this);
-        item.tab('show');
 
-        if (item.attr('aria-controls') == "site_tab") {
+    var user_list = function () {
 
-        } else if (item.attr('aria-controls') == "user_tab") {
+        $.ajax({
+            url: "userlist.do",
+            dataType: "text json",
+            method : "post",
+            contentType: 'application/json; charset=utf-8',
+            data: '', // 파라메터 정보 전달,
+            cashe: false,
+            success: function (data) {
+                var str = "";
 
-        } else if (item.attr('aria-controls') == "crowd_tab") {
-            load_crowd_list();
-        }
-    });
+                $.each(data, function (index, val) {
+                    str += ' <tr class="_hover_tr">'
+                        + '<td class="text-center">';
 
+                    if (val.isSNS == "1") {
+                        str += "SNS"
+                    } else {
+                        str += "일반"
+                    }
+
+                    str += '</td>'
+                        + '<td class="col-md-4"><div class="">'
+                        + val.id + '</div></td>'
+                        + '<td class="text-center">' + val.name + '</td>';
+
+                    str += '<td class="text-center">' + money_setComma(val.point) + '</td>';
+
+
+                    if (val.entname != null && val.entname !="") {
+                        str += '<td class="text-center  visible-md visible-lg">' + val.entname + '</td>';
+
+                    } else {
+                        str += '<td class="text-center  visible-md visible-lg">일반 회원</td>';
+
+                    }
+                    str += '</tr>';
+                });
+
+
+                $('#user-list').html(str);
+            }
+        })
+    };
     /* 전체글 불러오기*/
     var load_board_list = function () {
 
@@ -351,4 +383,17 @@
             }
         })
     };
+    $('#menu_tab a').click(function (e) {
+        e.preventDefault();
+        var item = $(this);
+        item.tab('show');
+
+        if (item.attr('aria-controls') == "site_tab") {
+
+        } else if (item.attr('aria-controls') == "user_tab") {
+            user_list();
+        } else if (item.attr('aria-controls') == "crowd_tab") {
+            load_crowd_list();
+        }
+    });
 </script>
