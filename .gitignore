@@ -113,3 +113,4 @@ web/WEB-INF/classes/
 web/WEB-INF/lib/
 /.idea/
 !/.idea/
+/src/main/resource/properties/jdbc.properties
