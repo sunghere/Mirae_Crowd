@@ -6,6 +6,7 @@ import com.sung.hee.help.CrowdLike;
 import com.sung.hee.help.MyCrowd;
 import com.sung.hee.user.model.SHUser;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -54,4 +55,6 @@ public interface SHCrowdService {
     List<SHCrowd> searchCategory(SHCrowd shCrowd); /*검색결과 카테고리로 묶기*/
     
     void updateCrowd(SHCrowd shCrowd); /*크라우드 수정*/
+
+    HashSet<String> getTagList();
 }

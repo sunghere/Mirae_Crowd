@@ -1,11 +1,11 @@
 package com.sung.hee.controller;
 
-import com.sung.hee.shcrowd.model.SHCrowd;
-import com.sung.hee.shcrowd.model.SHFund;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.CrowdLike;
 import com.sung.hee.help.MyCrowd;
 import com.sung.hee.shcrowd.dao.SHCrowdService;
+import com.sung.hee.shcrowd.model.SHCrowd;
+import com.sung.hee.shcrowd.model.SHFund;
 import com.sung.hee.user.model.SHUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -348,24 +347,8 @@ public class CrowdController {
     @ResponseBody
     public HashSet<String> getTagList(HttpServletRequest request, Model model) throws Exception {
 
-        List<String> tagList = new ArrayList();
-        HashSet<String> randomList = new HashSet();
-        List<String> tempList = shCrowdService.findTag();
+        HashSet<String> randomList = shCrowdService.getTagList();
 
-        for (String string : tempList) {
-            for (String str : string.split("#")) {
-                if (!str.equals(""))
-                    tagList.add(str.trim());
-            }
-        }
-        int count = 0;
-        while (randomList.size() < 7) {
-            count++;
-            randomList.add(tagList.get((int) (Math.random() * tagList.size())));
-            if (count > 300) {
-                break;
-            }
-        }
 
         return randomList;
     }

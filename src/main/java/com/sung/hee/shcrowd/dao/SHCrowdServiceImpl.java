@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -157,7 +159,32 @@ public class SHCrowdServiceImpl implements SHCrowdService {
     }
 
     @Transactional
-	public void updateCrowd(SHCrowd shCrowd) {
-    	shCrowdDAO.updateCrowd(shCrowd);
-	}
+    public void updateCrowd(SHCrowd shCrowd) {
+        shCrowdDAO.updateCrowd(shCrowd);
+    }
+
+
+    @Transactional
+    public HashSet<String> getTagList() {
+        List<String> tagList = new ArrayList();
+        HashSet<String> randomList = new HashSet();
+        List<String> tempList = findTag(); // 태그 리스트를 가져온다.
+
+        for (String string : tempList) { // 가져온 태그리스트를 반복문으로 돌린다.
+            for (String str : string.split("#")) { // 태그 리스트를 태그 하나하나로 나누는 작업. split을 이용
+                if (!str.equals(""))
+                    tagList.add(str.trim()); // 태그의 공백을 없애준다.
+            }
+        }
+        int count = 0;
+        while (randomList.size() < 7) { // 7개가 될때까지 반복하여 작업한다.
+            count++;
+            randomList.add(tagList.get((int) (Math.random() * tagList.size())));
+            if (count > 500) {// 만약 태그의 부족으로 7개가 채워지지않는다면, 500번 정도에서 멈춰준다.(무한루프 방지)
+                break;
+            }
+        }
+
+        return randomList;
+    }
 }
