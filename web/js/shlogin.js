@@ -203,7 +203,9 @@
             },
             success: function (msg) {
                 if (msg.message == "SUCS") {
-                    setTimeout('showMsg("회원가입에 성공하였습니다. 로그인해주세요")', 500);
+                    $(".showMsg-close").click();
+
+                    setTimeout('showMsg("회원가입에 성공하였습니다. 로그인해주세요")', 1000);
 
 
                 } else {

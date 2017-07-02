@@ -86,7 +86,6 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         shUser.setId(shFund.getId());
         shCrowdDAO.dePoint(shUser);
         shCrowdDAO.fundCrowd(shFund);
-        shCrowdDAO.moneyUpdate(shFund);
 
     }
 
@@ -98,7 +97,6 @@ public class SHCrowdServiceImpl implements SHCrowdService {
         shCrowdDAO.inPoint(shUser);
         shCrowdDAO.fundCrowdCancel(shFund);
         shFund.setMoney(shFund.getMoney() * (-1));
-        shCrowdDAO.moneyUpdate(shFund);
 
     }
 

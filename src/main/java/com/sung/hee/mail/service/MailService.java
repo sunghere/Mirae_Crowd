@@ -1,4 +1,4 @@
-package com.sung.hee.mail.model;
+package com.sung.hee.mail.service;
 
 import com.sung.hee.help.EncryptUtil;
 import com.sung.hee.user.model.SHUser;

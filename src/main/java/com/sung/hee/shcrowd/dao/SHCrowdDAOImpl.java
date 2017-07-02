@@ -76,9 +76,6 @@ public class SHCrowdDAOImpl implements SHCrowdDAO {
         sqlSession.insert(ns + "fundCrowd", shFund);
     }
 
-    public void moneyUpdate(SHFund shFund) {
-        sqlSession.update(ns + "moneyUpdate", shFund);
-    }
 
     public void fundCrowdCancel(SHFund shFund) {
         sqlSession.delete(ns + "fundCrowdCancel", shFund);

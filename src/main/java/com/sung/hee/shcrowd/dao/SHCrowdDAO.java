@@ -40,8 +40,6 @@ public interface SHCrowdDAO {
 
     void fundCrowd(SHFund shFund); /* 유저 펀딩 */
 
-    /*  void crowdUnLike();*/
-    void moneyUpdate(SHFund shFund);/* 펀딩한 만큼 금액추가*/
 
     void fundCrowdCancel(SHFund shFund); /* 유저 펀딩 취소(예비기능)*/
 

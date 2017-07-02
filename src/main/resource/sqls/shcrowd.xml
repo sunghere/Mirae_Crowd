@@ -7,9 +7,9 @@
 
     <insert id="addCrowd" parameterType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        INSERT INTO SHCROWD(TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        INSERT INTO SHCROWD(TITLE, CONTENT, ID, GOALMONEY, LIKENUM, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ, DEL,ENDFLAG,REWARD,WDATE,LATLNG) VALUES
-        (#{title},#{content},#{id},#{goalMoney},0,0,#{tag},
+        (#{title},#{content},#{id},#{goalMoney},0,#{tag},
         #{sdate},#{edate},#{category},
         <if test="address != null and address!=''">
             #{address}
@@ -81,19 +81,23 @@
     <select id="crowdListAll"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, IFNULL(CURMONEY,0) CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
         SELECT @ROWNUM := @ROWNUM + 1 as rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD,(SELECT @ROWNUM := 0)R ORDER BY SEQ DESC) A
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join
+            (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
+             FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE ID = #{id} ORDER BY SEQ DESC) A
 
     </select>
     <select id="crowdListAllforCal"
             resultType="com.sung.hee.shcrowd.model.SHCrowd">
 
-        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
+        SELECT rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, IFNULL(CURMONEY,0) CURMONEY, TAG,
         SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM (
         SELECT @ROWNUM := @ROWNUM + 1 as rnn,SEQ, TITLE, CONTENT, ID, GOALMONEY, LIKENUM, CURMONEY, TAG,
-        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC) A
+        SDATE, EDATE, CATEGORY, ADDRESS, TYPE,REQ,LATLNG,WDATE,ENDFLAG,REWARD FROM SHCROWD left join
+            (SELECT COUNT(*) PNUM,PSEQ,SUM(MONEY) CURMONEY
+             FROM SHFUND GROUP BY pseq) COUNTS ON COUNTS.PSEQ=SHCROWD.seq,(SELECT @ROWNUM := 0)R WHERE REQ = 1 AND ENDFLAG='0' ORDER BY SEQ DESC)  A
 
     </select>
     <select id="crowdList" parameterType="com.sung.hee.shcrowd.model.SHCrowd"
@@ -182,10 +186,6 @@
 
     </delete>
 
-    <update id="moneyUpdate" parameterType="com.sung.hee.shcrowd.model.SHFund">
-        UPDATE SHCROWD SET CURMONEY = CURMONEY + #{money} WHERE SEQ=#{pseq}
-
-    </update>
 
     <insert id="crowdLike" parameterType="com.sung.hee.help.CrowdLike">
 

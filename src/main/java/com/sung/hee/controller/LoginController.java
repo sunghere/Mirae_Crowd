@@ -4,7 +4,7 @@ import com.sung.hee.ent.dao.SHEntService;
 import com.sung.hee.ent.model.SHEnt;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.EncryptUtil;
-import com.sung.hee.mail.model.MailService;
+import com.sung.hee.mail.service.MailService;
 import com.sung.hee.user.dao.SHUserService;
 import com.sung.hee.user.model.SHUser;
 import org.slf4j.Logger;
