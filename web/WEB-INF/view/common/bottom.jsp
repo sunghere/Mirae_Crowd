@@ -382,12 +382,12 @@
             <div class="modal-body">
                 <form id="loginform">
                     <input type="text" id="login_userid" data-msg="ID" class="form-control input-sm"
-                           placeholder="ID"
+                           placeholder="ID" value="demo"
                            name="id"
                            size="15">
                     <br>
                     <input type="password" id="login_pwd" data-msg="패스워드" title="패스워드" class="form-control"
-                           placeholder="PASSWORD" name="pwd"
+                           placeholder="PASSWORD" name="pwd" value="test"
                            size="15"><br>
 
                     <div id='loginErrmsg' class="subtitle_Type_mb50"></div>

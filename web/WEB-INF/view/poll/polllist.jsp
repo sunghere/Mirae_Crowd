@@ -14,7 +14,7 @@ List<SHPoll> plists = new ArrayList();
         plists = (List<SHPoll>) Oflist;
     }
 %>
-<c:if test="${login.auth eq '1'}">
+<c:if test="${login.auth ne '3'}">
     <table class="table list_table" style="width:95%;">
 
         <tr>
@@ -51,7 +51,7 @@ List<SHPoll> plists = new ArrayList();
         %>
     </table>
 </c:if>
-<c:if test="${login.auth eq '3'}">
+<c:if test="${login.auth ne '3'}">
     <table class="table table-responsive table-striped list_table" style="width:95%;">
         <thead>
         <tr>

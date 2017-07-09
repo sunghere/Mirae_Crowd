@@ -3,8 +3,12 @@
     var loadList_byScroll = function () {
 
         var last = parseInt($('.list-main').last().attr('last-num'));
-        if (last.toString() == '9999') {
+        if(last == null) {
             return;
+        }
+
+        if (last.toString() == '9999') {
+            return false;
         }
 
         if (last % 12 == 0) { /* 12개씩 불러오므로 나머지가 0인경우는 자료가 더있다.*/

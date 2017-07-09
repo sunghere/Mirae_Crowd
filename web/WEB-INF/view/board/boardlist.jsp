@@ -132,12 +132,12 @@
                                 </c:if>
                                 <c:if test="${board.del eq 0}">
                                     <c:if test="${board.hidden  eq 1}">
-                                        <c:if test="${login.name eq board.id || login.auth eq 1}">
+                                        <c:if test="${login.name eq board.id || login.auth ne 3}">
                                             <a href='boarddetail.do?seq=${board.seq}'>
                                                 <i class="icon ion-ios-unlocked"></i>${board.tempSub}</a>
 
                                         </c:if>
-                                        <c:if test="${login.name != board.id && login.auth ne 1}">
+                                        <c:if test="${login.name != board.id && login.auth eq 3}">
                                             <i class="icon ion-ios-locked"></i>비밀글
 
                                         </c:if>

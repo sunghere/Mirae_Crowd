@@ -3,6 +3,7 @@ package com.sung.hee.controller;
 import com.sung.hee.help.AjaxCheck;
 import com.sung.hee.help.CrowdLike;
 import com.sung.hee.help.MyCrowd;
+import com.sung.hee.help.SHUtil;
 import com.sung.hee.shcrowd.dao.SHCrowdService;
 import com.sung.hee.shcrowd.model.SHCrowd;
 import com.sung.hee.shcrowd.model.SHFund;
@@ -40,23 +41,24 @@ public class CrowdController {
 
     @RequestMapping(value = "admin.do", method = RequestMethod.GET)
     public String admin(HttpServletRequest request, Model model) throws Exception {
-        return "admin.tiles";
+        if (SHUtil.getLogin(request).getAuth() != 3) {
+            return "admin.tiles";
+
+        } else {
+            return "main.tiles";
+        }
+
+
     }
 
     /* 모든 리스트*/
     @RequestMapping(value = "crowdlistAll.do", method = RequestMethod.POST)
     @ResponseBody
     public List<SHCrowd> crowdList(HttpServletRequest request, Model model) throws Exception {
-        SHUser admin = (SHUser) request.getSession().getAttribute("login");
         List<SHCrowd> list = null;
-        if (admin.getAuth() == 1) { /* 관리자 구분*/
 
 
-            list = shCrowdService.crowdListAll();
-        } else { /* 관리자가 아닌인원이 요청을 들어옴 */
-
-
-        }
+        list = shCrowdService.crowdListAll();
 
 
         return list;
@@ -153,18 +155,23 @@ public class CrowdController {
     @RequestMapping(value = "accCrowd.do", method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck accCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl accCrowd--!");
         AjaxCheck checkResult = new AjaxCheck();
+        SHUser user = SHUtil.getLogin(request);
 
-        try {
-            shCrowdService.accCrowd(shCrowd);
-            checkResult.setMessage("SUCS");
+        if (user.getAuth() == 1) {
 
-        } catch (Exception e) {
+            try {
+                shCrowdService.accCrowd(shCrowd);
+                checkResult.setMessage("SUCS");
 
-            checkResult.setMessage("FAIL");
+            } catch (Exception e) {
+
+                checkResult.setMessage("FAIL");
+            }
+        } else {
+            checkResult.setMessage("DEMO");
+
         }
-
         return checkResult;
     }
 
@@ -172,18 +179,23 @@ public class CrowdController {
     @RequestMapping(value = "noCrowd.do", method = RequestMethod.POST)
     @ResponseBody
     public AjaxCheck noCrowd(SHCrowd shCrowd, HttpServletRequest request, Model model) throws Exception {
-        logger.info("CrowdControl noCrowd--!");
         AjaxCheck checkResult = new AjaxCheck();
 
-        try {
-            shCrowdService.noCrowd(shCrowd);
-            checkResult.setMessage("SUCS");
+        SHUser user = SHUtil.getLogin(request);
 
-        } catch (Exception e) {
+        if (user.getAuth() == 1) {
+            try {
+                shCrowdService.noCrowd(shCrowd);
+                checkResult.setMessage("SUCS");
 
-            checkResult.setMessage("FAIL");
+            } catch (Exception e) {
+
+                checkResult.setMessage("FAIL");
+            }
+        } else {
+            checkResult.setMessage("DEMO");
+
         }
-
         return checkResult;
     }
 

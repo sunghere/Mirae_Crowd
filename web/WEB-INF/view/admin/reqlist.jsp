@@ -65,8 +65,11 @@
                 if (data.message == "SUCS") {
 
                     load_req_list();
+                } else if (data.message == "DEMO") {
+                    setTimeout('showMsg("아쉽지만.. 체험판계정에서 해당기능은 사용하실수 없습니다.")',500)
+
                 } else {
-                    showMsg("정상적인 처리가 되지 않았습니다.");
+                    setTimeout('showMsg("정상적인 처리가 되지 않았습니다.")',500)
                 }
             }
             , error: function () {
@@ -88,8 +91,11 @@
                 if (data.message == "SUCS") {
 
                     load_req_list();
+                } else if (data.message == "DEMO") {
+                    setTimeout('showMsg("아쉽지만.. 체험판계정에서 해당기능은 사용하실수 없습니다.")',500)
                 } else {
-                    showMsg("정상적인 처리가 되지 않았습니다.");
+                    setTimeout('showMsg("정상적인 처리가 되지 않았습니다.")',500)
+
                 }
             }
             , error: function () {

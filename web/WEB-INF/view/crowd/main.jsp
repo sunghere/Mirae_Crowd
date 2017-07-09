@@ -109,7 +109,18 @@
             }
         })
     };
+    var searchSave = function (txt) {
 
+        $.ajax({
+            url: "",
+            method: "POST",
+            success: function () {
+
+            }
+
+
+        })
+    };
     var searchByText = function () {
         var txt = $("#search-text").val();
         $.ajax({

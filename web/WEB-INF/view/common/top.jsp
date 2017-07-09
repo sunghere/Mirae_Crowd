@@ -43,7 +43,7 @@
                 <li>
                     <a title="게시판" href="boardlist.do"><i class="fa fa-book" aria-hidden="true"></i>Board</a>
                 </li>
-                <c:if test="${!empty login && login.auth eq 1}">
+                <c:if test="${!empty login && login.auth ne 3}">
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cogs"
@@ -54,7 +54,7 @@
                                 <a title="펀딩모집 신청목록" href="crowdReqlist.do">펀딩모집 신청목록</a>
                             </li>
                             <li>
-                                <a title="투표생성" href="ollmake.do">투표생성</a>
+                                <a title="투표생성" href="pollmake.do">투표생성</a>
                             </li>
                             <li>
                                 <a title="관리자메뉴" href="admin.do">관리</a>
