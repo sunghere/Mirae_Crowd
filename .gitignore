@@ -114,3 +114,7 @@ web/WEB-INF/lib/
 /.idea/
 !/.idea/
 /src/main/resource/properties/jdbc.properties
+.idea/artifacts/mirae_war.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+src/main/resource/oracle.zip
